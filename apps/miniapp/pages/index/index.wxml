@@ -1,0 +1,65 @@
+<view class="page home-page">
+  <view class="hero">
+    <image class="hero-image" src="{{heroImage}}" mode="aspectFill"></image>
+    <view class="hero-shade"></view>
+    <view class="hero-content">
+      <view class="hero-kicker">城市探索计划</view>
+      <view class="hero-title">{{title}}</view>
+      <view class="hero-copy">留在足迹里收藏世界，在现实场域中继续探索。</view>
+      <button class="hero-button" data-path="/pages/explore-map/index" bindtap="onOpenPage">进入探索</button>
+    </view>
+  </view>
+
+  <view class="mode-grid">
+    <view class="mode-card" wx:for="{{homeModes}}" wx:key="name">
+      <view class="mode-name">{{item.name}}</view>
+      <view class="mode-text">{{item.text}}</view>
+      <view class="mode-desc">{{item.desc}}</view>
+    </view>
+  </view>
+
+  <view class="stats">
+    <view class="stat-item" wx:for="{{summary}}" wx:key="label">
+      <view class="stat-value">{{item.value}}</view>
+      <view class="stat-label">{{item.label}}</view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-head">
+      <view>
+        <view class="section-title">核心入口</view>
+        <view class="section-subtitle">按信息架构建立首批页面</view>
+      </view>
+    </view>
+    <view class="quick-grid">
+      <button
+        class="quick-card"
+        wx:for="{{entries}}"
+        wx:key="label"
+        data-path="{{item.path}}"
+        bindtap="onOpenPage"
+      >
+        <view class="quick-copy">
+          <view class="quick-label">{{item.label}}</view>
+          <view class="quick-hint">{{item.desc}}</view>
+        </view>
+      </button>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-head">
+      <view>
+        <view class="section-title">合规提示</view>
+        <view class="section-subtitle">本版本只放占位数据，不扩写 Canon</view>
+      </view>
+    </view>
+    <view class="notice-list">
+      <view class="notice-item" wx:for="{{notices}}" wx:key="title">
+        <view class="notice-title">{{item.title}}</view>
+        <view class="notice-desc">{{item.desc}}</view>
+      </view>
+    </view>
+  </view>
+</view>

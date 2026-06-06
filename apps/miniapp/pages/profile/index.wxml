@@ -1,0 +1,17 @@
+<view class="page sub-page">
+  <view class="profile-card">
+    <view class="avatar">爱</view>
+    <view>
+      <view class="page-title">{{explorer.name}}</view>
+      <view class="page-desc">{{explorer.note}}</view>
+    </view>
+  </view>
+
+  <view class="section-title">探索记录</view>
+  <view class="list">
+    <view class="list-card" wx:for="{{records}}" wx:key="title">
+      <view class="card-title">{{item.title}}</view>
+      <view class="card-copy">{{item.desc}}</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,1 @@
+Initialize or overwrite governance/CHANGELOG.md and governance/AI_DECISION_LOG.md using actual repository history, AGENTS.md, compliance scans, terminology migration results, and today's LOVEQIGU_MASTER setup work. Do not modify files outside governance/. After completion, show file contents and a git diff summary.

@@ -1,0 +1,72 @@
+.sub-page {
+  padding-top: 48rpx;
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 22rpx;
+  padding: 28rpx;
+  border-radius: 8rpx;
+  background: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(17, 24, 39, 0.06);
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 88rpx;
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  background: #263a34;
+  color: #ffffff;
+  font-size: 34rpx;
+  font-weight: 800;
+}
+
+.page-title {
+  color: #111827;
+  font-size: 36rpx;
+  font-weight: 800;
+}
+
+.page-desc {
+  margin-top: 8rpx;
+  color: #6b7280;
+  font-size: 24rpx;
+}
+
+.section-title {
+  margin-top: 40rpx;
+  color: #111827;
+  font-size: 34rpx;
+  font-weight: 800;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 18rpx;
+  margin-top: 20rpx;
+}
+
+.list-card {
+  padding: 28rpx;
+  border-radius: 8rpx;
+  background: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(17, 24, 39, 0.06);
+}
+
+.card-title {
+  color: #111827;
+  font-size: 30rpx;
+  font-weight: 800;
+}
+
+.card-copy {
+  margin-top: 10rpx;
+  color: #6b7280;
+  font-size: 24rpx;
+}

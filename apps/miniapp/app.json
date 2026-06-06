@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/explore-map/index",
+    "pages/relics/index",
+    "pages/rights-center/index",
+    "pages/profile/index",
+    "pages/ar-entry/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "爱企谷",
+    "navigationBarBackgroundColor": "#263a34",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f4f1eb"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
