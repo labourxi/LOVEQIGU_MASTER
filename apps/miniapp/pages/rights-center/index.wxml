@@ -1,10 +1,24 @@
-<view class="page sub-page">
-  <view class="page-title">权益中心</view>
-  <view class="page-desc">本页只使用商业与权益语言，不承载仪式或世界观表达。</view>
+<view class="page mvp-page">
+  <view class="page-title">{{title}}</view>
+  <view class="page-desc">The commercial surface stays read-only while the user opens Campaign Closure.</view>
+
+  <view class="redemption-panel">
+    <view class="panel-title">{{redemption.title}}</view>
+    <view class="panel-copy">{{redemption.copy}}</view>
+    <button class="panel-button" bindtap="onOpenCampaignClosure">{{primaryLabel}}</button>
+  </view>
+
+  <view class="rule-row">
+    <view class="rule-chip">Campaign count {{campaignCount}}</view>
+    <view class="rule-chip">Read-only benefits</view>
+  </view>
 
   <view class="list">
-    <view class="list-card" wx:for="{{rights}}" wx:key="name">
-      <view class="card-title">{{item.name}}</view>
+    <view class="benefit-card" wx:for="{{benefits}}" wx:key="name">
+      <view class="card-head">
+        <view class="card-title">{{item.name}}</view>
+        <view class="card-status">{{item.state}}</view>
+      </view>
       <view class="card-copy">{{item.desc}}</view>
     </view>
   </view>

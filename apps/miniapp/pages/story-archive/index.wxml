@@ -1,0 +1,30 @@
+<view class="page mvp-page">
+  <view class="page-title">{{title}}</view>
+  <view class="page-desc">{{intro}}</view>
+
+  <view class="rule-row">
+    <view class="rule-chip" wx:for="{{archiveRules}}" wx:key="*this">{{item}}</view>
+  </view>
+
+  <view class="archive-panel">
+    <view class="panel-label">Story Flow count</view>
+    <view class="panel-copy">{{storyFlowCount}} approved flow definitions are available.</view>
+    <button class="panel-button" bindtap="onOpenStoryFlow">{{primaryLabel}}</button>
+  </view>
+
+  <view class="timeline">
+    <view class="timeline-item" wx:for="{{timeline}}" wx:key="id">
+      <view class="timeline-dot"></view>
+      <view class="timeline-card">
+        <view class="card-head">
+          <view>
+            <view class="phase">{{item.phase}}</view>
+            <view class="card-title">{{item.chapter}}</view>
+          </view>
+          <view class="card-status">{{item.status}}</view>
+        </view>
+        <view class="card-copy">{{item.copy}}</view>
+      </view>
+    </view>
+  </view>
+</view>

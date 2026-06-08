@@ -1,0 +1,22 @@
+schema: LOVEQIGU_DIGITAL_COLLECTIBLE_EXPANSION_MANIFEST_V1
+version: 1.0.0
+status: placeholder_only
+expansion_id: DIGITAL_COLLECTIBLE_EXPANSION_V1
+scope: CONTENT_ENGINE/DIGITAL_COLLECTIBLE_EXPANSION/**/*.yaml
+source_of_truth:
+  - docs/canon/LOVEQIGU_WORLD_RULES_CANON_V1.md
+  - docs/canon/CANON_GAP_REGISTRY.md
+  - docs/world/LOVEQIGU_WORLD_BIBLE_V1.md
+  - docs/language/LOVEQIGU_LANGUAGE_CONSTITUTION_V1.md
+  - docs/language/LOVEQIGU_TERMINOLOGY_V1.md
+  - docs/architecture/LOVEQIGU_INFORMATION_ARCHITECTURE_V1.md
+asset_boundary:
+  asset_type: DIGITAL_COLLECTIBLE
+  description: Marketing and communication asset only.
+  no_story_progression: true
+  no_relic_logic: true
+  no_canon_creation: true
+notes:
+  - Expansion content stays within the communication layer.
+  - No Content Engine V1/V2/V3 files are modified.
+completion_marker: DIGITAL_COLLECTIBLE_EXPANSION_COMPLETE = YES

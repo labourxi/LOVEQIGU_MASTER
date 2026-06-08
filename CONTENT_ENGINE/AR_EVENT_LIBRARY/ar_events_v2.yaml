@@ -1,0 +1,149 @@
+schema: LOVEQIGU_AR_EVENT_BATCH_V2
+version: 2.0.0
+status: placeholder_only
+notes:
+  - reward.wish_value is 0 for ritual/story events.
+  - reward.token_unlock points only to Relic tokens.
+  - reward.collectible_unlock points only to Digital Collectibles.
+  - All events keep fake AR disabled by contract.
+events:
+  - event_id: ar_v2_entry_threshold
+    title: Entry Threshold
+    story_stage: ch01_entry
+    trigger: user_confirms_exploration_point
+    visual: threshold_light
+    lottie: lottie_threshold_placeholder
+    particle: soft_gate_particles
+    audio: quiet_chime_placeholder
+    interaction: location_gate
+    reward:
+      wish_value: 0
+      token_unlock: relic_token_v2_threshold_echo
+      collectible_unlock: none
+    next_event: ar_v2_first_awareness
+  - event_id: ar_v2_first_awareness
+    title: First Awareness
+    story_stage: ch01_node_reflection
+    trigger: awareness_prompt_opened
+    visual: question_line
+    lottie: lottie_awareness_placeholder
+    particle: none
+    audio: none
+    interaction: awareness_prompt
+    reward:
+      wish_value: 0
+      token_unlock: relic_token_v2_awareness_mark
+      collectible_unlock: none
+    next_event: ar_v2_echo_receive
+  - event_id: ar_v2_echo_receive
+    title: Echo Receive
+    story_stage: ch01_relic_obtain
+    trigger: exploration_record_completed
+    visual: echo_ring
+    lottie: lottie_echo_placeholder
+    particle: echo_particles
+    audio: soft_echo_placeholder
+    interaction: receive_echo
+    reward:
+      wish_value: 0
+      token_unlock: relic_token_v2_echo_record
+      collectible_unlock: none
+    next_event: ar_v2_archive_light
+  - event_id: ar_v2_archive_light
+    title: Archive Light
+    story_stage: relic_archive_entry
+    trigger: relic_added_to_archive
+    visual: archive_case_light
+    lottie: lottie_archive_placeholder
+    particle: display_light_particles
+    audio: none
+    interaction: archive_view
+    reward:
+      wish_value: 0
+      token_unlock: relic_token_v2_archive_light
+      collectible_unlock: none
+    next_event: ar_v2_map_trace
+  - event_id: ar_v2_map_trace
+    title: Map Trace
+    story_stage: exploration_map_update
+    trigger: map_progress_updated
+    visual: path_trace
+    lottie: lottie_path_placeholder
+    particle: route_sparks
+    audio: none
+    interaction: map_progress
+    reward:
+      wish_value: 0
+      token_unlock: relic_token_v2_map_trace
+      collectible_unlock: none
+    next_event: ar_v2_imprint_piece
+  - event_id: ar_v2_imprint_piece
+    title: Imprint Piece
+    story_stage: chapter_imprint_progress
+    trigger: imprint_segment_recorded
+    visual: imprint_fragment
+    lottie: lottie_imprint_placeholder
+    particle: imprint_particles
+    audio: none
+    interaction: imprint_record
+    reward:
+      wish_value: 0
+      token_unlock: relic_token_v2_imprint_piece
+      collectible_unlock: none
+    next_event: ar_v2_zhujin_intro
+  - event_id: ar_v2_zhujin_intro
+    title: Zhujin Intro
+    story_stage: ch01_guide_entry
+    trigger: guide_sequence_opened
+    visual: guide_line
+    lottie: lottie_guide_placeholder
+    particle: none
+    audio: none
+    interaction: guide_sequence
+    reward:
+      wish_value: 0
+      token_unlock: relic_token_v2_zhujin_intro
+      collectible_unlock: none
+    next_event: ar_v2_completion_gathering
+  - event_id: ar_v2_completion_gathering
+    title: Completion Gathering
+    story_stage: ch01_completion
+    trigger: chapter_completion_confirmed
+    visual: gathered_marks
+    lottie: lottie_completion_placeholder
+    particle: completion_light
+    audio: completion_chime_placeholder
+    interaction: completion_scene
+    reward:
+      wish_value: 0
+      token_unlock: relic_token_v2_completion_gathering
+      collectible_unlock: none
+    next_event: ar_v2_share_poster
+  - event_id: ar_v2_share_poster
+    title: Share Poster
+    story_stage: communication_after_completion
+    trigger: user_generates_share_poster
+    visual: poster_frame
+    lottie: lottie_poster_placeholder
+    particle: none
+    audio: none
+    interaction: generate_share_asset
+    reward:
+      wish_value: 0
+      token_unlock: none
+      collectible_unlock: dc_v2_chapter_share_poster
+    next_event: ar_v2_photo_frame
+  - event_id: ar_v2_photo_frame
+    title: Photo Frame
+    story_stage: communication_media
+    trigger: user_saves_field_photo
+    visual: ar_photo_frame
+    lottie: lottie_photo_placeholder
+    particle: none
+    audio: none
+    interaction: save_photo
+    reward:
+      wish_value: 0
+      token_unlock: none
+      collectible_unlock: dc_v2_ar_photo_frame
+    next_event: none

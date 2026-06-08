@@ -1,0 +1,54 @@
+schema: LOVEQIGU_CONTENT_ATOM_SCHEMA_V1
+version: 1.0.0
+status: active
+source_of_truth:
+  - docs/canon/LOVEQIGU_WORLD_RULES_CANON_V1.md
+  - docs/canon/CANON_GAP_REGISTRY.md
+  - docs/language/LOVEQIGU_LANGUAGE_CONSTITUTION_V1.md
+  - docs/language/LOVEQIGU_TERMINOLOGY_V1.md
+description: >
+  Defines reusable content atoms for LOVEQIGU content generation.
+  Atoms are expression units only. They do not create Canon, history,
+  organizations, civilizations, gods, or new world rules.
+allowed_atom_types:
+  - EMOTION
+  - SYMBOL
+  - RITUAL
+required_fields:
+  - atom_id
+  - type
+  - name
+  - layer
+  - canonical_boundary
+  - allowed_usage
+  - forbidden_usage
+field_rules:
+  atom_id:
+    format: atom_{type}_{slug}
+    required: true
+  type:
+    enum:
+      - EMOTION
+      - SYMBOL
+      - RITUAL
+  layer:
+    enum:
+      - L2_PRODUCT
+      - L3_CANON_RITUAL_WORLDVIEW
+  canonical_boundary:
+    required: true
+    rule: Must cite existing Canon or mark as L2 product structure.
+  language_rules:
+    required_terms:
+      - 探索地图
+      - 权益中心
+      - 心愿值
+      - 合真
+      - 回响
+      - 祝禁
+    official_terms_only: true
+asset_boundary:
+  relic: Story progression asset; Canon-driven asset.
+  digital_collectible: Marketing and communication asset only.
+  rule: Relic and Digital Collectible must never share progression logic.
+initial_atom_library_ref: ATOM_LIBRARY/atoms_v1.yaml

@@ -1,0 +1,44 @@
+schema: LOVEQIGU_AR_STORY_CHAINS_V1
+version: 1.0.0
+status: placeholder_only
+description: >
+  Chain definitions for AR Story Engine foundation. These chains only link
+  existing flow definitions and existing assets.
+chapter_context: ch01_cloud_awakening
+chain_count: 5
+chains:
+  - chain_id: asc_ch01_threshold_to_share
+    name: Threshold To Share
+    flow_refs:
+      - sf_ch01_threshold_pulse
+      - sf_ch01_first_awareness
+      - sf_ch01_map_trace
+      - sf_ch01_completion_share
+      - sf_ch01_guide_return
+    canonical_boundary: Uses CH01 assets only; no new lore or progression rules.
+  - chain_id: asc_ch01_gate_loop
+    name: Gate Loop
+    flow_refs:
+      - sf_ch01_threshold_pulse
+      - sf_ch01_map_trace
+    canonical_boundary: Uses existing gate and map assets only.
+  - chain_id: asc_ch01_awareness_loop
+    name: Awareness Loop
+    flow_refs:
+      - sf_ch01_first_awareness
+      - sf_ch01_guide_return
+    canonical_boundary: Uses existing awareness and guide assets only.
+  - chain_id: asc_ch01_completion_loop
+    name: Completion Loop
+    flow_refs:
+      - sf_ch01_completion_share
+      - sf_ch01_threshold_pulse
+    canonical_boundary: Uses existing completion and threshold assets only.
+  - chain_id: asc_ch01_echo_loop
+    name: Echo Loop
+    flow_refs:
+      - sf_ch01_map_trace
+      - sf_ch01_completion_share
+      - sf_ch01_first_awareness
+    canonical_boundary: Uses existing echo, map, and awareness assets only.
+

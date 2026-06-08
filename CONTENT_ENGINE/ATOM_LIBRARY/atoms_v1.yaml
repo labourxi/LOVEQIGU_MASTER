@@ -1,0 +1,74 @@
+schema: LOVEQIGU_ATOM_LIBRARY_V1
+version: 1.0.0
+status: active
+atoms:
+  - atom_id: atom_emotion_seen
+    type: EMOTION
+    name: 被看见
+    layer: L3_CANON_RITUAL_WORLDVIEW
+    canonical_boundary: Canon-defined theme of 看见 / 觉察.
+    allowed_usage: Ritual copy, awareness prompts, Relic descriptions.
+    forbidden_usage: Ranking, proof of level, commercial reward copy.
+  - atom_id: atom_emotion_reconnection
+    type: EMOTION
+    name: 重新连接
+    layer: L3_CANON_RITUAL_WORLDVIEW
+    canonical_boundary: Canon-defined theme of 连接从未断开.
+    allowed_usage: Chapter reflection, Relic meaning, completion copy.
+    forbidden_usage: Claiming a new world rule or supernatural power.
+  - atom_id: atom_emotion_remembering
+    type: EMOTION
+    name: 想起
+    layer: L3_CANON_RITUAL_WORLDVIEW
+    canonical_boundary: Canon-defined theme of 合真 as remembering.
+    allowed_usage: 合真 copy, chapter completion reflection.
+    forbidden_usage: Upgrade, level-up, prediction, fate change.
+  - atom_id: atom_symbol_cloud_gate
+    type: SYMBOL
+    name: 云门
+    layer: L3_CANON_RITUAL_WORLDVIEW
+    canonical_boundary: Canon defines 云门 as a state, not a place.
+    allowed_usage: State language and node manifestation language.
+    forbidden_usage: Geographic ownership, building, resource, creator story.
+  - atom_id: atom_symbol_imprint
+    type: SYMBOL
+    name: 残印
+    layer: L3_CANON_RITUAL_WORLDVIEW
+    canonical_boundary: Canon defines 残印 as evidence of once-existing connection.
+    allowed_usage: Imprint progress, archive copy, Relic metadata.
+    forbidden_usage: Collectible rarity, equipment, combat object.
+  - atom_id: atom_symbol_relic
+    type: SYMBOL
+    name: 信物
+    layer: L3_CANON_RITUAL_WORLDVIEW
+    canonical_boundary: Canon defines 信物 as the world's 回响 to seeing and connection.
+    allowed_usage: Story progression asset and Relic archive.
+    forbidden_usage: Marketing asset, digital collectible, purchasable item.
+  - atom_id: atom_symbol_wish_value
+    type: SYMBOL
+    name: 心愿值
+    layer: L2_PRODUCT
+    canonical_boundary: Product/account value; must not become ritual reward copy.
+    allowed_usage: Rights/account details and commercial ledger copy.
+    forbidden_usage: Ritual popups, Relic body copy, Canon definition.
+  - atom_id: atom_ritual_awareness_question
+    type: RITUAL
+    name: 觉察问题
+    layer: L3_CANON_RITUAL_WORLDVIEW
+    canonical_boundary: L3 ritual expression; no right/wrong scoring.
+    allowed_usage: Node prompts and reflection cards.
+    forbidden_usage: Quiz scoring, ranking, pass/fail mechanics.
+  - atom_id: atom_ritual_echo
+    type: RITUAL
+    name: 回响
+    layer: L3_CANON_RITUAL_WORLDVIEW
+    canonical_boundary: Canon-aligned expression for the world's response.
+    allowed_usage: Relic obtain copy and ritual completion copy.
+    forbidden_usage: Legacy response wording in user-facing ritual text.
+  - atom_id: atom_ritual_zhujin
+    type: RITUAL
+    name: 祝禁
+    layer: L3_CANON_RITUAL_WORLDVIEW
+    canonical_boundary: Approved terminology for CH01 guide and ritual learning copy.
+    allowed_usage: CH01 guide structure and ritual learning copy.
+    forbidden_usage: Medical claims, magic system, sect or lineage invention.

@@ -1,0 +1,33 @@
+schema: LOVEQIGU_CONTENT_ENGINE_V3_BATCH_MANIFEST_V1
+version: 1.0.0
+status: placeholder_only
+batch_id: V3_CH01_SAFE_EXPANSION
+scope: CONTENT_ENGINE/V3/**/*.yaml
+source_of_truth:
+  - docs/canon/LOVEQIGU_WORLD_RULES_CANON_V1.md
+  - docs/canon/CANON_GAP_REGISTRY.md
+  - docs/world/LOVEQIGU_WORLD_BIBLE_V1.md
+  - docs/language/LOVEQIGU_LANGUAGE_CONSTITUTION_V1.md
+  - docs/language/LOVEQIGU_TERMINOLOGY_V1.md
+  - docs/architecture/LOVEQIGU_INFORMATION_ARCHITECTURE_V1.md
+boundary:
+  no_new_canon: true
+  no_new_history: true
+  no_new_organizations: true
+  no_new_civilizations: true
+  no_new_gods: true
+  no_new_world_rules: true
+assets:
+  - path: CONTENT_ENGINE/V3/ATOM_LIBRARY/atoms_v3_batch.yaml
+    type: ATOM_LIBRARY
+    count: 5
+  - path: CONTENT_ENGINE/V3/TOKEN_LIBRARY/relic_tokens_v3.yaml
+    type: RELIC_TOKEN_LIBRARY
+    count: 5
+  - path: CONTENT_ENGINE/V3/COLLECTIBLE_LIBRARY/digital_collectibles_v3.yaml
+    type: DIGITAL_COLLECTIBLE_LIBRARY
+    count: 4
+  - path: CONTENT_ENGINE/V3/AR_EVENT_LIBRARY/ar_events_v3.yaml
+    type: AR_EVENT_LIBRARY
+    count: 5
+completion_marker: CONTENT_ENGINE_V3_BATCH_GENERATION_COMPLETE = YES

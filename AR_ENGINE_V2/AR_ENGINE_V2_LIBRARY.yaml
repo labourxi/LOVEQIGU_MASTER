@@ -1,0 +1,141 @@
+schema: LOVEQIGU_AR_ENGINE_V2_LIBRARY_V1
+version: 1.0.0
+status: placeholder_only
+engine_name: AR Engine V2
+mechanism_count: 10
+notes:
+  - V2 mechanisms are definition-only and do not create new Canon.
+  - All mechanisms reference existing CH01 context only.
+  - The batch uses approved terms such as 心愿值, 合真, 回响, and 祝禁.
+  - No content-engine assets are modified by this library.
+mechanisms:
+  - mechanism_id: ar_v2_gate_threshold
+    type: Gate
+    name: 门槛回响
+    chapter_context: ch01_cloud_awakening
+    node_context: n1_gate
+    interaction_contract: location_gate
+    output_refs:
+      relic_refs:
+        - relic_token_v3_threshold_echo
+      digital_collectible_refs: []
+    canonical_boundary: Uses the existing CH01 gate context only; no new lore.
+    language_layer: L3_CANON_RITUAL_WORLDVIEW
+    status: placeholder_only
+  - mechanism_id: ar_v2_gate_return
+    type: Gate
+    name: 返门回响
+    chapter_context: ch01_cloud_awakening
+    node_context: n1_gate
+    interaction_contract: location_gate
+    output_refs:
+      relic_refs:
+        - relic_token_v3_threshold_echo
+      digital_collectible_refs: []
+    canonical_boundary: Uses the existing CH01 gate context only; no new lore.
+    language_layer: L3_CANON_RITUAL_WORLDVIEW
+    status: placeholder_only
+  - mechanism_id: ar_v2_imprint_seed
+    type: Imprint
+    name: 残印初记
+    chapter_context: ch01_cloud_awakening
+    node_context: n2_plaza
+    interaction_contract: imprint_particles
+    output_refs:
+      relic_refs:
+        - relic_token_v3_plaza_trace
+      digital_collectible_refs: []
+    canonical_boundary: Uses the existing CH01 imprint context only; no new lore.
+    language_layer: L3_CANON_RITUAL_WORLDVIEW
+    status: placeholder_only
+  - mechanism_id: ar_v2_imprint_archive
+    type: Imprint
+    name: 残印归档
+    chapter_context: ch01_cloud_awakening
+    node_context: n5_complete
+    interaction_contract: imprint_particles
+    output_refs:
+      relic_refs:
+        - relic_token_v3_completion_seal
+      digital_collectible_refs: []
+    canonical_boundary: Uses the existing CH01 completion context only; no new lore.
+    language_layer: L3_CANON_RITUAL_WORLDVIEW
+    status: placeholder_only
+  - mechanism_id: ar_v2_resonance_alignment
+    type: Resonance
+    name: 共振识别
+    chapter_context: ch01_cloud_awakening
+    node_context: n3_cafe
+    interaction_contract: awareness_prompt
+    output_refs:
+      relic_refs:
+        - relic_token_v3_cafe_echo
+      digital_collectible_refs: []
+    canonical_boundary: Uses existing CH01 recognition context only; no new lore.
+    language_layer: L3_CANON_RITUAL_WORLDVIEW
+    status: placeholder_only
+  - mechanism_id: ar_v2_resonance_stillness
+    type: Resonance
+    name: 共振静定
+    chapter_context: ch01_cloud_awakening
+    node_context: n3_cafe
+    interaction_contract: awareness_prompt
+    output_refs:
+      relic_refs:
+        - relic_token_v3_cafe_echo
+      digital_collectible_refs: []
+    canonical_boundary: Uses existing CH01 recognition context only; no new lore.
+    language_layer: L3_CANON_RITUAL_WORLDVIEW
+    status: placeholder_only
+  - mechanism_id: ar_v2_echo_receive
+    type: Echo
+    name: 回响接收
+    chapter_context: ch01_cloud_awakening
+    node_context: n2_plaza
+    interaction_contract: guide_sequence
+    output_refs:
+      relic_refs:
+        - relic_token_v3_plaza_trace
+      digital_collectible_refs: []
+    canonical_boundary: Uses the existing CH01 response context only; no new lore.
+    language_layer: L3_CANON_RITUAL_WORLDVIEW
+    status: placeholder_only
+  - mechanism_id: ar_v2_echo_settle
+    type: Echo
+    name: 回响沉定
+    chapter_context: ch01_cloud_awakening
+    node_context: n5_complete
+    interaction_contract: completion_scene
+    output_refs:
+      relic_refs:
+        - relic_token_v3_completion_seal
+      digital_collectible_refs: []
+    canonical_boundary: Uses the existing CH01 completion context only; no new lore.
+    language_layer: L3_CANON_RITUAL_WORLDVIEW
+    status: placeholder_only
+  - mechanism_id: ar_v2_discovery_first_seen
+    type: Discovery
+    name: 首见探知
+    chapter_context: ch01_cloud_awakening
+    node_context: n1_gate
+    interaction_contract: awareness_prompt
+    output_refs:
+      relic_refs:
+        - relic_token_v3_threshold_echo
+      digital_collectible_refs: []
+    canonical_boundary: Uses the existing CH01 first-seen context only; no new lore.
+    language_layer: L3_CANON_RITUAL_WORLDVIEW
+    status: placeholder_only
+  - mechanism_id: ar_v2_discovery_zhujin
+    type: Discovery
+    name: 祝禁引导
+    chapter_context: ch01_cloud_awakening
+    node_context: n4_zhuyou
+    interaction_contract: guide_sequence
+    output_refs:
+      relic_refs:
+        - relic_token_v3_zhujin_intro
+      digital_collectible_refs: []
+    canonical_boundary: Uses the approved 祝禁 guide context only; no new lore.
+    language_layer: L3_CANON_RITUAL_WORLDVIEW
+    status: placeholder_only

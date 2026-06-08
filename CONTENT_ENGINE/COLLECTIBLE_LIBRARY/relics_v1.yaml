@@ -1,0 +1,51 @@
+schema: LOVEQIGU_RELIC_LIBRARY_V1
+version: 1.0.0
+status: placeholder_only
+asset_type: RELIC
+asset_boundary: 信物 is a story progression asset and Canon-driven asset.
+relics:
+  - relic_id: relic_ch01_gate_badge
+    chapter_id: ch01_cloud_awakening
+    node_id: n1_gate
+    name: 入门徽章
+    relic_type: node_relic
+    progression_role: Marks the first CH01 exploration record.
+    canonical_boundary: Uses existing CH01 node context only; no new lore.
+    language_layer: L3_CANON_RITUAL_WORLDVIEW
+    status: placeholder_pending_l2_runtime_source
+  - relic_id: relic_ch01_cloud_gate_imprint_a
+    chapter_id: ch01_cloud_awakening
+    node_id: n1_gate
+    name: 云门残印·甲
+    relic_type: meta_imprint
+    progression_role: Contributes to CH01 imprint progress.
+    canonical_boundary: 残印 meaning follows Canon; count is L2 product structure.
+    language_layer: L3_CANON_RITUAL_WORLDVIEW
+    status: placeholder_pending_l2_runtime_source
+  - relic_id: relic_ch01_plaza
+    chapter_id: ch01_cloud_awakening
+    node_id: n2_plaza
+    name: 广场信物
+    relic_type: node_relic
+    progression_role: Marks the central plaza exploration node.
+    canonical_boundary: Uses existing CH01 node context only; no new lore.
+    language_layer: L3_CANON_RITUAL_WORLDVIEW
+    status: placeholder_pending_l2_runtime_source
+  - relic_id: relic_ch01_cafe
+    chapter_id: ch01_cloud_awakening
+    node_id: n3_cafe
+    name: 咖啡达人信物
+    relic_type: node_relic
+    progression_role: Marks the cafe exploration node.
+    canonical_boundary: Uses existing CH01 node context only; no new lore.
+    language_layer: L3_CANON_RITUAL_WORLDVIEW
+    status: placeholder_pending_l2_runtime_source
+  - relic_id: relic_ch01_first_awakening_seal
+    chapter_id: ch01_cloud_awakening
+    node_id: n5_complete
+    name: 初醒印记
+    relic_type: completion_seal
+    progression_role: Marks CH01 completion confirmation.
+    canonical_boundary: Chapter completion asset only; not a rank or level proof.
+    language_layer: L3_CANON_RITUAL_WORLDVIEW
+    status: placeholder_pending_l2_runtime_source

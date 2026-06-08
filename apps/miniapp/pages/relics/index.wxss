@@ -15,11 +15,47 @@
   line-height: 1.5;
 }
 
+.group {
+  margin-top: 32rpx;
+}
+
+.group-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18rpx;
+  padding: 24rpx;
+  border-radius: 8rpx;
+  background: #263a34;
+  color: #ffffff;
+}
+
+.group-label {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 22rpx;
+}
+
+.group-title {
+  margin-top: 8rpx;
+  font-size: 30rpx;
+  font-weight: 800;
+}
+
+.group-progress {
+  padding: 8rpx 14rpx;
+  border-radius: 8rpx;
+  background: #d6c08d;
+  color: #15171c;
+  font-size: 22rpx;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
 .list {
   display: flex;
   flex-direction: column;
   gap: 18rpx;
-  margin-top: 32rpx;
+  margin-top: 18rpx;
 }
 
 .list-card {

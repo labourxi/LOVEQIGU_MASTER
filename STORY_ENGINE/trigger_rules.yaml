@@ -1,0 +1,25 @@
+schema: LOVEQIGU_STORY_TRIGGER_RULES_V1
+version: 1.0.0
+status: placeholder_only
+description: >
+  Trigger rules for routing existing user actions into existing story flows.
+  These rules do not add Canon and do not modify asset boundaries.
+chapter_context: ch01_cloud_awakening
+rule_count: 5
+rules:
+  - trigger: user_confirms_exploration_point
+    flow_ref: sf_ch01_threshold_pulse
+    reason: Initial threshold entry uses existing gate and entry assets.
+  - trigger: awareness_prompt_opened
+    flow_ref: sf_ch01_first_awareness
+    reason: Awareness prompts map to the existing reflection assets.
+  - trigger: map_progress_updated
+    flow_ref: sf_ch01_map_trace
+    reason: Exploration-map updates map to the existing map trace assets.
+  - trigger: chapter_completion_confirmed
+    flow_ref: sf_ch01_completion_share
+    reason: Completion routes to the existing completion and share assets.
+  - trigger: guide_sequence_opened
+    flow_ref: sf_ch01_guide_return
+    reason: Guide entry routes to the existing guide assets.
+

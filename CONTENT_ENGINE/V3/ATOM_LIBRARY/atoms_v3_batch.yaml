@@ -1,0 +1,47 @@
+schema: LOVEQIGU_ATOM_LIBRARY_V3
+version: 3.0.0
+status: placeholder_only
+source_of_truth:
+  - docs/canon/LOVEQIGU_WORLD_RULES_CANON_V1.md
+  - docs/canon/CANON_GAP_REGISTRY.md
+  - docs/language/LOVEQIGU_LANGUAGE_CONSTITUTION_V1.md
+  - docs/language/LOVEQIGU_TERMINOLOGY_V1.md
+description: >
+  V3 atom batch for CH01-safe expansion. These atoms stay inside existing
+  language and canon boundaries and do not add new lore.
+atoms:
+  - atom_id: atom_v3_emotion_seeing
+    type: EMOTION
+    name: 看见
+    layer: L3_CANON_RITUAL_WORLDVIEW
+    canonical_boundary: Existing Canon term for seeing and awareness only.
+    allowed_usage: Exploration prompts, reflection copy, Relic narration.
+    forbidden_usage: Ranking, proof of level, commercial reward copy.
+  - atom_id: atom_v3_emotion_reconnection
+    type: EMOTION
+    name: 重连
+    layer: L3_CANON_RITUAL_WORLDVIEW
+    canonical_boundary: Existing Canon term for rediscovering connection.
+    allowed_usage: Chapter reflection, completion copy, archive phrasing.
+    forbidden_usage: New world rule, supernatural power, creator story.
+  - atom_id: atom_v3_symbol_cloud_gate
+    type: SYMBOL
+    name: 云门
+    layer: L3_CANON_RITUAL_WORLDVIEW
+    canonical_boundary: Canon defines 云门 as a state, not a place.
+    allowed_usage: State language and node manifestation language.
+    forbidden_usage: Geographic ownership, building, resource, creator story.
+  - atom_id: atom_v3_symbol_residual_trace
+    type: SYMBOL
+    name: 残印
+    layer: L3_CANON_RITUAL_WORLDVIEW
+    canonical_boundary: Canon defines 残印 as evidence of once-existing connection.
+    allowed_usage: Archive copy, chapter imprint, Relic metadata.
+    forbidden_usage: Collectible rarity, equipment, combat object.
+  - atom_id: atom_v3_ritual_echo
+    type: RITUAL
+    name: 回响
+    layer: L3_CANON_RITUAL_WORLDVIEW
+    canonical_boundary: Canon-aligned expression for the world's response.
+    allowed_usage: Relic obtain copy and ritual completion copy.
+    forbidden_usage: Legacy response wording in user-facing ritual text.

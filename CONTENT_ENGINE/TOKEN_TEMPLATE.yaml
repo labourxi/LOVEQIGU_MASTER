@@ -1,0 +1,28 @@
+schema: LOVEQIGU_DIGITAL_COLLECTIBLE_TEMPLATE_V1
+version: 1.0.0
+status: active
+asset_type: DIGITAL_COLLECTIBLE
+asset_definition: Marketing and communication asset.
+not_asset_definition:
+  - Relic
+  - Story progression asset
+  - Canon-driven asset
+  - Chapter completion proof
+required_fields:
+  - token_id
+  - name
+  - source_context
+  - communication_role
+  - user_action
+  - story_state_effect
+  - language_layer
+  - status
+story_state_effect_allowed_values:
+  - none
+language_layer: L2_PRODUCT_COMMUNICATION
+boundary_rules:
+  - Must not describe a Digital Collectible as 信物.
+  - Must not describe a Digital Collectible as 残印.
+  - Must not affect chapter progression.
+  - Must not use game reward, combat, or equipment framing.
+initial_token_library_ref: TOKEN_LIBRARY/digital_collectibles_v1.yaml

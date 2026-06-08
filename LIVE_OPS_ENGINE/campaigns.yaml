@@ -1,0 +1,60 @@
+schema: LOVEQIGU_LIVE_OPS_CAMPAIGNS_V1
+version: 1.0.0
+status: placeholder_only
+description: >
+  Live Operations campaign templates for LOVEQIGU. These templates use only
+  existing Story Engine and content assets and do not introduce new Canon.
+language_layer: L2_PRODUCT
+campaign_count: 5
+campaigns:
+  - campaign_id: lop_spring_threshold_launch
+    campaign_name: Spring Threshold Launch
+    season_ref: Spring
+    story_flow_ref: sf_ch01_threshold_pulse
+    ar_event_ref: ar_v2_entry_threshold
+    echo_ref: ar_v2_echo_receive
+    digital_collectible_ref: dce_v2_chapter_share_poster
+    lottie_ref: lottie_gate_threshold_pulse
+    operational_theme: Threshold entry and first-visible contact.
+    operational_boundary: Uses existing STORY_ENGINE and asset references only; no new lore.
+  - campaign_id: lop_spring_awareness_walk
+    campaign_name: Spring Awareness Walk
+    season_ref: Spring
+    story_flow_ref: sf_ch01_first_awareness
+    ar_event_ref: ar_v2_first_awareness
+    echo_ref: ar_v2_echo_receive
+    digital_collectible_ref: dce_v2_social_card
+    lottie_ref: lottie_resonance_ring_breathe
+    operational_theme: Awareness and recognition without scoring.
+    operational_boundary: Uses existing STORY_ENGINE and asset references only; no new lore.
+  - campaign_id: lop_summer_map_trace
+    campaign_name: Summer Map Trace
+    season_ref: Summer
+    story_flow_ref: sf_ch01_map_trace
+    ar_event_ref: ar_v2_map_trace
+    echo_ref: ar_v2_echo_settle
+    digital_collectible_ref: dce_v2_invite_card
+    lottie_ref: lottie_discovery_shimmer_path
+    operational_theme: Route memory and exploration visibility.
+    operational_boundary: Uses existing STORY_ENGINE and asset references only; no new lore.
+  - campaign_id: lop_autumn_guide_return
+    campaign_name: Autumn Guide Return
+    season_ref: Autumn
+    story_flow_ref: sf_ch01_guide_return
+    ar_event_ref: ar_v2_zhujin_intro
+    echo_ref: ar_v2_echo_receive
+    digital_collectible_ref: dce_v2_event_memo
+    lottie_ref: lottie_imprint_drift_wave
+    operational_theme: Guide entry and return-flow communication.
+    operational_boundary: Uses existing STORY_ENGINE and asset references only; no new lore.
+  - campaign_id: lop_winter_completion_share
+    campaign_name: Winter Completion Share
+    season_ref: Winter
+    story_flow_ref: sf_ch01_completion_share
+    ar_event_ref: ar_v2_completion_gathering
+    echo_ref: ar_v2_echo_settle
+    digital_collectible_ref: dce_v2_chapter_share_poster
+    lottie_ref: lottie_echo_settle_fade
+    operational_theme: Completion and share-out after chapter closure.
+    operational_boundary: Uses existing STORY_ENGINE and asset references only; no new lore.
+

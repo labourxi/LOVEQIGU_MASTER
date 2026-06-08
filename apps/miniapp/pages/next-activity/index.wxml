@@ -1,0 +1,31 @@
+<view class="page journey-page">
+  <view class="page-title">{{title}}</view>
+  <view class="page-desc">{{intro}}</view>
+
+  <view class="chip-row">
+    <view class="chip" wx:for="{{highlights}}" wx:key="*this">{{item}}</view>
+  </view>
+
+  <view class="section">
+    <view class="section-head">
+      <view>
+        <view class="section-title">{{sectionTitle}}</view>
+        <view class="section-subtitle">{{sectionSubtitle}}</view>
+      </view>
+    </view>
+
+    <view class="list">
+      <view class="journey-card" wx:for="{{items}}" wx:key="id">
+        <view class="card-head">
+          <view>
+            <view class="card-title">{{item.title}}</view>
+            <view class="card-meta">{{item.meta}}</view>
+          </view>
+          <view class="card-tag">{{item.tag}}</view>
+        </view>
+        <view class="card-copy">{{item.copy}}</view>
+        <button class="card-button" data-path="{{item.path}}" bindtap="onNavigate">{{actionLabel}}</button>
+      </view>
+    </view>
+  </view>
+</view>

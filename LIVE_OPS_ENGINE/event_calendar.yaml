@@ -1,0 +1,131 @@
+schema: LOVEQIGU_LIVE_OPS_EVENT_CALENDAR_V1
+version: 1.0.0
+status: placeholder_only
+description: >
+  Monthly activity templates for Live Operations. These templates define
+  structure only and do not bind real dates.
+language_layer: L2_PRODUCT
+month_template_count: 12
+calendar_mode: structural_only
+months:
+  - month_id: month_01
+    month_index: 1
+    season_ref: Spring
+    campaign_ref: lop_spring_threshold_launch
+    story_flow_ref: sf_ch01_threshold_pulse
+    ar_event_ref: ar_v2_entry_threshold
+    echo_ref: ar_v2_echo_receive
+    digital_collectible_ref: dce_v2_chapter_share_poster
+    lottie_ref: lottie_gate_threshold_pulse
+    date_binding: none
+  - month_id: month_02
+    month_index: 2
+    season_ref: Spring
+    campaign_ref: lop_spring_awareness_walk
+    story_flow_ref: sf_ch01_first_awareness
+    ar_event_ref: ar_v2_first_awareness
+    echo_ref: ar_v2_echo_receive
+    digital_collectible_ref: dce_v2_social_card
+    lottie_ref: lottie_resonance_ring_breathe
+    date_binding: none
+  - month_id: month_03
+    month_index: 3
+    season_ref: Spring
+    campaign_ref: lop_spring_threshold_launch
+    story_flow_ref: sf_ch01_threshold_pulse
+    ar_event_ref: ar_v2_entry_threshold
+    echo_ref: ar_v2_echo_receive
+    digital_collectible_ref: dce_v2_chapter_share_poster
+    lottie_ref: lottie_gate_threshold_pulse
+    date_binding: none
+  - month_id: month_04
+    month_index: 4
+    season_ref: Summer
+    campaign_ref: lop_summer_map_trace
+    story_flow_ref: sf_ch01_map_trace
+    ar_event_ref: ar_v2_map_trace
+    echo_ref: ar_v2_echo_settle
+    digital_collectible_ref: dce_v2_invite_card
+    lottie_ref: lottie_discovery_shimmer_path
+    date_binding: none
+  - month_id: month_05
+    month_index: 5
+    season_ref: Summer
+    campaign_ref: lop_summer_map_trace
+    story_flow_ref: sf_ch01_map_trace
+    ar_event_ref: ar_v2_map_trace
+    echo_ref: ar_v2_echo_settle
+    digital_collectible_ref: dce_v2_invite_card
+    lottie_ref: lottie_discovery_shimmer_path
+    date_binding: none
+  - month_id: month_06
+    month_index: 6
+    season_ref: Summer
+    campaign_ref: lop_summer_map_trace
+    story_flow_ref: sf_ch01_map_trace
+    ar_event_ref: ar_v2_map_trace
+    echo_ref: ar_v2_echo_settle
+    digital_collectible_ref: dce_v2_invite_card
+    lottie_ref: lottie_discovery_shimmer_path
+    date_binding: none
+  - month_id: month_07
+    month_index: 7
+    season_ref: Autumn
+    campaign_ref: lop_autumn_guide_return
+    story_flow_ref: sf_ch01_guide_return
+    ar_event_ref: ar_v2_zhujin_intro
+    echo_ref: ar_v2_echo_receive
+    digital_collectible_ref: dce_v2_event_memo
+    lottie_ref: lottie_imprint_drift_wave
+    date_binding: none
+  - month_id: month_08
+    month_index: 8
+    season_ref: Autumn
+    campaign_ref: lop_autumn_guide_return
+    story_flow_ref: sf_ch01_guide_return
+    ar_event_ref: ar_v2_zhujin_intro
+    echo_ref: ar_v2_echo_receive
+    digital_collectible_ref: dce_v2_event_memo
+    lottie_ref: lottie_imprint_drift_wave
+    date_binding: none
+  - month_id: month_09
+    month_index: 9
+    season_ref: Autumn
+    campaign_ref: lop_autumn_guide_return
+    story_flow_ref: sf_ch01_guide_return
+    ar_event_ref: ar_v2_zhujin_intro
+    echo_ref: ar_v2_echo_receive
+    digital_collectible_ref: dce_v2_event_memo
+    lottie_ref: lottie_imprint_drift_wave
+    date_binding: none
+  - month_id: month_10
+    month_index: 10
+    season_ref: Winter
+    campaign_ref: lop_winter_completion_share
+    story_flow_ref: sf_ch01_completion_share
+    ar_event_ref: ar_v2_completion_gathering
+    echo_ref: ar_v2_echo_settle
+    digital_collectible_ref: dce_v2_chapter_share_poster
+    lottie_ref: lottie_echo_settle_fade
+    date_binding: none
+  - month_id: month_11
+    month_index: 11
+    season_ref: Winter
+    campaign_ref: lop_winter_completion_share
+    story_flow_ref: sf_ch01_completion_share
+    ar_event_ref: ar_v2_completion_gathering
+    echo_ref: ar_v2_echo_settle
+    digital_collectible_ref: dce_v2_chapter_share_poster
+    lottie_ref: lottie_echo_settle_fade
+    date_binding: none
+  - month_id: month_12
+    month_index: 12
+    season_ref: Winter
+    campaign_ref: lop_winter_completion_share
+    story_flow_ref: sf_ch01_completion_share
+    ar_event_ref: ar_v2_completion_gathering
+    echo_ref: ar_v2_echo_settle
+    digital_collectible_ref: dce_v2_chapter_share_poster
+    lottie_ref: lottie_echo_settle_fade
+    date_binding: none
+

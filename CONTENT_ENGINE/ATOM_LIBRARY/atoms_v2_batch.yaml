@@ -1,0 +1,187 @@
+schema: LOVEQIGU_ATOM_BATCH_V2
+version: 2.0.0
+status: placeholder_only
+source_schema: CONTENT_ENGINE/CONTENT_ATOM_SCHEMA.yaml
+notes:
+  - V2 atoms are expression placeholders only.
+  - Fields are limited to canonical expression metadata and do not carry scarcity semantics.`r`natoms:
+  - id: atom_v2_emotion_quiet_arrival
+    category: EMOTION
+    title: Quiet Arrival
+    description: A restrained feeling of arriving at an exploration point without completion pressure.
+    emotion: calm_attention
+    symbol: exploration_point
+    ritual: pause_before_entry
+    tags: [L2_PRODUCT, exploration_map, canon_safe]
+    status: placeholder_only
+  - id: atom_v2_emotion_first_seen
+    category: EMOTION
+    title: First Seen
+    description: The first moment of noticing a place as part of an exploration path.
+    emotion: gentle_recognition
+    symbol: threshold
+    ritual: awareness_prompt
+    tags: [L3_RITUAL, seeing, echo]
+    status: placeholder_only
+  - id: atom_v2_emotion_return_to_attention
+    category: EMOTION
+    title: Return To Attention
+    description: A subtle return from distraction to present awareness.
+    emotion: collected_focus
+    symbol: footstep
+    ritual: breath_and_notice
+    tags: [L3_RITUAL, awareness, connection]
+    status: placeholder_only
+  - id: atom_v2_emotion_connection_remains
+    category: EMOTION
+    title: Connection Remains
+    description: A reminder that connection is discovered rather than newly created.
+    emotion: quiet_trust
+    symbol: thread
+    ritual: reflection_card
+    tags: [L3_RITUAL, connection, canon_defined]
+    status: placeholder_only
+  - id: atom_v2_emotion_after_echo
+    category: EMOTION
+    title: After Echo
+    description: The stillness after the world leaves a 鍥炲搷.
+    emotion: softened_attention
+    symbol: echo_trace
+    ritual: relic_obtain_pause
+    tags: [L3_RITUAL, 鍥炲搷, relic]
+    status: placeholder_only
+  - id: atom_v2_symbol_map_trace
+    category: SYMBOL
+    title: Map Trace
+    description: A product-level trace of exploration progress on the 鎺㈢储鍦板浘.
+    emotion: orientation
+    symbol: path_line
+    ritual: none
+    tags: [L2_PRODUCT, 鎺㈢储鍦板浘, progress]
+    status: placeholder_only
+  - id: atom_v2_symbol_archive_light
+    category: SYMBOL
+    title: Archive Light
+    description: A visual marker for a recorded Relic in the archive.
+    emotion: recognition
+    symbol: display_light
+    ritual: archive_view
+    tags: [L3_RITUAL, relic_archive, museum_tone]
+    status: placeholder_only
+  - id: atom_v2_symbol_gate_state
+    category: SYMBOL
+    title: Gate State
+    description: A safe expression of 浜戦棬 as a state, not a place or owned object.
+    emotion: threshold_awareness
+    symbol: open_state
+    ritual: entry_reflection
+    tags: [L3_RITUAL, cloud_gate, canon_defined]
+    status: placeholder_only
+  - id: atom_v2_symbol_imprint_piece
+    category: SYMBOL
+    title: Imprint Piece
+    description: A product structure marker for one imprint segment in a chapter.
+    emotion: continuity
+    symbol: imprint_fragment
+    ritual: archive_review
+    tags: [L2_PRODUCT, imprint_progress, canon_safe]
+    status: placeholder_only
+  - id: atom_v2_symbol_rights_marker
+    category: SYMBOL
+    title: Rights Marker
+    description: A commercial-layer marker for 鏉冪泭涓績 entries.
+    emotion: clarity
+    symbol: benefit_ticket
+    ritual: none
+    tags: [L1_COMMERCIAL, 鏉冪泭涓績, no_lore]
+    status: placeholder_only
+  - id: atom_v2_symbol_wish_value_ledger
+    category: SYMBOL
+    title: Wish Value Ledger
+    description: Product/account expression for 蹇冩効鍊?in commercial or profile contexts.
+    emotion: account_clarity
+    symbol: ledger_mark
+    ritual: none
+    tags: [L1_COMMERCIAL, 蹇冩効鍊? no_ritual_copy]
+    status: placeholder_only
+  - id: atom_v2_symbol_share_frame
+    category: SYMBOL
+    title: Share Frame
+    description: A communication frame for Digital Collectible sharing with no story-state effect.
+    emotion: invitation
+    symbol: poster_frame
+    ritual: none
+    tags: [L2_COMMUNICATION, digital_collectible, mkt_only]
+    status: placeholder_only
+  - id: atom_v2_ritual_pre_entry_pause
+    category: RITUAL
+    title: Pre Entry Pause
+    description: A short pause before confirming exploration.
+    emotion: readiness
+    symbol: threshold
+    ritual: pause_before_confirm
+    tags: [L2_PRODUCT, exploration_confirm]
+    status: placeholder_only
+  - id: atom_v2_ritual_awareness_line
+    category: RITUAL
+    title: Awareness Line
+    description: A single-line reflection prompt with no scoring.
+    emotion: inward_attention
+    symbol: question_line
+    ritual: awareness_question
+    tags: [L3_RITUAL, awareness, no_scoring]
+    status: placeholder_only
+  - id: atom_v2_ritual_echo_receiving
+    category: RITUAL
+    title: Echo Receiving
+    description: A quiet receive moment after a Relic is recorded.
+    emotion: gratitude_without_reward
+    symbol: echo_mark
+    ritual: receive_echo
+    tags: [L3_RITUAL, 鍥炲搷, relic]
+    status: placeholder_only
+  - id: atom_v2_ritual_relic_review
+    category: RITUAL
+    title: Relic Review
+    description: A museum-like review moment inside the Relic archive.
+    emotion: remembrance
+    symbol: archive_case
+    ritual: read_relic_meaning
+    tags: [L3_RITUAL, relic_archive]
+    status: placeholder_only
+  - id: atom_v2_ritual_zhujin_intro
+    category: RITUAL
+    title: Zhujin Intro
+    description: A safe 绁濈 guide entry with no medical or magic claim.
+    emotion: careful_learning
+    symbol: guide_sequence
+    ritual: 绁濈_first_lesson
+    tags: [L3_RITUAL, 绁濈, no_medical_claim]
+    status: placeholder_only
+  - id: atom_v2_ritual_completion_gathering
+    category: RITUAL
+    title: Completion Gathering
+    description: A chapter completion expression that gathers completed observations.
+    emotion: quiet_completion
+    symbol: gathered_marks
+    ritual: chapter_completion_reflection
+    tags: [L2_PRODUCT, 鍚堢湡, chapter_completion]
+    status: placeholder_only
+  - id: atom_v2_ritual_share_after_completion
+    category: RITUAL
+    title: Share After Completion
+    description: A communication transition after completion, without changing story state.
+    emotion: open_invitation
+    symbol: share_frame
+    ritual: generate_share_asset
+    tags: [L2_COMMUNICATION, digital_collectible, no_progression]
+    status: placeholder_only
+  - id: atom_v2_ritual_profile_memory
+    category: RITUAL
+    title: Profile Memory
+    description: A personal archive expression for past exploration records.
+    emotion: steady_recollection
+    symbol: archive_timeline
+    ritual: review_exploration_record
+    tags: [L2_PRODUCT, story_archive, no_new_lore]
+    status: placeholder_only

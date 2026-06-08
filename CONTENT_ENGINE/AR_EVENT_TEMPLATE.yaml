@@ -1,0 +1,31 @@
+schema: LOVEQIGU_AR_EVENT_TEMPLATE_V1
+version: 1.0.0
+status: active
+description: >
+  Defines AR event placeholders and interaction contracts. Events must not
+  fake camera or AR capability. They may point to approved L2 chapter nodes
+  and existing asset references only.
+required_fields:
+  - event_id
+  - code
+  - chapter_id
+  - node_id
+  - title
+  - interaction
+  - camera_enabled
+  - fake_ar_enabled
+  - output_refs
+  - canonical_boundary
+  - status
+allowed_interactions:
+  - location_gate
+  - imprint_particles
+  - awareness_prompt
+  - guide_sequence
+  - completion_scene
+hard_rules:
+  camera_enabled_default: false
+  fake_ar_enabled_default: false
+  canon_creation_allowed: false
+  medical_claims_allowed: false
+initial_ar_event_library_ref: AR_EVENT_LIBRARY/ar_events_v1.yaml

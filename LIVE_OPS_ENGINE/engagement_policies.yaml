@@ -1,0 +1,25 @@
+schema: LOVEQIGU_LIVE_OPS_ENGAGEMENT_POLICIES_V1
+version: 1.0.0
+status: placeholder_only
+description: >
+  Engagement policy rules for Live Operations. These rules constrain language,
+  cadence, and asset usage only. They do not introduce new Canon.
+language_layer: L2_PRODUCT
+policy_count: 5
+policies:
+  - policy_id: lop_policy_language
+    title: Official Terminology Only
+    rule: Use 心愿值, 合真, 回响, and 祝禁 consistently. Do not introduce legacy forbidden terms.
+  - policy_id: lop_policy_asset_boundary
+    title: Asset Boundary Separation
+    rule: Relic remains story progression and Canon-driven; Digital Collectible remains marketing and communication only.
+  - policy_id: lop_policy_date_binding
+    title: Structural Calendar Only
+    rule: Monthly templates define structure only and must not bind real-world dates.
+  - policy_id: lop_policy_canon
+    title: Canon Restriction
+    rule: Do not add new gods, civilizations, organizations, history, or Canon.
+  - policy_id: lop_policy_reference
+    title: Existing Assets Only
+    rule: Live Ops templates may reference only existing Story Flow, AR Event, Echo, Lottie, and Digital Collectible assets.
+

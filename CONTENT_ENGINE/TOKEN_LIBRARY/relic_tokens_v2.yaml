@@ -1,0 +1,108 @@
+schema: LOVEQIGU_RELIC_TOKEN_BATCH_V2
+version: 2.0.0
+status: placeholder_only
+asset_type: RELIC
+asset_boundary: Relic is a story progression asset and Canon-driven asset.
+notes:
+  - The prompt uses token_id for Relic entries; these are not Digital Collectibles.
+  - Relic tokens do not carry scarcity or ranking semantics.`r`ntokens:
+  - token_id: relic_token_v2_threshold_echo
+    name: Threshold Echo Relic
+    theme: First exploration threshold.
+    meaning: Records a completed seeing-and-connection moment.
+    material: light_trace
+    story_use: story_progression_marker
+    ar_effect: location_gate_light
+    emotion_link: atom_v2_emotion_first_seen
+    symbol_link: atom_v2_symbol_gate_state
+    ritual_link: atom_v2_ritual_echo_receiving
+  - token_id: relic_token_v2_map_trace
+    name: Map Trace Relic
+    theme: Exploration route record.
+    meaning: Marks a discovered point on the 鎺㈢储鍦板浘.
+    material: route_line
+    story_use: node_progression_marker
+    ar_effect: path_trace_glow
+    emotion_link: atom_v2_emotion_quiet_arrival
+    symbol_link: atom_v2_symbol_map_trace
+    ritual_link: atom_v2_ritual_pre_entry_pause
+  - token_id: relic_token_v2_imprint_piece
+    name: Imprint Piece Relic
+    theme: Chapter imprint progress.
+    meaning: Records one L2 imprint segment without defining Canon totals.
+    material: imprint_light
+    story_use: imprint_progression_marker
+    ar_effect: imprint_particles
+    emotion_link: atom_v2_emotion_connection_remains
+    symbol_link: atom_v2_symbol_imprint_piece
+    ritual_link: atom_v2_ritual_relic_review
+  - token_id: relic_token_v2_archive_light
+    name: Archive Light Relic
+    theme: Relic archive record.
+    meaning: Makes a completed record readable in the Relic archive.
+    material: display_light
+    story_use: archive_entry
+    ar_effect: archive_case_light
+    emotion_link: atom_v2_emotion_after_echo
+    symbol_link: atom_v2_symbol_archive_light
+    ritual_link: atom_v2_ritual_relic_review
+  - token_id: relic_token_v2_awareness_mark
+    name: Awareness Mark Relic
+    theme: Awareness prompt completion.
+    meaning: Records a no-score reflection moment.
+    material: question_mark_trace
+    story_use: reflection_marker
+    ar_effect: soft_prompt_pulse
+    emotion_link: atom_v2_emotion_return_to_attention
+    symbol_link: atom_v2_symbol_imprint_piece
+    ritual_link: atom_v2_ritual_awareness_line
+  - token_id: relic_token_v2_zhujin_intro
+    name: Zhujin Intro Relic
+    theme: 绁濈 guide entry.
+    meaning: Records entry into the approved guide structure without medical or magic claims.
+    material: guide_line
+    story_use: guide_progression_marker
+    ar_effect: guide_sequence_light
+    emotion_link: atom_v2_emotion_return_to_attention
+    symbol_link: atom_symbol_relic
+    ritual_link: atom_v2_ritual_zhujin_intro
+  - token_id: relic_token_v2_connection_thread
+    name: Connection Thread Relic
+    theme: Connection remains visible.
+    meaning: Records rediscovered connection without creating a new rule.
+    material: thread_light
+    story_use: node_progression_marker
+    ar_effect: thread_reveal
+    emotion_link: atom_v2_emotion_connection_remains
+    symbol_link: atom_symbol_relic
+    ritual_link: atom_v2_ritual_echo_receiving
+  - token_id: relic_token_v2_completion_gathering
+    name: Completion Gathering Relic
+    theme: Chapter completion.
+    meaning: Records chapter completion without rank, level, or proof of superiority.
+    material: gathered_marks
+    story_use: chapter_completion_marker
+    ar_effect: completion_gather_light
+    emotion_link: atom_v2_emotion_remembering
+    symbol_link: atom_symbol_relic
+    ritual_link: atom_v2_ritual_completion_gathering
+  - token_id: relic_token_v2_story_archive
+    name: Story Archive Relic
+    theme: Read-only story archive.
+    meaning: Links a completed exploration record into the story archive.
+    material: archive_page
+    story_use: story_archive_marker
+    ar_effect: none
+    emotion_link: atom_v2_emotion_after_echo
+    symbol_link: atom_v2_symbol_archive_light
+    ritual_link: atom_v2_ritual_profile_memory
+  - token_id: relic_token_v2_echo_record
+    name: Echo Record Relic
+    theme: 鍥炲搷 recorded after exploration.
+    meaning: Records the world's 鍥炲搷 as an archive-safe progression asset.
+    material: echo_line
+    story_use: story_progression_marker
+    ar_effect: echo_ring
+    emotion_link: atom_v2_emotion_after_echo
+    symbol_link: atom_symbol_relic
+    ritual_link: atom_v2_ritual_echo_receiving

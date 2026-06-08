@@ -1,0 +1,30 @@
+schema: LOVEQIGU_DIGITAL_COLLECTIBLE_LIBRARY_V1
+version: 1.0.0
+status: placeholder_only
+asset_type: DIGITAL_COLLECTIBLE
+asset_boundary: Digital Collectible is a marketing and communication asset only.
+digital_collectibles:
+  - token_id: dc_ch01_completion_poster
+    name: 云门初醒分享海报
+    source_context: CH01 completion share flow.
+    communication_role: User-generated share poster.
+    user_action: generate_share_poster
+    story_state_effect: none
+    language_layer: L2_PRODUCT_COMMUNICATION
+    status: placeholder_pending_visual_spec
+  - token_id: dc_ar_exploration_photo
+    name: 场域体验照片
+    source_context: AR/photo save flow.
+    communication_role: User-saved communication image.
+    user_action: save_photo
+    story_state_effect: none
+    language_layer: L2_PRODUCT_COMMUNICATION
+    status: placeholder_pending_ar_runtime
+  - token_id: dc_relic_social_card
+    name: 信物分享卡片
+    source_context: Relic detail share entry.
+    communication_role: Social sharing card derived from an existing Relic.
+    user_action: generate_social_card
+    story_state_effect: none
+    language_layer: L2_PRODUCT_COMMUNICATION
+    status: placeholder_pending_visual_spec

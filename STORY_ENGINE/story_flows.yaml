@@ -1,0 +1,91 @@
+schema: LOVEQIGU_STORY_FLOWS_V1
+version: 1.0.0
+status: placeholder_only
+description: >
+  Story flow foundation for LOVEQIGU. These flows orchestrate existing assets
+  only and do not create Canon, new organizations, new history, or new rules.
+chapter_context: ch01_cloud_awakening
+language_layer: L2_PRODUCT
+flow_count: 5
+flows:
+  - flow_id: sf_ch01_threshold_pulse
+    title: Threshold Pulse
+    canonical_boundary: Uses the existing CH01 threshold context only; no new lore.
+    steps:
+      - step_type: Gate
+        asset_ref: ar_v2_gate_threshold
+      - step_type: AR Event
+        asset_ref: ar_v2_entry_threshold
+      - step_type: Atom Discovery
+        asset_ref: atom_v2_symbol_gate_state
+      - step_type: Lottie Trigger
+        asset_ref: lottie_gate_threshold_pulse
+      - step_type: Echo
+        asset_ref: ar_v2_echo_receive
+      - step_type: Digital Collectible
+        asset_ref: dce_v2_chapter_share_poster
+  - flow_id: sf_ch01_first_awareness
+    title: First Awareness
+    canonical_boundary: Uses the existing CH01 awareness context only; no new lore.
+    steps:
+      - step_type: Gate
+        asset_ref: ar_v2_gate_return
+      - step_type: AR Event
+        asset_ref: ar_v2_first_awareness
+      - step_type: Atom Discovery
+        asset_ref: atom_v2_ritual_awareness_line
+      - step_type: Lottie Trigger
+        asset_ref: lottie_resonance_ring_breathe
+      - step_type: Echo
+        asset_ref: ar_v2_echo_receive
+      - step_type: Digital Collectible
+        asset_ref: dce_v2_social_card
+  - flow_id: sf_ch01_map_trace
+    title: Map Trace
+    canonical_boundary: Uses the existing CH01 exploration-map context only; no new lore.
+    steps:
+      - step_type: Gate
+        asset_ref: ar_v2_gate_threshold
+      - step_type: AR Event
+        asset_ref: ar_v2_map_trace
+      - step_type: Atom Discovery
+        asset_ref: atom_v2_symbol_map_trace
+      - step_type: Lottie Trigger
+        asset_ref: lottie_discovery_shimmer_path
+      - step_type: Echo
+        asset_ref: ar_v2_echo_settle
+      - step_type: Digital Collectible
+        asset_ref: dce_v2_invite_card
+  - flow_id: sf_ch01_completion_share
+    title: Completion Share
+    canonical_boundary: Uses the existing CH01 completion context only; no new lore.
+    steps:
+      - step_type: Gate
+        asset_ref: ar_v2_gate_return
+      - step_type: AR Event
+        asset_ref: ar_v2_completion_gathering
+      - step_type: Atom Discovery
+        asset_ref: atom_v2_ritual_completion_gathering
+      - step_type: Lottie Trigger
+        asset_ref: lottie_echo_settle_fade
+      - step_type: Echo
+        asset_ref: ar_v2_echo_settle
+      - step_type: Digital Collectible
+        asset_ref: dce_v2_chapter_share_poster
+  - flow_id: sf_ch01_guide_return
+    title: Guide Return
+    canonical_boundary: Uses the approved CH01 guide context only; no new lore.
+    steps:
+      - step_type: Gate
+        asset_ref: ar_v2_gate_threshold
+      - step_type: AR Event
+        asset_ref: ar_v2_zhujin_intro
+      - step_type: Atom Discovery
+        asset_ref: atom_v2_ritual_zhujin_intro
+      - step_type: Lottie Trigger
+        asset_ref: lottie_imprint_drift_wave
+      - step_type: Echo
+        asset_ref: ar_v2_echo_receive
+      - step_type: Digital Collectible
+        asset_ref: dce_v2_event_memo
+

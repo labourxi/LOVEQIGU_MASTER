@@ -1,0 +1,117 @@
+schema: LOVEQIGU_LOTTIE_LIBRARY_V1
+version: 1.0.0
+status: placeholder_only
+source_of_truth:
+  - docs/canon/LOVEQIGU_WORLD_RULES_CANON_V1.md
+  - docs/canon/CANON_GAP_REGISTRY.md
+  - docs/world/LOVEQIGU_WORLD_BIBLE_V1.md
+  - docs/language/LOVEQIGU_LANGUAGE_CONSTITUTION_V1.md
+  - docs/language/LOVEQIGU_TERMINOLOGY_V1.md
+  - docs/architecture/LOVEQIGU_INFORMATION_ARCHITECTURE_V1.md
+description: >
+  Motion design templates for LOVEQIGU. These templates are expression-only,
+  do not create Canon, and do not alter story progression, asset boundaries,
+  or content-engine content.
+language_layer: L2_PRODUCT
+template_count: 5
+templates:
+  - template_id: lottie_gate_threshold_pulse
+    name: 门槛回响脉冲
+    category: Gate
+    description: >
+      A restrained pulse for entering a gate state. It suggests attention,
+      presence, and the first visible threshold.
+    parameters:
+      duration_ms: 1400
+      loop: true
+      easing: easeInOut
+      opacity_curve: soft_pulse
+      scale_curve: threshold_breath
+    cycle_effect: A soft pulse expands and settles in a single breathing loop.
+    trigger_condition: User enters a gate-related state or opens a field entry.
+    usage_context:
+      - exploration_map
+      - ar_entry
+      - chapter_entry
+    canonical_boundary: Uses the existing gate and threshold context only.
+    status: placeholder_only
+  - template_id: lottie_imprint_drift_wave
+    name: 残印漂流波
+    category: Imprint
+    description: >
+      A drift wave for imprint record moments. It carries the feeling of
+      remembered connection without defining new lore.
+    parameters:
+      duration_ms: 1600
+      loop: true
+      easing: easeOut
+      opacity_curve: fade_and_return
+      path_curve: layered_drift
+    cycle_effect: A thin wave drifts outward and returns to rest.
+    trigger_condition: User records an imprint or completes a reflection node.
+    usage_context:
+      - relic_detail
+      - archive_view
+      - completion_scene
+    canonical_boundary: Uses the existing imprint context only.
+    status: placeholder_only
+  - template_id: lottie_resonance_ring_breathe
+    name: 共振圆环呼吸
+    category: Resonance
+    description: >
+      A breathing ring for resonance moments. It marks recognition without
+      changing the underlying story state.
+    parameters:
+      duration_ms: 1800
+      loop: true
+      easing: easeInOut
+      opacity_curve: radial_breath
+      ring_count: 2
+    cycle_effect: Two concentric rings expand, soften, and settle.
+    trigger_condition: User opens a reflection card or enters a resonance state.
+    usage_context:
+      - awareness_prompt
+      - ritual_guide
+      - relic_obtain
+    canonical_boundary: Uses existing recognition and resonance language only.
+    status: placeholder_only
+  - template_id: lottie_echo_settle_fade
+    name: 回响沉定淡出
+    category: Echo
+    description: >
+      A settling fade for echo moments. It gives the impression of a completed
+      response without implying a new rule or new power.
+    parameters:
+      duration_ms: 1200
+      loop: false
+      easing: easeOut
+      opacity_curve: settle_and_fade
+      fade_tail_ms: 300
+    cycle_effect: A brief glow settles, then fades into stillness.
+    trigger_condition: User completes a chapter step or closes a ritual view.
+    usage_context:
+      - completion_summary
+      - chapter_result
+      - archive_confirmation
+    canonical_boundary: Uses the existing response and completion context only.
+    status: placeholder_only
+  - template_id: lottie_discovery_shimmer_path
+    name: 探知微光路径
+    category: Discovery
+    description: >
+      A subtle shimmer path for discovery moments. It points attention to an
+      already-approved node or field entry.
+    parameters:
+      duration_ms: 1500
+      loop: true
+      easing: linear
+      opacity_curve: shimmer_track
+      path_curve: guide_line
+    cycle_effect: A narrow shimmer travels along a path and resets quietly.
+    trigger_condition: User opens discovery content or a guided entry point.
+    usage_context:
+      - exploration_map
+      - guide_sequence
+      - chapter_list
+    canonical_boundary: Uses the existing discovery context only.
+    status: placeholder_only

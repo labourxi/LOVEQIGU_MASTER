@@ -1,0 +1,54 @@
+schema: LOVEQIGU_DIGITAL_COLLECTIBLE_BATCH_V2
+version: 2.0.0
+status: placeholder_only
+asset_type: DIGITAL_COLLECTIBLE
+asset_boundary: Digital Collectible is a marketing and communication asset only.
+notes:
+  - These entries do not unlock Relics.
+  - unlock_condition is a communication availability condition, not story progression.
+collectibles:
+  - collectible_id: dc_v2_chapter_share_poster
+    name: Chapter Share Poster
+    activity: CH01 completion communication.
+    rarity: not_applicable
+    theme: Share a completed exploration memory.
+    share_text: I completed a LOVEQIGU exploration record.
+    visual_asset: poster_ch01_completion_placeholder
+    emotion_link: atom_v2_emotion_after_echo
+    unlock_condition: user_generates_after_completion
+  - collectible_id: dc_v2_ar_photo_frame
+    name: AR Photo Frame
+    activity: Field experience photo sharing.
+    rarity: not_applicable
+    theme: Preserve an exploration photo as communication media.
+    share_text: A field experience has been recorded.
+    visual_asset: ar_photo_frame_placeholder
+    emotion_link: atom_v2_emotion_quiet_arrival
+    unlock_condition: user_saves_photo
+  - collectible_id: dc_v2_relic_social_card
+    name: Relic Social Card
+    activity: Relic detail sharing.
+    rarity: not_applicable
+    theme: Share an existing Relic record without changing story state.
+    share_text: A Relic record is ready to be shared.
+    visual_asset: relic_social_card_placeholder
+    emotion_link: atom_v2_emotion_after_echo
+    unlock_condition: user_generates_from_relic_detail
+  - collectible_id: dc_v2_exploration_invite_card
+    name: Exploration Invite Card
+    activity: Friend return-flow communication.
+    rarity: not_applicable
+    theme: Invite a user back to the 探索地图.
+    share_text: Begin an exploration at LOVEQIGU.
+    visual_asset: exploration_invite_placeholder
+    emotion_link: atom_v2_emotion_first_seen
+    unlock_condition: user_selects_share_entry
+  - collectible_id: dc_v2_rights_notice_card
+    name: Rights Notice Card
+    activity: 权益中心 communication.
+    rarity: not_applicable
+    theme: Commercial benefit notice outside ritual flow.
+    share_text: A benefit is available in 权益中心.
+    visual_asset: rights_notice_placeholder
+    emotion_link: atom_v2_symbol_rights_marker
+    unlock_condition: user_views_rights_center

@@ -1,4 +1,4 @@
-.sub-page {
+.mvp-page {
   padding-top: 48rpx;
 }
 
@@ -8,46 +8,146 @@
   font-weight: 800;
 }
 
-.page-desc {
-  margin-top: 14rpx;
+.page-desc,
+.progress-note,
+.card-copy,
+.card-meta {
   color: #6b7280;
-  font-size: 26rpx;
+  font-size: 24rpx;
   line-height: 1.5;
 }
 
-.list {
-  display: flex;
-  flex-direction: column;
-  gap: 18rpx;
-  margin-top: 32rpx;
+.page-desc {
+  margin-top: 14rpx;
+  font-size: 26rpx;
 }
 
-.list-card {
-  padding: 28rpx;
+.progress-panel {
+  display: flex;
+  justify-content: space-between;
+  gap: 24rpx;
+  margin-top: 30rpx;
+  padding: 30rpx;
+  border-radius: 8rpx;
+  background: #263a34;
+  color: #ffffff;
+}
+
+.eyebrow,
+.card-status {
+  color: #7f4f24;
+  font-size: 22rpx;
+  font-weight: 800;
+}
+
+.progress-panel .eyebrow,
+.progress-panel .progress-note {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.progress-title {
+  margin-top: 8rpx;
+  font-size: 34rpx;
+  font-weight: 800;
+}
+
+.progress-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 116rpx;
+  height: 116rpx;
+  border-radius: 58rpx;
+  background: #d6c08d;
+  color: #15171c;
+  font-size: 34rpx;
+  font-weight: 800;
+}
+
+.section {
+  margin-top: 40rpx;
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.section-title {
+  color: #111827;
+  font-size: 32rpx;
+  font-weight: 800;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16rpx;
+  margin-top: 18rpx;
+}
+
+.info-card,
+.location-card {
+  box-sizing: border-box;
+  padding: 26rpx;
   border-radius: 8rpx;
   background: #ffffff;
   box-shadow: 0 8rpx 24rpx rgba(17, 24, 39, 0.06);
 }
 
 .card-title {
+  margin-top: 10rpx;
   color: #111827;
-  font-size: 30rpx;
+  font-size: 28rpx;
   font-weight: 800;
 }
 
-.card-meta {
-  margin-top: 10rpx;
-  color: #6b7280;
-  font-size: 24rpx;
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  margin-top: 18rpx;
 }
 
-.card-state {
-  display: inline-flex;
-  margin-top: 18rpx;
-  padding: 8rpx 16rpx;
+.location-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12rpx 20rpx;
+}
+
+.location-main .card-title {
+  margin-top: 0;
+}
+
+.location-card .card-status {
+  align-self: start;
+  padding: 8rpx 14rpx;
   border-radius: 8rpx;
   background: #e8d8b4;
   color: #263a34;
-  font-size: 22rpx;
+}
+
+.wide {
+  grid-column: 1 / -1;
+}
+
+.mini-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 160rpx;
+  height: 60rpx;
+  margin: 0;
+  padding: 0;
+  border-radius: 30rpx;
+  background: #263a34;
+  color: #ffffff;
+  font-size: 24rpx;
   font-weight: 700;
+}
+
+.mini-button::after {
+  border: 0;
 }

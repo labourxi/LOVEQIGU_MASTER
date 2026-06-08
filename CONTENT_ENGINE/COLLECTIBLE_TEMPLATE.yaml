@@ -1,0 +1,35 @@
+schema: LOVEQIGU_RELIC_TEMPLATE_V1
+version: 1.0.0
+status: active
+legacy_filename_note: >
+  This file name uses COLLECTIBLE because it was requested by the audit prompt.
+  Its content defines Relic / 信物 only. It must not define Digital Collectible.
+asset_type: RELIC
+asset_definition: Story progression asset; Canon-driven asset.
+not_asset_definition:
+  - Marketing asset
+  - Communication asset
+  - Random reward
+  - Combat item
+  - Level proof
+required_fields:
+  - relic_id
+  - chapter_id
+  - node_id
+  - name
+  - relic_type
+  - progression_role
+  - canonical_boundary
+  - language_layer
+  - status
+relic_types:
+  - chapter_relic
+  - node_relic
+  - meta_imprint
+  - completion_seal
+language_layer: L3_CANON_RITUAL_WORLDVIEW
+boundary_rules:
+  - Must not describe a Relic as a Digital Collectible.
+  - Must not describe a Relic as a marketing asset.
+  - Must not use game reward, combat, or equipment framing.
+initial_relic_library_ref: COLLECTIBLE_LIBRARY/relics_v1.yaml

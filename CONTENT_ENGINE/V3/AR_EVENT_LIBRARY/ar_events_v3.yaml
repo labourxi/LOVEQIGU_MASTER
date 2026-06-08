@@ -1,0 +1,75 @@
+schema: LOVEQIGU_AR_EVENT_LIBRARY_V3
+version: 3.0.0
+status: placeholder_only
+events:
+  - event_id: ar_v3_gate_echo
+    code: AR_V3_GATE_ECHO
+    chapter_id: ch01_cloud_awakening
+    node_id: n1_gate
+    title: 云门回响
+    interaction: location_gate
+    camera_enabled: false
+    fake_ar_enabled: false
+    output_refs:
+      relic_refs:
+        - relic_token_v3_threshold_echo
+      digital_collectible_refs: []
+    canonical_boundary: Uses existing CH01 node context only; no new lore.
+    status: placeholder_only
+  - event_id: ar_v3_plaza_awareness
+    code: AR_V3_PLAZA_AWARENESS
+    chapter_id: ch01_cloud_awakening
+    node_id: n2_plaza
+    title: 广场照见
+    interaction: awareness_prompt
+    camera_enabled: false
+    fake_ar_enabled: false
+    output_refs:
+      relic_refs:
+        - relic_token_v3_plaza_trace
+      digital_collectible_refs: []
+    canonical_boundary: Uses existing CH01 node context only; no new lore.
+    status: placeholder_only
+  - event_id: ar_v3_cafe_echo
+    code: AR_V3_CAFE_ECHO
+    chapter_id: ch01_cloud_awakening
+    node_id: n3_cafe
+    title: 茶歇回响
+    interaction: guide_sequence
+    camera_enabled: false
+    fake_ar_enabled: false
+    output_refs:
+      relic_refs:
+        - relic_token_v3_cafe_echo
+      digital_collectible_refs: []
+    canonical_boundary: Uses existing CH01 node context only; no new lore.
+    status: placeholder_only
+  - event_id: ar_v3_zhujin_guide
+    code: AR_V3_ZHUJIN_GUIDE
+    chapter_id: ch01_cloud_awakening
+    node_id: n4_zhuyou
+    title: 祝禁入门
+    interaction: guide_sequence
+    camera_enabled: false
+    fake_ar_enabled: false
+    output_refs:
+      relic_refs:
+        - relic_token_v3_zhujin_intro
+      digital_collectible_refs: []
+    canonical_boundary: No medical claim, magic system, sect, or lineage invention.
+    status: placeholder_only
+  - event_id: ar_v3_completion_scene
+    code: AR_V3_COMPLETION_SCENE
+    chapter_id: ch01_cloud_awakening
+    node_id: n5_complete
+    title: 合真完成
+    interaction: completion_scene
+    camera_enabled: false
+    fake_ar_enabled: false
+    output_refs:
+      relic_refs:
+        - relic_token_v3_completion_seal
+      digital_collectible_refs:
+        - dc_v3_chapter_share_poster
+    canonical_boundary: Completion is not ranking, level, combat, or proof of superiority.
+    status: placeholder_only

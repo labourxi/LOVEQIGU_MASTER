@@ -1,0 +1,41 @@
+schema: LOVEQIGU_DIGITAL_COLLECTIBLE_BATCH_V3
+version: 3.0.0
+status: placeholder_only
+asset_type: DIGITAL_COLLECTIBLE
+asset_boundary: Digital Collectible is a marketing and communication asset only.
+notes:
+  - These entries do not unlock Relics.
+  - These entries do not affect chapter progression.
+collectibles:
+  - collectible_id: dc_v3_chapter_share_poster
+    name: CH01 分享海报
+    source_context: CH01 completion communication.
+    communication_role: User-generated share poster.
+    user_action: generate_share_poster
+    story_state_effect: none
+    language_layer: L2_PRODUCT_COMMUNICATION
+    status: placeholder_only
+  - collectible_id: dc_v3_field_photo_frame
+    name: 场域留影框
+    source_context: Field experience photo sharing.
+    communication_role: User-saved communication image.
+    user_action: save_photo
+    story_state_effect: none
+    language_layer: L2_PRODUCT_COMMUNICATION
+    status: placeholder_only
+  - collectible_id: dc_v3_relic_social_card
+    name: 信物社交卡
+    source_context: Relic detail share entry.
+    communication_role: Social sharing card derived from an existing Relic.
+    user_action: generate_social_card
+    story_state_effect: none
+    language_layer: L2_PRODUCT_COMMUNICATION
+    status: placeholder_only
+  - collectible_id: dc_v3_exploration_invite_card
+    name: 探索邀约卡
+    source_context: Friend return-flow communication.
+    communication_role: Invite a user back to the 探索地图.
+    user_action: select_share_entry
+    story_state_effect: none
+    language_layer: L2_PRODUCT_COMMUNICATION
+    status: placeholder_only

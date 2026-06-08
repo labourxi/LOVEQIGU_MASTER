@@ -1,0 +1,75 @@
+schema: LOVEQIGU_AR_EVENT_LIBRARY_V1
+version: 1.0.0
+status: placeholder_only
+events:
+  - event_id: ar_ch01_gate_open
+    code: AR_GATE_OPEN_V1
+    chapter_id: ch01_cloud_awakening
+    node_id: n1_gate
+    title: 云门开启
+    interaction: location_gate
+    camera_enabled: false
+    fake_ar_enabled: false
+    output_refs:
+      relic_refs:
+        - relic_ch01_gate_badge
+        - relic_ch01_cloud_gate_imprint_a
+      digital_collectible_refs: []
+    canonical_boundary: 云门 is a state, not a physical object or owned location.
+    status: placeholder_only
+  - event_id: ar_ch01_imprint_particles
+    code: AR_IMPRINT_PARTICLES_V1
+    chapter_id: ch01_cloud_awakening
+    node_id: n1_gate
+    title: 残印微光
+    interaction: imprint_particles
+    camera_enabled: false
+    fake_ar_enabled: false
+    output_refs:
+      relic_refs:
+        - relic_ch01_cloud_gate_imprint_a
+      digital_collectible_refs: []
+    canonical_boundary: Does not define imprint formation mechanics.
+    status: placeholder_only
+  - event_id: ar_ch01_plaza_awareness
+    code: AR_PLAZA_AWARENESS_V1
+    chapter_id: ch01_cloud_awakening
+    node_id: n2_plaza
+    title: 中央场照见
+    interaction: awareness_prompt
+    camera_enabled: false
+    fake_ar_enabled: false
+    output_refs:
+      relic_refs:
+        - relic_ch01_plaza
+      digital_collectible_refs: []
+    canonical_boundary: Uses existing CH01 node context only; no new lore.
+    status: placeholder_only
+  - event_id: ar_ch01_zhujin_guide
+    code: AR_ZHUJIN_GUIDE_V1
+    chapter_id: ch01_cloud_awakening
+    node_id: n4_zhujin
+    title: 祝禁第一课
+    interaction: guide_sequence
+    camera_enabled: false
+    fake_ar_enabled: false
+    output_refs:
+      relic_refs: []
+      digital_collectible_refs: []
+    canonical_boundary: No medical claim, magic system, sect, or lineage.
+    status: placeholder_only
+  - event_id: ar_ch01_completion_scene
+    code: AR_CH01_COMPLETION_V1
+    chapter_id: ch01_cloud_awakening
+    node_id: n5_complete
+    title: 章节合真
+    interaction: completion_scene
+    camera_enabled: false
+    fake_ar_enabled: false
+    output_refs:
+      relic_refs:
+        - relic_ch01_first_awakening_seal
+      digital_collectible_refs:
+        - dc_ch01_completion_poster
+    canonical_boundary: Completion is not ranking, level, combat, or proof of superiority.
+    status: placeholder_only

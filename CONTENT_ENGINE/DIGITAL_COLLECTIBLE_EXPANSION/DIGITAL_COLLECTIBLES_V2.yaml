@@ -1,0 +1,55 @@
+schema: LOVEQIGU_DIGITAL_COLLECTIBLE_EXPANSION_V2
+version: 2.0.0
+status: placeholder_only
+asset_type: DIGITAL_COLLECTIBLE
+asset_boundary: Digital Collectible is a marketing and communication asset only.
+notes:
+  - These entries do not unlock Relics.
+  - These entries do not affect chapter progression.
+  - These entries do not define new world rules, organizations, or gods.
+collectibles:
+  - collectible_id: dce_v2_chapter_share_poster
+    name: 合真分享海报
+    source_context: CH01 completion communication.
+    communication_role: User-generated share poster.
+    user_action: generate_share_poster
+    story_state_effect: none
+    language_layer: L2_PRODUCT_COMMUNICATION
+    display_context: chapter_completion_share
+    status: placeholder_only
+  - collectible_id: dce_v2_field_photo_frame
+    name: 场域留影框
+    source_context: Field experience photo sharing.
+    communication_role: User-saved communication image.
+    user_action: save_photo
+    story_state_effect: none
+    language_layer: L2_PRODUCT_COMMUNICATION
+    display_context: field_memory_share
+    status: placeholder_only
+  - collectible_id: dce_v2_social_card
+    name: 信物社交卡
+    source_context: Existing asset detail share entry.
+    communication_role: Social sharing card derived from an existing asset record.
+    user_action: generate_social_card
+    story_state_effect: none
+    language_layer: L2_PRODUCT_COMMUNICATION
+    display_context: social_share_entry
+    status: placeholder_only
+  - collectible_id: dce_v2_invite_card
+    name: 探索邀约卡
+    source_context: Friend return-flow communication.
+    communication_role: Invite a user back to the 探索地图.
+    user_action: select_share_entry
+    story_state_effect: none
+    language_layer: L2_PRODUCT_COMMUNICATION
+    display_context: return_flow_share
+    status: placeholder_only
+  - collectible_id: dce_v2_event_memo
+    name: 活动纪念版
+    source_context: Campaign communication.
+    communication_role: Event memorial card for communication-only distribution.
+    user_action: generate_event_memo
+    story_state_effect: none
+    language_layer: L2_PRODUCT_COMMUNICATION
+    display_context: campaign_memory_share
+    status: placeholder_only

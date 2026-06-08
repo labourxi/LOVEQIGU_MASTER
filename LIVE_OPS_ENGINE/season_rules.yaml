@@ -1,0 +1,34 @@
+schema: LOVEQIGU_LIVE_OPS_SEASON_RULES_V1
+version: 1.0.0
+status: placeholder_only
+description: >
+  Seasonal routing rules for Live Operations. These rules define operating
+  cadence only and do not bind real-world dates or introduce Canon.
+language_layer: L2_PRODUCT
+season_count: 4
+seasons:
+  - season_id: season_spring
+    season_name: Spring
+    primary_campaign_ref: lop_spring_threshold_launch
+    secondary_campaign_ref: lop_spring_awareness_walk
+    operational_focus: Entry, awareness, and gentle re-entry.
+    boundary: No new Canon, history, or organizations.
+  - season_id: season_summer
+    season_name: Summer
+    primary_campaign_ref: lop_summer_map_trace
+    secondary_campaign_ref: none
+    operational_focus: Route memory and exploration visibility.
+    boundary: No new Canon, history, or organizations.
+  - season_id: season_autumn
+    season_name: Autumn
+    primary_campaign_ref: lop_autumn_guide_return
+    secondary_campaign_ref: none
+    operational_focus: Guide entry and return-flow communication.
+    boundary: No new Canon, history, or organizations.
+  - season_id: season_winter
+    season_name: Winter
+    primary_campaign_ref: lop_winter_completion_share
+    secondary_campaign_ref: none
+    operational_focus: Completion, echo, and share-out.
+    boundary: No new Canon, history, or organizations.
+

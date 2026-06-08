@@ -5,17 +5,17 @@
     <view class="hero-content">
       <view class="hero-kicker">城市探索计划</view>
       <view class="hero-title">{{title}}</view>
-      <view class="hero-copy">留在足迹里收藏世界，在现实场域中继续探索。</view>
+      <view class="hero-copy">{{chapter.copy}}</view>
       <button class="hero-button" data-path="/pages/explore-map/index" bindtap="onOpenPage">进入探索</button>
     </view>
   </view>
 
-  <view class="mode-grid">
-    <view class="mode-card" wx:for="{{homeModes}}" wx:key="name">
-      <view class="mode-name">{{item.name}}</view>
-      <view class="mode-text">{{item.text}}</view>
-      <view class="mode-desc">{{item.desc}}</view>
+  <view class="chapter-panel">
+    <view>
+      <view class="panel-label">当前章节</view>
+      <view class="panel-title">{{chapter.name}}</view>
     </view>
+    <view class="panel-status">{{chapter.status}}</view>
   </view>
 
   <view class="stats">
@@ -29,7 +29,7 @@
     <view class="section-head">
       <view>
         <view class="section-title">核心入口</view>
-        <view class="section-subtitle">按信息架构建立首批页面</view>
+        <view class="section-subtitle">按信息架构生成的首批页面</view>
       </view>
     </view>
     <view class="quick-grid">
@@ -52,7 +52,7 @@
     <view class="section-head">
       <view>
         <view class="section-title">合规提示</view>
-        <view class="section-subtitle">本版本只放占位数据，不扩写 Canon</view>
+        <view class="section-subtitle">仅展示占位数据，不扩写世界观</view>
       </view>
     </view>
     <view class="notice-list">

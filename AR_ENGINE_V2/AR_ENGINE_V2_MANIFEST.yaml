@@ -1,0 +1,36 @@
+schema: LOVEQIGU_AR_ENGINE_V2_MANIFEST_V1
+version: 1.0.0
+status: placeholder_only
+engine_name: AR Engine V2
+scope: AR_ENGINE_V2/**/*.yaml
+source_of_truth:
+  - docs/canon/LOVEQIGU_WORLD_RULES_CANON_V1.md
+  - docs/canon/CANON_GAP_REGISTRY.md
+  - docs/world/LOVEQIGU_WORLD_BIBLE_V1.md
+  - docs/language/LOVEQIGU_LANGUAGE_CONSTITUTION_V1.md
+  - docs/language/LOVEQIGU_TERMINOLOGY_V1.md
+  - docs/architecture/LOVEQIGU_INFORMATION_ARCHITECTURE_V1.md
+library_ref: AR_ENGINE_V2_LIBRARY.yaml
+boundary:
+  no_new_canon: true
+  no_new_world_rules: true
+  no_new_organizations: true
+  no_new_gods: true
+  no_new_civilizations: true
+  no_content_engine_mutation: true
+mechanism_types:
+  - Gate
+  - Imprint
+  - Resonance
+  - Echo
+  - Discovery
+mechanism_count: 10
+approved_terms:
+  - 心愿值
+  - 合真
+  - 回响
+  - 祝禁
+notes:
+  - The library is CH01-safe and uses only existing node context.
+  - The mechanisms do not write 心愿值 or alter story state.
+  - Relic and Digital Collectible boundaries remain separate.
