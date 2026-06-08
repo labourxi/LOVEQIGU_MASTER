@@ -1,0 +1,41 @@
+schema: LOVEQIGU_CONTENT_ENGINE_PIPELINE_V1
+version: 1.0.0
+status: active
+scope:
+  - CONTENT_ENGINE/**/*.yaml
+  - docs/CONTENT_ENGINE_CURSOR_AUDIT_REPORT.md
+  - docs/CONTENT_ENGINE_GOVERNANCE_REPORT.md
+  - docs/OMX_REPORT.md
+stages:
+  - name: Content Scan
+    script: scripts/cursor/run_content_audit.js
+    output:
+      markdown: docs/CONTENT_ENGINE_CURSOR_AUDIT_REPORT.md
+      json: docs/CONTENT_ENGINE_CURSOR_AUDIT_REPORT.json
+    gate: warn_allowed
+  - name: Governance Check
+    script: scripts/governance/check_content_engine.js
+    output:
+      report: docs/CONTENT_ENGINE_GOVERNANCE_REPORT.md
+    gate: warn_allowed
+  - name: OMX Check
+    script: scripts/omx/run_omx_checks.js
+    output:
+      report: docs/OMX_REPORT.md
+    gate: pass_required
+  - name: Report
+    script: none
+    output:
+      report: docs/CONTENT_ENGINE_PIPELINE_REPORT.md
+    gate: pass_required
+execution_order:
+  - Codex
+  - Cursor
+  - Governance
+  - OMX
+  - Ductor Report
+manual_review:
+  required_when:
+    - fail
+    - high_risk_governance_findings
+completion_marker: DUCTOR_CONTENT_ENGINE_PIPELINE_READY = YES

@@ -1,0 +1,81 @@
+.mvp-page {
+  padding-top: 48rpx;
+}
+
+.page-title {
+  color: #111827;
+  font-size: 44rpx;
+  font-weight: 800;
+}
+
+.page-desc,
+.panel-copy,
+.card-copy {
+  color: #6b7280;
+  font-size: 24rpx;
+  line-height: 1.5;
+}
+
+.page-desc {
+  margin-top: 14rpx;
+  font-size: 26rpx;
+}
+
+.redemption-panel {
+  margin-top: 30rpx;
+  padding: 28rpx;
+  border-radius: 8rpx;
+  background: #263a34;
+}
+
+.panel-title {
+  color: #ffffff;
+  font-size: 30rpx;
+  font-weight: 800;
+}
+
+.panel-copy {
+  margin-top: 10rpx;
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 18rpx;
+  margin-top: 30rpx;
+}
+
+.benefit-card {
+  padding: 28rpx;
+  border-radius: 8rpx;
+  background: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(17, 24, 39, 0.06);
+}
+
+.card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18rpx;
+}
+
+.card-title {
+  color: #111827;
+  font-size: 30rpx;
+  font-weight: 800;
+}
+
+.card-status {
+  flex: 0 0 auto;
+  padding: 8rpx 14rpx;
+  border-radius: 8rpx;
+  background: #e8d8b4;
+  color: #263a34;
+  font-size: 22rpx;
+  font-weight: 800;
+}
+
+.card-copy {
+  margin-top: 12rpx;
+}

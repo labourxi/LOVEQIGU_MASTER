@@ -1,0 +1,12 @@
+<view class="page sub-page">
+  <view class="page-title">我的信物</view>
+  <view class="page-desc">信物是故事进度资产，只用于记录探索与章成，不作为传播资产展示。</view>
+
+  <view class="list">
+    <view class="list-card" wx:for="{{relics}}" wx:key="name">
+      <view class="card-title">{{item.name}}</view>
+      <view class="card-meta">{{item.type}}</view>
+      <view class="card-copy">{{item.source}}</view>
+    </view>
+  </view>
+</view>

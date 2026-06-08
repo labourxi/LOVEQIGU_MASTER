@@ -1,0 +1,26 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/explore-map/index",
+    "pages/ar-entry/index",
+    "pages/atom/index",
+    "pages/lottie/index",
+    "pages/echo/index",
+    "pages/digital-collectible/index",
+    "pages/campaign-closure/index",
+    "pages/next-activity/index",
+    "pages/story-flow/index",
+    "pages/relic-archive/index",
+    "pages/story-archive/index",
+    "pages/rights-center/index",
+    "pages/profile/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "爱企谷",
+    "navigationBarBackgroundColor": "#263a34",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f4f1eb"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

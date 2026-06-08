@@ -1,0 +1,26 @@
+<view class="page mvp-page">
+  <view class="page-title">{{title}}</view>
+  <view class="page-desc">{{intro}}</view>
+
+  <view class="boundary-panel">{{boundary}}</view>
+
+  <view class="list">
+    <view class="relic-card" wx:for="{{records}}" wx:key="name">
+      <view class="card-head">
+        <view>
+          <view class="card-title">{{item.name}}</view>
+          <view class="card-meta">{{item.chapter}} · {{item.type}}</view>
+        </view>
+        <view class="card-status">{{item.status}}</view>
+      </view>
+      <view class="detail-row">
+        <view class="detail-label">来源</view>
+        <view class="detail-copy">{{item.source}}</view>
+      </view>
+      <view class="detail-row">
+        <view class="detail-label">记录</view>
+        <view class="detail-copy">{{item.meaning}}</view>
+      </view>
+    </view>
+  </view>
+</view>

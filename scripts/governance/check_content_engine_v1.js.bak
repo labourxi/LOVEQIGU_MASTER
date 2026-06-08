@@ -1,0 +1,65 @@
+const fs = require('fs');
+const path = require('path');
+
+const repoRoot = path.resolve(__dirname, '..', '..');
+const contentEngineRoot = path.join(repoRoot, 'CONTENT_ENGINE');
+const governedFields = ['rarity', 'reward', 'wish_value', 'tier', 'level', 'grade', 'rank'];
+
+function walkYamlFiles(dir) {
+  if (!fs.existsSync(dir)) {
+    return [];
+  }
+
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  const files = [];
+
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...walkYamlFiles(fullPath));
+    } else if (/\.ya?ml$/i.test(entry.name)) {
+      files.push(fullPath);
+    }
+  }
+
+  return files;
+}
+
+function scanFile(filePath) {
+  const text = fs.readFileSync(filePath, 'utf8');
+  const lines = text.split(/\r?\n/);
+  const findings = [];
+
+  lines.forEach((line, index) => {
+    for (const field of governedFields) {
+      const pattern = new RegExp(`\\b${field}\\b`);
+      if (pattern.test(line)) {
+        findings.push({
+          file: path.relative(repoRoot, filePath),
+          line: index + 1,
+          field,
+          text: line.trim(),
+        });
+      }
+    }
+  });
+
+  return findings;
+}
+
+const files = walkYamlFiles(contentEngineRoot);
+const findings = files.flatMap(scanFile);
+
+if (findings.length === 0) {
+  console.log('PASS');
+  process.exit(0);
+}
+
+console.log('FAIL');
+console.log(`Findings: ${findings.length}`);
+
+for (const finding of findings) {
+  console.log(`${finding.file}:${finding.line} ${finding.field} ${finding.text}`);
+}
+
+process.exit(1);

@@ -1,0 +1,19 @@
+<view class="page mvp-page">
+  <view class="page-title">{{title}}</view>
+  <view class="page-desc">商业层页面，只展示权益、卡券与兑换占位，不使用仪式语言。</view>
+
+  <view class="redemption-panel">
+    <view class="panel-title">{{redemption.title}}</view>
+    <view class="panel-copy">{{redemption.copy}}</view>
+  </view>
+
+  <view class="list">
+    <view class="benefit-card" wx:for="{{benefits}}" wx:key="name">
+      <view class="card-head">
+        <view class="card-title">{{item.name}}</view>
+        <view class="card-status">{{item.state}}</view>
+      </view>
+      <view class="card-copy">{{item.desc}}</view>
+    </view>
+  </view>
+</view>

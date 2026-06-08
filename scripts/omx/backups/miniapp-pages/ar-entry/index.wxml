@@ -1,0 +1,12 @@
+<view class="page sub-page">
+  <view class="page-title">场域体验</view>
+  <view class="page-desc">AR 能力当前为占位入口，不连接真实接口，不扩写 Canon 空白。</view>
+
+  <view class="list">
+    <view class="list-card" wx:for="{{entries}}" wx:key="code">
+      <view class="card-code">{{item.code}}</view>
+      <view class="card-title">{{item.name}}</view>
+      <view class="card-copy">{{item.desc}}</view>
+    </view>
+  </view>
+</view>

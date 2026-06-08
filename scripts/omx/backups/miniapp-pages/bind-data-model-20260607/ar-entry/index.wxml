@@ -1,0 +1,17 @@
+<view class="page mvp-page">
+  <view class="page-title">{{title}}</view>
+  <view class="page-desc">{{previewOnly}}</view>
+
+  <view class="check-row">
+    <view class="check-chip" wx:for="{{checks}}" wx:key="*this">{{item}}</view>
+  </view>
+
+  <view class="list">
+    <view class="ar-card" wx:for="{{entries}}" wx:key="code">
+      <view class="card-code">{{item.code}}</view>
+      <view class="card-title">{{item.name}}</view>
+      <view class="card-copy">{{item.desc}}</view>
+      <button class="preview-button" data-code="{{item.code}}" bindtap="onPreview">预览占位</button>
+    </view>
+  </view>
+</view>

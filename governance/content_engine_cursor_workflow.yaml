@@ -1,0 +1,78 @@
+schema: LOVEQIGU_CONTENT_ENGINE_CURSOR_WORKFLOW_V1
+version: 1.0.0
+status: active
+scope:
+  - CONTENT_ENGINE/**/*.yaml
+source_of_truth:
+  - docs/canon
+  - docs/world
+  - docs/language
+  - docs/architecture
+audit_node:
+  name: Cursor Content Engine Audit
+  script: scripts/cursor/run_content_audit.js
+  reports:
+    markdown: docs/CONTENT_ENGINE_CURSOR_AUDIT_REPORT.md
+    json: docs/CONTENT_ENGINE_CURSOR_AUDIT_REPORT.json
+  completion_marker: LOVEQIGU_CONTENT_ENGINE_CURSOR_AUDIT_COMPLETE = YES
+trigger_nodes:
+  initial_landing:
+    when: V1 or V2 content generation completes
+    required: true
+  batch_generation:
+    when: V3 or later expansion content completes
+    required: true
+  workflow_execution:
+    when: Ductor or OMX workflow completes
+    required: true
+  scheduled_maintenance:
+    when: Weekly before release or automation continuation
+    required: true
+checks:
+  yaml_scope:
+    - Atom
+    - Token
+    - Collectible
+    - AR Event
+  governance:
+    governed_fields:
+      mode: report_only
+      fields:
+        - rarity
+        - reward
+        - wish_value
+        - tier
+        - level
+        - grade
+        - rank
+  completeness:
+    atom_v2_required:
+      - category
+      - emotion
+      - symbol
+      - ritual
+    atom_v1_required:
+      - type
+      - name
+      - layer
+    ar_event_required:
+      - trigger
+      - interaction
+      - next_event
+  asset_boundaries:
+    relic:
+      definition: Story progression asset; Canon-driven asset.
+      must_not_mix_with: Digital Collectible
+    digital_collectible:
+      definition: Marketing and communication asset.
+      must_not_mix_with: Relic
+gate:
+  pass:
+    downstream_automation: continue
+  warn:
+    downstream_automation: continue_only_in_report_only_mode
+    manual_review_required_for: high_risk_governance_findings
+  fail:
+    downstream_automation: stop
+    manual_review_required: true
+final_marker: LOVEQIGU_CONTENT_ENGINE_CURSOR_WORKFLOW_READY = YES

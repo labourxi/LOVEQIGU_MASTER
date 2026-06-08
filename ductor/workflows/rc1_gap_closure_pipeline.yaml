@@ -1,0 +1,35 @@
+schema: LOVEQIGU_RC1_GAP_CLOSURE_PIPELINE_V1
+version: 1.0.0
+status: active
+scope:
+  - apps/miniapp/app.json
+  - apps/miniapp/pages/**
+  - services/atom/**
+  - services/lottie/**
+  - services/echo/**
+  - services/digital-collectible/**
+  - services/campaign/**
+  - services/next-activity/**
+  - services/story/story-flow-service.js
+  - docs/RC1_GAP_CLOSURE_IMPLEMENTATION_REPORT.md
+stages:
+  - name: RC1 Surface Validation
+    script: scripts/ductor/run_rc1_gap_closure_pipeline.js
+    output:
+      report: docs/RC1_GAP_CLOSURE_IMPLEMENTATION_REPORT.md
+    gate: pass_required
+  - name: Report
+    script: none
+    output:
+      report: docs/RC1_GAP_CLOSURE_IMPLEMENTATION_REPORT.md
+    gate: pass_required
+execution_order:
+  - Codex
+  - RC1 Validation
+  - Ductor Report
+manual_review:
+  required_when:
+    - fail
+    - missing_route
+    - missing_service
+completion_marker: RC1_GAP_CLOSURE_PIPELINE_READY = YES

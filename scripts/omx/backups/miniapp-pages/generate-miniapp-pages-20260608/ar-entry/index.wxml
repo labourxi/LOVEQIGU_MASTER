@@ -1,0 +1,23 @@
+<view class="page mvp-page">
+  <view class="page-title">{{title}}</view>
+  <view class="page-desc">{{previewOnly}}</view>
+
+  <view class="check-row">
+    <view class="check-chip" wx:for="{{checks}}" wx:key="*this">{{item}}</view>
+  </view>
+
+  <view class="entry-panel">
+    <view class="entry-label">{{modeLabel}}</view>
+    <view class="entry-copy">{{modeCopy}}</view>
+    <button class="entry-button" bindtap="onContinue">{{actionLabel}}</button>
+  </view>
+
+  <view class="list">
+    <view class="ar-card" wx:for="{{entries}}" wx:key="code">
+      <view class="card-code">{{item.code}}</view>
+      <view class="card-title">{{item.name}}</view>
+      <view class="card-copy">{{item.desc}}</view>
+      <button class="preview-button" data-code="{{item.code}}" bindtap="onPreview">Preview</button>
+    </view>
+  </view>
+</view>

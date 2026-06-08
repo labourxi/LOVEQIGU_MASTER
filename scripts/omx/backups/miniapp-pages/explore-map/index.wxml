@@ -1,0 +1,12 @@
+<view class="page sub-page">
+  <view class="page-title">探索地图</view>
+  <view class="page-desc">这里仅展示探索点占位，不定义新的地图全貌或区域数量。</view>
+
+  <view class="list">
+    <view class="list-card" wx:for="{{points}}" wx:key="name">
+      <view class="card-title">{{item.name}}</view>
+      <view class="card-meta">{{item.area}}</view>
+      <view class="card-state">{{item.state}}</view>
+    </view>
+  </view>
+</view>

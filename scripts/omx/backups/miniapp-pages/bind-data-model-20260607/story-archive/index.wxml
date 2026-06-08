@@ -1,0 +1,24 @@
+<view class="page mvp-page">
+  <view class="page-title">{{title}}</view>
+  <view class="page-desc">时间线、章节与档案视图合并为 MVP 只读页。</view>
+
+  <view class="rule-row">
+    <view class="rule-chip" wx:for="{{archiveRules}}" wx:key="*this">{{item}}</view>
+  </view>
+
+  <view class="timeline">
+    <view class="timeline-item" wx:for="{{timeline}}" wx:key="phase">
+      <view class="timeline-dot"></view>
+      <view class="timeline-card">
+        <view class="card-head">
+          <view>
+            <view class="phase">{{item.phase}}</view>
+            <view class="card-title">{{item.chapter}}</view>
+          </view>
+          <view class="card-status">{{item.status}}</view>
+        </view>
+        <view class="card-copy">{{item.copy}}</view>
+      </view>
+    </view>
+  </view>
+</view>

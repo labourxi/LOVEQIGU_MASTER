@@ -1,0 +1,11 @@
+<view class="page sub-page">
+  <view class="page-title">结缘商城</view>
+  <view class="page-desc">本页只使用商业与权益语言，不承载仪式或世界观表达。</view>
+
+  <view class="list">
+    <view class="list-card" wx:for="{{rights}}" wx:key="name">
+      <view class="card-title">{{item.name}}</view>
+      <view class="card-copy">{{item.desc}}</view>
+    </view>
+  </view>
+</view>

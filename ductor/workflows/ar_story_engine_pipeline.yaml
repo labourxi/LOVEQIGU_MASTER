@@ -1,0 +1,46 @@
+schema: LOVEQIGU_AR_STORY_ENGINE_PIPELINE_V1
+version: 1.0.0
+status: active
+scope:
+  - STORY_ENGINE/**/*.yaml
+  - docs/AR_STORY_ENGINE_PIPELINE_REPORT.md
+  - docs/AR_STORY_ENGINE_FOUNDATION_REPORT.md
+  - docs/AR_STORY_ENGINE_REVIEW_REPORT.md
+stages:
+  - name: Story Engine Validation
+    script: scripts/ductor/run_ar_story_engine_pipeline.js
+    output:
+      report: docs/AR_STORY_ENGINE_PIPELINE_REPORT.md
+    gate: pass_required
+  - name: Cursor Compatibility
+    script: scripts/cursor/run_content_audit.js
+    output:
+      markdown: docs/CONTENT_ENGINE_CURSOR_AUDIT_REPORT.md
+      json: docs/CONTENT_ENGINE_CURSOR_AUDIT_REPORT.json
+    gate: warn_allowed
+  - name: Governance Compatibility
+    script: scripts/governance/check_content_engine.js
+    output:
+      report: docs/CONTENT_ENGINE_GOVERNANCE_V2_REPORT.md
+    gate: warn_allowed
+  - name: OMX Compatibility
+    script: scripts/omx/run_omx_checks.js
+    output:
+      report: docs/OMX_REPORT.md
+    gate: pass_required
+  - name: Report
+    script: none
+    output:
+      report: docs/AR_STORY_ENGINE_PIPELINE_REPORT.md
+    gate: pass_required
+execution_order:
+  - Codex
+  - Cursor
+  - Governance
+  - OMX
+  - Ductor Report
+manual_review:
+  required_when:
+    - fail
+    - story_engine_reference_missing
+completion_marker: AR_STORY_ENGINE_PIPELINE_COMPLETE = YES

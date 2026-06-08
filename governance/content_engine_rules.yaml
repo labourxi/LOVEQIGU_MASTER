@@ -1,0 +1,58 @@
+schema: LOVEQIGU_CONTENT_ENGINE_RULES_V1
+version: 1.0.0
+status: active
+scope:
+  - CONTENT_ENGINE
+source_of_truth:
+  canon_priority: highest
+  terminology_check_required: true
+asset_boundaries:
+  relic:
+    system: story
+    definition: Story progression asset; Canon-driven asset.
+    must_not_be_used_as:
+      - marketing_asset
+      - communication_asset
+      - digital_collectible
+  digital_collectible:
+    system: communication
+    definition: Marketing and communication asset.
+    must_not_be_used_as:
+      - story_progression_asset
+      - canon_driven_asset
+      - chapter_unlock
+rules:
+  - id: CE_RULE_001
+    title: Relic belongs to story system
+    severity: error
+  - id: CE_RULE_002
+    title: Digital Collectible belongs to communication system
+    severity: error
+  - id: CE_RULE_003
+    title: Relic and Digital Collectible must not be mixed
+    severity: error
+  - id: CE_RULE_004
+    title: Story progression must not depend on Digital Collectible
+    severity: error
+  - id: CE_RULE_005
+    title: Digital Collectible must not unlock chapters
+    severity: error
+  - id: CE_RULE_006
+    title: Canon has highest priority
+    severity: error
+  - id: CE_RULE_007
+    title: Terminology checks must pass
+    severity: error
+governed_fields:
+  report_only:
+    - rarity
+    - reward
+    - wish_value
+    - tier
+    - level
+    - grade
+    - rank
+validation:
+  content_engine_path: CONTENT_ENGINE
+  script: scripts/governance/check_content_engine.js
+  current_mode: report_only

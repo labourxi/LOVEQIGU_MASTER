@@ -1,0 +1,41 @@
+<view class="page mvp-page">
+  <view class="page-title">探索地图</view>
+  <view class="page-desc">展示探索区域、已发现地点与个人进度；不提供排名、等级或竞争视图。</view>
+
+  <view class="progress-panel">
+    <view>
+      <view class="eyebrow">当前章节</view>
+      <view class="progress-title">《{{progress.chapter}}》</view>
+      <view class="progress-note">{{progress.note}}</view>
+    </view>
+    <view class="progress-count">{{progress.explored}}/{{progress.total}}</view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">探索区域</view>
+    <view class="grid">
+      <view class="info-card" wx:for="{{regions}}" wx:key="name">
+        <view class="card-status">{{item.status}}</view>
+        <view class="card-title">{{item.name}}</view>
+        <view class="card-copy">{{item.desc}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-head">
+      <view class="section-title">已发现地点</view>
+      <button class="mini-button" bindtap="onOpenAr">AR 预览</button>
+    </view>
+    <view class="list">
+      <view class="location-card" wx:for="{{locations}}" wx:key="name">
+        <view class="location-main">
+          <view class="card-title">{{item.name}}</view>
+          <view class="card-meta">{{item.region}}</view>
+        </view>
+        <view class="card-status">{{item.state}}</view>
+        <view class="card-copy wide">{{item.copy}}</view>
+      </view>
+    </view>
+  </view>
+</view>
