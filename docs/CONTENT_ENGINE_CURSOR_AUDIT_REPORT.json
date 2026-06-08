@@ -1,0 +1,383 @@
+{
+  "generatedAt": "2026-06-08T04:05:16.776Z",
+  "status": "WARN",
+  "scannedFiles": 20,
+  "counts": {
+    "atom": 30,
+    "token": 15,
+    "collectible": 8,
+    "arEvent": 15
+  },
+  "governedFields": {
+    "rarity": 8,
+    "reward": 20,
+    "wish_value": 12,
+    "tier": 0,
+    "level": 9,
+    "grade": 0,
+    "rank": 2
+  },
+  "legacyTerms": 0,
+  "failCount": 0,
+  "warnCount": 51,
+  "issues": [
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v1.yaml",
+      "line": 74,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'level' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 5,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'reward' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 5,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'wish_value' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 6,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'reward' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 7,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'reward' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 19,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'reward' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 20,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'wish_value' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 33,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'reward' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 34,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'wish_value' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 47,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'reward' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 48,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'wish_value' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 61,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'reward' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 62,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'wish_value' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 75,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'reward' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 76,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'wish_value' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 89,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'reward' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 90,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'wish_value' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 103,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'reward' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 104,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'wish_value' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 117,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'reward' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 118,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'wish_value' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 131,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'reward' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 132,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'wish_value' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 145,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'reward' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/AR_EVENT_LIBRARY/ar_events_v2.yaml",
+      "line": 146,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'wish_value' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/ATOM_LIBRARY/atoms_v1.yaml",
+      "line": 11,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'reward' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/ATOM_LIBRARY/atoms_v1.yaml",
+      "line": 11,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'level' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/ATOM_LIBRARY/atoms_v1.yaml",
+      "line": 25,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'level' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/ATOM_LIBRARY/atoms_v1.yaml",
+      "line": 39,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'rarity' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/ATOM_LIBRARY/atoms_v1.yaml",
+      "line": 51,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'reward' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/ATOM_LIBRARY/atoms_v2_batch.yaml",
+      "line": 56,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'level' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/COLLECTIBLE_LIBRARY/digital_collectibles_v2.yaml",
+      "line": 13,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'rarity' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/COLLECTIBLE_LIBRARY/digital_collectibles_v2.yaml",
+      "line": 22,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'rarity' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/COLLECTIBLE_LIBRARY/digital_collectibles_v2.yaml",
+      "line": 31,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'rarity' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/COLLECTIBLE_LIBRARY/digital_collectibles_v2.yaml",
+      "line": 40,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'rarity' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/COLLECTIBLE_LIBRARY/digital_collectibles_v2.yaml",
+      "line": 49,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'rarity' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/COLLECTIBLE_LIBRARY/relics_v1.yaml",
+      "line": 49,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'level' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/COLLECTIBLE_LIBRARY/relics_v1.yaml",
+      "line": 49,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'rank' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/COLLECTIBLE_TEMPLATE.yaml",
+      "line": 12,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'reward' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/COLLECTIBLE_TEMPLATE.yaml",
+      "line": 34,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'reward' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/TOKEN_LIBRARY/relic_tokens_v2.yaml",
+      "line": 82,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'level' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/TOKEN_LIBRARY/relic_tokens_v2.yaml",
+      "line": 82,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'rank' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/TOKEN_TEMPLATE.yaml",
+      "line": 27,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'reward' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/V3/AR_EVENT_LIBRARY/ar_events_v3.yaml",
+      "line": 74,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'level' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/V3/ATOM_LIBRARY/atoms_v3_batch.yaml",
+      "line": 19,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'reward' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/V3/ATOM_LIBRARY/atoms_v3_batch.yaml",
+      "line": 19,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'level' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/V3/ATOM_LIBRARY/atoms_v3_batch.yaml",
+      "line": 40,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'rarity' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/V3/TOKEN_LIBRARY/relic_tokens_v3.yaml",
+      "line": 8,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'rarity' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/V3/TOKEN_LIBRARY/relic_tokens_v3.yaml",
+      "line": 8,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'reward' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/V3/TOKEN_LIBRARY/relic_tokens_v3.yaml",
+      "line": 8,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'wish_value' is present under report-only mode."
+    },
+    {
+      "severity": "WARN",
+      "file": "CONTENT_ENGINE/V3/TOKEN_LIBRARY/relic_tokens_v3.yaml",
+      "line": 63,
+      "code": "GOVERNED_FIELD",
+      "message": "Governed field 'level' is present under report-only mode."
+    }
+  ],
+  "marker": "LOVEQIGU_CONTENT_ENGINE_CURSOR_AUDIT_COMPLETE = YES"
+}
