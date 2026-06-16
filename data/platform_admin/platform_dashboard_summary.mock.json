@@ -1,0 +1,29 @@
+[
+  {
+    "merchant_count": 8,
+    "coupon_count": 5,
+    "activity_count": 3,
+    "active_release_count": 1,
+    "pending_review_count": 4,
+    "approved_today": 2,
+    "rejected_today": 1
+  },
+  {
+    "merchant_count": 7,
+    "coupon_count": 4,
+    "activity_count": 2,
+    "active_release_count": 0,
+    "pending_review_count": 6,
+    "approved_today": 1,
+    "rejected_today": 0
+  },
+  {
+    "merchant_count": 8,
+    "coupon_count": 5,
+    "activity_count": 3,
+    "active_release_count": 2,
+    "pending_review_count": 3,
+    "approved_today": 3,
+    "rejected_today": 2
+  }
+]

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "platform_merchant_review",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "review_id": { "type": "string" },
+    "merchant_id": { "type": "string" },
+    "merchant_name": { "type": "string" },
+    "review_status": {
+      "type": "string",
+      "enum": ["PENDING", "APPROVED", "REJECTED"]
+    },
+    "review_reason": { "type": "string" },
+    "submitted_at": { "type": "string" },
+    "reviewed_at": { "type": "string" }
+  },
+  "required": [
+    "review_id",
+    "merchant_id",
+    "merchant_name",
+    "review_status",
+    "review_reason",
+    "submitted_at",
+    "reviewed_at"
+  ]
+}

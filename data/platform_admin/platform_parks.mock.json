@@ -1,0 +1,4 @@
+[
+  { "park_id": "park_001", "park_name": "爱企谷", "region": "上海", "merchant_count": 8, "activity_count": 3, "status": "ACTIVE" },
+  { "park_id": "park_002", "park_name": "测试园区", "region": "—", "merchant_count": 2, "activity_count": 1, "status": "ACTIVE" }
+]

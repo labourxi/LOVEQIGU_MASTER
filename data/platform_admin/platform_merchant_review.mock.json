@@ -1,0 +1,29 @@
+[
+  {
+    "review_id": "mrev_001",
+    "merchant_id": "merchant_001",
+    "merchant_name": "爱企谷咖啡",
+    "review_status": "PENDING",
+    "review_reason": "",
+    "submitted_at": "2026-06-15T09:00:00+08:00",
+    "reviewed_at": ""
+  },
+  {
+    "review_id": "mrev_002",
+    "merchant_id": "merchant_002",
+    "merchant_name": "爱企谷书店",
+    "review_status": "APPROVED",
+    "review_reason": "资料完整，合作状态正常",
+    "submitted_at": "2026-06-14T10:30:00+08:00",
+    "reviewed_at": "2026-06-14T16:00:00+08:00"
+  },
+  {
+    "review_id": "mrev_003",
+    "merchant_id": "merchant_003",
+    "merchant_name": "爱企谷手作馆",
+    "review_status": "REJECTED",
+    "review_reason": "联系人电话缺失，请补充后重新提交",
+    "submitted_at": "2026-06-13T11:00:00+08:00",
+    "reviewed_at": "2026-06-13T15:30:00+08:00"
+  }
+]

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "platform_dashboard_summary",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "merchant_count": { "type": "number" },
+    "coupon_count": { "type": "number" },
+    "activity_count": { "type": "number" },
+    "active_release_count": { "type": "number" },
+    "pending_review_count": { "type": "number" },
+    "approved_today": { "type": "number" },
+    "rejected_today": { "type": "number" }
+  },
+  "required": [
+    "merchant_count",
+    "coupon_count",
+    "activity_count",
+    "active_release_count",
+    "pending_review_count",
+    "approved_today",
+    "rejected_today"
+  ]
+}

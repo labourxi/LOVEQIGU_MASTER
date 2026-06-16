@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "platform_activity_review",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "activity_id": { "type": "string" },
+    "park_id": { "type": "string" },
+    "activity_name": { "type": "string" },
+    "review_status": {
+      "type": "string",
+      "enum": ["PENDING", "APPROVED", "REJECTED"]
+    },
+    "publish_check_result": { "type": "string" },
+    "submitted_at": { "type": "string" },
+    "reviewed_at": { "type": "string" }
+  },
+  "required": [
+    "activity_id",
+    "park_id",
+    "activity_name",
+    "review_status",
+    "publish_check_result",
+    "submitted_at",
+    "reviewed_at"
+  ]
+}

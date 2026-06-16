@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "platform_release",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "release_id": { "type": "string" },
+    "release_type": {
+      "type": "string",
+      "enum": ["ACTIVITY", "COUPON", "MERCHANT"]
+    },
+    "target_id": { "type": "string" },
+    "release_status": {
+      "type": "string",
+      "enum": ["PENDING", "APPROVED", "PUBLISHED", "BLOCKED"]
+    },
+    "created_at": { "type": "string" },
+    "released_at": { "type": "string" }
+  },
+  "required": [
+    "release_id",
+    "release_type",
+    "target_id",
+    "release_status",
+    "created_at",
+    "released_at"
+  ]
+}

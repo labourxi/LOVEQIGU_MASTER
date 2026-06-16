@@ -1,0 +1,29 @@
+[
+  {
+    "activity_id": "activity_001",
+    "park_id": "park_001",
+    "activity_name": "爱企谷初见寻宝节",
+    "review_status": "PENDING",
+    "publish_check_result": "BLOCKED",
+    "submitted_at": "2026-06-15T11:00:00+08:00",
+    "reviewed_at": ""
+  },
+  {
+    "activity_id": "activity_002",
+    "park_id": "park_001",
+    "activity_name": "爱企谷夏日探索",
+    "review_status": "APPROVED",
+    "publish_check_result": "READY",
+    "submitted_at": "2026-06-10T09:00:00+08:00",
+    "reviewed_at": "2026-06-11T10:00:00+08:00"
+  },
+  {
+    "activity_id": "activity_003",
+    "park_id": "park_002",
+    "activity_name": "园区测试活动",
+    "review_status": "REJECTED",
+    "publish_check_result": "BLOCKED",
+    "submitted_at": "2026-06-08T14:00:00+08:00",
+    "reviewed_at": "2026-06-09T09:30:00+08:00"
+  }
+]

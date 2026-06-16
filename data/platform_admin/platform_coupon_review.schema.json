@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "platform_coupon_review",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "coupon_id": { "type": "string" },
+    "merchant_id": { "type": "string" },
+    "coupon_name": { "type": "string" },
+    "coupon_type": {
+      "type": "string",
+      "enum": ["DISCOUNT", "GIFT", "EXCHANGE"]
+    },
+    "review_status": {
+      "type": "string",
+      "enum": ["PENDING", "APPROVED", "REJECTED"]
+    },
+    "review_reason": { "type": "string" },
+    "submitted_at": { "type": "string" },
+    "reviewed_at": { "type": "string" }
+  },
+  "required": [
+    "coupon_id",
+    "merchant_id",
+    "coupon_name",
+    "coupon_type",
+    "review_status",
+    "review_reason",
+    "submitted_at",
+    "reviewed_at"
+  ]
+}

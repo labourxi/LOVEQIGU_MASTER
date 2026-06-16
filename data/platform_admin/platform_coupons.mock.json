@@ -1,0 +1,6 @@
+[
+  { "coupon_id": "coupon_001", "coupon_name": "爱企谷到店核销券", "merchant_name": "爱企谷咖啡", "coupon_type": "兑换券", "review_status": "PENDING", "stock": 500 },
+  { "coupon_id": "coupon_002", "coupon_name": "书店阅读体验券", "merchant_name": "爱企谷书店", "coupon_type": "礼遇券", "review_status": "APPROVED", "stock": 200 },
+  { "coupon_id": "coupon_003", "coupon_name": "手作体验折扣券", "merchant_name": "爱企谷手作馆", "coupon_type": "折扣券", "review_status": "REJECTED", "stock": 100 },
+  { "coupon_id": "coupon_004", "coupon_name": "初见到店礼", "merchant_name": "爱企谷咖啡", "coupon_type": "兑换券", "review_status": "APPROVED", "stock": 1000 }
+]

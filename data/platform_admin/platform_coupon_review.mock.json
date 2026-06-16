@@ -1,0 +1,32 @@
+[
+  {
+    "coupon_id": "coupon_001",
+    "merchant_id": "merchant_001",
+    "coupon_name": "爱企谷到店核销券",
+    "coupon_type": "EXCHANGE",
+    "review_status": "PENDING",
+    "review_reason": "",
+    "submitted_at": "2026-06-15T10:00:00+08:00",
+    "reviewed_at": ""
+  },
+  {
+    "coupon_id": "coupon_002",
+    "merchant_id": "merchant_002",
+    "coupon_name": "书店阅读体验券",
+    "coupon_type": "GIFT",
+    "review_status": "APPROVED",
+    "review_reason": "权益说明清晰，核销方式明确",
+    "submitted_at": "2026-06-14T09:00:00+08:00",
+    "reviewed_at": "2026-06-14T14:00:00+08:00"
+  },
+  {
+    "coupon_id": "coupon_003",
+    "merchant_id": "merchant_003",
+    "coupon_name": "手作体验折扣券",
+    "coupon_type": "DISCOUNT",
+    "review_status": "REJECTED",
+    "review_reason": "文案含过度促销表达，请修改后重提",
+    "submitted_at": "2026-06-13T08:30:00+08:00",
+    "reviewed_at": "2026-06-13T17:00:00+08:00"
+  }
+]

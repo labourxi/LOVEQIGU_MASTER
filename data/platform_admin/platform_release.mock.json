@@ -1,0 +1,34 @@
+[
+  {
+    "release_id": "rel_001",
+    "release_type": "ACTIVITY",
+    "target_id": "activity_001",
+    "release_status": "PENDING",
+    "created_at": "2026-06-15T12:00:00+08:00",
+    "released_at": ""
+  },
+  {
+    "release_id": "rel_002",
+    "release_type": "COUPON",
+    "target_id": "coupon_002",
+    "release_status": "PUBLISHED",
+    "created_at": "2026-06-14T15:00:00+08:00",
+    "released_at": "2026-06-14T16:30:00+08:00"
+  },
+  {
+    "release_id": "rel_003",
+    "release_type": "MERCHANT",
+    "target_id": "merchant_002",
+    "release_status": "BLOCKED",
+    "created_at": "2026-06-13T10:00:00+08:00",
+    "released_at": ""
+  },
+  {
+    "release_id": "rel_004",
+    "release_type": "ACTIVITY",
+    "target_id": "activity_002",
+    "release_status": "APPROVED",
+    "created_at": "2026-06-11T11:00:00+08:00",
+    "released_at": ""
+  }
+]
