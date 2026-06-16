@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>merchant_redemption_detail</title>
+  <style>
+    :root {
+      --bg: #f7f1e8; --panel: #fffaf1; --text: #2b2118; --muted: #6f5d4d;
+      --line: #d8c6b0; --accent: #8b5d3b; --good: #2c7a4b; --warn: #b26b1b; --bad: #a4412b;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: linear-gradient(180deg, #f7f1e8 0%, #efe5d7 100%); color: var(--text); font-family: "PingFang SC", "Microsoft YaHei", sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    .page { max-width: 1360px; margin: 0 auto; padding: 20px; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 16px; }
+    .brand h1 { margin: 0; font-size: 28px; }
+    .brand p { margin: 4px 0 0; color: var(--muted); }
+    .breadcrumbs { display: flex; gap: 8px; color: var(--muted); font-size: 13px; margin-bottom: 14px; flex-wrap: wrap; }
+    .layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 16px; }
+    .sidebar, .panel { background: rgba(255,255,255,0.84); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 8px 20px rgba(85, 58, 25, 0.05); }
+    .sidebar { padding: 16px; position: sticky; top: 16px; align-self: start; }
+    .sidebar h3 { margin: 0 0 12px; font-size: 16px; }
+    .nav-stack { display: grid; gap: 8px; }
+    .nav-link { display: block; padding: 9px 12px; border-radius: 12px; border: 1px solid transparent; background: rgba(255,255,255,0.7); }
+    .nav-link.active { border-color: #d0b897; background: #f2e5d4; color: var(--accent); font-weight: 700; }
+    .panel { padding: 18px; }
+    .hero { margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+    .hero h2 { margin: 0 0 6px; font-size: 24px; }
+    .hero p { margin: 0; color: var(--muted); }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 18px; }
+    .button { border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 8px 12px; cursor: pointer; font-size: 13px; }
+    .button.primary { background: #f2e5d4; color: var(--accent); border-color: #d7c0a8; }
+    .button.good { background: #e3f1e9; color: var(--good); border-color: #bdd9c9; }
+    .button.bad { background: #f6e0db; color: var(--bad); border-color: #e9b8ad; }
+    .card { background: rgba(255,255,255,0.9); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 14px; }
+    .badge { display: inline-block; padding: 4px 8px; border-radius: 999px; font-size: 12px; border: 1px solid transparent; }
+    .badge--neutral { background: #f3eadf; color: #6a5848; border-color: #dfcfbc; }
+    .badge--good { background: #e3f1e9; color: var(--good); border-color: #bdd9c9; }
+    .badge--warn { background: #fbefde; color: var(--warn); border-color: #eed0a9; }
+    .badge--bad { background: #f6e0db; color: var(--bad); border-color: #e9b8ad; }
+    .detail-row { display: grid; grid-template-columns: 160px 1fr; gap: 8px; margin-bottom: 10px; font-size: 14px; }
+    .detail-row .k { color: var(--muted); }
+    .empty, .loading { border: 1px dashed var(--line); border-radius: 12px; padding: 16px; color: var(--muted); background: rgba(255,255,255,0.55); }
+    .success-banner { border: 1px solid #bdd9c9; background: #e3f1e9; color: var(--good); border-radius: 12px; padding: 12px 16px; margin-bottom: 14px; }
+    .fail-banner { border: 1px solid #e9b8ad; background: #f6e0db; color: var(--bad); border-radius: 12px; padding: 12px 16px; margin-bottom: 14px; }
+    .hidden { display: none !important; }
+    .footer { margin-top: 18px; color: var(--muted); font-size: 12px; }
+    @media (max-width: 1080px) { .layout { grid-template-columns: 1fr; } .sidebar { position: static; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <div class="brand"><h1>merchant_redemption_detail</h1><p>Redemption detail</p></div>
+      <div class="toolbar">
+        <a class="button" href="../merchant_redemptions/index.html">返回列表</a>
+        <a class="button" href="../index.html">总览</a>
+      </div>
+    </div>
+    <div class="breadcrumbs"><a href="../index.html">总览</a><span>/</span><a href="../merchant_redemptions/index.html">merchant_redemptions</a><span>/</span><span id="crumb-id">detail</span></div>
+    <div class="layout">
+      <aside class="sidebar">
+        <h3>商家端导航</h3>
+        <div class="nav-stack">
+          <a class="nav-link" href="../merchant_dashboard/index.html">merchant_dashboard</a>
+          <a class="nav-link" href="../merchant_coupons/index.html">merchant_coupons</a>
+          <a class="nav-link" href="../merchant_coupon_detail/index.html">merchant_coupon_detail</a>
+          <a class="nav-link" href="../merchant_redemptions/index.html">merchant_redemptions</a>
+          <a class="nav-link active" href="../merchant_redemption_detail/index.html">merchant_redemption_detail</a>
+          <a class="nav-link" href="../merchant_ticket_detail/index.html">merchant_ticket_detail</a>
+          <a class="nav-link" href="../merchant_ticket_new/index.html">merchant_ticket_new</a>
+          <a class="nav-link" href="../merchant_finance/index.html">merchant_finance</a>
+          <a class="nav-link" href="../merchant_account/index.html">merchant_account</a>
+          <a class="nav-link" href="../merchant_tickets/index.html">merchant_tickets</a>
+          <a class="nav-link" href="../merchant_help/index.html">merchant_help</a>
+        </div>
+      </aside>
+      <main class="panel">
+        <section class="hero">
+          <h2>核销详情</h2>
+          <p>查看单条核销记录 · 模拟核销 PENDING → VERIFIED · 失败演示 PENDING → FAILED</p>
+        </section>
+        <div class="toolbar" data-state-group="redemption-detail">
+          <button class="button primary" data-state-action="success" data-state-group="redemption-detail">Success</button>
+          <button class="button" data-state-action="loading" data-state-group="redemption-detail">Loading</button>
+          <button class="button" data-state-action="empty" data-state-group="redemption-detail">Empty</button>
+        </div>
+        <div id="success-banner" class="success-banner hidden"></div>
+        <div id="fail-banner" class="fail-banner hidden"></div>
+
+        <div data-group="redemption-detail" data-state="success" id="detail-success">
+          <section class="card" id="detail-card">
+            <h4 id="detail-title">加载中...</h4>
+            <div id="detail-body"></div>
+            <div class="toolbar" id="detail-actions"></div>
+          </section>
+          <section class="card">
+            <h4>状态流转说明</h4>
+            <p class="muted">PENDING → 模拟核销 → VERIFIED · PENDING → 模拟失败 → FAILED</p>
+          </section>
+        </div>
+        <div class="hidden" data-group="redemption-detail" data-state="loading"><div class="loading">Loading state placeholder...</div></div>
+        <div class="hidden" data-group="redemption-detail" data-state="empty"><div class="empty">Empty state placeholder: redemption not found.</div></div>
+        <p class="footer">Mock-first · 不依赖 API</p>
+      </main>
+    </div>
+  </div>
+  <script src="../shared/redemption-store.js"></script>
+  <script>
+    function getQueryId() {
+      var params = new URLSearchParams(window.location.search);
+      return params.get("id") || "red_001";
+    }
+
+    function badge(status) {
+      return '<span class="badge ' + MerchantRedemptionMock.statusBadge(status) + '">' + status + '</span>';
+    }
+
+    function toggleState(group, active) {
+      document.querySelectorAll('[data-group="' + group + '"]').forEach(function (node) {
+        node.classList.toggle("hidden", node.getAttribute("data-state") !== active);
+      });
+      document.querySelectorAll('[data-state-group="' + group + '"] .button[data-state-action]').forEach(function (btn) {
+        btn.classList.toggle("primary", btn.getAttribute("data-state-action") === active);
+      });
+    }
+
+    function renderDetail(row) {
+      if (!row) {
+        toggleState("redemption-detail", "empty");
+        return;
+      }
+      document.getElementById("crumb-id").textContent = row.redemption_id;
+      document.getElementById("detail-title").textContent = row.coupon_name + " · " + row.coupon_code;
+      var fields = [
+        ["redemption_id", row.redemption_id],
+        ["coupon_name", row.coupon_name],
+        ["coupon_code", row.coupon_code],
+        ["user_id", row.user_id],
+        ["merchant_name", row.merchant_name],
+        ["claim_time", row.claim_time],
+        ["redeem_time", row.redeem_time || "-"],
+        ["status", badge(row.status)]
+      ];
+      document.getElementById("detail-body").innerHTML = fields.map(function (pair) {
+        return '<div class="detail-row"><div class="k">' + pair[0] + '</div><div>' + pair[1] + '</div></div>';
+      }).join("");
+      var actions = document.getElementById("detail-actions");
+      actions.innerHTML = "";
+      if (row.status === "PENDING") {
+        actions.innerHTML =
+          '<button class="button good" id="verify-btn">模拟核销（PENDING → VERIFIED）</button>' +
+          '<button class="button bad" id="fail-btn">模拟失败（PENDING → FAILED）</button>';
+        document.getElementById("verify-btn").addEventListener("click", function () { updateRow(row.redemption_id, "VERIFIED"); });
+        document.getElementById("fail-btn").addEventListener("click", function () { updateRow(row.redemption_id, "FAILED"); });
+      } else {
+        actions.innerHTML = '<span class="muted">当前状态不可再次核销</span>';
+      }
+    }
+
+    async function updateRow(id, status) {
+      var updated = await MerchantRedemptionMock.updateStatus(id, status);
+      if (status === "VERIFIED") {
+        var ok = document.getElementById("success-banner");
+        ok.textContent = id + " 已模拟核销 → VERIFIED · redeem_time=" + (updated.redeem_time || "");
+        ok.classList.remove("hidden");
+        document.getElementById("fail-banner").classList.add("hidden");
+      } else {
+        var fail = document.getElementById("fail-banner");
+        fail.textContent = id + " 已模拟失败 → FAILED";
+        fail.classList.remove("hidden");
+        document.getElementById("success-banner").classList.add("hidden");
+      }
+      renderDetail(updated);
+    }
+
+    document.querySelectorAll("[data-state-action]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        toggleState(button.getAttribute("data-state-group"), button.getAttribute("data-state-action"));
+      });
+    });
+
+    (async function init() {
+      var id = getQueryId();
+      var row = await MerchantRedemptionMock.getById(id);
+      renderDetail(row);
+    })();
+  </script>
+</body>
+</html>

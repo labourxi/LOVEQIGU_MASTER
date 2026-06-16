@@ -1,0 +1,162 @@
+.phase1-home {
+  display: grid;
+  gap: 16px;
+}
+
+.phase1-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.9fr);
+  gap: 16px;
+}
+
+.phase1-panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+
+.phase1-title {
+  margin: 0 0 8px;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.phase1-subtitle {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.phase1-role-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.phase1-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.phase1-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.phase1-metric-grid .card {
+  grid-column: span 4;
+}
+
+.phase1-module-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.phase1-module-card {
+  display: grid;
+  gap: 12px;
+  min-height: 170px;
+}
+
+.phase1-module-card__title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.phase1-module-card__desc {
+  margin: 0;
+  color: var(--text-secondary);
+  min-height: 48px;
+}
+
+.phase1-state-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.phase1-table-wrap {
+  overflow-x: auto;
+}
+
+.phase1-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.phase1-table th,
+.phase1-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.phase1-table th {
+  background: #faf9f7;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.phase1-table td {
+  color: var(--text-primary);
+}
+
+.phase1-info-list {
+  display: grid;
+  gap: 10px;
+}
+
+.phase1-info-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #faf9f7;
+}
+
+.phase1-info-item .label {
+  color: var(--text-secondary);
+}
+
+.phase1-info-item .value {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+@media (max-width: 1280px) {
+  .phase1-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .phase1-module-grid,
+  .phase1-metric-grid .card {
+    grid-template-columns: 1fr;
+  }
+
+  .phase1-metric-grid .card {
+    grid-column: span 6;
+  }
+}
+
+@media (max-width: 1024px) {
+  .phase1-module-grid,
+  .phase1-metric-grid .card {
+    grid-template-columns: 1fr;
+  }
+
+  .phase1-metric-grid .card {
+    grid-column: span 12;
+  }
+}

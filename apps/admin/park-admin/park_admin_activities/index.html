@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>活动列表 · AR游伴园区管理</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
+</head>
+<body>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div id="bo-breadcrumb"></div>
+        <div class="bo-page-header-row">
+          <div class="bo-page-header"><h2>活动列表</h2><p>园区 AR 活动配置（Mock）</p></div>
+          <a class="btn btn-primary" href="../park_admin_activity_new/index.html">创建活动</a>
+        </div>
+        <section class="card">
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th>活动名称</th><th>审核状态</th><th>发布检查</th><th>提交时间</th><th>操作</th></tr></thead>
+              <tbody>
+                <tr><td>爱企谷初见寻宝节</td><td><span class="badge badge-warning">待审核</span></td><td><span class="badge badge-danger">已阻断</span></td><td>2026-06-15</td><td class="table-actions"><a class="btn" href="../park_admin_activity_detail/index.html">详情</a><a class="btn" href="../park_admin_activity_publish_check/index.html">发布检查</a></td></tr>
+                <tr><td>爱企谷夏日探索</td><td><span class="badge badge-success">已通过</span></td><td><span class="badge badge-success">就绪</span></td><td>2026-06-10</td><td class="table-actions"><a class="btn" href="../park_admin_activity_detail/index.html">详情</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/page-boot.js"></script>
+  <script>ParkPageBoot.boot("activities", [{ label: "园区管理" }, { label: "活动列表" }]);</script>
+</body>
+</html>

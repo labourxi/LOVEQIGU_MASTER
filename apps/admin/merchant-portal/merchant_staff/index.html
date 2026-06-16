@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>核销员 · AR游伴商家工作台</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
+</head>
+<body>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div id="bo-breadcrumb"></div>
+        <div class="bo-page-header-row">
+          <div class="bo-page-header"><h2>核销员管理</h2><p>门店核销员账号（Mock 占位）</p></div>
+          <button class="btn btn-primary" type="button">添加核销员</button>
+        </div>
+        <section class="card">
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th>姓名</th><th>手机号</th><th>角色</th><th>状态</th><th>操作</th></tr></thead>
+              <tbody>
+                <tr><td>张店长</td><td>138****1001</td><td>店长</td><td><span class="badge badge-success">启用</span></td><td><button class="btn">编辑</button></td></tr>
+                <tr><td>小李</td><td>138****1002</td><td>核销员</td><td><span class="badge badge-success">启用</span></td><td><button class="btn">编辑</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/page-boot.js"></script>
+  <script>MerchantPageBoot.boot("staff", [{ label: "商家工作台" }, { label: "核销员" }]);</script>
+</body>
+</html>

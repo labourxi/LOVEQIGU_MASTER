@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Review Center</title>
+  <link rel="stylesheet" href="../../shared/components/library.css" />
+  <link rel="stylesheet" href="../shared/platform-admin-ui.css" />
+</head>
+<body>
+  <div class="platform-shell">
+    <div id="topnav"></div>
+    <div class="platform-shell__body">
+      <div id="sidenav"></div>
+      <main class="platform-shell__main">
+        <div class="platform-shell__page">
+          <div id="breadcrumbs"></div>
+          <div id="header"></div>
+          <div id="state-switch"></div>
+          <div id="filters"></div>
+          <div id="content"></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../shared/mock-store.js"></script>
+  <script src="../../shared/components/index.js"></script>
+  <script src="../shared/platform-admin-ui.js"></script>
+  <script>
+    (function () {
+      if (!PlatformAdminMock.requireAuth()) return;
+
+      const lib = window.AdminComponentLibrary;
+      const ui = window.PlatformAdminUI;
+      const pageSize = 3;
+      let state = 'loading';
+      let reviewType = 'merchant';
+      let statusFilter = 'ALL';
+      let page = 1;
+      let records = [];
+      let selectedId = null;
+
+      const topnav = document.getElementById('topnav');
+      const sidenav = document.getElementById('sidenav');
+      const breadcrumbs = document.getElementById('breadcrumbs');
+      const header = document.getElementById('header');
+      const stateSwitch = document.getElementById('state-switch');
+      const filters = document.getElementById('filters');
+      const content = document.getElementById('content');
+
+      function combineRows(datasets) {
+        const merchantRows = (datasets[0] || []).map(function (row) {
+          return {
+            review_id: row.review_id,
+            review_type: 'merchant',
+            title: row.merchant_name,
+            subject_id: row.merchant_id,
+            status: row.review_status,
+            reason: row.review_reason || '待审核',
+            submitted_at: row.submitted_at,
+            reviewed_at: row.reviewed_at
+          };
+        });
+        const couponRows = (datasets[1] || []).map(function (row) {
+          return {
+            review_id: row.coupon_id,
+            review_type: 'coupon',
+            title: row.coupon_name,
+            subject_id: row.merchant_id,
+            status: row.review_status,
+            reason: row.review_reason || '待审核',
+            submitted_at: row.submitted_at,
+            reviewed_at: row.reviewed_at
+          };
+        });
+        const activityRows = (datasets[2] || []).map(function (row) {
+          const status = row.review_status === 'PENDING' && row.publish_check_result === 'BLOCKED' ? 'BLOCKED' : row.review_status;
+          return {
+            review_id: row.activity_id,
+            review_type: 'activity',
+            title: row.activity_name,
+            subject_id: row.park_id,
+            status: status,
+            reason: row.review_status === 'REJECTED' ? '发布前检查未通过' : '待平台审核',
+            submitted_at: row.submitted_at,
+            reviewed_at: row.reviewed_at,
+            publish_check_result: row.publish_check_result
+          };
+        });
+        return merchantRows.concat(couponRows, activityRows);
+      }
+
+      function renderShell() {
+        const shell = ui.shell('reviews', 'Platform Admin', 'Review Center');
+        topnav.innerHTML = shell.topnav;
+        sidenav.innerHTML = shell.sidenav;
+        breadcrumbs.innerHTML = ui.breadcrumbs([{ label: 'Platform Admin' }, { label: 'Review Center' }]);
+        header.innerHTML = ui.pageHeader('Review Center', 'Pending / Approved / Rejected / Blocked 切换演示。', [
+          { label: '返回 Dashboard', href: '../dashboard/index.html' },
+          { label: '发布中心', href: '../publish/index.html', variant: 'primary' }
+        ]);
+        stateSwitch.innerHTML = ui.stateSwitcher(state);
+        stateSwitch.querySelectorAll('[data-state]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            state = btn.getAttribute('data-state');
+            renderShell();
+            renderFilters();
+            renderContent();
+          });
+        });
+      }
+
+      function renderFilters() {
+        filters.innerHTML = [
+          '<section class="ad-surface page-card">',
+          '<div class="module-toolbar">',
+          '<span class="state-switcher__title">Review Type</span>',
+          ['merchant', 'coupon', 'activity'].map(function (item) {
+            return '<button class="ad-btn ' + (reviewType === item ? 'ad-btn--primary' : '') + '" data-review-type="' + item + '">' + item.toUpperCase() + '</button>';
+          }).join(''),
+          '</div>',
+          '<div class="module-toolbar" style="margin-top:12px;">',
+          '<span class="state-switcher__title">Status</span>',
+          ['ALL', 'PENDING', 'APPROVED', 'REJECTED', 'BLOCKED'].map(function (item) {
+            return '<button class="ad-btn ' + (statusFilter === item ? 'ad-btn--primary' : '') + '" data-status="' + item + '">' + item + '</button>';
+          }).join(''),
+          '</div>',
+          '</section>'
+        ].join('');
+
+        filters.querySelectorAll('[data-review-type]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            reviewType = btn.getAttribute('data-review-type');
+            page = 1;
+            selectedId = null;
+            renderFilters();
+            renderContent();
+          });
+        });
+        filters.querySelectorAll('[data-status]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            statusFilter = btn.getAttribute('data-status');
+            page = 1;
+            selectedId = null;
+            renderFilters();
+            renderContent();
+          });
+        });
+      }
+
+      function filteredRows() {
+        return records.filter(function (row) {
+          return (reviewType === 'merchant' || row.review_type === reviewType) && (statusFilter === 'ALL' || row.status === statusFilter);
+        });
+      }
+
+      function renderDetail(row) {
+        if (!row) return ui.stateBlock('empty', { title: '请选择审核记录', description: '点击表格中的查看按钮' });
+        const detailRows = [
+          ['审核类型', row.review_type.toUpperCase()],
+          ['主体名称', row.title],
+          ['主体 ID', row.subject_id],
+          ['审核状态', ui.badge(row.status)],
+          ['原因', row.reason],
+          ['提交时间', row.submitted_at],
+          ['审核时间', row.reviewed_at || '-']
+        ];
+        return lib.renderDrawer({
+          open: true,
+          title: '审核详情',
+          bodyHtml: [
+            detailRows.map(function (item) {
+              return '<div class="detail-row"><div class="k">' + item[0] + '</div><div>' + item[1] + '</div></div>';
+            }).join(''),
+            '<div class="module-toolbar" style="margin-top:16px;">',
+            '<button class="ad-btn ad-btn--success" data-review-action="APPROVED">Approve</button>',
+            '<button class="ad-btn ad-btn--danger" data-review-action="REJECTED">Reject</button>',
+            '<button class="ad-btn" data-review-action="BLOCKED">Block</button>',
+            '</div>'
+          ].join('')
+        });
+      }
+
+      function renderSuccess() {
+        const filtered = filteredRows();
+        const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+        if (page > totalPages) page = totalPages;
+        const slice = filtered.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
+        if (!filtered.length) {
+          content.innerHTML = ui.stateBlock('empty', { title: '暂无审核记录', description: '当前状态筛选下没有内容' });
+          return;
+        }
+        if (!selectedId && slice[0]) selectedId = slice[0].review_id;
+        const selected = slice.find(function (row) { return row.review_id === selectedId; }) || slice[0];
+
+        content.innerHTML = [
+          '<section class="detail-layout">',
+          '<div class="detail-stack">',
+          '<section class="ad-surface page-card">',
+          lib.renderTable({
+            columns: [
+              { key: 'title', label: '名称' },
+              { key: 'review_type', label: '类型' },
+              { key: 'status', label: '状态', render: function (row) { return { html: ui.badge(row.status) }; } },
+              { key: 'submitted_at', label: '提交时间' },
+              {
+                key: 'action',
+                label: '操作',
+                render: function (row) {
+                  return { html: '<div class="table-actions"><button class="ad-btn" data-open="' + row.review_id + '">查看</button></div>' };
+                }
+              }
+            ],
+            rows: slice
+          }),
+          '</section>',
+          '<div id="pagination"></div>',
+          '</div>',
+          '<div id="detail-panel">' + renderDetail(selected) + '</div>',
+          '</section>'
+        ].join('');
+
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = lib.renderPagination({ page: page, totalPages: totalPages });
+        const pagerButtons = pagination.querySelectorAll('button');
+        if (pagerButtons[0]) pagerButtons[0].addEventListener('click', function () { if (page > 1) { page -= 1; renderSuccess(); } });
+        if (pagerButtons[1]) pagerButtons[1].addEventListener('click', function () { if (page < totalPages) { page += 1; renderSuccess(); } });
+
+        content.querySelectorAll('[data-open]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            selectedId = btn.getAttribute('data-open');
+            renderSuccess();
+          });
+        });
+        content.querySelectorAll('[data-review-action]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            updateReview(selectedId, btn.getAttribute('data-review-action'));
+          });
+        });
+      }
+
+      async function updateReview(id, nextStatus) {
+        records = records.map(function (row) {
+          if (row.review_id !== id) return row;
+          const next = Object.assign({}, row, {
+            status: nextStatus,
+            reviewed_at: PlatformAdminMock.nowIso()
+          });
+          if (next.review_type === 'activity') {
+            next.publish_check_result = nextStatus === 'APPROVED' ? 'READY' : 'BLOCKED';
+          }
+          return next;
+        });
+        await PlatformAdminMock.saveDataset('platform_review_records', records);
+        const mergedMerchant = records.filter(function (row) { return row.review_type === 'merchant'; }).map(function (row) {
+          return {
+            review_id: row.review_id,
+            merchant_id: row.subject_id,
+            merchant_name: row.title,
+            review_status: row.status,
+            review_reason: row.reason,
+            submitted_at: row.submitted_at,
+            reviewed_at: row.reviewed_at
+          };
+        });
+        const mergedCoupon = records.filter(function (row) { return row.review_type === 'coupon'; }).map(function (row) {
+          return {
+            review_id: row.review_id,
+            merchant_id: row.subject_id,
+            coupon_name: row.title,
+            coupon_type: 'GIFT',
+            review_status: row.status,
+            review_reason: row.reason,
+            submitted_at: row.submitted_at,
+            reviewed_at: row.reviewed_at
+          };
+        });
+        const mergedActivity = records.filter(function (row) { return row.review_type === 'activity'; }).map(function (row) {
+          return {
+            activity_id: row.review_id,
+            park_id: row.subject_id,
+            activity_name: row.title,
+            review_status: row.status === 'BLOCKED' ? 'PENDING' : row.status,
+            publish_check_result: row.publish_check_result || (row.status === 'APPROVED' ? 'READY' : 'BLOCKED'),
+            submitted_at: row.submitted_at,
+            reviewed_at: row.reviewed_at
+          };
+        });
+        await Promise.all([
+          PlatformAdminMock.saveDataset('platform_merchant_review', mergedMerchant),
+          PlatformAdminMock.saveDataset('platform_coupon_review', mergedCoupon),
+          PlatformAdminMock.saveDataset('platform_activity_review', mergedActivity)
+        ]);
+        state = 'success';
+        renderContent();
+      }
+
+      function renderContent() {
+        if (state === 'loading' || state === 'empty' || state === 'error') {
+          content.innerHTML = ui.stateBlock(state, {
+            title: state === 'loading' ? '审核中心加载中' : state === 'empty' ? '审核中心暂无数据' : '审核中心加载失败',
+            description: '状态切换与详情演示只在 success 下可见。'
+          });
+          return;
+        }
+        renderSuccess();
+      }
+
+      async function boot() {
+        renderShell();
+        renderFilters();
+        renderContent();
+        try {
+          const datasets = await Promise.all([
+            PlatformAdminMock.loadDataset('platform_merchant_review'),
+            PlatformAdminMock.loadDataset('platform_coupon_review'),
+            PlatformAdminMock.loadDataset('platform_activity_review')
+          ]);
+          records = combineRows(datasets);
+          records.push({
+            review_id: 'blocked_demo',
+            review_type: 'activity',
+            title: '爱企谷夜游节',
+            subject_id: 'park_001',
+            status: 'BLOCKED',
+            reason: '发布前检查未通过',
+            submitted_at: '2026-06-15 12:20',
+            reviewed_at: ''
+          });
+          state = 'success';
+          renderShell();
+          renderFilters();
+          renderContent();
+        } catch (_err) {
+          state = 'error';
+          renderShell();
+          renderFilters();
+          renderContent();
+        }
+      }
+
+      boot();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scenic Management</title>
+  <link rel="stylesheet" href="../../shared/components/library.css" />
+  <link rel="stylesheet" href="../shared/platform-admin-ui.css" />
+</head>
+<body>
+  <div class="platform-shell">
+    <div id="topnav"></div>
+    <div class="platform-shell__body">
+      <div id="sidenav"></div>
+      <main class="platform-shell__main">
+        <div class="platform-shell__page">
+          <div id="breadcrumbs"></div>
+          <div id="header"></div>
+          <div id="state-switch"></div>
+          <div id="filter"></div>
+          <div id="content"></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../shared/mock-store.js"></script>
+  <script src="../../shared/components/index.js"></script>
+  <script src="../shared/platform-admin-ui.js"></script>
+  <script>
+    (function () {
+      if (!PlatformAdminMock.requireAuth()) return;
+
+      const lib = window.AdminComponentLibrary;
+      const ui = window.PlatformAdminUI;
+      const pageSize = 2;
+      let state = 'loading';
+      let query = '';
+      let status = 'ALL';
+      let page = 1;
+      let rows = [];
+      let selectedId = null;
+
+      const topnav = document.getElementById('topnav');
+      const sidenav = document.getElementById('sidenav');
+      const breadcrumbs = document.getElementById('breadcrumbs');
+      const header = document.getElementById('header');
+      const stateSwitch = document.getElementById('state-switch');
+      const filter = document.getElementById('filter');
+      const content = document.getElementById('content');
+
+      function normalizeRows(source) {
+        const list = (source || []).slice();
+        if (list.length < 4) {
+          list.push(
+            { park_id: 'park_002', park_name: '爱企谷湖畔景区', region: '华东', merchant_count: 5, activity_count: 2, status: 'ACTIVE', contact_name: '周负责人', phone: '13900000002', created_at: '2026-05-08' },
+            { park_id: 'park_003', park_name: '爱企谷森林景区', region: '华南', merchant_count: 3, activity_count: 1, status: 'INACTIVE', contact_name: '林负责人', phone: '13900000003', created_at: '2026-04-18' },
+            { park_id: 'park_004', park_name: '爱企谷夜游景区', region: '华北', merchant_count: 4, activity_count: 2, status: 'ACTIVE', contact_name: '吴负责人', phone: '13900000004', created_at: '2026-04-02' }
+          );
+        }
+        return list;
+      }
+
+      function renderShell() {
+        const shell = ui.shell('parks', 'Platform Admin', 'Scenic Management');
+        topnav.innerHTML = shell.topnav;
+        sidenav.innerHTML = shell.sidenav;
+        breadcrumbs.innerHTML = ui.breadcrumbs([{ label: 'Platform Admin' }, { label: 'Scenic Management' }]);
+        header.innerHTML = ui.pageHeader('Scenic Management', '景区总览、筛选、分页与状态查看。', [
+          { label: '返回 Dashboard', href: '../dashboard/index.html' },
+          { label: 'Review Center', href: '../reviews/index.html', variant: 'primary' }
+        ]);
+        stateSwitch.innerHTML = ui.stateSwitcher(state);
+        stateSwitch.querySelectorAll('[data-state]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            state = btn.getAttribute('data-state');
+            renderShell();
+            renderFilter();
+            renderContent();
+          });
+        });
+      }
+
+      function renderFilter() {
+        filter.innerHTML = lib.renderFilter({
+          controls: [
+            { label: '搜索景区', placeholder: '景区名称 / 区域 / 负责人', value: query },
+            { label: '状态', type: 'select', value: status, options: [
+              { value: 'ALL', label: '全部' },
+              { value: 'ACTIVE', label: 'ACTIVE' },
+              { value: 'INACTIVE', label: 'INACTIVE' }
+            ] }
+          ],
+          actions: [
+            { label: '重置', variant: 'neutral', type: 'button' },
+            { label: '筛选', variant: 'primary', type: 'button' }
+          ]
+        });
+        const inputs = filter.querySelectorAll('.ad-input, .ad-select');
+        inputs[0].value = query;
+        inputs[1].value = status;
+        inputs[0].addEventListener('input', function (e) { query = e.target.value; page = 1; renderContent(); });
+        inputs[1].addEventListener('change', function (e) { status = e.target.value; page = 1; renderContent(); });
+        filter.querySelectorAll('.ad-btn').forEach(function (btn, index) {
+          btn.addEventListener('click', function () {
+            if (index === 0) {
+              query = '';
+              status = 'ALL';
+            }
+            page = 1;
+            renderFilter();
+            renderContent();
+          });
+        });
+      }
+
+      function filterRows() {
+        return rows.filter(function (item) {
+          const text = [item.park_name, item.region, item.contact_name].join(' ').toLowerCase();
+          const matchedQuery = !query || text.indexOf(query.toLowerCase()) >= 0;
+          const matchedStatus = status === 'ALL' || item.status === status;
+          return matchedQuery && matchedStatus;
+        });
+      }
+
+      function selectedRow(list) {
+        return list.find(function (item) { return item.park_id === selectedId; }) || list[0] || null;
+      }
+
+      function detailHtml(row) {
+        if (!row) {
+          return '<div>' + ui.stateBlock('empty', { title: '请选择景区', description: '点击查看按钮打开详情' }) + '</div>';
+        }
+        return [
+          '<div class="detail-row"><div class="k">景区名称</div><div>' + row.park_name + '</div></div>',
+          '<div class="detail-row"><div class="k">地区</div><div>' + row.region + '</div></div>',
+          '<div class="detail-row"><div class="k">状态</div><div>' + ui.badge(row.status) + '</div></div>',
+          '<div class="detail-row"><div class="k">商家数</div><div>' + row.merchant_count + '</div></div>',
+          '<div class="detail-row"><div class="k">活动数</div><div>' + row.activity_count + '</div></div>',
+          '<div class="detail-row"><div class="k">负责人</div><div>' + row.contact_name + ' / ' + row.phone + '</div></div>',
+          '<div class="detail-row"><div class="k">创建时间</div><div>' + row.created_at + '</div></div>'
+        ].join('');
+      }
+
+      async function updateStatus(id, nextStatus) {
+        rows = rows.map(function (row) {
+          if (row.park_id !== id) return row;
+          return Object.assign({}, row, { status: nextStatus });
+        });
+        await PlatformAdminMock.saveDataset('platform_parks', rows);
+        selectedId = id;
+        renderContent();
+      }
+
+      function renderSuccess() {
+        const filtered = filterRows();
+        const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+        if (page > totalPages) page = totalPages;
+        const slice = filtered.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
+        if (!filtered.length) {
+          content.innerHTML = ui.stateBlock('empty', { title: '暂无景区', description: '当前筛选条件下没有结果' });
+          return;
+        }
+        if (!selectedId && slice[0]) selectedId = slice[0].park_id;
+        const current = selectedRow(slice);
+
+        content.innerHTML = [
+          '<section class="detail-layout">',
+          '<div class="detail-stack">',
+          '<section class="ad-surface page-card">',
+          lib.renderTable({
+            columns: [
+              { key: 'park_name', label: '景区名称' },
+              { key: 'region', label: '地区' },
+              { key: 'merchant_count', label: '商家数' },
+              { key: 'activity_count', label: '活动数' },
+              { key: 'status', label: '状态', render: function (row) { return { html: ui.badge(row.status) }; } },
+              { key: 'created_at', label: '创建时间' },
+              {
+                key: 'actions',
+                label: '操作',
+                render: function (row) {
+                  const next = row.status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
+                  const actionLabel = row.status === 'ACTIVE' ? '禁用' : '启用';
+                  return {
+                    html: '<div class="table-actions">' +
+                      '<button class="ad-btn" data-view="' + row.park_id + '">查看</button>' +
+                      '<button class="ad-btn ad-btn--primary" data-toggle="' + row.park_id + '" data-next="' + next + '">' + actionLabel + '</button>' +
+                      '</div>'
+                  };
+                }
+              }
+            ],
+            rows: slice
+          }),
+          '</section>',
+          '<div id="pagination"></div>',
+          '</div>',
+          '<div>' + lib.renderDrawer({
+            open: true,
+            title: '景区详情',
+            bodyHtml: detailHtml(current),
+            actions: [
+              { label: '启用', variant: 'primary', disabled: !current || current.status === 'ACTIVE' },
+              { label: '禁用', variant: 'danger', disabled: !current || current.status === 'INACTIVE' }
+            ]
+          }) + '</div>',
+          '</section>'
+        ].join('');
+
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = lib.renderPagination({ page: page, totalPages: totalPages });
+        const pagerButtons = pagination.querySelectorAll('button');
+        if (pagerButtons[0]) pagerButtons[0].addEventListener('click', function () { if (page > 1) { page -= 1; renderSuccess(); } });
+        if (pagerButtons[1]) pagerButtons[1].addEventListener('click', function () { if (page < totalPages) { page += 1; renderSuccess(); } });
+
+        content.querySelectorAll('[data-view]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            selectedId = btn.getAttribute('data-view');
+            renderSuccess();
+          });
+        });
+        content.querySelectorAll('[data-toggle]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            updateStatus(btn.getAttribute('data-toggle'), btn.getAttribute('data-next'));
+          });
+        });
+      }
+
+      function renderContent() {
+        if (state === 'loading' || state === 'empty' || state === 'error') {
+          content.innerHTML = ui.stateBlock(state, {
+            title: state === 'loading' ? '景区列表加载中' : state === 'empty' ? '景区列表为空' : '景区列表加载失败',
+            description: '支持搜索、筛选、分页和状态切换。'
+          });
+          return;
+        }
+        renderSuccess();
+      }
+
+      async function boot() {
+        renderShell();
+        renderFilter();
+        renderContent();
+        try {
+          rows = normalizeRows(await PlatformAdminMock.loadDataset('platform_parks'));
+          state = 'success';
+          renderShell();
+          renderFilter();
+          renderContent();
+        } catch (_err) {
+          state = 'error';
+          renderShell();
+          renderFilter();
+          renderContent();
+        }
+      }
+
+      boot();
+    })();
+  </script>
+</body>
+</html>

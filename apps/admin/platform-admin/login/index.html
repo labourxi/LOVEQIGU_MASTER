@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>登录 · AR游伴平台运营</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
+</head>
+<body>
+  <div class="login-page">
+    <div class="login-card">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;">
+        <div class="logo" style="width:40px;height:40px;border-radius:10px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;">游</div>
+        <div>
+          <h2 style="margin:0;">AR游伴 · 平台运营</h2>
+          <p class="subtitle" style="margin:4px 0 0;">预发环境 · Mock 登录</p>
+        </div>
+      </div>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="username">账号</label>
+          <input class="input" id="username" type="text" value="operation_admin" autocomplete="username" />
+          <p class="hint">演示账号：operation_admin</p>
+        </div>
+        <div class="form-group">
+          <label for="password">密码</label>
+          <input class="input" id="password" type="password" value="demo" autocomplete="current-password" />
+        </div>
+        <div id="login-error" class="alert alert-warning hidden">账号或密码错误</div>
+        <button class="btn btn-primary" type="submit" style="width:100%;margin-top:8px;">登录</button>
+      </form>
+      <p class="footer-note" style="text-align:center;margin-top:20px;">
+        <a href="../../index.html">返回控制台入口</a>
+      </p>
+    </div>
+  </div>
+  <script src="../shared/mock-store.js"></script>
+  <script>
+    if (sessionStorage.getItem("platform_admin_logged_in") === "yes") {
+      location.href = "../dashboard/index.html";
+    }
+    document.getElementById("login-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var user = document.getElementById("username").value.trim();
+      if (PlatformAdminMock.login(user)) {
+        location.href = "../dashboard/index.html";
+      } else {
+        document.getElementById("login-error").classList.remove("hidden");
+      }
+    });
+  </script>
+</body>
+</html>

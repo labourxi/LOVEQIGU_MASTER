@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>工单中心 · AR游伴平台运营</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
+</head>
+<body>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div id="bo-breadcrumb"></div>
+        <div class="bo-page-header-row">
+          <div class="bo-page-header"><h2>工单中心</h2><p>商家与园区服务工单（Mock）</p></div>
+          <button class="btn btn-primary" type="button">新建工单</button>
+        </div>
+        <div class="filter-bar">
+          <input class="input" type="search" placeholder="搜索工单标题 / 商家" />
+          <button class="btn filter-btn active" data-filter="ALL">全部</button>
+          <button class="btn filter-btn" data-filter="OPEN">待处理</button>
+          <button class="btn filter-btn" data-filter="PROCESSING">处理中</button>
+          <button class="btn filter-btn" data-filter="RESOLVED">已解决</button>
+          <button class="btn filter-btn" data-filter="CLOSED">已关闭</button>
+        </div>
+        <section class="card">
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th>工单号</th><th>标题</th><th>分类</th><th>关联商家</th><th>状态</th><th>处理人</th><th>创建时间</th><th>操作</th></tr></thead>
+              <tbody id="list-body"></tbody>
+            </table>
+          </div>
+          <div class="pagination"><span>共 <span id="total">0</span> 条</span><button class="btn">上一页</button><button class="btn">下一页</button></div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="../shared/mock-store.js"></script>
+  <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/shell.js"></script>
+  <script>
+    if (!PlatformAdminMock.requireAuth()) throw new Error("auth");
+    PlatformAdminShell.bindShell("tickets", "工单中心");
+    var rows = [], filter = "ALL";
+    function render() {
+      var list = rows.filter(function (r) { return filter === "ALL" || r.status === filter; });
+      document.getElementById("total").textContent = list.length;
+      document.getElementById("list-body").innerHTML = list.map(function (r) {
+        return "<tr><td>" + r.ticket_id + "</td><td>" + r.title + "</td><td>" + r.category + "</td><td>" + r.merchant_name + "</td><td>" + BackofficeShell.statusBadge(r.status) + "</td><td>" + r.assignee + "</td><td>" + r.created_at + "</td><td><button class=\"btn\">查看</button></td></tr>";
+      }).join("");
+    }
+    PlatformAdminMock.loadDataset("platform_tickets").then(function (d) { rows = d; render(); });
+    document.querySelectorAll(".filter-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        filter = btn.getAttribute("data-filter");
+        document.querySelectorAll(".filter-btn").forEach(function (b) { b.classList.remove("active"); });
+        btn.classList.add("active");
+        render();
+      });
+    });
+  </script>
+</body>
+</html>

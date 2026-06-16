@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>扫码核销 · AR游伴商家工作台</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
+</head>
+<body>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div id="bo-breadcrumb"></div>
+        <div class="bo-page-header">
+          <h2>扫码核销</h2>
+          <p>扫描游客卡券码完成核销 · Mock 演示</p>
+        </div>
+        <div class="scan-panel">
+          <div class="scan-box">
+            <div class="icon">📷</div>
+            <p style="margin:0 0 16px;color:var(--text-secondary);">将卡券码对准扫描区域<br/>或手动输入核销码</p>
+            <input class="input input-lg" id="code-input" type="text" placeholder="输入核销码，如 LQG-CAFE-1001" style="width:100%;margin-bottom:12px;" />
+            <button class="btn btn-primary btn-lg" id="scan-btn" type="button" style="width:100%;">确认核销</button>
+          </div>
+          <div id="scan-result" class="scan-result hidden"></div>
+          <p class="text-muted" style="font-size:13px;">演示码：LQG-CAFE-1001 · LQG-CAFE-1002 · LQG-CAFE-1003（已核销）</p>
+        </div>
+        <section class="card" style="margin-top:32px;">
+          <h3 class="card-title">最近核销</h3>
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th>核销码</th><th>卡券</th><th>状态</th><th>时间</th></tr></thead>
+              <tbody id="recent-body"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="../shared/redemption-store.js"></script>
+  <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/page-boot.js"></script>
+  <script>
+    MerchantPageBoot.boot("scan", [{ label: "商家工作台" }, { label: "扫码核销" }]);
+
+    function badge(s) { return BackofficeShell.statusBadge(s); }
+
+    async function renderRecent() {
+      var rows = await MerchantRedemptionMock.loadRecords();
+      var recent = rows.filter(function (r) { return r.merchant_name === "爱企谷咖啡"; }).slice(0, 5);
+      document.getElementById("recent-body").innerHTML = recent.map(function (r) {
+        return "<tr><td>" + r.coupon_code + "</td><td>" + r.coupon_name + "</td><td>" + badge(r.status) + "</td><td>" + (r.redeem_time || r.claim_time) + "</td></tr>";
+      }).join("");
+    }
+
+    document.getElementById("scan-btn").addEventListener("click", async function () {
+      var code = document.getElementById("code-input").value.trim().toUpperCase();
+      var result = document.getElementById("scan-result");
+      if (!code) {
+        result.className = "scan-result";
+        result.style.background = "var(--warning-bg)";
+        result.style.border = "1px solid #eed0a9";
+        result.innerHTML = "<strong>请输入核销码</strong>";
+        result.classList.remove("hidden");
+        return;
+      }
+      var rows = await MerchantRedemptionMock.loadRecords();
+      var match = rows.find(function (r) { return r.coupon_code.toUpperCase() === code; });
+      if (!match) {
+        result.className = "scan-result";
+        result.style.background = "var(--danger-bg)";
+        result.style.border = "1px solid #e9b8ad";
+        result.innerHTML = "<strong>核销失败</strong><p>未找到该核销码</p>";
+        result.classList.remove("hidden");
+        return;
+      }
+      if (match.status === "VERIFIED") {
+        result.className = "scan-result";
+        result.style.background = "var(--warning-bg)";
+        result.innerHTML = "<strong>该卡券已核销</strong><p>" + match.coupon_name + "</p>";
+        result.classList.remove("hidden");
+        return;
+      }
+      if (match.status === "EXPIRED") {
+        result.className = "scan-result";
+        result.style.background = "var(--danger-bg)";
+        result.innerHTML = "<strong>卡券已过期</strong>";
+        result.classList.remove("hidden");
+        return;
+      }
+      await MerchantRedemptionMock.updateStatus(match.redemption_id, "VERIFIED");
+      result.className = "scan-result success";
+      result.innerHTML = "<strong>核销成功</strong><p>" + match.coupon_name + "</p><p class=\"text-muted\">" + code + "</p>";
+      result.classList.remove("hidden");
+      document.getElementById("code-input").value = "";
+      renderRecent();
+    });
+
+    renderRecent();
+  </script>
+</body>
+</html>

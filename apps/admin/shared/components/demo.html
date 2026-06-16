@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ADMIN_COMPONENT_LIBRARY_DEMO</title>
+  <link rel="stylesheet" href="./library.css" />
+</head>
+<body>
+  <div id="demo"></div>
+  <script src="./index.js"></script>
+  <script>
+    const lib = window.AdminComponentLibrary;
+    const html = [
+      lib.renderTopNav({ title: 'Platform Admin', subtitle: 'Shared component demo', env: 'DEV', user: 'operation_admin' }),
+      lib.renderBreadcrumb({ items: [{ label: '总览' }, { label: '审核中心' }, { label: '卡券审核' }] }),
+      lib.renderPageHeader({ title: '组件库预览', description: '统一给 Platform / Merchant / Park 复用' }),
+      '<div class="ad-grid ad-grid--12">' +
+        '<div class="ad-span-3">' + lib.renderKpiCard({ label: '景区数量', value: 12, subtext: 'Mock' }) + '</div>' +
+        '<div class="ad-span-3">' + lib.renderKpiCard({ label: '商家数量', value: 48, subtext: 'Mock' }) + '</div>' +
+        '<div class="ad-span-3">' + lib.renderKpiCard({ label: '待审核', value: 6, subtext: 'Mock' }) + '</div>' +
+        '<div class="ad-span-3">' + lib.renderKpiCard({ label: '工单数量', value: 9, subtext: 'Mock' }) + '</div>' +
+      '</div>',
+      lib.renderFilter({ controls: [{ label: '搜索', placeholder: '请输入关键字' }, { label: '状态', type: 'select', options: ['全部', '待审核', '已通过'] }], actions: [{ label: '搜索', variant: 'primary' }] }),
+      lib.renderTable({ columns: [{ key: 'name', label: '名称' }, { key: 'status', label: '状态' }], rows: [{ name: '爱企谷', status: 'ACTIVE' }, { name: '初见寻宝节', status: 'PUBLISHED' }] }),
+      lib.renderEmptyState({ title: '暂无数据', description: '当数据为空时展示的状态。' }),
+      lib.renderLoadingState({ title: '加载中', description: '等待 mock 数据加载完成。' }),
+      lib.renderErrorState({ title: '加载失败', description: '请重试或查看 mock 源。' })
+    ].join('<div style="margin-top:16px"></div>');
+    document.getElementById('demo').innerHTML = '<div style="max-width:1360px;margin:0 auto;padding:20px;font-family:PingFang SC,Microsoft YaHei,sans-serif">' + html + '</div>';
+  </script>
+</body>
+</html>

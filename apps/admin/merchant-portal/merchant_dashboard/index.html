@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>今日概览 · AR游伴商家工作台</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
+</head>
+<body>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div id="bo-breadcrumb"></div>
+        <div class="bo-page-header-row">
+          <div class="bo-page-header">
+            <h2>爱企谷咖啡 · 今日概览</h2>
+            <p>2026年6月20日 · 轻量工作台</p>
+          </div>
+          <a class="btn btn-primary btn-lg" href="../merchant_scan/index.html">扫码核销</a>
+        </div>
+        <div class="grid">
+          <section class="card metric"><div class="metric-label">今日领取</div><div class="metric-value">65</div></section>
+          <section class="card metric"><div class="metric-label">今日核销</div><div class="metric-value">18</div></section>
+          <section class="card metric"><div class="metric-label">待核销</div><div class="metric-value">4</div><div class="metric-sub"><a href="../merchant_redemptions/index.html">查看列表</a></div></section>
+          <section class="card metric"><div class="metric-label">核销率</div><div class="metric-value">38%</div></section>
+          <section class="card span-8">
+            <h3 class="card-title">近 7 日核销趋势</h3>
+            <div class="chart-placeholder">图表占位 · 领取 / 核销</div>
+          </section>
+          <section class="card span-4">
+            <h3 class="card-title">快捷操作</h3>
+            <div class="toolbar" style="flex-direction:column;align-items:stretch;">
+              <a class="btn btn-primary btn-lg" href="../merchant_scan/index.html">扫码核销</a>
+              <a class="btn" href="../merchant_redemptions/index.html">核销记录</a>
+              <a class="btn" href="../merchant_tickets/index.html">提交工单</a>
+            </div>
+          </section>
+          <section class="card span-6">
+            <h3 class="card-title">卡券概览</h3>
+            <div class="table-wrap">
+              <table class="table">
+                <thead><tr><th>卡券</th><th>状态</th><th>领取</th><th>核销</th></tr></thead>
+                <tbody>
+                  <tr><td><a href="../merchant_coupons/index.html">爱企谷初见到店礼</a></td><td><span class="badge badge-success">已发布</span></td><td>65</td><td>38</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+          <section class="card span-6">
+            <h3 class="card-title">提醒</h3>
+            <div class="alert alert-warning">账单待付款 · 2026-06 服务费 299 元</div>
+            <p class="text-muted">工单：卡券领取数异常 · <span class="badge badge-warning">待处理</span></p>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/page-boot.js"></script>
+  <script>MerchantPageBoot.boot("dashboard", [{ label: "商家工作台" }, { label: "今日概览" }]);</script>
+</body>
+</html>

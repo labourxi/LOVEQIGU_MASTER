@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>园区后台 Phase1 · AR游伴</title>
+  <link rel="stylesheet" href="../shared/components/library.css" />
+  <link rel="stylesheet" href="../shared/backoffice.css" />
+  <link rel="stylesheet" href="../shared/admin-frontphase1.css" />
+</head>
+<body>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div class="phase1-home">
+          <div id="bo-breadcrumb"></div>
+          <section class="phase1-hero">
+            <div class="phase1-panel">
+              <h1 class="phase1-title">Park Admin Phase1</h1>
+              <p class="phase1-subtitle">园区后台先解决两件事：看清商家协同情况，管理活动发布链路。第一版只保留运营总览、商家概览与活动概览三个入口。</p>
+              <div class="phase1-badge-row">
+                <span class="badge badge-danger">Blessing Red</span>
+                <span class="badge badge-gold">Blessing Gold</span>
+                <span class="badge badge-neutral">Ink Black</span>
+                <span class="badge badge-info">Rice White</span>
+              </div>
+              <div id="role-switch" class="phase1-role-switch"></div>
+              <div class="phase1-badge-row">
+                <a class="btn btn-primary" href="./park_admin_dashboard/index.html">Dashboard</a>
+                <a class="btn" href="./park_admin_merchants/index.html">Merchant Overview</a>
+                <a class="btn" href="./park_admin_activities/index.html">Activity Overview</a>
+              </div>
+            </div>
+            <aside class="phase1-panel">
+              <h3 class="phase1-title" style="font-size:18px;">园区侧关注点</h3>
+              <div id="state-switch" class="phase1-state-switch"></div>
+              <div class="phase1-info-list" style="margin-top:12px;">
+                <div class="phase1-info-item"><span class="label">主入口</span><span class="value">Dashboard</span></div>
+                <div class="phase1-info-item"><span class="label">核心模块</span><span class="value">Merchant / Activity</span></div>
+                <div class="phase1-info-item"><span class="label">运行模式</span><span class="value">Mock Data Only</span></div>
+              </div>
+            </aside>
+          </section>
+
+          <section class="phase1-metric-grid" id="kpi-grid"></section>
+          <section class="phase1-module-grid" id="module-grid"></section>
+
+          <section class="phase1-panel">
+            <div class="bo-page-header" style="margin-bottom:16px;">
+              <h2 style="margin:0 0 6px;">活动与商家状态</h2>
+              <p style="margin:0;color:var(--text-secondary);">从 mock 数据中读取活动、商家与建议项。</p>
+            </div>
+            <div id="detail-list"></div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../shared/components/index.js"></script>
+  <script src="../shared/backoffice-shell.js"></script>
+  <script src="../shared/admin-frontphase1.js"></script>
+  <script>
+    (function () {
+      var lib = window.AdminComponentLibrary;
+      var shell = window.BackofficeShell;
+      var phase1 = window.AdminFrontPhase1;
+      var state = "loading";
+      var summary = {};
+      var activities = [];
+      var merchants = [];
+      var suggestions = [];
+      var kpiGrid = document.getElementById("kpi-grid");
+      var moduleGrid = document.getElementById("module-grid");
+      var detailList = document.getElementById("detail-list");
+      var stateSwitch = document.getElementById("state-switch");
+      var roleSwitch = document.getElementById("role-switch");
+
+      function renderShell() {
+        shell.mount({
+          portal: "park",
+          active: "dashboard",
+          breadcrumbs: [{ label: "园区后台" }, { label: "Phase1 首页" }]
+        });
+        phase1.mountRoleSwitcher(roleSwitch, function (role) {
+          var map = {
+            platform: "../platform-admin/index.html",
+            merchant: "../merchant-portal/index.html",
+            park: "../park-admin/index.html"
+          };
+          location.href = map[role];
+        });
+        phase1.mountStateButtons(stateSwitch, state, function (next) {
+          state = next;
+          renderContent();
+        });
+      }
+
+      function card(item) {
+        return (
+          '<article class="phase1-panel phase1-module-card">' +
+          '<h3 class="phase1-module-card__title">' + item.title + '</h3>' +
+          '<p class="phase1-module-card__desc">' + item.desc + '</p>' +
+          '<a class="btn btn-primary" href="' + item.href + '">进入</a>' +
+          '</article>'
+        );
+      }
+
+      function renderLoadingLike(kind) {
+        if (kind === "loading") return lib.renderLoadingState({ title: "园区后台加载中", description: "正在读取园区 mock 数据" });
+        if (kind === "empty") return lib.renderEmptyState({ title: "暂无数据", description: "切换回 success 查看完整页面" });
+        if (kind === "error") return lib.renderErrorState({ title: "加载失败", description: "mock 数据读取失败" });
+        return "";
+      }
+
+      function renderContent() {
+        if (state !== "success") {
+          kpiGrid.innerHTML = renderLoadingLike(state);
+          moduleGrid.innerHTML = "";
+          detailList.innerHTML = "";
+          return;
+        }
+
+        var kpis = [
+          { label: "活动总数", value: summary.activity_count || activities.length, subtext: "Activity Overview" },
+          { label: "商家总数", value: summary.total_merchant_count || merchants.length, subtext: "Merchant Overview" },
+          { label: "活跃商家", value: summary.active_merchant_count || 0, subtext: "Active merchants" },
+          { label: "参与商家", value: summary.participating_merchant_count || 0, subtext: "Participating merchants" },
+          { label: "整体核销率", value: Math.round((summary.overall_redemption_rate || 0) * 100) + "%", valueTone: "success", subtext: "Mock snapshot" },
+          { label: "待审核活动", value: 1, valueTone: "warning", subtext: "Review Center" }
+        ];
+
+        kpiGrid.innerHTML = kpis.map(function (item) { return lib.renderKpiCard(item); }).join("");
+        moduleGrid.innerHTML = phase1.portalCards("park").map(card).join("");
+        detailList.innerHTML = lib.renderTable({
+          stickyHeader: true,
+          columns: [
+            { key: "activity_name", label: "活动" },
+            { key: "status", label: "状态", render: function (row) { return { html: shell.statusBadge(row.status) }; } },
+            { key: "merchant_count", label: "商家数" },
+            { key: "coupon_count", label: "卡券数" }
+          ],
+          rows: activities.slice(0, 4)
+        });
+      }
+
+      async function boot() {
+        renderShell();
+        renderContent();
+        try {
+          var results = await Promise.all([
+            phase1.loadJson("../../../data/park_admin/park_admin_dashboard_summary.mock.json"),
+            phase1.loadJson("../../../data/park_admin/park_activity.mock.json"),
+            phase1.loadJson("../../../data/merchant_portal/merchant_profile.mock.json"),
+            phase1.loadJson("../../../data/park_admin/rule_based_optimization_suggestion.mock.json")
+          ]);
+          summary = results[0] || {};
+          activities = Array.isArray(results[1]) ? results[1] : [results[1]];
+          merchants = Array.isArray(results[2]) ? results[2] : [results[2]];
+          suggestions = Array.isArray(results[3]) ? results[3] : [results[3]];
+          state = "success";
+        } catch (_err) {
+          state = "error";
+        }
+        renderShell();
+        renderContent();
+      }
+
+      boot();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>我的卡券 · AR游伴商家工作台</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
+</head>
+<body>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div id="bo-breadcrumb"></div>
+        <div class="bo-page-header"><h2>我的卡券</h2><p>门店卡券配置与数据（Mock）</p></div>
+        <section class="card">
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th>卡券名称</th><th>类型</th><th>状态</th><th>领取</th><th>核销</th><th>有效期</th><th>操作</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>爱企谷初见到店礼</td><td>兑换券</td>
+                  <td><span class="badge badge-success">已发布</span></td>
+                  <td>65</td><td>38</td><td>2026-06-15 ~ 2026-06-30</td>
+                  <td><a class="btn" href="../merchant_coupon_detail/index.html">详情</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/page-boot.js"></script>
+  <script>MerchantPageBoot.boot("coupons", [{ label: "商家工作台" }, { label: "我的卡券" }]);</script>
+</body>
+</html>

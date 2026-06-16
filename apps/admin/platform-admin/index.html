@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>平台后台 Phase1 · AR游伴</title>
+  <link rel="stylesheet" href="../shared/components/library.css" />
+  <link rel="stylesheet" href="../shared/backoffice.css" />
+  <link rel="stylesheet" href="../shared/admin-frontphase1.css" />
+</head>
+<body>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div class="phase1-home">
+          <div id="bo-breadcrumb"></div>
+          <section class="phase1-hero">
+            <div class="phase1-panel">
+              <h1 class="phase1-title">Platform Admin Phase1</h1>
+              <p class="phase1-subtitle">Theme / Layout / Permission / Mock Runtime 已接入。平台后台优先承载 Dashboard、Merchant Center、Park Center 三个入口，继续复用统一组件库与桌面优先布局。</p>
+              <div class="phase1-badge-row">
+                <span class="badge badge-danger">Blessing Red</span>
+                <span class="badge badge-gold">Blessing Gold</span>
+                <span class="badge badge-neutral">Ink Black</span>
+                <span class="badge badge-info">Rice White</span>
+              </div>
+              <div id="role-switch" class="phase1-role-switch"></div>
+              <div class="phase1-badge-row">
+                <a class="btn btn-primary" href="./dashboard/index.html">进入 Dashboard</a>
+                <a class="btn" href="./merchants/index.html">Merchant Center</a>
+                <a class="btn" href="./parks/index.html">Park Center</a>
+              </div>
+            </div>
+            <aside class="phase1-panel">
+              <h3 class="phase1-title" style="font-size:18px;">Phase1 验证状态</h3>
+              <div id="state-switch" class="phase1-state-switch"></div>
+              <div class="phase1-info-list" style="margin-top:12px;">
+                <div class="phase1-info-item"><span class="label">布局</span><span class="value">Desktop First · 1920 / 1440 / 1280 / 1024</span></div>
+                <div class="phase1-info-item"><span class="label">权限</span><span class="value">Platform / Merchant / Park</span></div>
+                <div class="phase1-info-item"><span class="label">运行模式</span><span class="value">Mock Data Only</span></div>
+              </div>
+            </aside>
+          </section>
+
+          <section class="phase1-metric-grid" id="kpi-grid"></section>
+
+          <section class="phase1-module-grid" id="module-grid"></section>
+
+          <section class="phase1-panel">
+            <div class="bo-page-header" style="margin-bottom:16px;">
+              <h2 style="margin:0 0 6px;">最近审核概览</h2>
+              <p style="margin:0;color:var(--text-secondary);">读取平台 mock 审核数据，显示最新状态与时间。</p>
+            </div>
+            <div id="review-table"></div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../shared/components/index.js"></script>
+  <script src="../shared/mock-store.js"></script>
+  <script src="../shared/backoffice-shell.js"></script>
+  <script src="../shared/admin-frontphase1.js"></script>
+  <script>
+    (function () {
+      if (!PlatformAdminMock.requireAuth()) return;
+
+      var lib = window.AdminComponentLibrary;
+      var shell = window.BackofficeShell;
+      var phase1 = window.AdminFrontPhase1;
+      var state = "loading";
+      var summary = {};
+      var parks = [];
+      var reviewRows = [];
+      var kpiGrid = document.getElementById("kpi-grid");
+      var moduleGrid = document.getElementById("module-grid");
+      var reviewTable = document.getElementById("review-table");
+      var stateSwitch = document.getElementById("state-switch");
+      var roleSwitch = document.getElementById("role-switch");
+
+      function renderShell() {
+        shell.mount({
+          portal: "platform",
+          active: "dashboard",
+          breadcrumbs: [{ label: "平台后台" }, { label: "Phase1 首页" }],
+          onLogout: function () {
+            PlatformAdminMock.logout();
+            location.href = "../login/index.html";
+          }
+        });
+        phase1.mountRoleSwitcher(roleSwitch, function (role) {
+          var map = {
+            platform: "../platform-admin/index.html",
+            merchant: "../merchant-portal/index.html",
+            park: "../park-admin/index.html"
+          };
+          location.href = map[role];
+        });
+        phase1.mountStateButtons(stateSwitch, state, function (next) {
+          state = next;
+          renderContent();
+        });
+      }
+
+      function moduleCard(item) {
+        return (
+          '<article class="phase1-panel phase1-module-card">' +
+          '<h3 class="phase1-module-card__title">' + item.title + '</h3>' +
+          '<p class="phase1-module-card__desc">' + item.desc + '</p>' +
+          '<a class="btn btn-primary" href="' + item.href + '">进入</a>' +
+          '</article>'
+        );
+      }
+
+      function renderLoadingLike(kind) {
+        if (kind === "loading") return lib.renderLoadingState({ title: "平台后台加载中", description: "正在读取 mock 数据" });
+        if (kind === "empty") return lib.renderEmptyState({ title: "暂无数据", description: "可切换回 success 预览完整页面" });
+        if (kind === "error") return lib.renderErrorState({ title: "加载失败", description: "mock 数据读取失败" });
+        return "";
+      }
+
+      function renderContent() {
+        if (state !== "success") {
+          kpiGrid.innerHTML = renderLoadingLike(state);
+          moduleGrid.innerHTML = "";
+          reviewTable.innerHTML = "";
+          return;
+        }
+
+        var kpis = [
+          { label: "景区总数", value: summary.park_count || parks.length, subtext: "Scenic Management" },
+          { label: "商家总数", value: summary.merchant_count || 0, subtext: "Merchant Center" },
+          { label: "活动总数", value: summary.activity_count || 0, subtext: "Park Center" },
+          { label: "卡券总数", value: summary.coupon_count || 0, subtext: "Coupon Center" },
+          { label: "待审核数量", value: summary.pending_review_count || 0, subtext: "Review Center", valueTone: "warning" },
+          { label: "工单数量", value: (tickets || []).length, subtext: "Ticket Center" }
+        ];
+
+        kpiGrid.innerHTML = kpis.map(function (item) { return lib.renderKpiCard(item); }).join("");
+        moduleGrid.innerHTML = phase1.portalCards("platform").map(moduleCard).join("");
+
+        reviewTable.innerHTML = lib.renderTable({
+          stickyHeader: true,
+          columns: [
+            { key: "activity_name", label: "活动" },
+            { key: "review_status", label: "状态", render: function (row) { return { html: shell.statusBadge(row.review_status) }; } },
+            { key: "park_id", label: "景区" },
+            { key: "submitted_at", label: "提交时间" }
+          ],
+          rows: reviewRows.slice(0, 4)
+        });
+      }
+
+      var tickets = [];
+      async function boot() {
+        renderShell();
+        renderContent();
+        try {
+          var datasets = await Promise.all([
+            PlatformAdminMock.loadDataset("platform_dashboard_summary"),
+            PlatformAdminMock.loadDataset("platform_parks"),
+            PlatformAdminMock.loadDataset("platform_activity_review"),
+            PlatformAdminMock.loadDataset("platform_tickets")
+          ]);
+          summary = datasets[0][0] || {};
+          parks = datasets[1] || [];
+          reviewRows = datasets[2] || [];
+          tickets = datasets[3] || [];
+          state = "success";
+        } catch (_err) {
+          state = "error";
+        }
+        renderShell();
+        renderContent();
+      }
+
+      boot();
+    })();
+  </script>
+</body>
+</html>

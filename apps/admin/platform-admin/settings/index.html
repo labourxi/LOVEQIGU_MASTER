@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>系统设置 · AR游伴平台运营</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
+</head>
+<body>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div id="bo-breadcrumb"></div>
+        <div class="bo-page-header"><h2>系统设置</h2><p>平台基础配置（Mock 占位）</p></div>
+        <section class="card span-12" style="max-width:640px;">
+          <h3 class="card-title">基础信息</h3>
+          <div class="form-group"><label>平台名称</label><input class="input" type="text" value="AR游伴" readonly /></div>
+          <div class="form-group"><label>当前环境</label><input class="input" type="text" value="预发环境" readonly /></div>
+          <div class="form-group"><label>运营通知邮箱</label><input class="input" type="email" value="ops@loveqigu.demo" /></div>
+          <div class="form-actions"><button class="btn btn-primary" type="button">保存</button></div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="../shared/mock-store.js"></script>
+  <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/shell.js"></script>
+  <script>
+    if (!PlatformAdminMock.requireAuth()) throw new Error("auth");
+    PlatformAdminShell.bindShell("settings", "系统设置");
+  </script>
+</body>
+</html>

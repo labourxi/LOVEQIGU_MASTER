@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>发布中心 · AR游伴平台运营</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
+</head>
+<body>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div id="bo-breadcrumb"></div>
+        <div class="bo-page-header">
+          <h2>发布中心</h2>
+          <p>活动发布 · 发布检查 · 上线 / 阻断（Mock 本地持久化）</p>
+        </div>
+        <div id="publish-banner" class="alert alert-success hidden"></div>
+        <section class="card">
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr><th>活动名称</th><th>审核状态</th><th>发布检查</th><th>发布状态</th><th>操作</th></tr>
+              </thead>
+              <tbody id="publish-body"></tbody>
+            </table>
+          </div>
+        </section>
+        <div class="drawer hidden" id="publish-detail">
+          <h3 class="card-title">发布详情</h3>
+          <div id="publish-detail-body"></div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script src="../shared/mock-store.js"></script>
+  <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/shell.js"></script>
+  <script>
+    if (!PlatformAdminMock.requireAuth()) throw new Error("auth");
+    PlatformAdminShell.bindShell("publish", "发布中心");
+    var activities = [], releases = [];
+
+    function findRelease(id) {
+      return releases.find(function (r) { return r.release_type === "ACTIVITY" && r.target_id === id; }) || null;
+    }
+
+    function renderTable() {
+      var body = document.getElementById("publish-body");
+      if (!activities.length) {
+        body.innerHTML = "<tr><td colspan=\"5\"><div class=\"empty-state\"><h4>暂无活动</h4></div></td></tr>";
+        return;
+      }
+      body.innerHTML = activities.map(function (act) {
+        var rel = findRelease(act.activity_id);
+        var rs = rel ? rel.release_status : "PENDING";
+        var canPub = act.review_status === "APPROVED" && act.publish_check_result === "READY" && rs !== "PUBLISHED" && rs !== "BLOCKED";
+        var canBlock = rs !== "BLOCKED";
+        return "<tr><td>" + act.activity_name + "</td><td>" + BackofficeShell.statusBadge(act.review_status) + "</td><td>" + BackofficeShell.statusBadge(act.publish_check_result) + "</td><td>" + BackofficeShell.statusBadge(rs) + "</td><td class=\"table-actions\"><button class=\"btn\" data-detail=\"" + act.activity_id + "\">详情</button><button class=\"btn btn-success\" data-publish=\"" + act.activity_id + "\" " + (canPub ? "" : "disabled") + ">发布</button><button class=\"btn btn-danger\" data-block=\"" + act.activity_id + "\" " + (canBlock ? "" : "disabled") + ">阻断</button></td></tr>";
+      }).join("");
+      body.querySelectorAll("[data-detail]").forEach(function (b) { b.onclick = function () { showDetail(b.getAttribute("data-detail")); }; });
+      body.querySelectorAll("[data-publish]").forEach(function (b) { b.onclick = function () { publishActivity(b.getAttribute("data-publish")); }; });
+      body.querySelectorAll("[data-block]").forEach(function (b) { b.onclick = function () { blockActivity(b.getAttribute("data-block")); }; });
+    }
+
+    function showDetail(id) {
+      var act = activities.find(function (a) { return a.activity_id === id; });
+      var rel = findRelease(id);
+      if (!act) return;
+      document.getElementById("publish-detail-body").innerHTML =
+        "<div class=\"detail-row\"><div class=\"k\">活动名称</div><div>" + act.activity_name + "</div></div>" +
+        "<div class=\"detail-row\"><div class=\"k\">景区</div><div>" + act.park_id + "</div></div>" +
+        "<div class=\"detail-row\"><div class=\"k\">审核状态</div><div>" + BackofficeShell.statusBadge(act.review_status) + "</div></div>" +
+        "<div class=\"detail-row\"><div class=\"k\">发布检查</div><div>" + BackofficeShell.statusBadge(act.publish_check_result) + "</div></div>" +
+        "<div class=\"detail-row\"><div class=\"k\">发布单号</div><div>" + (rel ? rel.release_id : "—") + "</div></div>" +
+        "<div class=\"detail-row\"><div class=\"k\">提交时间</div><div>" + act.submitted_at + "</div></div>";
+      document.getElementById("publish-detail").classList.remove("hidden");
+    }
+
+    async function upsertRelease(id, status) {
+      var rel = findRelease(id);
+      if (!rel) {
+        releases.push({ release_id: "rel_" + id, release_type: "ACTIVITY", target_id: id, release_status: status, created_at: PlatformAdminMock.nowIso(), released_at: status === "PUBLISHED" ? PlatformAdminMock.nowIso() : "" });
+      } else {
+        rel.release_status = status;
+        rel.released_at = status === "PUBLISHED" ? PlatformAdminMock.nowIso() : "";
+      }
+      await PlatformAdminMock.saveDataset("platform_release", releases);
+    }
+
+    async function publishActivity(id) {
+      await upsertRelease(id, "PUBLISHED");
+      document.getElementById("publish-banner").textContent = "活动已发布上线";
+      document.getElementById("publish-banner").classList.remove("hidden");
+      await loadData();
+    }
+
+    async function blockActivity(id) {
+      await upsertRelease(id, "BLOCKED");
+      activities = activities.map(function (a) { return a.activity_id !== id ? a : Object.assign({}, a, { publish_check_result: "BLOCKED" }); });
+      await PlatformAdminMock.saveDataset("platform_activity_review", activities);
+      document.getElementById("publish-banner").textContent = "活动已阻断发布";
+      document.getElementById("publish-banner").classList.remove("hidden");
+      await loadData();
+    }
+
+    async function loadData() {
+      activities = await PlatformAdminMock.loadDataset("platform_activity_review");
+      releases = await PlatformAdminMock.loadDataset("platform_release");
+      renderTable();
+    }
+    loadData();
+  </script>
+</body>
+</html>

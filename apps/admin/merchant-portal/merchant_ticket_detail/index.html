@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>merchant_ticket_detail</title>
+  <style>
+    :root {
+      --bg: #f7f1e8;
+      --panel: #fffaf1;
+      --text: #2b2118;
+      --muted: #6f5d4d;
+      --line: #d8c6b0;
+      --accent: #8b5d3b;
+      --good: #2c7a4b;
+      --warn: #b26b1b;
+      --bad: #a4412b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #f7f1e8 0%, #efe5d7 100%);
+      color: var(--text);
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    .page { max-width: 1360px; margin: 0 auto; padding: 20px; }
+    .topbar {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 16px; margin-bottom: 16px;
+    }
+    .brand h1 { margin: 0; font-size: 28px; }
+    .brand p { margin: 4px 0 0; color: var(--muted); }
+    .breadcrumbs { display: flex; gap: 8px; color: var(--muted); font-size: 13px; margin-bottom: 14px; }
+    .layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 16px; }
+    .sidebar, .panel {
+      background: rgba(255,255,255,0.84);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(85, 58, 25, 0.05);
+    }
+    .sidebar { padding: 16px; position: sticky; top: 16px; align-self: start; }
+    .sidebar h3 { margin: 0 0 12px; font-size: 16px; }
+    .nav-stack { display: grid; gap: 8px; }
+    .nav-link {
+      display: block; padding: 9px 12px; border-radius: 12px;
+      border: 1px solid transparent; background: rgba(255,255,255,0.7);
+    }
+    .nav-link.active {
+      border-color: #d0b897; background: #f2e5d4; color: var(--accent); font-weight: 700;
+    }
+    .panel { padding: 18px; }
+    .hero { margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+    .hero h2 { margin: 0 0 6px; font-size: 24px; }
+    .hero p { margin: 0; color: var(--muted); }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 18px; }
+    .button {
+      border: 1px solid var(--line); background: #fff; border-radius: 999px;
+      padding: 8px 12px; cursor: pointer; font-size: 13px;
+    }
+    .button.primary { background: #f2e5d4; color: var(--accent); border-color: #d7c0a8; }
+    .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 14px; }
+    .card { background: rgba(255,255,255,0.9); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
+    .metric { grid-column: span 3; min-height: 108px; }
+    .span-4 { grid-column: span 4; }
+    .span-6 { grid-column: span 6; }
+    .span-8 { grid-column: span 8; }
+    .span-12 { grid-column: span 12; }
+    .metric .label { color: var(--muted); font-size: 13px; }
+    .metric .value { font-size: 30px; font-weight: 700; margin-top: 8px; }
+    .badge {
+      display: inline-block; padding: 4px 8px; border-radius: 999px;
+      font-size: 12px; border: 1px solid transparent;
+    }
+    .badge--neutral { background: #f3eadf; color: #6a5848; border-color: #dfcfbc; }
+    .badge--good { background: #e3f1e9; color: var(--good); border-color: #bdd9c9; }
+    .badge--warn { background: #fbefde; color: var(--warn); border-color: #eed0a9; }
+    .badge--bad { background: #f6e0db; color: var(--bad); border-color: #e9b8ad; }
+    .badge--accent { background: #f2e5d4; color: var(--accent); border-color: #d8c0aa; }
+    .table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .table th, .table td {
+      border-bottom: 1px solid rgba(216,198,176,0.7);
+      padding: 10px 8px; text-align: left; vertical-align: top;
+    }
+    .table th {
+      color: var(--muted); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .chart {
+      height: 180px; border-radius: 12px; border: 1px dashed var(--line);
+      background:
+        linear-gradient(90deg, rgba(139,93,59,0.05) 1px, transparent 1px) 0 0 / 16px 16px,
+        linear-gradient(180deg, rgba(139,93,59,0.05) 1px, transparent 1px) 0 0 / 16px 16px,
+        linear-gradient(180deg, rgba(255,255,255,0.92), rgba(242,229,213,0.72));
+    }
+    .empty, .loading {
+      border: 1px dashed var(--line); border-radius: 12px; padding: 16px;
+      color: var(--muted); background: rgba(255,255,255,0.55);
+    }
+    .split { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 14px; }
+    .hidden { display: none !important; }
+    .footer { margin-top: 18px; color: var(--muted); font-size: 12px; }
+    @media (max-width: 1080px) { .layout { grid-template-columns: 1fr; } .sidebar { position: static; } }
+    @media (max-width: 900px) { .metric, .span-4, .span-6, .span-8, .span-12, .split { grid-column: span 12; grid-template-columns: 1fr; } .topbar { flex-direction: column; align-items: flex-start; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <div class="brand">
+        <h1>merchant_ticket_detail</h1>
+        <p>Merchant ticket detail</p>
+      </div>
+      <div class="toolbar">
+        <a class="button" href="../index.html">返回</a>
+        <button class="button" onclick="history.back()">浏览器返回</button>
+      </div>
+    </div>
+    <div class="breadcrumbs"><a href="../index.html">总览</a><span>/</span><span>merchant_ticket_detail</span></div>
+    <div class="layout">
+      <aside class="sidebar">
+        <h3>商家端导航</h3>
+        <div class="nav-stack"><a class="nav-link " href="../merchant_dashboard/index.html">merchant_dashboard</a><a class="nav-link " href="../merchant_coupons/index.html">merchant_coupons</a><a class="nav-link " href="../merchant_coupon_detail/index.html">merchant_coupon_detail</a><a class="nav-link " href="../merchant_redemptions/index.html">merchant_redemptions</a><a class="nav-link " href="../merchant_redemption_detail/index.html">merchant_redemption_detail</a><a class="nav-link active" href="../merchant_ticket_detail/index.html">merchant_ticket_detail</a><a class="nav-link " href="../merchant_ticket_new/index.html">merchant_ticket_new</a><a class="nav-link " href="../merchant_finance/index.html">merchant_finance</a><a class="nav-link " href="../merchant_account/index.html">merchant_account</a><a class="nav-link " href="../merchant_tickets/index.html">merchant_tickets</a><a class="nav-link " href="../merchant_help/index.html">merchant_help</a></div>
+      </aside>
+      <main class="panel">
+    <section class="hero"><h2>merchant_ticket_detail</h2><p>工单详情、状态标签、类型标签、回复记录。</p></section>
+    <div class="toolbar">
+      <a class="button primary" href="../merchant_tickets/index.html">返回工单列表</a>
+      <a class="button" href="../merchant_ticket_new/index.html">提交新工单</a>
+      <button class="button" onclick="history.back()">浏览器返回</button>
+    </div>
+    <div class="grid">
+      <section class="card span-6">
+        <h4>工单基础信息</h4>
+        <p><strong>卡券领取数异常</strong></p>
+        <p>工单编号：ticket_001</p>
+        <p>工单类型：<span class="badge badge--accent">COUPON_ISSUE</span></p>
+        <p>工单状态：<span class="badge badge--warn">OPEN</span></p>
+        <p>优先级：<span class="badge badge--warn">HIGH</span></p>
+        <p>提交时间：2026-06-15T09:30:00+08:00</p>
+        <p>最近回复：2026-06-15T10:00:00+08:00</p>
+      </section>
+      <section class="card span-6">
+        <h4>关联对象</h4>
+        <p>活动：?????????</p>
+        <p>卡券：????????</p>
+        <p>来源：merchant_portal</p>
+        <p class="muted">??????????????????????</p>
+      </section>
+      <section class="card span-12">
+        <h4>回复记录</h4>
+        <ul class="list"><li><strong>platform</strong> · 2026-06-15T10:00:00+08:00<br />??????????</li></ul>
+      </section>
+    </div>
+    </main>
+    </div>
+  </div>
+  <script>
+    function toggleState(group, active) {
+      document.querySelectorAll('[data-group="' + group + '"]').forEach((node) => {
+        node.classList.toggle('hidden', node.getAttribute('data-state') !== active);
+      });
+      document.querySelectorAll('[data-state-group="' + group + '"] .button').forEach((btn) => {
+        btn.classList.remove('primary');
+        if (btn.getAttribute('data-state-action') === active) btn.classList.add('primary');
+      });
+    }
+    document.querySelectorAll('[data-state-action]').forEach((button) => {
+      button.addEventListener('click', () => toggleState(button.getAttribute('data-state-group'), button.getAttribute('data-state-action')));
+    });
+  </script>
+</body>
+</html>

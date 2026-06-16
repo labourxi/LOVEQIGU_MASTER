@@ -1,0 +1,32 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Edit Activity</title>
+  <link rel="stylesheet" href="../../../shared/components/library.css" />
+  <link rel="stylesheet" href="../../shared/platform-admin-ui.css" />
+</head>
+<body>
+  <div class="platform-shell">
+    <div id="topnav"></div>
+    <div class="platform-shell__body">
+      <div id="sidenav"></div>
+      <main class="platform-shell__main">
+        <div class="platform-shell__page">
+          <div id="breadcrumbs"></div>
+          <div id="header"></div>
+          <div id="state-switch"></div>
+          
+          <div id="content"></div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script src="../../shared/mock-store.js"></script>
+  <script src="../../../shared/components/index.js"></script>
+  <script src="../../shared/platform-admin-ui.js"></script>
+  <script src="../../shared/phase2-pages.js"></script>
+  <script>PlatformPhase2Pages.activityEdit();</script>
+</body>
+</html>
