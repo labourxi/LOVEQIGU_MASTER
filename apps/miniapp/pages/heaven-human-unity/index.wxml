@@ -1,0 +1,66 @@
+<view class="proto-page unity-page">
+  <view class="proto-hero">
+    <view class="proto-kicker">天体系 · 人体系</view>
+    <view class="proto-title">{{title}}</view>
+    <view class="proto-subtitle">{{subtitle}}</view>
+    <view class="proto-stats">
+      <view class="proto-stat">
+        <view class="proto-stat-value">{{unityStatusLabel}}</view>
+        <view class="proto-stat-label">天人合一状态</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="unity-intro">{{intro}}</view>
+
+  <view class="proto-section">
+    <view class="proto-section-head">
+      <view class="proto-section-title">天印进度</view>
+      <view class="proto-badge">{{heavenDisplay}}</view>
+    </view>
+    <view class="seal-grid">
+      <view
+        class="seal-card {{item.sealed ? 'seal-card--done' : ''}}"
+        wx:for="{{heavenSeals}}"
+        wx:key="id"
+      >
+        <view class="seal-name">{{item.name}}</view>
+        <view class="seal-meta">{{item.litRatio}}</view>
+        <view class="seal-status">{{item.statusLabel}}</view>
+      </view>
+    </view>
+    <button class="unity-link" data-path="{{starMapPath}}" bindtap="onOpenPage">查看星图</button>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-section-head">
+      <view class="proto-section-title">人印进度</view>
+      <view class="proto-badge">{{humanDisplay}}</view>
+    </view>
+    <view class="seal-group-label">十二正经</view>
+    <view class="seal-list">
+      <view
+        class="seal-row {{item.sealed ? 'seal-row--done' : ''}}"
+        wx:for="{{regularSeals}}"
+        wx:key="id"
+      >
+        <view class="seal-row-name">{{item.fullName}}</view>
+        <view class="seal-row-meta">{{item.litRatio}}</view>
+        <view class="seal-row-status">{{item.statusLabel}}</view>
+      </view>
+    </view>
+    <view class="seal-group-label">奇经八脉</view>
+    <view class="seal-list">
+      <view
+        class="seal-row {{item.sealed ? 'seal-row--done' : ''}}"
+        wx:for="{{extraordinarySeals}}"
+        wx:key="id"
+      >
+        <view class="seal-row-name">{{item.fullName}}</view>
+        <view class="seal-row-meta">{{item.litRatio}}</view>
+        <view class="seal-row-status">{{item.statusLabel}}</view>
+      </view>
+    </view>
+    <button class="unity-link unity-link--alt" data-path="{{meridianMapPath}}" bindtap="onOpenPage">查看经络图</button>
+  </view>
+</view>

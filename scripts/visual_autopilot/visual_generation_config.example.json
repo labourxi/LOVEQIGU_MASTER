@@ -1,0 +1,21 @@
+{
+  "providers": {
+    "openai": {
+      "api_key_env": "OPENAI_API_KEY",
+      "endpoint": "https://api.openai.com/v1/images/generations",
+      "model": "gpt-image-1"
+    },
+    "gemini": {
+      "api_key_env": "GEMINI_API_KEY",
+      "endpoint": "https://generativelanguage.googleapis.com/v1/models/gemini-3.1-flash-image:generateContent",
+      "model": "gemini-3.1-flash-image"
+    }
+  },
+  "output": {
+    "candidates_dir": "assets/visual-autopilot/candidates",
+    "reports_dir": "assets/visual-autopilot/reports"
+  },
+  "report": {
+    "path": "docs/VISUAL_AUTOPILOT_GENERATION_BRIDGE_V1_REPORT.md"
+  }
+}

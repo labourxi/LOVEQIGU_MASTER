@@ -45,6 +45,59 @@
   box-shadow: 0 8rpx 24rpx rgba(17, 24, 39, 0.06);
 }
 
+.relic-card--highlight {
+  border: 2rpx solid #4b635c;
+  box-shadow: 0 8rpx 24rpx rgba(38, 58, 52, 0.12);
+}
+
+.focused-relic-panel {
+  margin-top: 28rpx;
+  padding: 28rpx;
+  border-radius: 12rpx;
+  background: #faf8f4;
+  box-shadow: 0 8rpx 24rpx rgba(17, 24, 39, 0.06);
+}
+
+.focused-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.focused-title {
+  margin-top: 12rpx;
+  font-size: 36rpx;
+  font-weight: 800;
+  color: #111827;
+}
+
+.focused-status {
+  display: inline-block;
+  margin-top: 12rpx;
+  padding: 8rpx 14rpx;
+  border-radius: 8rpx;
+  background: #e8d8b4;
+  color: #263a34;
+  font-size: 22rpx;
+  font-weight: 800;
+}
+
+.focus-dismiss {
+  margin: 0;
+  padding: 0 20rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  border-radius: 28rpx;
+  background: #e8efe9;
+  color: #263a34;
+  font-size: 22rpx;
+  font-weight: 700;
+}
+
+.focus-dismiss::after {
+  border: 0;
+}
+
 .card-head {
   display: flex;
   align-items: flex-start;
@@ -79,4 +132,152 @@
   color: #7f4f24;
   font-size: 24rpx;
   font-weight: 800;
+}
+
+.progress-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 28rpx;
+  padding: 24rpx;
+  border-radius: 12rpx;
+  background: #fff;
+  box-shadow: 0 8rpx 24rpx rgba(17, 24, 39, 0.06);
+}
+
+.eyebrow {
+  font-size: 22rpx;
+  color: #4b635c;
+  font-weight: 700;
+}
+
+.progress-title {
+  margin-top: 8rpx;
+  font-size: 36rpx;
+  font-weight: 800;
+  color: #263a34;
+}
+
+.progress-count {
+  font-size: 24rpx;
+  color: #6b7280;
+}
+
+.scenic-group {
+  margin-top: 28rpx;
+}
+
+.group-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.group-title {
+  font-size: 30rpx;
+  font-weight: 800;
+  color: #111827;
+}
+
+.group-meta {
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  color: #6b7280;
+}
+
+.group-link {
+  margin: 0;
+  padding: 0 20rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  border-radius: 28rpx;
+  background: #e8efe9;
+  color: #263a34;
+  font-size: 22rpx;
+  font-weight: 700;
+}
+
+.group-link::after {
+  border: 0;
+}
+
+.group-progress-bar {
+  height: 10rpx;
+  margin: 16rpx 0 20rpx;
+  background: #e5e7eb;
+  border-radius: 999rpx;
+  overflow: hidden;
+}
+
+.group-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4b635c, #263a34);
+}
+
+.placeholder-copy {
+  padding: 20rpx;
+  border-radius: 8rpx;
+  background: #faf8f4;
+  color: #6b7280;
+  font-size: 24rpx;
+}
+
+.star-map-panel {
+  margin-top: 24rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #e5e7eb;
+}
+
+.star-map-unmapped {
+  display: grid;
+  grid-template-columns: 88rpx 1fr;
+  gap: 16rpx;
+  margin-top: 24rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #e5e7eb;
+}
+
+.star-map-link {
+  margin: 20rpx 0 0;
+  height: 72rpx;
+  line-height: 72rpx;
+  border-radius: 36rpx;
+  background: #263a34;
+  color: #fff;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.star-map-link::after {
+  border: 0;
+}
+
+.meridian-map-panel {
+  margin-top: 24rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #e5e7eb;
+}
+
+.meridian-map-unmapped {
+  display: grid;
+  grid-template-columns: 88rpx 1fr;
+  gap: 16rpx;
+  margin-top: 24rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #e5e7eb;
+}
+
+.meridian-map-link {
+  margin: 20rpx 0 0;
+  height: 72rpx;
+  line-height: 72rpx;
+  border-radius: 36rpx;
+  background: #4b635c;
+  color: #fff;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.meridian-map-link::after {
+  border: 0;
 }

@@ -1,25 +1,109 @@
-<view class="page mvp-page">
+<view class="page mvp-page proto-relic-page">
   <view class="page-title">{{title}}</view>
   <view class="page-desc">{{intro}}</view>
 
+  <view class="progress-panel">
+    <view>
+      <view class="eyebrow">收藏进度</view>
+      <view class="progress-title">{{progress.display}}</view>
+    </view>
+    <view class="progress-count">景区信物</view>
+  </view>
+
   <view class="boundary-panel">{{boundary}}</view>
 
-  <view class="list">
-    <view class="relic-card" wx:for="{{records}}" wx:key="name">
-      <view class="card-head">
-        <view>
-          <view class="card-title">{{item.name}}</view>
-          <view class="card-meta">{{item.chapter}} · {{item.type}}</view>
+  <view class="focused-relic-panel" wx:if="{{focusedRelic}}">
+    <view class="focused-head">
+      <view class="eyebrow">信物详情</view>
+      <button class="focus-dismiss" bindtap="onClearFocus">返回库</button>
+    </view>
+    <view class="focused-title">{{focusedRelic.name}}</view>
+    <view class="focused-status">{{focusedRelic.status}}</view>
+    <view class="detail-row">
+      <view class="detail-label">章节</view>
+      <view class="detail-copy">{{focusedRelic.chapter}}</view>
+    </view>
+    <view class="detail-row" wx:if="{{focusedRelic.nodeTitle}}">
+      <view class="detail-label">节点</view>
+      <view class="detail-copy">{{focusedRelic.nodeTitle}}</view>
+    </view>
+    <view class="detail-row" wx:if="{{focusedRelic.description}}">
+      <view class="detail-label">记念</view>
+      <view class="detail-copy">{{focusedRelic.description}}</view>
+    </view>
+    <view class="detail-row" wx:if="{{focusedRelic.awarenessLine}}">
+      <view class="detail-label">觉察</view>
+      <view class="detail-copy">{{focusedRelic.awarenessLine}}</view>
+    </view>
+    <view class="star-map-panel" wx:if="{{focusedRelic.starMapped}}">
+      <view class="detail-row">
+        <view class="detail-label">文化别名</view>
+        <view class="detail-copy">{{focusedRelic.starAliasName}}</view>
+      </view>
+      <view class="detail-row">
+        <view class="detail-label">所属星宿</view>
+        <view class="detail-copy">{{focusedRelic.starMansionName}}</view>
+      </view>
+      <view class="detail-row">
+        <view class="detail-label">所属四象</view>
+        <view class="detail-copy">{{focusedRelic.starSymbolName}}</view>
+      </view>
+      <button
+        class="star-map-link"
+        data-path="{{focusedRelic.starMapPath}}"
+        bindtap="onOpenStarMap"
+      >
+        查看星图
+      </button>
+    </view>
+    <view class="star-map-unmapped" wx:else>
+      <view class="detail-label">星图归属</view>
+      <view class="detail-copy">暂未归入星图</view>
+    </view>
+    <view class="meridian-map-panel" wx:if="{{focusedRelic.meridianMapped}}">
+      <view class="detail-row">
+        <view class="detail-label">文化别名</view>
+        <view class="detail-copy">{{focusedRelic.meridianPointName}}</view>
+      </view>
+      <view class="detail-row">
+        <view class="detail-label">所属经络</view>
+        <view class="detail-copy">{{focusedRelic.meridianName}}</view>
+      </view>
+      <button
+        class="meridian-map-link"
+        data-path="{{focusedRelic.meridianMapPath}}"
+        bindtap="onOpenMeridianMap"
+      >
+        查看经络图
+      </button>
+    </view>
+    <view class="meridian-map-unmapped" wx:else>
+      <view class="detail-label">经络归属</view>
+      <view class="detail-copy">暂未归入经络图</view>
+    </view>
+  </view>
+
+  <view class="scenic-group" wx:for="{{groups}}" wx:key="scenicId">
+    <view class="group-head">
+      <view>
+        <view class="group-title">{{item.scenicName}}</view>
+        <view class="group-meta">{{item.collected}}/{{item.total}} 已收藏</view>
+      </view>
+      <button class="group-link" data-id="{{item.scenicId}}" bindtap="onOpenScenic">景区</button>
+    </view>
+    <view class="group-progress-bar">
+      <view class="group-progress-fill" style="width: {{item.total ? item.collected / item.total * 100 : 0}}%;"></view>
+    </view>
+    <view class="placeholder-copy" wx:if="{{item.placeholder}}">{{item.placeholder}}</view>
+    <view class="list" wx:else>
+      <view class="relic-card {{item.highlighted ? 'relic-card--highlight' : ''}}" wx:for="{{item.relics}}" wx:key="id">
+        <view class="card-head">
+          <view>
+            <view class="card-title">{{item.name}}</view>
+            <view class="card-meta">{{item.chapter}}</view>
+          </view>
+          <view class="card-status">{{item.status}}</view>
         </view>
-        <view class="card-status">{{item.status}}</view>
-      </view>
-      <view class="detail-row">
-        <view class="detail-label">来源</view>
-        <view class="detail-copy">{{item.source}}</view>
-      </view>
-      <view class="detail-row">
-        <view class="detail-label">记录</view>
-        <view class="detail-copy">{{item.meaning}}</view>
       </view>
     </view>
   </view>

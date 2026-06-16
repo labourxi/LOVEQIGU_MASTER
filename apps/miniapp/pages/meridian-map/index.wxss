@@ -1,0 +1,88 @@
+@import '../../styles/prototype-v1.wxss';
+
+.meridian-map-page {
+  padding-bottom: 64rpx;
+}
+
+.meridian-map-toolbar {
+  margin-bottom: 24rpx;
+}
+
+.meridian-map-back {
+  margin: 0;
+  padding: 0 28rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  border-radius: 32rpx;
+  background: #e8efe9;
+  color: #263a34;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.meridian-map-back::after {
+  border: 0;
+}
+
+.meridian-card {
+  margin-bottom: 16rpx;
+  padding: 24rpx;
+  border-radius: 16rpx;
+  background: #fff;
+  box-shadow: 0 8rpx 24rpx rgba(17, 24, 39, 0.06);
+}
+
+.meridian-card-note {
+  margin-top: 10rpx;
+  font-size: 20rpx;
+  color: #9ca3af;
+}
+
+.point-card {
+  margin-top: 8rpx;
+}
+
+.point-card--focus {
+  border: 2rpx solid #4b635c;
+}
+
+.proto-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 120rpx;
+  padding: 12rpx 16rpx;
+}
+
+.point-chip-name {
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.point-chip-status {
+  margin-top: 4rpx;
+  font-size: 20rpx;
+  opacity: 0.85;
+}
+
+.proto-chip--focus {
+  box-shadow: 0 0 0 3rpx rgba(244, 215, 166, 0.9);
+  transform: scale(1.02);
+}
+
+.empty-points-hint {
+  margin-top: 16rpx;
+  font-size: 24rpx;
+  color: #6b7280;
+}
+
+.cultural-panel {
+  margin-bottom: 16rpx;
+  padding: 16rpx 18rpx;
+  border-radius: 12rpx;
+  background: #faf8f4;
+  color: #4b635c;
+  font-size: 24rpx;
+  line-height: 1.6;
+  white-space: pre-line;
+}

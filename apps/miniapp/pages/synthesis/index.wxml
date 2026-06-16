@@ -1,0 +1,66 @@
+<view class="proto-page synthesis-page">
+  <view class="proto-hero">
+    <view class="proto-kicker">合成体系</view>
+    <view class="proto-title">{{title}}</view>
+    <view class="proto-subtitle">{{subtitle}}</view>
+    <view class="proto-stats">
+      <view class="proto-stat">
+        <view class="proto-stat-value">{{readyCount}}</view>
+        <view class="proto-stat-label">可合成</view>
+      </view>
+    </view>
+  </view>
+
+  <button class="seals-link" bindtap="onOpenSeals">查看印鉴进度</button>
+  <button class="seals-link seals-link--alt" bindtap="onOpenRewards">我的祝福收藏册</button>
+
+  <view class="proto-section" wx:if="{{readyList.length}}">
+    <view class="proto-section-head">
+      <view class="proto-section-title">可合成</view>
+    </view>
+    <view class="synthesis-card synthesis-card--ready" wx:for="{{readyList}}" wx:key="id">
+      <view class="synthesis-title">{{item.title}}</view>
+      <view class="synthesis-reward">{{item.reward.reward_desc}}</view>
+      <view class="synthesis-req-label">需要：</view>
+      <view class="synthesis-req" wx:for="{{item.requirementLabels}}" wx:key="*this" wx:for-item="req">
+        {{req}}
+      </view>
+      <view class="synthesis-status synthesis-status--ready">{{item.statusLabel}}</view>
+      <button class="synthesis-btn synthesis-btn--pulse" data-id="{{item.id}}" bindtap="onSynthesize">立即合成</button>
+    </view>
+  </view>
+
+  <view class="proto-section" wx:if="{{pendingList.length}}">
+    <view class="proto-section-head">
+      <view class="proto-section-title">待满足</view>
+    </view>
+    <view class="synthesis-card" wx:for="{{pendingList}}" wx:key="id">
+      <view class="synthesis-title">{{item.title}}</view>
+      <view class="synthesis-req-label">需要：</view>
+      <view class="synthesis-req" wx:for="{{item.requirementLabels}}" wx:key="*this" wx:for-item="req">
+        {{req}}
+      </view>
+      <view class="synthesis-status">{{item.statusLabel}}</view>
+    </view>
+  </view>
+
+  <view class="proto-section" wx:if="{{doneList.length}}">
+    <view class="proto-section-head">
+      <view class="proto-section-title">已合成</view>
+    </view>
+    <view class="synthesis-card synthesis-card--done" wx:for="{{doneList}}" wx:key="id">
+      <view class="synthesis-title">{{item.title}}</view>
+      <view class="synthesis-status synthesis-status--done">{{item.statusLabel}}</view>
+    </view>
+  </view>
+</view>
+
+<celebration-modal
+  visible="{{celebration.visible}}"
+  title="{{celebration.title}}"
+  message="{{celebration.message}}"
+  reward-name="{{celebration.rewardName}}"
+  reward-label="{{celebration.rewardLabel}}"
+  show-particles="{{celebration.showParticles}}"
+  bind:close="onCelebrationClose"
+/>

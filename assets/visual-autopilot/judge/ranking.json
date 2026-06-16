@@ -1,0 +1,32 @@
+[
+  {
+    "candidate": "",
+    "candidate_id": "SCROLL_RELIC",
+    "prompt_key": "SCROLL_RELIC",
+    "total_score": 0
+  },
+  {
+    "candidate": "",
+    "candidate_id": "BRONZE_RELIC",
+    "prompt_key": "BRONZE_RELIC",
+    "total_score": 0
+  },
+  {
+    "candidate": "",
+    "candidate_id": "STONE_RELIC",
+    "prompt_key": "STONE_RELIC",
+    "total_score": 0
+  },
+  {
+    "candidate": "",
+    "candidate_id": "JADE_RELIC",
+    "prompt_key": "JADE_RELIC",
+    "total_score": 0
+  },
+  {
+    "candidate": "",
+    "candidate_id": "ASTRAL_RELIC",
+    "prompt_key": "ASTRAL_RELIC",
+    "total_score": 0
+  }
+]

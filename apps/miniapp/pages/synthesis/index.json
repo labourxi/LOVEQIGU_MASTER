@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "信物合成",
+  "usingComponents": {
+    "celebration-modal": "/components/celebration-modal/celebration-modal"
+  }
+}

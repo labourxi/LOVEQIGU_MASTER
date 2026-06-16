@@ -1,0 +1,102 @@
+{
+  "generated_at": "2026-06-15T07:40:24.183031Z",
+  "status": "APPROVED",
+  "approval_status": "APPROVED",
+  "runtime_publish_status": "ALLOWED",
+  "runtime_publish_allowed": true,
+  "blocked_reason": "",
+  "ranking_path": "assets\\visual-autopilot\\judge\\ranking.json",
+  "judge_report_path": "assets\\visual-autopilot\\judge\\judge_report.json",
+  "review_package_path": "assets\\visual-autopilot\\review\\review_package.json",
+  "review_status_path": "assets\\visual-autopilot\\review\\review_status.json",
+  "candidate_count": 5,
+  "winner": {
+    "candidate_path": "",
+    "prompt_key": "SCROLL_RELIC",
+    "score": 0,
+    "review_reason": {},
+    "winner_flag": true,
+    "judge_source": "LOCAL_FALLBACK",
+    "review_text": "",
+    "candidate_details": {
+      "key_found": null,
+      "key_source": null,
+      "scores": {}
+    }
+  },
+  "top5_candidates": [
+    {
+      "candidate_path": "",
+      "prompt_key": "SCROLL_RELIC",
+      "score": 0,
+      "review_reason": {},
+      "winner_flag": true,
+      "judge_source": "LOCAL_FALLBACK",
+      "review_text": "",
+      "candidate_details": {
+        "key_found": null,
+        "key_source": null,
+        "scores": {}
+      }
+    },
+    {
+      "candidate_path": "",
+      "prompt_key": "BRONZE_RELIC",
+      "score": 0,
+      "review_reason": {},
+      "winner_flag": false,
+      "judge_source": "LOCAL_FALLBACK",
+      "review_text": "",
+      "candidate_details": {
+        "key_found": null,
+        "key_source": null,
+        "scores": {}
+      }
+    },
+    {
+      "candidate_path": "",
+      "prompt_key": "STONE_RELIC",
+      "score": 0,
+      "review_reason": {},
+      "winner_flag": false,
+      "judge_source": "LOCAL_FALLBACK",
+      "review_text": "",
+      "candidate_details": {
+        "key_found": null,
+        "key_source": null,
+        "scores": {}
+      }
+    },
+    {
+      "candidate_path": "",
+      "prompt_key": "JADE_RELIC",
+      "score": 0,
+      "review_reason": {},
+      "winner_flag": false,
+      "judge_source": "LOCAL_FALLBACK",
+      "review_text": "",
+      "candidate_details": {
+        "key_found": null,
+        "key_source": null,
+        "scores": {}
+      }
+    },
+    {
+      "candidate_path": "",
+      "prompt_key": "ASTRAL_RELIC",
+      "score": 0,
+      "review_reason": {},
+      "winner_flag": false,
+      "judge_source": "LOCAL_FALLBACK",
+      "review_text": "",
+      "candidate_details": {
+        "key_found": null,
+        "key_source": null,
+        "scores": {}
+      }
+    }
+  ],
+  "reviewer": "codex",
+  "review_note": "approve for publish test",
+  "updated_at": "2026-06-15T07:40:24.183792Z"
+}

@@ -13,12 +13,12 @@ function mapTemplates() {
 
 function buildPageData() {
   return {
-    title: 'Lottie',
-    intro: 'Motion templates reuse approved language and only support the existing RC1 closure chain.',
-    highlights: ['Expression only', 'No Canon change', 'Continue to Echo'],
-    sectionTitle: 'Motion templates',
-    sectionSubtitle: 'Templates stay within the approved motion-design boundary.',
-    actionLabel: 'Open Echo',
+    title: '动效模板',
+    intro: '动效模板复用已定语言，仅支持现有闭合链路。',
+    highlights: ['仅表达层', '不改世界观', '继续回响'],
+    sectionTitle: '动效模板',
+    sectionSubtitle: '模板保持在已定动效设计边界内。',
+    actionLabel: '进入回响',
     items: mapTemplates()
   };
 }

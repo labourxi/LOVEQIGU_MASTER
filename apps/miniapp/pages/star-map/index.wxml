@@ -1,0 +1,94 @@
+<view class="proto-page star-map-page">
+  <view class="proto-hero">
+    <view class="proto-kicker">天体系</view>
+    <view class="proto-title">{{title}}</view>
+    <view class="proto-subtitle">{{subtitle}}</view>
+    <view class="proto-stats">
+      <view class="proto-stat">
+        <view class="proto-stat-value">{{litDisplay}}</view>
+        <view class="proto-stat-label">已点亮星辰</view>
+      </view>
+      <view class="proto-stat">
+        <view class="proto-stat-value">{{progressPercent}}%</view>
+        <view class="proto-stat-label">星图进度</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="star-map-toolbar" wx:if="{{view === 'symbol'}}">
+    <button class="star-map-back" bindtap="onBackOverview">返回四象</button>
+  </view>
+
+  <view wx:if="{{view === 'overview'}}">
+    <view class="proto-section">
+      <view class="proto-section-head">
+        <view class="proto-section-title">四象总览</view>
+      </view>
+      <view class="symbol-grid">
+        <view
+          class="symbol-card"
+          wx:for="{{symbols}}"
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="onOpenSymbol"
+        >
+          <view class="symbol-card-head">
+            <view class="symbol-card-title">{{item.name}}</view>
+            <view class="proto-badge">{{item.litRatio}}</view>
+          </view>
+          <view class="symbol-card-meta">{{item.mansionCount}} 宿 · {{item.total}} 星</view>
+          <view class="cultural-copy" wx:if="{{item.culturalCopy}}">{{item.culturalCopy}}</view>
+          <view class="proto-progress-bar">
+            <view class="proto-progress-fill" style="width: {{item.progressPercent}}%;"></view>
+          </view>
+          <view class="symbol-card-note" wx:if="{{item.placeholder}}">结构占位</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else>
+    <view class="proto-section" wx:if="{{symbolDetail}}">
+      <view class="proto-section-head">
+        <view class="proto-section-title">{{symbolDetail.name}} · {{symbolDetail.litRatio}}</view>
+      </view>
+      <view class="proto-progress-bar">
+        <view class="proto-progress-fill" style="width: {{symbolDetail.progressPercent}}%;"></view>
+      </view>
+      <view class="cultural-panel" wx:if="{{symbolCulturalCopy}}">{{symbolCulturalCopy}}</view>
+      <view class="proto-card mansion-card {{mansion.focused ? 'mansion-card--focus' : ''}}" wx:for="{{symbolDetail.mansions}}" wx:key="id" wx:for-item="mansion">
+        <view class="proto-row">
+          <view class="proto-card-title">{{mansion.name}}</view>
+          <view class="proto-badge">{{mansion.litRatio}}</view>
+        </view>
+        <view class="cultural-copy" wx:if="{{mansion.culturalCopy}}">{{mansion.culturalCopy}}</view>
+        <view class="proto-progress-bar mansion-progress">
+          <view class="proto-progress-fill" style="width: {{mansion.progressPercent}}%;"></view>
+        </view>
+        <view class="proto-chip-row">
+          <view
+            class="proto-chip {{star.lit ? 'proto-chip--lit' : 'proto-chip--dim'}} {{star.focused ? 'proto-chip--focus' : ''}}"
+            wx:for="{{mansion.stars}}"
+            wx:key="id"
+            wx:for-item="star"
+          >
+            <view class="star-chip-name">{{star.name}}</view>
+            <view class="star-chip-status">{{star.statusLabel}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="proto-note">{{note}}</view>
+</view>
+
+<celebration-modal
+  visible="{{celebration.visible}}"
+  title="{{celebration.title}}"
+  message="{{celebration.message}}"
+  reward-name="{{celebration.rewardName}}"
+  reward-label="{{celebration.rewardLabel}}"
+  show-particles="{{celebration.showParticles}}"
+  bind:close="onCelebrationClose"
+/>

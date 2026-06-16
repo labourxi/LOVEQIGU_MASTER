@@ -1,0 +1,11 @@
+{
+  "generated_at": "2026-06-15T07:40:24.183031Z",
+  "updated_at": "2026-06-15T07:40:24.183792Z",
+  "approval_status": "APPROVED",
+  "runtime_publish_status": "ALLOWED",
+  "runtime_publish_allowed": true,
+  "blocked_reason": "",
+  "reviewer": "codex",
+  "review_note": "approve for publish test",
+  "review_package_path": "assets\\visual-autopilot\\review\\review_package.json"
+}

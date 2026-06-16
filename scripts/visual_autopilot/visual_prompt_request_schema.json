@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Visual Autopilot Generation Request",
+  "type": "object",
+  "required": [
+    "task_id",
+    "prompt",
+    "related_canon"
+  ],
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "prompt": {
+      "type": "string",
+      "minLength": 1
+    },
+    "related_canon": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1,
+      "examples": [
+        [
+          "ART_BIBLE_V1",
+          "ART_INDEX_V1",
+          "FOUR_SYMBOL_VISUAL_SYSTEM_V1.1",
+          "ART_03_VISUAL_PHILOSOPHY_V1",
+          "ART_04_VISUAL_PROTOTYPE_V1"
+        ]
+      ]
+    },
+    "providers": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "openai",
+          "gemini"
+        ]
+      },
+      "default": [
+        "openai",
+        "gemini"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

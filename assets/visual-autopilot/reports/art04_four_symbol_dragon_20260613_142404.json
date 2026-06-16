@@ -1,0 +1,28 @@
+{
+  "task_id": "art04_four_symbol_dragon",
+  "prompt": "ART-04 four symbol dragon bridge test",
+  "stamp": "20260613_142404",
+  "related_canon": [
+    "ART_BIBLE_V1",
+    "ART_INDEX_V1",
+    "FOUR_SYMBOL_VISUAL_SYSTEM_V1.1",
+    "ART_03_VISUAL_PHILOSOPHY_V1",
+    "ART_04_VISUAL_PROTOTYPE_V1"
+  ],
+  "results": [
+    {
+      "provider": "openai",
+      "model": "gpt-image-1",
+      "status": "failed",
+      "path": null,
+      "error": "HTTP 400 Bad Request: {\n  \"error\": {\n    \"message\": \"Billing hard limit has been reached.\",\n    \"type\": \"billing_limit_user_error\",\n    \"param\": null,\n    \"code\": \"billing_hard_limit_reached\"\n  }\n}"
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-image",
+      "status": "missing_api_key",
+      "path": null,
+      "error": "GEMINI_API_KEY (or GOOGLE_API_KEY / GOOGLE_GENAI_API_KEY)"
+    }
+  ]
+}

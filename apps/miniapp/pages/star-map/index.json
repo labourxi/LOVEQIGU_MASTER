@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "星图",
+  "usingComponents": {
+    "celebration-modal": "/components/celebration-modal/celebration-modal"
+  }
+}

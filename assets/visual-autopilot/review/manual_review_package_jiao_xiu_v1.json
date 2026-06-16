@@ -1,0 +1,53 @@
+{
+  "asset_id": "VISUAL_ASSET_JIAO_XIU_V1",
+  "asset_name": "角宿视觉资产 V1",
+  "object_name": "角宿",
+  "parent_symbol": "东方青龙",
+  "status": "MANUAL_REVIEW_REQUIRED",
+  "reason": "Gemini unavailable: NETWORK_TIMEOUT",
+  "gemini_prompt_file": "",
+  "negative_prompt": "",
+  "candidate_outputs": [],
+  "manual_review_required_fields": [
+    "reviewer",
+    "review_time",
+    "image_source",
+    "image_file",
+    "prompt_used",
+    "visual_match_score",
+    "policy_match_score",
+    "issue_notes",
+    "decision"
+  ],
+  "allowed_decisions": [
+    "APPROVED",
+    "APPROVED_WITH_WARNING",
+    "REJECTED",
+    "NEEDS_REGENERATION"
+  ],
+  "release_allowed": false,
+  "registry_update_allowed": false,
+  "dashboard_pass_allowed": false,
+  "manual_review_input": {
+    "reviewer": "",
+    "review_time": "",
+    "image_source": "",
+    "image_file": "",
+    "prompt_used": "",
+    "visual_match_score": null,
+    "policy_match_score": null,
+    "issue_notes": "",
+    "decision": "PENDING"
+  },
+  "pending_external_asset": {
+    "required": true,
+    "expected_file": "assets/visual-autopilot/generated/jiao_xiu_manual_candidate_v1.png",
+    "accepted_sources": [
+      "Gemini external",
+      "Seedream",
+      "Doubao",
+      "Minimax",
+      "Manual upload"
+    ]
+  }
+}

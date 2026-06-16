@@ -1,0 +1,26 @@
+{
+  "generated_at": "2026-06-14T00:43:51.238035Z",
+  "queue": [
+    {
+      "candidate": "assets\\visual-autopilot\\candidates\\seedream_ark_1781395452753400700_1.jpg",
+      "gemini_score": 44,
+      "human_score": null,
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "candidate": "assets\\visual-autopilot\\candidates\\seedream_ark_1781395496206223800_1.jpg",
+      "gemini_score": 44,
+      "human_score": null,
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "candidate": "assets\\visual-autopilot\\candidates\\seedream_ark_1781395418015674900_1.jpg",
+      "gemini_score": 43,
+      "human_score": null,
+      "note": "",
+      "status": "pending"
+    }
+  ]
+}

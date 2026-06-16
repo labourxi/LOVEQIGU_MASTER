@@ -1,0 +1,108 @@
+<view class="proto-page meridian-map-page">
+  <view class="proto-hero">
+    <view class="proto-kicker">人体系</view>
+    <view class="proto-title">{{title}}</view>
+    <view class="proto-subtitle">{{subtitle}}</view>
+    <view class="proto-stats">
+      <view class="proto-stat">
+        <view class="proto-stat-value">{{litDisplay}}</view>
+        <view class="proto-stat-label">已点亮穴位</view>
+      </view>
+      <view class="proto-stat">
+        <view class="proto-stat-value">{{completedDisplay}}</view>
+        <view class="proto-stat-label">已完成经络</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="meridian-map-toolbar" wx:if="{{view === 'meridian'}}">
+    <button class="meridian-map-back" bindtap="onBackOverview">返回总览</button>
+  </view>
+
+  <view wx:if="{{view === 'overview'}}">
+    <view class="proto-section">
+      <view class="proto-section-head">
+        <view class="proto-section-title">十二正经</view>
+      </view>
+      <view
+        class="meridian-card"
+        wx:for="{{regularMeridians}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onOpenMeridian"
+      >
+        <view class="proto-row">
+          <view class="proto-card-title">{{item.name}}</view>
+          <view class="proto-badge">{{item.litRatio}}</view>
+        </view>
+        <view class="proto-progress-bar">
+          <view class="proto-progress-fill" style="width: {{item.progressPercent}}%;"></view>
+        </view>
+        <view class="meridian-card-note" wx:if="{{item.placeholder}}">结构占位</view>
+      </view>
+    </view>
+
+    <view class="proto-section">
+      <view class="proto-section-head">
+        <view class="proto-section-title">奇经八脉</view>
+      </view>
+      <view
+        class="meridian-card"
+        wx:for="{{extraordinaryVessels}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onOpenMeridian"
+      >
+        <view class="proto-row">
+          <view class="proto-card-title">{{item.name}}</view>
+          <view class="proto-badge">{{item.litRatio}}</view>
+        </view>
+        <view class="proto-progress-bar">
+          <view class="proto-progress-fill" style="width: {{item.progressPercent}}%;"></view>
+        </view>
+        <view class="meridian-card-note" wx:if="{{item.placeholder}}">结构占位</view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else>
+    <view class="proto-section" wx:if="{{meridianDetail}}">
+      <view class="proto-section-head">
+        <view class="proto-section-title">{{meridianDetail.name}} · {{meridianDetail.litRatio}}</view>
+      </view>
+      <view class="proto-progress-bar">
+        <view class="proto-progress-fill" style="width: {{meridianDetail.progressPercent}}%;"></view>
+      </view>
+      <view class="cultural-panel" wx:if="{{meridianCulturalCopy}}">{{meridianCulturalCopy}}</view>
+      <view class="proto-card point-card {{meridianDetail.focused ? 'point-card--focus' : ''}}">
+        <view class="proto-row">
+          <view class="proto-card-title">穴位列表</view>
+        </view>
+        <view class="proto-chip-row">
+          <view
+            class="proto-chip {{point.lit ? 'proto-chip--lit' : 'proto-chip--dim'}} {{point.focused ? 'proto-chip--focus' : ''}}"
+            wx:for="{{meridianDetail.points}}"
+            wx:key="id"
+            wx:for-item="point"
+          >
+            <view class="point-chip-name">{{point.name}}</view>
+            <view class="point-chip-status">{{point.statusLabel}}</view>
+          </view>
+        </view>
+        <view class="empty-points-hint" wx:if="{{!meridianDetail.points.length}}">本脉穴位目录待专项补全。</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="proto-note">{{note}}</view>
+</view>
+
+<celebration-modal
+  visible="{{celebration.visible}}"
+  title="{{celebration.title}}"
+  message="{{celebration.message}}"
+  reward-name="{{celebration.rewardName}}"
+  reward-label="{{celebration.rewardLabel}}"
+  show-particles="{{celebration.showParticles}}"
+  bind:close="onCelebrationClose"
+/>

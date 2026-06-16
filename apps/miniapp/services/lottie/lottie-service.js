@@ -1,38 +1,38 @@
 const LOTTIES = [
   {
     template_id: 'lottie_gate_threshold_pulse',
-    title: 'Gate Threshold Pulse',
-    category: 'Gate',
-    copy: 'A restrained pulse for entering a gate state.',
-    usage: 'exploration_map'
+    title: '云门阈值脉动',
+    category: '云门',
+    copy: '进入云门状态的克制脉动。',
+    usage: '探索地图'
   },
   {
     template_id: 'lottie_imprint_drift_wave',
-    title: 'Imprint Drift Wave',
-    category: 'Imprint',
-    copy: 'A drift wave for imprint record moments.',
-    usage: 'archive_view'
+    title: '印记漂移波',
+    category: '印记',
+    copy: '印记记念时刻的漂移波。',
+    usage: '档案视图'
   },
   {
     template_id: 'lottie_resonance_ring_breathe',
-    title: 'Resonance Ring Breathe',
-    category: 'Resonance',
-    copy: 'A breathing ring for resonance moments.',
-    usage: 'awareness_prompt'
+    title: '共鸣环呼吸',
+    category: '共鸣',
+    copy: '共鸣时刻的呼吸环。',
+    usage: '觉察提示'
   },
   {
     template_id: 'lottie_echo_settle_fade',
-    title: 'Echo Settle Fade',
-    category: 'Echo',
-    copy: 'A settling fade for completion and closure moments.',
-    usage: 'completion_summary'
+    title: '回响沉淀淡出',
+    category: '回响',
+    copy: '完成与闭合时刻的沉淀淡出。',
+    usage: '完成摘要'
   },
   {
     template_id: 'lottie_discovery_shimmer_path',
-    title: 'Discovery Shimmer Path',
-    category: 'Discovery',
-    copy: 'A subtle shimmer path for guided discovery moments.',
-    usage: 'guide_sequence'
+    title: '发现微光路径',
+    category: '发现',
+    copy: '引导发现时刻的细微微光路径。',
+    usage: '引导序列'
   }
 ];
 

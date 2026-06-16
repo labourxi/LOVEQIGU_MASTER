@@ -1,0 +1,28 @@
+{
+  "task_id": "art04_four_symbol_dragon",
+  "prompt": "ART-04 four symbol dragon bridge test",
+  "stamp": "20260613_135047",
+  "related_canon": [
+    "ART_BIBLE_V1",
+    "ART_INDEX_V1",
+    "FOUR_SYMBOL_VISUAL_SYSTEM_V1.1",
+    "ART_03_VISUAL_PHILOSOPHY_V1",
+    "ART_04_VISUAL_PROTOTYPE_V1"
+  ],
+  "results": [
+    {
+      "provider": "openai",
+      "model": "gpt-image-1",
+      "status": "failed",
+      "path": null,
+      "error": "HTTP Error 400: Bad Request"
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-2.0-flash-exp",
+      "status": "failed",
+      "path": null,
+      "error": "HTTP Error 404: Not Found"
+    }
+  ]
+}

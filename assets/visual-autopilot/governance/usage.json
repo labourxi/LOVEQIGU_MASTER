@@ -1,0 +1,7 @@
+{
+  "seedream_calls": 0,
+  "trial_limit": 200,
+  "warning_threshold": 150,
+  "critical_threshold": 180,
+  "stop_threshold": 195
+}

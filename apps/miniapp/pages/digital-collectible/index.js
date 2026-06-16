@@ -2,23 +2,23 @@ const digitalCollectibleService = require('../../services/digital-collectible/di
 
 function mapCollectibles() {
   return digitalCollectibleService.getAllDigitalCollectibles().map((item) => ({
-    id: item.collectible_id,
-    title: item.title,
-    meta: item.role,
+    id: item.collectible_id || item.token_id,
+    title: item.title || item.name,
+    meta: item.role || '传播资产',
     copy: item.copy,
-    tag: item.display_context,
-    path: item.next_path
+    tag: item.display_context || '传播',
+    path: item.next_path || '/pages/next-activity/index'
   }));
 }
 
 function buildPageData() {
   return {
-    title: 'Digital Collectible',
-    intro: 'Digital Collectible stays in the marketing and communication boundary and does not unlock Relics.',
-    highlights: ['Communication asset', 'No progression effect', 'Continue to Next Activity'],
-    sectionTitle: 'Collectibles',
-    sectionSubtitle: 'These records are display-only communication assets.',
-    actionLabel: 'Open Next Activity',
+    title: '数字藏品',
+    intro: '数字藏品保持在营销与传播边界，不解锁信物进度。',
+    highlights: ['传播资产', '无进度影响', '继续下一步活动'],
+    sectionTitle: '数字藏品',
+    sectionSubtitle: '记录仅供展示的传播资产。',
+    actionLabel: '进入下一步活动',
     items: mapCollectibles()
   };
 }
