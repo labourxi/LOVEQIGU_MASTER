@@ -67,7 +67,7 @@ Governance → Admin → Activity → AR → ART → Supplement
 ```yaml
 tag: PROJECT_BASELINE_20260616
 type: annotated
-points_to: be7fbf2
+points_to: 3794020
 message: PROJECT_BASELINE_20260616: post-recovery git stabilization baseline
 verified: YES
 ```
