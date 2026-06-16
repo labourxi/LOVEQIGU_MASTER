@@ -1,0 +1,11 @@
+{
+  "event_id": "event_loveqigu_first_event_v1",
+  "event_name": "爱企谷初见寻宝节",
+  "publish_time": "2026-06-15T07:40:24.184339Z",
+  "entry_url": "/event/LOVEQIGU_FIRST_EVENT_CASE_V1",
+  "qr_payload": {
+    "event_code": "LOVEQIGU_FIRST_EVENT_CASE_V1",
+    "entry_url": "/event/LOVEQIGU_FIRST_EVENT_CASE_V1"
+  },
+  "status": "PUBLISHED"
+}

@@ -1,0 +1,17 @@
+{
+  "version": "1.0",
+  "releases": [
+    {
+      "release_id": "ba0b6e43-8fa0-44c7-ada5-5afd2abed721",
+      "asset_id": "assets/visual-autopilot/winner/winner.jpg",
+      "review_status": "APPROVED",
+      "publish_time": "2026-06-14T14:56:21.558485Z"
+    },
+    {
+      "release_id": "71b3e7b3-2567-4e68-a47c-711d31f60490",
+      "asset_id": "assets/visual-autopilot/winner/winner.jpg",
+      "review_status": "APPROVED",
+      "publish_time": "2026-06-14T15:27:00.301333Z"
+    }
+  ]
+}

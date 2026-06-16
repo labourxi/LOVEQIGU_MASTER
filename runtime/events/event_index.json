@@ -1,0 +1,13 @@
+{
+  "version": "1.0",
+  "events": [
+    {
+      "event_id": "event_loveqigu_first_event_v1",
+      "event_name": "爱企谷初见寻宝节",
+      "event_code": "LOVEQIGU_FIRST_EVENT_CASE_V1",
+      "publish_time": "2026-06-15T07:40:24.184339Z",
+      "status": "PUBLISHED",
+      "published_path": "runtime\\events\\published\\LOVEQIGU_FIRST_EVENT_CASE_V1.json"
+    }
+  ]
+}

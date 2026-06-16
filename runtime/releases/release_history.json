@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "history": [
+    {
+      "release_id": "db6c9f9e-2246-489e-a79a-f3c53f7edd26",
+      "asset_path": "assets/visual-autopilot/winner/winner.jpg",
+      "release_time": "2026-06-14T14:50:40.898412Z",
+      "review_status": "APPROVED",
+      "source_factory": "VisualFactory"
+    },
+    {
+      "release_id": "ba0b6e43-8fa0-44c7-ada5-5afd2abed721",
+      "asset_path": "assets/visual-autopilot/winner/winner.jpg",
+      "release_time": "2026-06-14T14:56:21.558485Z",
+      "review_status": "APPROVED",
+      "source_factory": "VisualFactory"
+    },
+    {
+      "release_id": "71b3e7b3-2567-4e68-a47c-711d31f60490",
+      "asset_path": "assets/visual-autopilot/winner/winner.jpg",
+      "release_time": "2026-06-14T15:27:00.301333Z",
+      "review_status": "APPROVED",
+      "source_factory": "VisualFactory"
+    }
+  ]
+}

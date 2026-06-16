@@ -1,4 +1,7 @@
 {
-  "navigationBarTitleText": "场域体验",
-  "backgroundColor": "#f4f1eb"
+  "navigationBarTitleText": "鍦哄煙浣撻獙",
+  "backgroundColor": "#f4f1eb",
+  "usingComponents": {
+    "star-activation-ritual": "/components/star-activation-ritual/index"
+  }
 }

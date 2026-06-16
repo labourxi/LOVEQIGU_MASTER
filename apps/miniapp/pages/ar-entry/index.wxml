@@ -12,12 +12,37 @@
     <button class="entry-button" bindtap="onContinue">{{actionLabel}}</button>
   </view>
 
+  <view class="ritual-panel" wx:if="{{showStarRitualPreview}}">
+    <view class="ritual-panel__head">
+      <view class="ritual-panel__title">ART-02 星图点亮预览</view>
+      <view class="ritual-panel__state">{{ritualPreviewState}}</view>
+    </view>
+    <view class="ritual-panel__copy">{{ritualPreview.copy}}</view>
+    <view class="ritual-panel__meta">
+      <view class="ritual-panel__tag">{{ritualPreview.assetMode}}</view>
+      <view class="ritual-panel__tag">时间轴 {{ritualPreview.timelineCount}}</view>
+    </view>
+    <view class="ritual-panel__actions">
+      <button class="ritual-button ritual-button--primary" bindtap="onStartStarRitualPreview">启动预览</button>
+      <button class="ritual-button" bindtap="onResetStarRitualPreview">重置</button>
+    </view>
+    <star-activation-ritual
+      id="starRitualPreview"
+      visible="{{ritualPreview.visible}}"
+      autoplay="{{ritualPreview.autoplay}}"
+      title="{{ritualPreview.title}}"
+      subtitle="{{ritualPreview.subtitle}}"
+      demoLabel="{{ritualPreview.demoLabel}}"
+      targetIndex="{{ritualPreview.targetIndex}}"
+      bindcomplete="onStarRitualComplete"
+    />
+  </view>
+
   <view class="list">
     <view class="ar-card" wx:for="{{entries}}" wx:key="code">
-      <view class="card-code">{{item.code}}</view>
       <view class="card-title">{{item.name}}</view>
       <view class="card-copy">{{item.desc}}</view>
-      <button class="preview-button" data-code="{{item.code}}" bindtap="onPreview">Preview</button>
+      <button class="preview-button" data-code="{{item.code}}" bindtap="onPreview">棰勮</button>
     </view>
   </view>
 </view>

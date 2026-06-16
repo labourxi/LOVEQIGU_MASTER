@@ -1,0 +1,39 @@
+{
+  "version": "1.0",
+  "visual_assets": [
+    {
+      "asset_id": "visual_winner_bronze_relic",
+      "asset_type": "visual",
+      "prompt": "Ancient Eastern celestial relic, Jiao Mansion constellation seal, jade glyph artifacts, museum artifact lighting, soft golden dust particles, ancient manuscript background",
+      "winner_file": "assets/visual-autopilot/winner/winner.jpg",
+      "model": "doubao-seedream-5-0-260128",
+      "created_at": "2026-06-14T14:56:21.555305Z"
+    }
+  ],
+  "story_assets": [
+    {
+      "story_id": "phase3_story_story",
+      "chapter": "CH01",
+      "version": "1.0",
+      "source_task": "phase3_story"
+    }
+  ],
+  "relic_assets": [
+    {
+      "relic_id": "phase3_relic_relic",
+      "relic_name": "unknown",
+      "version": "1.0"
+    }
+  ],
+  "manual_review_assets": [
+    {
+      "asset_id": "VISUAL_ASSET_JIAO_XIU_V1",
+      "asset_name": "角宿视觉资产 V1",
+      "status": "MANUAL_REVIEW_REQUIRED",
+      "reason": "Gemini unavailable: NETWORK_TIMEOUT",
+      "manual_review_package": "assets\\visual-autopilot\\review\\manual_review_package_jiao_xiu_v1.json"
+    }
+  ],
+  "fallback_state": "MANUAL_REVIEW_REQUIRED",
+  "manual_review_required": true
+}
