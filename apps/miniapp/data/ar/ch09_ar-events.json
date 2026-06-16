@@ -1,0 +1,161 @@
+{
+  "schema": "loveqigu.ar.events.v1",
+  "version": "1.0.0",
+  "source": "CH09_CONTENT_CANON_V1",
+  "layer": "L2",
+  "language_layer": "L2_PRODUCT",
+  "status": "active",
+  "source_ref": "docs/content/canon/CH09_CONTENT_CANON_V1.md",
+  "story_ref": "data/story/ch09_chapters.json",
+  "relic_ref": "data/relics/ch09_relics.json",
+  "rights_ref": "data/rights/ch09_rights.json",
+  "canonical_boundary": "CH09 AR Event Layer. Field experience and closure entry. No new lore. No Canon Gap fill.",
+  "chapter_context": {
+    "chapter_id": "ch09_field_echo_future",
+    "chapter_code": "CH09",
+    "chapter_title": "未来之约",
+    "display_title": "《未来之约》"
+  },
+  "asset_boundary": {
+    "ar_event": "Field visualization and approved closure entry; does not create 云门 state.",
+    "relic": "AR output may reference Relic context; Relic progression remains deterministic from exploration.",
+    "rights": "L1 redemption refs stay outside ritual closure chain.",
+    "digital_collectible": "Share outputs are user-initiated; zero Relic progression effect."
+  },
+  "events": [
+    {
+      "id": "ar_ch09_field_gate_v1",
+      "code": "AR_CH09_FIELD_GATE_V1",
+      "name": "未来场域",
+      "chapter_id": "ch09_field_echo_future",
+      "node_id": "n1_future",
+      "node_title": "场域·未来种子",
+      "status": "available",
+      "interaction": "location_gate",
+      "camera_enabled": false,
+      "fake_ar_enabled": true,
+      "description": "记念场域·未来种子处的场域体验。未来之约是 L2 章节题名，不是新地理或可被占有的关卡。",
+      "copy": "预览未来场域，不请求 live AR 权限。",
+      "relic_refs": [
+        "relic_ch09_future_badge",
+        "relic_ch09_gate_imprint_h"
+      ],
+      "rights_refs": [],
+      "digital_collectible_refs": [],
+      "canonical_boundary": "Future field visualization only; 未来之约 is L2 chapter title, not new geography."
+    },
+    {
+      "id": "ar_ch09_imprint_future_v1",
+      "code": "AR_CH09_IMPRINT_FUTURE_V1",
+      "name": "未来残印",
+      "chapter_id": "ch09_field_echo_future",
+      "node_id": "n1_future",
+      "node_title": "场域·未来种子",
+      "status": "available",
+      "interaction": "imprint_particles",
+      "camera_enabled": false,
+      "fake_ar_enabled": true,
+      "description": "记念场域处探索记录的未来印迹显现。残印是连接曾经存在过的证据，不是收藏数量。",
+      "copy": "预览未来印迹粒子场域，不定义残印形成机制。",
+      "relic_refs": [
+        "relic_ch09_gate_imprint_h"
+      ],
+      "rights_refs": [],
+      "digital_collectible_refs": [],
+      "canonical_boundary": "Does not define imprint formation mechanics; album H independent from prior chapters."
+    },
+    {
+      "id": "ar_ch09_collective_echo_v1",
+      "code": "AR_CH09_COLLECTIVE_ECHO_V1",
+      "name": "集体回响",
+      "chapter_id": "ch09_field_echo_future",
+      "node_id": "n2_collective_echo",
+      "node_title": "回响镜·集体回响",
+      "status": "available",
+      "interaction": "awareness_prompt",
+      "camera_enabled": false,
+      "fake_ar_enabled": true,
+      "description": "记念回响镜·集体回响处的场域体验。影响开始在社会互动中被照见，共鸣在回响处被记存。",
+      "copy": "预览集体回响场域，承接第二处觉察。",
+      "relic_refs": [
+        "relic_ch09_collective_echo_mirror"
+      ],
+      "rights_refs": [],
+      "digital_collectible_refs": [],
+      "canonical_boundary": "Uses existing field context only; no new Cosmology or lore."
+    },
+    {
+      "id": "ar_ch09_extended_connections_v1",
+      "code": "AR_CH09_EXTENDED_CONNECTIONS_V1",
+      "name": "连接延伸场域",
+      "chapter_id": "ch09_field_echo_future",
+      "node_id": "n3_extended_connections",
+      "node_title": "谷里咖啡·连接延伸",
+      "status": "available",
+      "interaction": "human_field_presence",
+      "camera_enabled": false,
+      "fake_ar_enabled": true,
+      "description": "记念谷里咖啡·连接延伸处的场域体验。一次服务、一杯咖啡、一次真实相遇，善意连接仍可在真实相遇处被照见。",
+      "copy": "预览连接延伸场域；权益礼遇在探索完成后于权益中心触达。",
+      "relic_refs": [
+        "relic_ch09_extended_connections"
+      ],
+      "rights_refs": [
+        "right_ch09_jieyuan_free_latte"
+      ],
+      "digital_collectible_refs": [],
+      "canonical_boundary": "L1 redemption stays outside ritual chain; no medical or lineage claims."
+    },
+    {
+      "id": "ar_ch09_future_guide_v1",
+      "code": "AR_CH09_FUTURE_GUIDE_V1",
+      "name": "社会影响引导",
+      "chapter_id": "ch09_field_echo_future",
+      "node_id": "n4_social_impact",
+      "node_title": "云间书符·社会影响",
+      "status": "available",
+      "interaction": "guide_sequence",
+      "camera_enabled": false,
+      "fake_ar_enabled": true,
+      "description": "记念云间书符·社会影响处的场域体验。修习是记念觉察被记存，不是获得新力量——符者，记念也，非咒也。",
+      "copy": "预览社会影响引导场域，不宣称医疗、派系或传承体系。",
+      "relic_refs": [
+        "relic_ch09_social_impact"
+      ],
+      "rights_refs": [],
+      "digital_collectible_refs": [],
+      "canonical_boundary": "No medical claim, magic system, sect, or lineage; no L1 rights popup at practice node."
+    },
+    {
+      "id": "ar_ch09_completion_v1",
+      "code": "AR_CH09_COMPLETION_V1",
+      "name": "未来之约·章成",
+      "chapter_id": "ch09_field_echo_future",
+      "node_id": "n5_complete",
+      "node_title": "未来之约·章成",
+      "status": "locked",
+      "interaction": "completion_scene",
+      "camera_enabled": false,
+      "fake_ar_enabled": true,
+      "description": "记念《未来之约》章成 closure 场域。五处觉察已齐备，世界留下未来印记，见证连接而非等级。",
+      "copy": "预览章成 closure 场域，可接续分享海报生成流程。",
+      "relic_refs": [
+        "relic_ch09_field_future_seal"
+      ],
+      "rights_refs": [
+        "right_ch09_jieyuan_cafe_discount",
+        "right_ch09_share_poster"
+      ],
+      "digital_collectible_refs": [
+        "dc_ch09_future_poster"
+      ],
+      "canonical_boundary": "Completion is not ranking, level, combat, or proof of superiority.",
+      "unlock_requires": [
+        "n1_future",
+        "n2_collective_echo",
+        "n3_extended_connections",
+        "n4_social_impact"
+      ]
+    }
+  ]
+}

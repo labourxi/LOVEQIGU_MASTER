@@ -1,0 +1,254 @@
+# CH04_CONTENT_CANON_V1
+
+Version: V1
+
+Status:
+
+CANON_APPROVED
+
+Chapter Code:
+
+CH04
+
+Chapter ID:
+
+ch04_field_awakening
+
+Title:
+
+田野初醒
+
+Display Title:
+
+《田野初醒》
+
+Album Code:
+
+D
+
+Previous Chapter:
+
+ch03_field_reunion
+
+Next Chapter:
+
+TBD
+
+---
+
+## Position
+
+CH04 是 CH03《再度重逢》之后的下一章节。
+
+本章继续沿用：
+
+五处觉察结构
+
+以及：
+
+印谱收集结构
+
+本章不新增：
+
+神明
+
+文明
+
+组织
+
+历史事件
+
+Lore
+
+Cosmology
+
+Canonical Geography
+
+---
+
+## Theme
+
+主题：
+
+从重逢走向安住。
+
+关键词：
+
+停留
+
+观看
+
+感受
+
+陪伴
+
+不追求获得
+
+不追求答案
+
+---
+
+## Product Layer Intent
+
+用户在本章中：
+
+不再寻找新的线索。
+
+而是在已有场域中：
+
+停下来。
+
+看见。
+
+陪伴。
+
+觉察。
+
+本章属于：
+
+L2 Product Layer
+
+不是：
+
+L0 Canon Layer
+
+---
+
+## Awareness Structure
+
+Total Nodes:
+
+5
+
+Structure:
+
+Node 1
+Exploration
+
+Node 2
+Exploration
+
+Node 3
+Human Field
+
+Node 4
+Practice
+
+Node 5
+Chapter Completion
+
+---
+
+## Relic Structure
+
+Total Relics:
+
+6
+
+Asset Class:
+
+story_progression
+
+Boundary:
+
+Relic ≠ Digital Collectible
+
+---
+
+## Rights Structure
+
+Total Rights:
+
+5
+
+Layer:
+
+L1_COMMERCIAL
+
+Boundary:
+
+Rights do not affect Story Progression
+
+---
+
+## AR Event Structure
+
+Total Events:
+
+6
+
+Boundary:
+
+AR does not change Story State
+
+Digital Collectible only appears in Completion Event
+
+---
+
+## Digital Collectible
+
+Completion Poster:
+
+dc_ch04_completion_poster
+
+Story State Effect:
+
+none
+
+Progression Effect:
+
+none
+
+Relic Effect:
+
+none
+
+Rights Effect:
+
+none
+
+---
+
+## Forbidden
+
+Do Not Create:
+
+New God
+
+New Civilization
+
+New Organization
+
+New History
+
+New Cosmology
+
+Canon Gap Fill
+
+Retcon
+
+---
+
+## Output Target
+
+Placeholder Factory:
+
+5 Nodes
+
+6 Relics
+
+5 Rights
+
+6 AR Events
+
+Album:
+
+D
+
+Chapter:
+
+CH04
+
+Status:
+
+READY_FOR_PLACEHOLDER

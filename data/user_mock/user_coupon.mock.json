@@ -1,0 +1,26 @@
+[
+  {
+    "coupon_id": "coupon_loveqigu_cafe_01",
+    "coupon_name": "咖啡券",
+    "coupon_type": "discount",
+    "discount_value": 8,
+    "merchant_id": "merchant_loveqigu_cafe_01",
+    "merchant_name": "爱企谷咖啡",
+    "status": "CLAIMED",
+    "claimed_at": "2026-06-15T15:54:15.936073+08:00",
+    "used_at": null,
+    "expired_at": "2026-07-20T21:00:00+08:00"
+  },
+  {
+    "coupon_id": "coupon_loveqigu_book_01",
+    "coupon_name": "书店券",
+    "coupon_type": "gift",
+    "discount_value": 10,
+    "merchant_id": "merchant_loveqigu_book_01",
+    "merchant_name": "爱企谷书店",
+    "status": "CLAIMED",
+    "claimed_at": "2026-06-15T16:07:37+08:00",
+    "used_at": null,
+    "expired_at": null
+  }
+]

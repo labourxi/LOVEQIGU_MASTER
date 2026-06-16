@@ -1,0 +1,153 @@
+{
+  "schema": "loveqigu.rights.v1",
+  "version": "1.0.0",
+  "source": "CH10_CONTENT_CANON_V1",
+  "layer": "L1",
+  "language_layer": "L1_COMMERCIAL",
+  "status": "active",
+  "source_ref": "docs/content/canon/CH10_CONTENT_CANON_V1.md",
+  "story_ref": "data/story/ch10_chapters.json",
+  "relic_ref": "data/relics/ch10_relics.json",
+  "canonical_boundary": "CH10 Rights Layer. Commercial and jieyuan functions isolated from ritual chain. No new lore. No Canon Gap fill.",
+  "chapter_context": {
+    "chapter_id": "ch10_field_echo_innovation",
+    "chapter_code": "CH10",
+    "chapter_title": "创新之路",
+    "display_title": "《创新之路》"
+  },
+  "relic_refs_all": [
+    "relic_ch10_innovation_badge",
+    "relic_ch10_gate_imprint_i",
+    "relic_ch10_collective_mirror",
+    "relic_ch10_influence_expansion",
+    "relic_ch10_social_practice",
+    "relic_ch10_field_innovation_seal"
+  ],
+  "asset_boundary": {
+    "rights": "L1 commercial layer; must not be sold as Relic or mixed into ritual closure.",
+    "relic": "Story progression asset; Rights must not unlock or replace Relic progression.",
+    "rule": "Rights records reference relic context but do not mutate Relic state."
+  },
+  "rights": [
+    {
+      "id": "right_ch10_structure_preview",
+      "name": "章节结构预览",
+      "chapter_id": "ch10_field_echo_innovation",
+      "type": "preview",
+      "status": "available",
+      "language_layer": "L1_COMMERCIAL",
+      "relic_refs": [
+        "relic_ch10_innovation_badge",
+        "relic_ch10_gate_imprint_i",
+        "relic_ch10_collective_mirror",
+        "relic_ch10_influence_expansion",
+        "relic_ch10_social_practice",
+        "relic_ch10_field_innovation_seal"
+      ],
+      "description": "记念《创新之路》章节结构入口。用于查看探索动线与结缘商城入口，不承载云门仪式链。",
+      "eligibility_node_id": null,
+      "redemption": {
+        "enabled": false,
+        "surface": "结缘商城",
+        "copy": "查看章节结构与活动入口。"
+      },
+      "canonical_boundary": "Preview only; no Canon expansion; no ritual-chain insertion."
+    },
+    {
+      "id": "right_ch10_jieyuan_free_latte",
+      "name": "结缘礼 · 免费拿铁券",
+      "chapter_id": "ch10_field_echo_innovation",
+      "type": "coupon",
+      "status": "locked",
+      "language_layer": "L1_COMMERCIAL",
+      "relic_refs": [
+        "relic_ch10_innovation_badge",
+        "relic_ch10_gate_imprint_i",
+        "relic_ch10_collective_mirror",
+        "relic_ch10_influence_expansion",
+        "relic_ch10_social_practice",
+        "relic_ch10_field_innovation_seal"
+      ],
+      "description": "记念影响延展探索完成后，可在结缘商城领取免费拿铁结缘礼。探索完成后可免费领取，同账号仅可获得一次。",
+      "eligibility_node_id": "n3_influence_expansion",
+      "redemption": {
+        "enabled": false,
+        "surface": "结缘商城",
+        "copy": "结缘礼已开放：免费拿铁券（探索完成后可领）。"
+      },
+      "canonical_boundary": "L1 redemption only; separated from L3 relic innovation at n3_influence_expansion."
+    },
+    {
+      "id": "right_ch10_jieyuan_cafe_discount",
+      "name": "结缘礼 · 咖啡五折券",
+      "chapter_id": "ch10_field_echo_innovation",
+      "type": "coupon",
+      "status": "locked",
+      "language_layer": "L1_COMMERCIAL",
+      "relic_refs": [
+        "relic_ch10_innovation_badge",
+        "relic_ch10_gate_imprint_i",
+        "relic_ch10_collective_mirror",
+        "relic_ch10_influence_expansion",
+        "relic_ch10_social_practice",
+        "relic_ch10_field_innovation_seal"
+      ],
+      "description": "记念《创新之路》探索记念与心愿值记存达成后，可在结缘商城查看咖啡五折券等结缘礼。",
+      "eligibility_node_id": "n5_complete",
+      "redemption": {
+        "enabled": false,
+        "surface": "结缘商城",
+        "copy": "你已积累足够心愿值，可在结缘商城查看咖啡五折券等结缘礼。"
+      },
+      "canonical_boundary": "Commercial follow-up only; not a chapter rank reward or Relic substitute."
+    },
+    {
+      "id": "right_ch10_share_poster",
+      "name": "章成分享资格",
+      "chapter_id": "ch10_field_echo_innovation",
+      "type": "share",
+      "status": "locked",
+      "language_layer": "L1_COMMERCIAL",
+      "relic_refs": [
+        "relic_ch10_innovation_badge",
+        "relic_ch10_gate_imprint_i",
+        "relic_ch10_collective_mirror",
+        "relic_ch10_influence_expansion",
+        "relic_ch10_social_practice",
+        "relic_ch10_field_innovation_seal"
+      ],
+      "description": "记念《创新之路》章成后，可生成分享海报。传播资产由用户主动生成，不写入信物持有库。",
+      "eligibility_node_id": "n5_complete",
+      "redemption": {
+        "enabled": false,
+        "surface": "分享页",
+        "copy": "生成分享海报，或前往「我的信物」回顾记念。"
+      },
+      "canonical_boundary": "Routes to Digital Collectible flow; zero Relic progression effect."
+    },
+    {
+      "id": "right_ch10_coupon_wallet",
+      "name": "我的卡券",
+      "chapter_id": "ch10_field_echo_innovation",
+      "type": "coupon_list",
+      "status": "available",
+      "language_layer": "L1_COMMERCIAL",
+      "relic_refs": [
+        "relic_ch10_innovation_badge",
+        "relic_ch10_gate_imprint_i",
+        "relic_ch10_collective_mirror",
+        "relic_ch10_influence_expansion",
+        "relic_ch10_social_practice",
+        "relic_ch10_field_innovation_seal"
+      ],
+      "description": "记念结缘商城中的卡券持有入口。用于查看已领取结缘礼与核销状态，不替代信物档案。",
+      "eligibility_node_id": null,
+      "redemption": {
+        "enabled": false,
+        "surface": "我的卡券",
+        "copy": "卡券列表占位，未连接真实核销数据。"
+      },
+      "canonical_boundary": "Account surface only; isolated from Relic archive and ritual chain."
+    }
+  ]
+}

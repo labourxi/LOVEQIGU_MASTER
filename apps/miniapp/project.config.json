@@ -1,5 +1,5 @@
 {
-  "description": "LOVEQIGU WeChat Mini Program",
+  "description": "AR游伴 WeChat Mini Program",
   "packOptions": {
     "ignore": [],
     "include": []
@@ -31,8 +31,8 @@
   },
   "compileType": "miniprogram",
   "libVersion": "latest",
-  "appid": "wx08798a8141193bc6",
-  "projectname": "LOVEQIGU",
+  "appid": "wx2077c10675bdca4f",
+  "projectname": "AR游伴",
   "condition": {
     "miniprogram": {
       "list": [

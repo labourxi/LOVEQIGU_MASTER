@@ -1,0 +1,75 @@
+<view class="proto-page">
+  <view class="proto-hero">
+    <view class="proto-kicker">活动完成页</view>
+    <view class="proto-title">恭喜完成</view>
+    <view class="proto-subtitle">{{activity.event_name}}</view>
+    <view class="proto-chip-row">
+      <view class="proto-chip proto-chip--lit">完成度 {{summary.completionRate}}%</view>
+      <view class="proto-chip proto-chip--lit">信物 {{summary.ownedRelics}} 个</view>
+      <view class="proto-chip proto-chip--lit">卡券 {{summary.claimedCoupons}} 张</view>
+    </view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-card">
+      <view class="proto-card-title">{{completionNote}}</view>
+      <view class="proto-card-copy">活动进度已写入统一用户进度中心，刷新后仍可查看。</view>
+      <view class="proto-progress-bar">
+        <view class="proto-progress-fill" style="width: {{summary.completionRate}}%;"></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-section-head">
+      <view class="proto-section-title">获得信物</view>
+      <view class="proto-section-more">{{ownedRelics.length}} 个</view>
+    </view>
+    <view class="proto-card" wx:for="{{ownedRelics}}" wx:key="relic_id">
+      <view class="proto-row">
+        <view class="proto-card-title">{{item.relic_name}}</view>
+        <view class="proto-badge proto-badge--gold">{{item.status}}</view>
+      </view>
+      <view class="proto-card-meta">{{item.rarity}}</view>
+      <view class="proto-card-copy">{{item.story_snippet}}</view>
+    </view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-section-head">
+      <view class="proto-section-title">获得卡券</view>
+      <view class="proto-section-more">{{claimedCoupons.length}} 张</view>
+    </view>
+    <view class="proto-card" wx:for="{{claimedCoupons}}" wx:key="coupon_id">
+      <view class="proto-row">
+        <view class="proto-card-title">{{item.coupon_name}}</view>
+        <view class="proto-badge proto-badge--warm">{{item.status}}</view>
+      </view>
+      <view class="proto-card-meta">{{item.merchant_name}}</view>
+      <view class="proto-card-copy">领取时间：{{item.claimed_at}}</view>
+    </view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-section-head">
+      <view class="proto-section-title">推荐商家</view>
+      <view class="proto-section-more">可继续查看权益与活动</view>
+    </view>
+    <view class="proto-card" wx:for="{{recommendedMerchants}}" wx:key="merchant_id">
+      <view class="proto-row">
+        <view class="proto-card-title">{{item.merchant_name}}</view>
+        <view class="proto-badge">推荐</view>
+      </view>
+      <view class="proto-card-copy">{{item.point_name}} · {{item.task_name}}</view>
+    </view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-grid-2">
+      <button class="proto-btn proto-btn--ghost" bindtap="onBackToProgress">返回进度中心</button>
+      <button class="proto-btn" bindtap="onOpenExploration">继续浏览探索点</button>
+      <button class="proto-btn proto-btn--primary" bindtap="onOpenRightsCenter">查看权益中心</button>
+    </view>
+    <view class="proto-note">完成结果已保存，无需重新领取。</view>
+  </view>
+</view>

@@ -1,0 +1,29 @@
+<view class="star-ritual {{visible ? 'star-ritual--visible' : 'star-ritual--hidden'}}">
+  <view class="star-ritual__head">
+    <view class="star-ritual__kicker">ART-02</view>
+    <view class="star-ritual__title">{{title}}</view>
+    <view class="star-ritual__subtitle">{{subtitle}}</view>
+  </view>
+
+  <view class="star-ritual__canvas-shell">
+    <canvas
+      canvas-id="star-ritual-canvas"
+      class="star-ritual__canvas"
+      style="width: {{canvasWidth}}rpx; height: {{canvasHeight}}rpx;"
+    ></canvas>
+  </view>
+
+  <view class="star-ritual__meta">
+    <view class="star-ritual__state">
+      <view class="star-ritual__state-label">{{currentLabel}}</view>
+      <view class="star-ritual__state-progress">{{progressText}}</view>
+    </view>
+    <view class="star-ritual__copy">{{currentCopy}}</view>
+    <view class="star-ritual__motion">
+      <view class="star-ritual__motion-title">{{motionTitle}}</view>
+      <view class="star-ritual__motion-copy">{{motionCopy}}</view>
+      <view class="star-ritual__motion-note" wx:if="{{motionFallback}}">Lottie fallback: Canvas preview only.</view>
+    </view>
+    <view class="star-ritual__note">{{demoLabel}}</view>
+  </view>
+</view>

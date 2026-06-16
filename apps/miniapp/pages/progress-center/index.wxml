@@ -1,0 +1,89 @@
+<view class="proto-page">
+  <view class="proto-hero">
+    <view class="proto-kicker">活动进度中心</view>
+    <view class="proto-title">{{activity.event_name}}</view>
+    <view class="proto-subtitle">{{activity.description}}</view>
+    <view class="proto-stats">
+      <view class="proto-stat" wx:for="{{stats}}" wx:key="label">
+        <view class="proto-stat-value">{{item.value}}{{item.unit}}</view>
+        <view class="proto-stat-label">{{item.label}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-section-head">
+      <view class="proto-section-title">进度概览</view>
+      <view class="proto-section-more">{{isComplete ? '活动已完成' : '继续探索'}}</view>
+    </view>
+    <view class="proto-card">
+      <view class="proto-card-title">活动完成度</view>
+      <view class="proto-progress-bar">
+        <view class="proto-progress-fill" style="width: {{completionRate}}%;"></view>
+      </view>
+      <view class="proto-card-copy">
+        已完成 {{progressSummary.completedTasks}} / {{progressSummary.taskCount}} 个任务，已获 {{progressSummary.ownedRelics}} 个信物，已领 {{progressSummary.claimedCoupons}} 张卡券。
+      </view>
+    </view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-section-head">
+      <view class="proto-section-title">任务状态</view>
+      <view class="proto-section-more">完成任务后会自动发放信物</view>
+    </view>
+    <view class="proto-card" wx:for="{{tasks}}" wx:key="task_id">
+      <view class="proto-row">
+        <view class="proto-card-title">{{item.task_name}}</view>
+        <view class="proto-badge">{{item.status}}</view>
+      </view>
+      <view class="proto-card-meta">{{item.task_type}} · 奖励 {{item.task_reward}}</view>
+    </view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-section-head">
+      <view class="proto-section-title">信物与卡券</view>
+      <view class="proto-section-more">进度变化会实时同步</view>
+    </view>
+    <view class="proto-card" wx:for="{{relics}}" wx:key="relic_id">
+      <view class="proto-row">
+        <view class="proto-card-title">{{item.relic_name}}</view>
+        <view class="proto-badge proto-badge--gold">{{item.status}}</view>
+      </view>
+      <view class="proto-card-meta">{{item.rarity}}</view>
+      <view class="proto-card-copy">{{item.story_snippet}}</view>
+    </view>
+    <view class="proto-card" wx:for="{{coupons}}" wx:key="coupon_id">
+      <view class="proto-row">
+        <view class="proto-card-title">{{item.coupon_name}}</view>
+        <view class="proto-badge proto-badge--warm">{{item.status}}</view>
+      </view>
+      <view class="proto-card-meta">{{item.merchant_name}} · {{item.coupon_type}} · {{item.discount_value}}</view>
+    </view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-section-head">
+      <view class="proto-section-title">推荐商家</view>
+      <view class="proto-section-more">来自活动绑定点位</view>
+    </view>
+    <view class="proto-card" wx:for="{{merchantHighlights}}" wx:key="merchant_id">
+      <view class="proto-row">
+        <view class="proto-card-title">{{item.merchant_name}}</view>
+        <view class="proto-badge">{{item.task_status}}</view>
+      </view>
+      <view class="proto-card-copy">{{item.point_name}} · {{item.task_name}}</view>
+      <view class="proto-card-meta">卡券状态：{{item.coupon_status}}</view>
+    </view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-grid-2">
+      <button class="proto-btn proto-btn--ghost" bindtap="onOpenEvent">返回活动页</button>
+      <button class="proto-btn" bindtap="onOpenExploration">查看探索点</button>
+      <button wx:if="{{isComplete}}" class="proto-btn proto-btn--primary" bindtap="onOpenCompletion">查看完成页</button>
+      <button wx:if="{{!isComplete}}" class="proto-btn" disabled>活动未完成</button>
+    </view>
+  </view>
+</view>

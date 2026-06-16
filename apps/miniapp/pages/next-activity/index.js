@@ -4,21 +4,21 @@ function mapActivities() {
   return nextActivityService.getAllNextActivities().map((item) => ({
     id: item.activity_id,
     title: item.title,
-    meta: item.path,
+    meta: '应用内路由',
     copy: item.copy,
-    tag: 'Next Activity',
+    tag: '下一步',
     path: item.path
   }));
 }
 
 function buildPageData() {
   return {
-    title: 'Next Activity',
-    intro: 'This terminal surface returns the user to an existing app destination.',
-    highlights: ['Terminal step', 'No new Canon', 'Reuse existing routes'],
-    sectionTitle: 'Next destinations',
-    sectionSubtitle: 'These routes keep the journey inside the existing app structure.',
-    actionLabel: 'Open Route',
+    title: '下一步活动',
+    intro: '此终端页面将用户带回已有应用目的地。',
+    highlights: ['终端步骤', '不新增世界观', '复用已有路由'],
+    sectionTitle: '下一步目的地',
+    sectionSubtitle: '路由保持在现有应用结构内。',
+    actionLabel: '前往',
     items: mapActivities()
   };
 }

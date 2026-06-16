@@ -1,0 +1,15 @@
+{
+  "status": "success",
+  "factory": "RelicFactory",
+  "task_id": "phase3_relic",
+  "target": "unknown",
+  "generated_at": "2026-06-14T14:24:13.065486Z",
+  "output_dir": "data\\relics\\generated",
+  "record": {
+    "relic_id": "phase3_relic_relic",
+    "name": "unknown",
+    "source": {
+      "task_id": "phase3_relic"
+    }
+  }
+}

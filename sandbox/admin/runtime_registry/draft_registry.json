@@ -1,0 +1,22 @@
+{
+  "schema": "loveqigu.admin.runtime_registry.v1",
+  "version": "1.0.0",
+  "status": "draft",
+  "checkpoint_id": "test_cp_001",
+  "chapter_id": "CH04",
+  "entries": [
+    {
+      "kind": "checkpoint",
+      "ref": "sandbox\\admin\\checkpoints\\test_cp_001.json"
+    },
+    {
+      "kind": "relic_template",
+      "ref": "sandbox\\admin\\relic_templates\\test_cp_001_relic_template.json"
+    },
+    {
+      "kind": "art_requirement",
+      "ref": "sandbox\\admin\\art_requirements\\test_cp_001_art_requirement.json"
+    }
+  ],
+  "publish_status": "not_published"
+}

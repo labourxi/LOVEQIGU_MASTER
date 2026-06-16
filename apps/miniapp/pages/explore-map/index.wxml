@@ -5,10 +5,20 @@
   <view class="progress-panel">
     <view>
       <view class="eyebrow">当前章节</view>
-      <view class="progress-title">{{progress.chapter}}</view>
+      <view class="progress-title">{{progress.displayTitle || progress.chapter}}</view>
       <view class="progress-note">{{progress.note}}</view>
     </view>
     <view class="progress-count">{{progress.explored}}/{{progress.total}}</view>
+  </view>
+
+  <view class="picker-panel">
+    <view class="picker-label">章节选择</view>
+    <picker mode="selector" range="{{chapterOptions}}" range-key="label" value="{{selectedChapterIndex}}" bindchange="onChapterPick">
+      <view class="picker-value">
+        <text>{{selectedChapterLabel}}</text>
+        <text class="picker-hint">切换章节</text>
+      </view>
+    </picker>
   </view>
 
   <view class="section">
@@ -24,17 +34,25 @@
 
   <view class="section">
     <view class="section-head">
-      <view class="section-title">已发现地点</view>
-      <button class="mini-button" bindtap="onOpenAr">AR 预览</button>
+      <view class="section-title">探索点</view>
+      <button class="mini-button" bindtap="onOpenAr">AR 入口</button>
     </view>
     <view class="list">
-      <view class="location-card" wx:for="{{locations}}" wx:key="name">
+      <view class="location-card" wx:for="{{locations}}" wx:key="id">
         <view class="location-main">
           <view class="card-title">{{item.name}}</view>
           <view class="card-meta">{{item.region}}</view>
         </view>
         <view class="card-status">{{item.state}}</view>
         <view class="card-copy wide">{{item.copy}}</view>
+        <button
+          class="location-ar-btn"
+          wx:if="{{item.hasAr}}"
+          data-node-id="{{item.id}}"
+          bindtap="onOpenArForNode"
+        >
+          进入 AR
+        </button>
       </view>
     </view>
   </view>

@@ -1,0 +1,69 @@
+<view class="proto-page" wx:if="{{!missing}}">
+  <view class="proto-hero">
+    <view class="proto-kicker">{{scenic.levelLabel}}｜{{scenic.theme}}</view>
+    <view class="proto-title">{{scenic.name}}</view>
+    <view class="proto-subtitle">{{scenic.intro}}</view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-card">
+      <view class="proto-row">
+        <view>
+          <view class="proto-card-meta">面积</view>
+          <view class="proto-card-title">{{scenic.area}}</view>
+        </view>
+        <view>
+          <view class="proto-card-meta">探索点</view>
+          <view class="proto-card-title">{{scenic.explorationPointsDisplay}} 个</view>
+        </view>
+      </view>
+      <view class="proto-card-copy">特色：{{scenic.feature}}</view>
+    </view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-section-title">首场活动状态</view>
+    <view class="proto-card">
+      <view class="proto-row">
+        <view class="proto-card-title">{{eventOverview.activity.event_name}}</view>
+        <view class="proto-badge proto-badge--warm">{{eventOverview.activity.status}}</view>
+      </view>
+      <view class="proto-card-meta">任务 {{eventQuickStats[0].value}} ｜ 信物 {{eventQuickStats[1].value}} ｜ 卡券 {{eventQuickStats[2].value}}</view>
+      <view class="proto-card-copy">{{eventOverview.activity.description}}</view>
+      <button class="proto-btn proto-btn--primary" bindtap="onOpenMerchantEvent">进入活动入口</button>
+      <button class="proto-btn proto-btn--ghost" bindtap="onOpenMerchantEventExploration">查看探索列表</button>
+    </view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-section-title">数字藏品</view>
+    <view class="proto-card" wx:for="{{scenic.digitalCollectibleList}}" wx:key="id">
+      <view class="proto-card-title">{{item.name}}</view>
+      <view class="proto-card-meta">传播资产｜不写入信物库</view>
+    </view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-section-title">热门权益</view>
+    <view class="proto-card" wx:for="{{scenic.coupons}}" wx:key="id">
+      <view class="proto-row">
+        <view class="proto-card-title">{{item.name}}</view>
+        <view class="proto-badge proto-badge--warm">{{item.tag}}</view>
+      </view>
+      <view class="proto-card-copy">{{item.desc}}</view>
+    </view>
+    <button class="proto-btn proto-btn--ghost" bindtap="onOpenRights">前往权益中心</button>
+  </view>
+
+  <view class="proto-section action-row">
+    <button class="proto-btn" bindtap="onOpenExplore">进入探索地图</button>
+    <button class="proto-btn proto-btn--primary" bindtap="onNavigate">导航</button>
+  </view>
+</view>
+
+<view class="proto-page" wx:else>
+  <view class="proto-card">
+    <view class="proto-card-title">{{title}}</view>
+  </view>
+</view>
+

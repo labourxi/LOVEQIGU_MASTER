@@ -1,0 +1,11 @@
+{
+  "workflow": "new_relic",
+  "steps": [
+    "story_factory",
+    "relic_factory",
+    "visual_factory",
+    "atlas_factory",
+    "blessing_factory",
+    "runtime_factory"
+  ]
+}

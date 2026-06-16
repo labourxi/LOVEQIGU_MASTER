@@ -1,0 +1,41 @@
+{
+  "chapter_code": "CH08",
+  "chapter_id": "ch08_field_echo_legacy",
+  "chapter_title": "传承之路",
+  "generated": "2026-06-08",
+  "mode": "sandbox_only",
+  "production_link_state": {
+    "previous_chapter": "ch07_field_echo",
+    "next_chapter": "TBD",
+    "upstream_link": {
+      "from": "ch07_field_echo",
+      "to": "ch08_field_echo_legacy",
+      "status": "PASS",
+      "note": "CH07 next_chapter wired in production (CH07_CH08_LINKING)"
+    },
+    "status": "PASS"
+  },
+  "sandbox_link_state": {
+    "previous_chapter": "ch07_field_echo",
+    "next_chapter": "TBD",
+    "status": "PASS",
+    "note": "Sandbox simulation keeps CH08 internal refs intact; CH07->CH08 production link closed"
+  },
+  "resolved_internal_refs": {
+    "story_relic_refs": 6,
+    "story_ar_refs": 6,
+    "story_rights_refs": 0,
+    "relic_records": 6,
+    "rights_records": 5,
+    "ar_records": 6,
+    "digital_collectible_records": 1
+  },
+  "broken_refs": [],
+  "circular_refs": [],
+  "invalid_chapter_refs": [],
+  "notes": [
+    "All CH08 internal story/relic/rights/ar/dc references resolve locally.",
+    "CH07 -> CH08 production link is closed.",
+    "CH08 next_chapter remains TBD per Canon pause boundary."
+  ]
+}

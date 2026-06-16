@@ -1,0 +1,19 @@
+{
+  "status": "success",
+  "factory": "StoryFactory",
+  "task_id": "auto_generated",
+  "target": "故事",
+  "generated_at": "2026-06-14T14:26:58.241880Z",
+  "output_dir": "data\\story\\generated",
+  "record": {
+    "story_id": "auto_generated_story",
+    "title": "故事",
+    "source": {
+      "task_id": "auto_generated",
+      "task_type": "new_story",
+      "target": "故事",
+      "workflow": "new_story",
+      "raw_task": "新增故事"
+    }
+  }
+}

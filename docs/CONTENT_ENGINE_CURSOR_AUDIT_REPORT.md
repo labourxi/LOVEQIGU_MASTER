@@ -1,6 +1,6 @@
 # LOVEQIGU Content Engine Cursor Audit
 
-Generated: 2026-06-08T04:05:16.776Z
+Generated: 2026-06-09T15:27:22.213Z
 Scope: `CONTENT_ENGINE/**/*.yaml`
 Status: WARN
 

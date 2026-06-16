@@ -1,19 +1,50 @@
 <view class="page mvp-page">
   <view class="page-title">{{title}}</view>
-  <view class="page-desc">The commercial surface stays read-only while the user opens Campaign Closure.</view>
+  <view class="page-desc">权益中心支持查看已领取卡券，并接入首场活动的运行进度。</view>
 
   <view class="redemption-panel">
     <view class="panel-title">{{redemption.title}}</view>
     <view class="panel-copy">{{redemption.copy}}</view>
-    <button class="panel-button" bindtap="onOpenCampaignClosure">{{primaryLabel}}</button>
+    <button class="panel-button" bindtap="onOpenMerchantEvent">{{primaryLabel}}</button>
   </view>
 
   <view class="rule-row">
-    <view class="rule-chip">Campaign count {{campaignCount}}</view>
-    <view class="rule-chip">Read-only benefits</view>
+    <view class="rule-chip">活动 {{campaignCount}} 项</view>
+    <view class="rule-chip">我的卡券 {{claimedCoupons.length}} 张</view>
   </view>
 
   <view class="list">
+    <view class="benefit-card">
+      <view class="card-head">
+        <view class="card-title">{{eventSummary.title}}</view>
+        <view class="card-status">{{eventSummary.activityStatus}}</view>
+      </view>
+      <view class="card-copy">{{eventSummary.description}}</view>
+      <view class="rule-row" style="margin-top: 20rpx;">
+        <view class="rule-chip">已完成任务 {{eventSummary.completedTaskCount}} 个</view>
+        <view class="rule-chip">已获信物 {{eventSummary.ownedRelicCount}} 件</view>
+        <view class="rule-chip">已领卡券 {{eventSummary.claimedCouponCount}} 张</view>
+      </view>
+    </view>
+
+    <view class="benefit-card" wx:if="{{claimedCoupons.length}}">
+      <view class="card-head">
+        <view class="card-title">我的卡券</view>
+        <view class="card-status">已领取</view>
+      </view>
+      <view class="card-copy" wx:for="{{claimedCoupons}}" wx:key="coupon_name">
+        {{item.coupon_name}} ｜ {{item.merchant_name}} ｜ {{item.claimed_at}}
+      </view>
+    </view>
+
+    <view class="benefit-card" wx:else>
+      <view class="card-head">
+        <view class="card-title">我的卡券</view>
+        <view class="card-status">空状态</view>
+      </view>
+      <view class="card-copy">尚未领取首场活动卡券，可前往活动页完成任务后领取。</view>
+    </view>
+
     <view class="benefit-card" wx:for="{{benefits}}" wx:key="name">
       <view class="card-head">
         <view class="card-title">{{item.name}}</view>
@@ -23,3 +54,4 @@
     </view>
   </view>
 </view>
+

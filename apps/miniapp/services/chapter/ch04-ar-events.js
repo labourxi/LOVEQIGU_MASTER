@@ -1,0 +1,161 @@
+module.exports = {
+  "schema": "loveqigu.ar.events.v1",
+  "version": "1.0.0",
+  "source": "CH04_CONTENT_CANON_V1",
+  "layer": "L2",
+  "language_layer": "L2_PRODUCT",
+  "status": "active",
+  "source_ref": "docs/content/CH04_CONTENT_CANON_V1.md",
+  "story_ref": "data/story/ch04_chapters.json",
+  "relic_ref": "data/relics/ch04_relics.json",
+  "rights_ref": "data/rights/ch04_rights.json",
+  "canonical_boundary": "CH04 AR Event Layer. Field experience and closure entry. No new lore. No Canon Gap fill.",
+  "chapter_context": {
+    "chapter_id": "ch04_field_awakening",
+    "chapter_code": "CH04",
+    "chapter_title": "田野初醒",
+    "display_title": "《田野初醒》"
+  },
+  "asset_boundary": {
+    "ar_event": "Field visualization and approved closure entry; does not create 云门 state.",
+    "relic": "AR output may reference Relic context; Relic progression remains deterministic from exploration.",
+    "rights": "L1 redemption refs stay outside ritual closure chain.",
+    "digital_collectible": "Share outputs are user-initiated; zero Relic progression effect."
+  },
+  "events": [
+    {
+      "id": "ar_ch04_field_gate_v1",
+      "code": "AR_CH04_FIELD_GATE_V1",
+      "name": "初醒场域",
+      "chapter_id": "ch04_field_awakening",
+      "node_id": "n1_field",
+      "node_title": "场域·初醒到场",
+      "status": "available",
+      "interaction": "location_gate",
+      "camera_enabled": false,
+      "fake_ar_enabled": true,
+      "description": "记念场域·初醒到场处的场域体验。田野初醒是 L2 章节题名，不是新地理或可被占有的关卡。",
+      "copy": "预览初醒场域，不请求 live AR 权限。",
+      "relic_refs": [
+        "relic_ch04_awakening_badge",
+        "relic_ch04_gate_imprint_d"
+      ],
+      "rights_refs": [],
+      "digital_collectible_refs": [],
+      "canonical_boundary": "Field awakening visualization only; 田野初醒 is L2 chapter title, not new geography."
+    },
+    {
+      "id": "ar_ch04_imprint_awakening_v1",
+      "code": "AR_CH04_IMPRINT_AWAKENING_V1",
+      "name": "初醒残印",
+      "chapter_id": "ch04_field_awakening",
+      "node_id": "n1_field",
+      "node_title": "场域·初醒到场",
+      "status": "available",
+      "interaction": "imprint_particles",
+      "camera_enabled": false,
+      "fake_ar_enabled": true,
+      "description": "记念场域处探索记录的初醒印迹显现。残印是连接曾经存在过的证据，不是收藏数量。",
+      "copy": "预览初醒印迹粒子场域，不定义残印形成机制。",
+      "relic_refs": [
+        "relic_ch04_gate_imprint_d"
+      ],
+      "rights_refs": [],
+      "digital_collectible_refs": [],
+      "canonical_boundary": "Does not define imprint formation mechanics; album D independent from prior chapters."
+    },
+    {
+      "id": "ar_ch04_awakening_awareness_v1",
+      "code": "AR_CH04_AWAKENING_AWARENESS_V1",
+      "name": "初醒镜照见",
+      "chapter_id": "ch04_field_awakening",
+      "node_id": "n2_awakening",
+      "node_title": "初醒镜·照见",
+      "status": "available",
+      "interaction": "awareness_prompt",
+      "camera_enabled": false,
+      "fake_ar_enabled": true,
+      "description": "记念初醒镜·照见处的场域体验。照见，不是向外寻找答案，而是看见自己已与场域同在。",
+      "copy": "预览初醒镜照见场域，承接第二处觉察。",
+      "relic_refs": [
+        "relic_ch04_awakening_mirror"
+      ],
+      "rights_refs": [],
+      "digital_collectible_refs": [],
+      "canonical_boundary": "Uses existing field context only; no new Cosmology or lore."
+    },
+    {
+      "id": "ar_ch04_human_awakening_v1",
+      "code": "AR_CH04_HUMAN_AWAKENING_V1",
+      "name": "人间初醒场域",
+      "chapter_id": "ch04_field_awakening",
+      "node_id": "n3_human_awakening",
+      "node_title": "谷里咖啡·人间初醒",
+      "status": "available",
+      "interaction": "human_field_presence",
+      "camera_enabled": false,
+      "fake_ar_enabled": true,
+      "description": "记念谷里咖啡·人间初醒处的场域体验。一次服务、一杯咖啡、一次真实相遇，连接仍可在真实相遇处被照见。",
+      "copy": "预览人间初醒场域；权益礼遇在探索完成后于权益中心触达。",
+      "relic_refs": [
+        "relic_ch04_human_awakening"
+      ],
+      "rights_refs": [
+        "right_ch04_jieyuan_free_latte"
+      ],
+      "digital_collectible_refs": [],
+      "canonical_boundary": "L1 redemption stays outside ritual chain; no medical or lineage claims."
+    },
+    {
+      "id": "ar_ch04_awakening_guide_v1",
+      "code": "AR_CH04_AWAKENING_GUIDE_V1",
+      "name": "初醒修习引导",
+      "chapter_id": "ch04_field_awakening",
+      "node_id": "n4_practice_awakening",
+      "node_title": "云间书符·初醒修习",
+      "status": "available",
+      "interaction": "guide_sequence",
+      "camera_enabled": false,
+      "fake_ar_enabled": true,
+      "description": "记念云间书符·初醒修习处的场域体验。修习是记念觉察被记存，不是获得新力量——符者，记念也，非咒也。",
+      "copy": "预览初醒修习引导场域，不宣称医疗、派系或传承。",
+      "relic_refs": [
+        "relic_ch04_practice_awakening"
+      ],
+      "rights_refs": [],
+      "digital_collectible_refs": [],
+      "canonical_boundary": "No medical claim, magic system, sect, or lineage; no L1 rights popup at practice node."
+    },
+    {
+      "id": "ar_ch04_completion_v1",
+      "code": "AR_CH04_COMPLETION_V1",
+      "name": "田野初醒·章成",
+      "chapter_id": "ch04_field_awakening",
+      "node_id": "n5_complete",
+      "node_title": "田野初醒·章成",
+      "status": "locked",
+      "interaction": "completion_scene",
+      "camera_enabled": false,
+      "fake_ar_enabled": true,
+      "description": "记念《田野初醒》章成 closure 场域。五处觉察已齐备，世界留下初醒印记，见证连接而非等级。",
+      "copy": "预览章成 closure 场域，可接续分享海报生成流程。",
+      "relic_refs": [
+        "relic_ch04_field_awakening_seal"
+      ],
+      "rights_refs": [
+        "right_ch04_jieyuan_cafe_discount",
+        "right_ch04_share_poster"
+      ],
+      "digital_collectible_refs": [
+        "dc_ch04_completion_poster"
+      ],
+      "canonical_boundary": "Completion is not ranking, level, combat, or proof of superiority.",
+      "unlock_requires": [
+        "n1_field",
+        "n2_awakening",
+        "n3_human_awakening",
+        "n4_practice_awakening"
+      ]
+    }
+  ]
+};

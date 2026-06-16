@@ -1,0 +1,153 @@
+module.exports = {
+  "schema": "loveqigu.rights.v1",
+  "version": "1.0.0",
+  "source": "CH09_CONTENT_CANON_V1",
+  "layer": "L1",
+  "language_layer": "L1_COMMERCIAL",
+  "status": "active",
+  "source_ref": "docs/content/canon/CH09_CONTENT_CANON_V1.md",
+  "story_ref": "data/story/ch09_chapters.json",
+  "relic_ref": "data/relics/ch09_relics.json",
+  "canonical_boundary": "CH09 Rights Layer. Commercial and jieyuan functions isolated from ritual chain. No new lore. No Canon Gap fill.",
+  "chapter_context": {
+    "chapter_id": "ch09_field_echo_future",
+    "chapter_code": "CH09",
+    "chapter_title": "未来之约",
+    "display_title": "《未来之约》"
+  },
+  "relic_refs_all": [
+    "relic_ch09_future_badge",
+    "relic_ch09_gate_imprint_h",
+    "relic_ch09_collective_echo_mirror",
+    "relic_ch09_extended_connections",
+    "relic_ch09_social_impact",
+    "relic_ch09_field_future_seal"
+  ],
+  "asset_boundary": {
+    "rights": "L1 commercial layer; must not be sold as Relic or mixed into ritual closure.",
+    "relic": "Story progression asset; Rights must not unlock or replace Relic progression.",
+    "rule": "Rights records reference relic context but do not mutate Relic state."
+  },
+  "rights": [
+    {
+      "id": "right_ch09_structure_preview",
+      "name": "章节结构预览",
+      "chapter_id": "ch09_field_echo_future",
+      "type": "preview",
+      "status": "available",
+      "language_layer": "L1_COMMERCIAL",
+      "relic_refs": [
+        "relic_ch09_future_badge",
+        "relic_ch09_gate_imprint_h",
+        "relic_ch09_collective_echo_mirror",
+        "relic_ch09_extended_connections",
+        "relic_ch09_social_impact",
+        "relic_ch09_field_future_seal"
+      ],
+      "description": "记念《未来之约》章节结构入口。用于查看探索动线与权益中心入口，不承载云门仪式链。",
+      "eligibility_node_id": null,
+      "redemption": {
+        "enabled": false,
+        "surface": "权益中心",
+        "copy": "查看章节结构与活动入口。"
+      },
+      "canonical_boundary": "Preview only; no Canon expansion; no ritual-chain insertion."
+    },
+    {
+      "id": "right_ch09_jieyuan_free_latte",
+      "name": "权益礼遇 · 免费拿铁券",
+      "chapter_id": "ch09_field_echo_future",
+      "type": "coupon",
+      "status": "locked",
+      "language_layer": "L1_COMMERCIAL",
+      "relic_refs": [
+        "relic_ch09_future_badge",
+        "relic_ch09_gate_imprint_h",
+        "relic_ch09_collective_echo_mirror",
+        "relic_ch09_extended_connections",
+        "relic_ch09_social_impact",
+        "relic_ch09_field_future_seal"
+      ],
+      "description": "记念连接延伸探索完成后，可在权益中心领取免费拿铁权益礼遇。探索完成后可免费领取，同账号仅可获得一次。",
+      "eligibility_node_id": "n3_extended_connections",
+      "redemption": {
+        "enabled": false,
+        "surface": "权益中心",
+        "copy": "权益礼遇已开放：免费拿铁券（探索完成后可领）。"
+      },
+      "canonical_boundary": "L1 redemption only; separated from L3 relic future at n3_extended_connections."
+    },
+    {
+      "id": "right_ch09_jieyuan_cafe_discount",
+      "name": "权益礼遇 · 咖啡五折券",
+      "chapter_id": "ch09_field_echo_future",
+      "type": "coupon",
+      "status": "locked",
+      "language_layer": "L1_COMMERCIAL",
+      "relic_refs": [
+        "relic_ch09_future_badge",
+        "relic_ch09_gate_imprint_h",
+        "relic_ch09_collective_echo_mirror",
+        "relic_ch09_extended_connections",
+        "relic_ch09_social_impact",
+        "relic_ch09_field_future_seal"
+      ],
+      "description": "记念《未来之约》探索记念与心愿值记存达成后，可在权益中心查看咖啡五折券等权益礼遇。",
+      "eligibility_node_id": "n5_complete",
+      "redemption": {
+        "enabled": false,
+        "surface": "权益中心",
+        "copy": "你已积累足够心愿值，可在权益中心查看咖啡五折券等权益礼遇。"
+      },
+      "canonical_boundary": "Commercial follow-up only; not a chapter rank reward or Relic substitute."
+    },
+    {
+      "id": "right_ch09_share_poster",
+      "name": "章成分享资格",
+      "chapter_id": "ch09_field_echo_future",
+      "type": "share",
+      "status": "locked",
+      "language_layer": "L1_COMMERCIAL",
+      "relic_refs": [
+        "relic_ch09_future_badge",
+        "relic_ch09_gate_imprint_h",
+        "relic_ch09_collective_echo_mirror",
+        "relic_ch09_extended_connections",
+        "relic_ch09_social_impact",
+        "relic_ch09_field_future_seal"
+      ],
+      "description": "记念《未来之约》章成后，可生成分享海报。传播资产由用户主动生成，不写入信物持有库。",
+      "eligibility_node_id": "n5_complete",
+      "redemption": {
+        "enabled": false,
+        "surface": "分享页",
+        "copy": "生成分享海报，或前往「我的信物」回顾记念。"
+      },
+      "canonical_boundary": "Routes to Digital Collectible flow; zero Relic progression effect."
+    },
+    {
+      "id": "right_ch09_coupon_wallet",
+      "name": "我的卡券",
+      "chapter_id": "ch09_field_echo_future",
+      "type": "coupon_list",
+      "status": "available",
+      "language_layer": "L1_COMMERCIAL",
+      "relic_refs": [
+        "relic_ch09_future_badge",
+        "relic_ch09_gate_imprint_h",
+        "relic_ch09_collective_echo_mirror",
+        "relic_ch09_extended_connections",
+        "relic_ch09_social_impact",
+        "relic_ch09_field_future_seal"
+      ],
+      "description": "记念权益中心中的卡券持有入口。用于查看已领取权益礼遇与核销状态，不替代信物档案。",
+      "eligibility_node_id": null,
+      "redemption": {
+        "enabled": false,
+        "surface": "我的卡券",
+        "copy": "卡券列表占位，未连接真实核销数据。"
+      },
+      "canonical_boundary": "Account surface only; isolated from Relic archive and ritual chain."
+    }
+  ]
+};

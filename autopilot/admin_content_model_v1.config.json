@@ -1,0 +1,51 @@
+{
+  "name": "LOVEQIGU_ADMIN_AUTOPILOT_V1",
+  "version": "1.0.0",
+  "default_chapter": "CH04",
+  "test_checkpoint_id": "test_cp_001",
+  "sandbox_root": "sandbox/admin/",
+  "blocked_paths": [
+    "docs/canon/*",
+    "docs/content/LOVEQIGU_CONTENT_CANON_V1.md",
+    "docs/content/CH02_CONTENT_CANON_V1.md",
+    "docs/content/CH03_CONTENT_CANON_V1.md",
+    "data/story/chapters.json",
+    "data/story/ch02_chapters.json",
+    "data/story/ch03_chapters.json",
+    "data/relics/relics.json",
+    "data/relics/ch02_relics.json",
+    "data/relics/ch03_relics.json",
+    "data/rights/rights.json",
+    "data/rights/ch02_rights.json",
+    "data/rights/ch03_rights.json",
+    "data/ar/ar-events.json",
+    "data/ar/ch02_ar-events.json",
+    "data/ar/ch03_ar-events.json"
+  ],
+  "required_validation_commands": [
+    "python scripts/autopilot/run_admin_content_model_v1.py validate --sandbox",
+    "python scripts/autopilot/run_admin_content_model_v1.py dry-run --checkpoint test_cp_001 --sandbox",
+    "python scripts/autopilot/admin_content_gate.py",
+    "node scripts/ductor/run_admin_content_model_v1.js --checkpoint test_cp_001 --sandbox"
+  ],
+  "baseline_hashes": {
+    "docs/content/LOVEQIGU_CONTENT_CANON_V1.md": "CFE90F7C46D28ABDEAEB4CD8A4FEE23BCF3B02510362B9341F05D27A3450D84B",
+    "docs/content/CH02_CONTENT_CANON_V1.md": "FB7B3DD8A84AC464BE68F9A50D93A358FD330B25552E1E8685A186BED2F0C478",
+    "docs/content/CH03_CONTENT_CANON_V1.md": "39703C7195E7AE342A103C7852F7FBA52960BC9187037A8254DD36CB1A4F9C45",
+    "docs/canon/LOVEQIGU_WORLD_RULES_CANON_V1.md": "D7DA34B3B66798522D6E75E853FC3BD2076CE3C301FA034C047D32DCB0142608",
+    "docs/canon/LOVEQIGU_CANON_INDEX.md": "EA966B920FB4B53F5E399203BC3A6271867F3038C9D63B66B509936894AC367A",
+    "docs/canon/CANON_GAP_REGISTRY.md": "D84CE541865461200458D09E150D7E46ECA9B8D1D95C53A64E6E49A74B4BDF1D",
+    "data/story/chapters.json": "1E37B4366D7568F3276E5C4BE41BC075C6FACD1D2B1A29BD089229DEEE4C91B8",
+    "data/story/ch02_chapters.json": "F203B6C57D8327D0F980778F94A94324BA8ECE0434EED5A4B5B41622FED1A0AA",
+    "data/story/ch03_chapters.json": "C14E1A2F4330C60055DA607D80B6BE45B242494121656F67B2F98831DB0C26B1",
+    "data/relics/relics.json": "E5A61743986B371485E3B179F40899F480FF69F3FC0C1C921D5C384E47996E4E",
+    "data/relics/ch02_relics.json": "5790D2456B7BD7F0BD2FAD2FF3B06F8318E1A6A87BEAE6791AC4E881156DEDB2",
+    "data/relics/ch03_relics.json": "6ED87E1B06E11F09EAD91E9E08DD8CDC2555C7F980FA48B7F259F17DA23ABA9C",
+    "data/rights/rights.json": "ACC63C06F79E4B2FDFC3BC8128CCFED9BC81307EF57D9F3723224BC97DE548F3",
+    "data/rights/ch02_rights.json": "4E7429A9BDDDF82D2103F12612680A506B4ABBC2695074021AEC24E5C20C0688",
+    "data/rights/ch03_rights.json": "7E2887BFE9F8D3ECB6B39A0D2945D60D75A709AAA1BE8BADA99A6D1F234AF802",
+    "data/ar/ar-events.json": "83173E442FBDF2EE6905C5D548EBAA3C9A320D812448D5360A7A5B37A642BAEE",
+    "data/ar/ch02_ar-events.json": "9566142BA2D7F3267B5F7341BEA9D3F614AC81B80890DE0F35D724C4FEBBA462",
+    "data/ar/ch03_ar-events.json": "B6DD18F72DB90721DD3F7C35785AB2202A03592B9E3562C948127818FD50F684"
+  }
+}

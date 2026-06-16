@@ -1,0 +1,17 @@
+{
+  "status": "success",
+  "factory": "StoryFactory",
+  "task_id": "jiao_su",
+  "target": "角宿",
+  "generated_at": "2026-06-15T04:54:51.724505Z",
+  "output_dir": "data\\story\\generated",
+  "record": {
+    "story_id": "jiao_su_story",
+    "title": "角宿",
+    "source": {
+      "task_id": "jiao_su",
+      "target": "角宿",
+      "source": "REAL_PRODUCTION_VALIDATION_V1"
+    }
+  }
+}

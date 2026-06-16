@@ -1,0 +1,39 @@
+@import '../../styles/prototype-v1.wxss';
+
+.seals-page {
+  padding-bottom: 64rpx;
+}
+
+.seal-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 12rpx;
+  align-items: center;
+  margin-bottom: 12rpx;
+  padding: 20rpx 22rpx;
+  border-radius: 12rpx;
+  background: #fff;
+  box-shadow: 0 8rpx 24rpx rgba(17, 24, 39, 0.06);
+}
+
+.seal-row--highlight {
+  border: 2rpx solid #4b635c;
+  margin-top: 8rpx;
+}
+
+.seal-row-name {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #111827;
+}
+
+.seal-row-display {
+  font-size: 26rpx;
+  font-weight: 800;
+  color: #263a34;
+}
+
+.seal-row-status {
+  font-size: 22rpx;
+  color: #6b7280;
+}

@@ -1,0 +1,10 @@
+@import '../../styles/prototype-v1.wxss';
+
+.action-row {
+  display: flex;
+  gap: 16rpx;
+}
+
+.action-row .proto-btn {
+  flex: 1;
+}

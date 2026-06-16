@@ -1,0 +1,161 @@
+{
+  "schema": "loveqigu.ar.events.v1",
+  "version": "1.0.0",
+  "source": "CH03_CONTENT_CANON_V1",
+  "layer": "L2",
+  "language_layer": "L2_PRODUCT",
+  "status": "active",
+  "source_ref": "docs/content/CH03_CONTENT_CANON_V1.md",
+  "story_ref": "data/story/ch03_chapters.json",
+  "relic_ref": "data/relics/ch03_relics.json",
+  "rights_ref": "data/rights/ch03_rights.json",
+  "canonical_boundary": "CH03 AR Event Layer. Field experience and closure entry. No new lore. No Canon Gap fill.",
+  "chapter_context": {
+    "chapter_id": "ch03_field_reunion",
+    "chapter_code": "CH03",
+    "chapter_title": "再度重逢",
+    "display_title": "《再度重逢》"
+  },
+  "asset_boundary": {
+    "ar_event": "Field visualization and approved closure entry; does not create 云门 state.",
+    "relic": "AR output may reference Relic context; Relic progression remains deterministic from exploration.",
+    "rights": "L1 redemption refs stay outside ritual closure chain.",
+    "digital_collectible": "Share outputs are user-initiated; zero Relic progression effect."
+  },
+  "events": [
+    {
+      "id": "ar_ch03_reunion_gate_v1",
+      "code": "AR_CH03_REUNION_GATE_V1",
+      "name": "重逢场域",
+      "chapter_id": "ch03_field_reunion",
+      "node_id": "n1_reunion",
+      "node_title": "场域·重逢到场",
+      "status": "available",
+      "interaction": "location_gate",
+      "camera_enabled": false,
+      "fake_ar_enabled": true,
+      "description": "记念场域·重逢到场处的场域体验。探索不是走向陌生，而是与曾被遗忘的连接再度重逢。",
+      "copy": "预览重逢场域，不请求 live AR 权限。",
+      "relic_refs": [
+        "relic_ch03_reunion_badge",
+        "relic_ch03_gate_imprint_c"
+      ],
+      "rights_refs": [],
+      "digital_collectible_refs": [],
+      "canonical_boundary": "Field reunion visualization only; 再度重逢 is L2 chapter title, not new geography."
+    },
+    {
+      "id": "ar_ch03_imprint_reunion_v1",
+      "code": "AR_CH03_IMPRINT_REUNION_V1",
+      "name": "重逢残印",
+      "chapter_id": "ch03_field_reunion",
+      "node_id": "n1_reunion",
+      "node_title": "场域·重逢到场",
+      "status": "available",
+      "interaction": "imprint_particles",
+      "camera_enabled": false,
+      "fake_ar_enabled": true,
+      "description": "记念场域处探索记录的重逢印迹显现。残印是连接曾经存在过的证据，不是收藏数量。",
+      "copy": "预览重逢印迹粒子场域，不定义残印形成机制。",
+      "relic_refs": [
+        "relic_ch03_gate_imprint_c"
+      ],
+      "rights_refs": [],
+      "digital_collectible_refs": [],
+      "canonical_boundary": "Does not define imprint formation mechanics; album C independent from prior chapters."
+    },
+    {
+      "id": "ar_ch03_reunion_awareness_v1",
+      "code": "AR_CH03_REUNION_AWARENESS_V1",
+      "name": "重逢镜想起",
+      "chapter_id": "ch03_field_reunion",
+      "node_id": "n2_remember",
+      "node_title": "重逢镜·想起",
+      "status": "available",
+      "interaction": "awareness_prompt",
+      "camera_enabled": false,
+      "fake_ar_enabled": true,
+      "description": "记念重逢镜·想起处的场域体验。每一次发现都是一次重逢，道路从不通向远方，道路通向自己。",
+      "copy": "预览重逢镜想起场域，承接第二处觉察。",
+      "relic_refs": [
+        "relic_ch03_reunion_mirror"
+      ],
+      "rights_refs": [],
+      "digital_collectible_refs": [],
+      "canonical_boundary": "Third law alignment only; no new Cosmology or lore."
+    },
+    {
+      "id": "ar_ch03_human_reunion_v1",
+      "code": "AR_CH03_HUMAN_REUNION_V1",
+      "name": "人间重逢场域",
+      "chapter_id": "ch03_field_reunion",
+      "node_id": "n3_human_reunion",
+      "node_title": "谷里咖啡·人间重逢",
+      "status": "available",
+      "interaction": "human_field_presence",
+      "camera_enabled": false,
+      "fake_ar_enabled": true,
+      "description": "记念谷里咖啡·人间重逢处的场域体验。一次服务、一杯咖啡、一次真实相遇，连接仍可与遗忘重逢。",
+      "copy": "预览人间重逢场域；权益礼遇在探索完成后于权益中心触达。",
+      "relic_refs": [
+        "relic_ch03_human_reunion"
+      ],
+      "rights_refs": [
+        "right_ch03_jieyuan_free_latte"
+      ],
+      "digital_collectible_refs": [],
+      "canonical_boundary": "L1 redemption stays outside ritual chain; no medical or lineage claims."
+    },
+    {
+      "id": "ar_ch03_reunion_guide_v1",
+      "code": "AR_CH03_REUNION_GUIDE_V1",
+      "name": "重逢修习引导",
+      "chapter_id": "ch03_field_reunion",
+      "node_id": "n4_practice_reunion",
+      "node_title": "云间书符·重逢修习",
+      "status": "available",
+      "interaction": "guide_sequence",
+      "camera_enabled": false,
+      "fake_ar_enabled": true,
+      "description": "记念云间书符·重逢修习处的场域体验。修习是想起连接曾被记存，不是获得新力量——符者，记念也，非咒也。",
+      "copy": "预览重逢修习引导场域，不宣称医疗、派系或传承。",
+      "relic_refs": [
+        "relic_ch03_practice_reunion"
+      ],
+      "rights_refs": [],
+      "digital_collectible_refs": [],
+      "canonical_boundary": "No medical claim, magic system, sect, or lineage; no L1 rights popup at practice node."
+    },
+    {
+      "id": "ar_ch03_completion_v1",
+      "code": "AR_CH03_COMPLETION_V1",
+      "name": "再度重逢·章成",
+      "chapter_id": "ch03_field_reunion",
+      "node_id": "n5_complete",
+      "node_title": "再度重逢·章成",
+      "status": "locked",
+      "interaction": "completion_scene",
+      "camera_enabled": false,
+      "fake_ar_enabled": true,
+      "description": "记念《再度重逢》章成 closure 场域。五处觉察已齐备，世界留下重逢印记，见证连接而非等级。",
+      "copy": "预览章成 closure 场域，可接续分享海报生成流程。",
+      "relic_refs": [
+        "relic_ch03_reunion_seal"
+      ],
+      "rights_refs": [
+        "right_ch03_jieyuan_cafe_discount",
+        "right_ch03_share_poster"
+      ],
+      "digital_collectible_refs": [
+        "dc_ch03_completion_poster"
+      ],
+      "canonical_boundary": "Completion is not ranking, level, combat, or proof of superiority.",
+      "unlock_requires": [
+        "n1_reunion",
+        "n2_remember",
+        "n3_human_reunion",
+        "n4_practice_reunion"
+      ]
+    }
+  ]
+}

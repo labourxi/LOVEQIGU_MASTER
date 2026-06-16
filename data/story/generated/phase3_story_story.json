@@ -1,0 +1,15 @@
+{
+  "status": "success",
+  "factory": "StoryFactory",
+  "task_id": "phase3_story",
+  "target": "unknown",
+  "generated_at": "2026-06-14T14:26:58.241286Z",
+  "output_dir": "data\\story\\generated",
+  "record": {
+    "story_id": "phase3_story_story",
+    "title": "unknown",
+    "source": {
+      "task_id": "phase3_story"
+    }
+  }
+}

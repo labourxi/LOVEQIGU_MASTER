@@ -1,6 +1,6 @@
 # CONTENT_ENGINE Governance V2 Report
 
-Generated: 2026-06-08T04:05:16.726Z
+Generated: 2026-06-09T04:10:26.115Z
 Scope: `CONTENT_ENGINE/**/*.yaml`
 Status: WARN
 

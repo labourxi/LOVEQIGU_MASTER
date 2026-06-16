@@ -1,0 +1,35 @@
+{
+  "chapter_code": "CH05",
+  "chapter_id": "ch05_field_return",
+  "chapter_title": "场域归位",
+  "generated": "2026-06-08",
+  "mode": "sandbox_only",
+  "production_link_state": {
+    "previous_chapter": "ch04_field_awakening",
+    "next_chapter": "TBD",
+    "status": "WARN",
+    "warning": "CH04 next_chapter is not yet wired to CH05 in production"
+  },
+  "sandbox_link_state": {
+    "previous_chapter": "ch04_field_awakening",
+    "next_chapter": "TBD",
+    "status": "PASS",
+    "note": "Sandbox simulation keeps CH05 internal refs intact and does not touch production content"
+  },
+  "resolved_internal_refs": {
+    "story_relic_refs": 6,
+    "story_ar_refs": 6,
+    "story_rights_refs": 0,
+    "relic_records": 6,
+    "rights_records": 5,
+    "ar_records": 6,
+    "digital_collectible_records": 1
+  },
+  "broken_refs": [],
+  "circular_refs": [],
+  "invalid_chapter_refs": [],
+  "notes": [
+    "All CH05 internal story/relic/rights/ar/dc references resolve locally.",
+    "The only upstream gap is the production CH04 next_chapter link."
+  ]
+}

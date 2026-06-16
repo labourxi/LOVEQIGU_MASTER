@@ -1,0 +1,10 @@
+{
+  "schema": "loveqigu.home.policy.v1",
+  "version": "1.0.0",
+  "home_policy": "dual_home_v1",
+  "default_mode": "explore",
+  "forced_mode": null,
+  "campaign_override": null,
+  "experiment_group": null,
+  "canonical_boundary": "Admin-configurable home policy placeholder. Does not modify CH01-CH06 Runtime or Canon."
+}

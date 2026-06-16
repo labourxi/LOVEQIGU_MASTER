@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "loveqigu.admin.checkpoint.v1",
+  "title": "LOVEQIGU Admin Checkpoint V1",
+  "type": "object",
+  "required": [
+    "schema",
+    "version",
+    "checkpoint_id",
+    "chapter_id",
+    "map_region",
+    "title",
+    "placeholder_status",
+    "runtime_status",
+    "audit_status",
+    "publish_status"
+  ],
+  "properties": {
+    "schema": { "const": "loveqigu.admin.checkpoint.v1" },
+    "version": { "type": "string" },
+    "checkpoint_id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+    "chapter_id": { "type": "string" },
+    "map_region": { "type": "string" },
+    "title": { "type": "string" },
+    "placeholder_status": {
+      "enum": ["draft", "placeholder", "filled", "retired"]
+    },
+    "runtime_status": {
+      "enum": ["draft_only", "bridge_pending", "published"]
+    },
+    "relic_template_ref": { "type": "string" },
+    "ar_template_ref": { "type": "string" },
+    "audit_status": {
+      "enum": ["pending", "pass", "pass_with_warning", "fail"]
+    },
+    "publish_status": {
+      "enum": ["unpublished", "freeze_prep", "published"]
+    },
+    "canonical_boundary": { "type": "string" }
+  },
+  "additionalProperties": true
+}

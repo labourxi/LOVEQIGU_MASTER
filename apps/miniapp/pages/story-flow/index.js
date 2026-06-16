@@ -4,21 +4,21 @@ function mapFlows() {
   return storyFlowService.getAllStoryFlows().map((flow) => ({
     id: flow.flow_id,
     title: flow.title,
-    meta: flow.flow_id,
+    meta: '云门初醒',
     copy: flow.copy,
-    tag: 'AR Closure',
+    tag: '场域闭合',
     path: flow.closure_path
   }));
 }
 
 function buildPageData() {
   return {
-    title: 'Story Flow',
-    intro: 'Story Flow execution opens the AR event closure step and then hands off to Echo.',
-    highlights: ['Execution surface', 'No new Canon', 'Continue to AR closure'],
-    sectionTitle: 'Story flows',
-    sectionSubtitle: 'These flow definitions only reference approved CH01 assets.',
-    actionLabel: 'Open AR Closure',
+    title: '故事流程',
+    intro: '故事流程执行打开场域体验闭合步骤，随后进入回响。',
+    highlights: ['执行展示面', '不新增世界观', '继续场域闭合'],
+    sectionTitle: '故事流程',
+    sectionSubtitle: '流程定义仅引用已定初觉章节资产。',
+    actionLabel: '进入场域闭合',
     items: mapFlows()
   };
 }

@@ -1,0 +1,16 @@
+{
+  "schema": "loveqigu.ar.events.v1",
+  "version": "1.0.0",
+  "events": [
+    {
+      "id": "ar_ch04_completion_v1",
+      "code": "AR_CH04",
+      "chapter_id": "ch04_sandbox_chapter",
+      "node_id": "n5_complete",
+      "digital_collectible_refs": [
+        "dc_ch04_completion_poster"
+      ],
+      "camera_enabled": false
+    }
+  ]
+}

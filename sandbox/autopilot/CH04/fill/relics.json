@@ -1,0 +1,9 @@
+{
+  "schema": "loveqigu.relics.v1",
+  "version": "1.0.0",
+  "relics": [
+    {
+      "id": "relic_ch04_01"
+    }
+  ]
+}

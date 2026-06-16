@@ -1,17 +1,79 @@
-<view class="page sub-page">
-  <view class="profile-card">
-    <view class="avatar">爱</view>
-    <view>
-      <view class="page-title">{{explorer.name}}</view>
-      <view class="page-desc">{{explorer.note}}</view>
+<view class="proto-page">
+  <view class="proto-hero">
+    <view class="proto-kicker">个人中心</view>
+    <view class="proto-title">{{explorer.name}}</view>
+    <view class="proto-subtitle">{{explorer.tagline}}</view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-section-title">活动进度</view>
+    <view class="proto-card">
+      <view class="proto-row">
+        <view class="proto-card-title">{{eventSummary.title}}</view>
+        <view class="proto-badge proto-badge--warm">{{eventSummary.status}}</view>
+      </view>
+      <view class="proto-card-meta">进入时间：{{eventSummary.enteredAt}}</view>
+      <view class="proto-card-copy">已完成任务 {{eventSummary.completedTaskCount}} 个｜已获信物 {{eventSummary.ownedRelicCount}} 件｜已领卡券 {{eventSummary.claimedCouponCount}} 张</view>
+      <view wx:if="{{eventSummary.latestCoupon}}" class="proto-card-copy">最新卡券：{{eventSummary.latestCoupon.coupon_name}}（{{eventSummary.latestCoupon.status}}）</view>
+      <button class="proto-btn proto-btn--primary" bindtap="onOpenMerchantEvent">进入首场活动</button>
     </view>
   </view>
 
-  <view class="section-title">探索记录</view>
-  <view class="list">
-    <view class="list-card" wx:for="{{records}}" wx:key="title">
-      <view class="card-title">{{item.title}}</view>
-      <view class="card-copy">{{item.desc}}</view>
+  <view class="proto-section">
+    <view class="proto-section-title">收藏统计</view>
+    <view class="proto-grid-2">
+      <view class="proto-card" wx:for="{{stats}}" wx:key="label">
+        <view class="proto-card-meta">{{item.label}}</view>
+        <view class="proto-card-title">{{item.value}}{{item.unit}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-section-title">成长进度</view>
+    <view class="proto-card">
+      <view class="proto-row">
+        <view class="proto-card-title">{{growth.label}}</view>
+        <view class="proto-badge proto-badge--gold">{{growth.percent}}%</view>
+      </view>
+      <view class="proto-progress-bar">
+        <view class="proto-progress-fill" style="width: {{growth.percent}}%;"></view>
+      </view>
+      <view class="proto-note">{{growth.note}}</view>
+    </view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-section-title">我的信物</view>
+    <button class="proto-link-card proto-btn-reset" bindtap="onOpenRelicArchive">
+      <view class="proto-link-title">信物库</view>
+      <view class="proto-link-desc">故事进度资产｜收藏进度</view>
+    </button>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-section-title">已探索景区</view>
+    <view class="proto-card" wx:for="{{exploredScenics}}" wx:key="id" data-id="{{item.id}}" bindtap="onOpenScenic">
+      <view class="proto-row">
+        <view class="proto-card-title">{{item.name}}</view>
+        <view class="proto-badge">{{item.status}}</view>
+      </view>
+      <view class="proto-card-meta">{{item.theme}}｜{{item.points}} 探索点</view>
+    </view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-section-title">天人之系</view>
+    <view class="proto-grid-2">
+      <button class="proto-link-card proto-btn-reset" bindtap="onOpenStarMap">
+        <view class="proto-link-title">星图</view>
+        <view class="proto-link-desc">164星体系</view>
+      </button>
+      <button class="proto-link-card proto-btn-reset" bindtap="onOpenMeridianMap">
+        <view class="proto-link-title">经络图</view>
+        <view class="proto-link-desc">365穴位系</view>
+      </button>
     </view>
   </view>
 </view>
+

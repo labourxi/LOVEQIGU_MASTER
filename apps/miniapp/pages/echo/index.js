@@ -6,19 +6,19 @@ function mapEchoes() {
     title: item.title,
     meta: item.source,
     copy: item.copy,
-    tag: 'Echo',
+    tag: '回响',
     path: '/pages/digital-collectible/index'
   }));
 }
 
 function buildPageData() {
   return {
-    title: 'Echo',
-    intro: 'Echo closes the AR event response and hands the user into Digital Collectible.',
-    highlights: ['Closure step', 'No new lore', 'Continue to Digital Collectible'],
-    sectionTitle: 'Echo states',
-    sectionSubtitle: 'Only existing echo references are exposed here.',
-    actionLabel: 'Open Digital Collectible',
+    title: '回响',
+    intro: '回响闭合场域体验回应，随后进入数字藏品步骤。',
+    highlights: ['闭合步骤', '不新增世界观', '继续数字藏品'],
+    sectionTitle: '回响状态',
+    sectionSubtitle: '仅展示已定回响引用。',
+    actionLabel: '进入数字藏品',
     items: mapEchoes()
   };
 }

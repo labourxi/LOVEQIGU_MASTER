@@ -1,0 +1,50 @@
+<view class="proto-page seals-page">
+  <view class="proto-hero">
+    <view class="proto-kicker">印鉴体系</view>
+    <view class="proto-title">{{title}}</view>
+    <view class="proto-subtitle">{{subtitle}}</view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-section-head">
+      <view class="proto-section-title">天印进度</view>
+    </view>
+    <view class="seal-row" wx:for="{{heaven.symbolProgress}}" wx:key="id">
+      <view class="seal-row-name">{{item.name}}</view>
+      <view class="seal-row-display">{{item.display}}</view>
+      <view class="seal-row-status">{{item.symbolSealLabel}}</view>
+    </view>
+    <view class="seal-row seal-row--highlight">
+      <view class="seal-row-name">{{heaven.heavenSeal.name}}</view>
+      <view class="seal-row-display">{{heaven.heavenSeal.display}}</view>
+      <view class="seal-row-status">{{heaven.heavenSeal.statusLabel}}</view>
+    </view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-section-head">
+      <view class="proto-section-title">人印进度 · 十二正经</view>
+    </view>
+    <view class="seal-row" wx:for="{{human.regularMeridians}}" wx:key="id">
+      <view class="seal-row-name">{{item.name}}</view>
+      <view class="seal-row-display">{{item.display}}</view>
+      <view class="seal-row-status">{{item.statusLabel}}</view>
+    </view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-section-head">
+      <view class="proto-section-title">人印进度 · 奇经八脉</view>
+    </view>
+    <view class="seal-row" wx:for="{{human.extraordinaryVessels}}" wx:key="id">
+      <view class="seal-row-name">{{item.name}}</view>
+      <view class="seal-row-display">{{item.display}}</view>
+      <view class="seal-row-status">{{item.statusLabel}}</view>
+    </view>
+    <view class="seal-row seal-row--highlight">
+      <view class="seal-row-name">{{human.humanSeal.name}}</view>
+      <view class="seal-row-display">{{human.humanSeal.display}}</view>
+      <view class="seal-row-status">{{human.humanSeal.statusLabel}}</view>
+    </view>
+  </view>
+</view>

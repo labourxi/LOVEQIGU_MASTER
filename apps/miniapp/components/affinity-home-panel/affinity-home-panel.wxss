@@ -1,0 +1,133 @@
+.affinity-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.affinity-hero {
+  padding: 32rpx 28rpx;
+  border-radius: 16rpx;
+  background: linear-gradient(145deg, #7f4f24, #6b4220);
+  color: #fff7ed;
+}
+
+.affinity-kicker {
+  font-size: 22rpx;
+  font-weight: 600;
+  opacity: 0.88;
+}
+
+.affinity-title {
+  margin-top: 12rpx;
+  font-size: 44rpx;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.affinity-copy {
+  margin-top: 14rpx;
+  font-size: 26rpx;
+  line-height: 1.5;
+  opacity: 0.92;
+}
+
+.affinity-primary,
+.featured-link,
+.grid-card {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  line-height: normal;
+  text-align: left;
+}
+
+.affinity-primary::after,
+.featured-link::after,
+.grid-card::after {
+  border: 0;
+}
+
+.affinity-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 200rpx;
+  height: 72rpx;
+  margin-top: 28rpx;
+  border-radius: 36rpx;
+  background: #f4d7a6;
+  color: #4a2f16;
+  font-size: 26rpx;
+  font-weight: 700;
+  text-align: center;
+}
+
+.featured-card,
+.grid-card {
+  border-radius: 12rpx;
+  background: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(17, 24, 39, 0.06);
+}
+
+.featured-card {
+  padding: 24rpx;
+}
+
+.featured-label {
+  color: #7f4f24;
+  font-size: 22rpx;
+  font-weight: 700;
+}
+
+.featured-title {
+  margin-top: 8rpx;
+  color: #111827;
+  font-size: 30rpx;
+  font-weight: 800;
+}
+
+.featured-copy {
+  margin-top: 10rpx;
+  color: #6b7280;
+  font-size: 24rpx;
+  line-height: 1.45;
+}
+
+.featured-link {
+  margin-top: 16rpx;
+  color: #7f4f24;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.entry-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16rpx;
+}
+
+.grid-card {
+  display: block;
+  box-sizing: border-box;
+  min-height: 140rpx;
+  padding: 22rpx;
+}
+
+.grid-card--wide {
+  grid-column: 1 / -1;
+}
+
+.grid-title {
+  color: #111827;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.grid-desc {
+  margin-top: 8rpx;
+  color: #6b7280;
+  font-size: 22rpx;
+  line-height: 1.45;
+}

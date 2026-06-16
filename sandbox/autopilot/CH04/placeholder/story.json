@@ -1,0 +1,26 @@
+{
+  "schema": "loveqigu.story.chapters.v1",
+  "version": "1.0.0",
+  "source": "AUTOPILOT_V1",
+  "layer": "L2",
+  "status": "placeholder",
+  "chapters": [
+    {
+      "id": "ch04_sandbox_chapter",
+      "chapter_code": "CH04",
+      "title": "CH04 Sandbox",
+      "status": "placeholder",
+      "nodes": [],
+      "previous_chapter": "ch03_field_reunion",
+      "next_chapter": "TBD",
+      "progress": {
+        "explored_nodes": 0,
+        "total_nodes": 5,
+        "display": "0/5"
+      },
+      "completion": {
+        "status": "pending"
+      }
+    }
+  ]
+}

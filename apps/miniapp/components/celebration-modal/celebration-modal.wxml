@@ -1,0 +1,20 @@
+<view class="celebration-mask {{visible ? 'celebration-mask--show' : ''}}" wx:if="{{visible}}" catchtouchmove="noop">
+  <view class="celebration-particles" wx:if="{{showParticles}}">
+    <view class="celebration-dot celebration-dot--1"></view>
+    <view class="celebration-dot celebration-dot--2"></view>
+    <view class="celebration-dot celebration-dot--3"></view>
+    <view class="celebration-dot celebration-dot--4"></view>
+    <view class="celebration-dot celebration-dot--5"></view>
+    <view class="celebration-dot celebration-dot--6"></view>
+  </view>
+  <view class="celebration-card {{visible ? 'celebration-card--show' : ''}}">
+    <view class="celebration-title">{{title}}</view>
+    <view class="celebration-message">{{message}}</view>
+    <view class="celebration-reward" wx:if="{{rewardName}}">
+      <view class="celebration-reward-kicker">恭喜获得</view>
+      <view class="celebration-reward-name">【{{rewardName}}】</view>
+      <view class="celebration-reward-label" wx:if="{{rewardLabel}}">礼遇：{{rewardLabel}}</view>
+    </view>
+    <button class="celebration-btn" bindtap="onConfirm">{{confirmText}}</button>
+  </view>
+</view>

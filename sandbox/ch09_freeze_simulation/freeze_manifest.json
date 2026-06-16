@@ -1,0 +1,33 @@
+{
+  "chapter_code": "CH09",
+  "chapter_id": "ch09_field_echo_future",
+  "chapter_title": "未来之约",
+  "generated": "2026-06-08",
+  "mode": "sandbox_only",
+  "source_files": {
+    "story": "data/story/ch09_chapters.json",
+    "relics": "data/relics/ch09_relics.json",
+    "rights": "data/rights/ch09_rights.json",
+    "ar": "data/ar/ch09_ar-events.json",
+    "dc_registry": "docs/content/DIGITAL_COLLECTIBLE_REGISTRY_CH09.md"
+  },
+  "validation": {
+    "link_validation": "PASS",
+    "freeze_readiness": "PASS_WITH_WARNING",
+    "autopilot_compatibility": "YES",
+    "omx": "PASS_WITH_WARNING",
+    "governance": "WARN",
+    "runtime_compatibility": "YES"
+  },
+  "freeze_package": {
+    "all_refs_resolved": true,
+    "sandbox_link_closed": true,
+    "production_assets_modified": false,
+    "runtime_published": false
+  },
+  "notes": [
+    "Sandbox freeze package is complete.",
+    "CH08 -> CH09 production link is wired.",
+    "CH09 next_chapter TBD is tracked as a non-blocking Canon pause warning only."
+  ]
+}

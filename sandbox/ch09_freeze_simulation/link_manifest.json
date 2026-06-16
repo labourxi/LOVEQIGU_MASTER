@@ -1,0 +1,41 @@
+{
+  "chapter_code": "CH09",
+  "chapter_id": "ch09_field_echo_future",
+  "chapter_title": "未来之约",
+  "generated": "2026-06-08",
+  "mode": "sandbox_only",
+  "production_link_state": {
+    "previous_chapter": "ch08_field_echo_legacy",
+    "next_chapter": "TBD",
+    "upstream_link": {
+      "from": "ch08_field_echo_legacy",
+      "to": "ch09_field_echo_future",
+      "status": "PASS",
+      "note": "CH08 next_chapter wired in production (CH08_CH09_LINKING)"
+    },
+    "status": "PASS"
+  },
+  "sandbox_link_state": {
+    "previous_chapter": "ch08_field_echo_legacy",
+    "next_chapter": "TBD",
+    "status": "PASS",
+    "note": "Sandbox simulation keeps CH09 internal refs intact; CH08->CH09 production link closed"
+  },
+  "resolved_internal_refs": {
+    "story_relic_refs": 6,
+    "story_ar_refs": 6,
+    "story_rights_refs": 0,
+    "relic_records": 6,
+    "rights_records": 5,
+    "ar_records": 6,
+    "digital_collectible_records": 1
+  },
+  "broken_refs": [],
+  "circular_refs": [],
+  "invalid_chapter_refs": [],
+  "notes": [
+    "All CH09 internal story/relic/rights/ar/dc references resolve locally.",
+    "CH08 -> CH09 production link is closed.",
+    "CH09 next_chapter remains TBD per Canon pause boundary."
+  ]
+}

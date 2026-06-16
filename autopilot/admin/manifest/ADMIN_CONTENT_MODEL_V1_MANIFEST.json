@@ -1,0 +1,50 @@
+{
+  "schema": "loveqigu.admin.content_model_manifest.v1",
+  "version": "1.0.0",
+  "source_ref": "docs/admin/ADMIN_CONTENT_MODEL_V1.md",
+  "status": "active",
+  "exemplar_checkpoint_id": "cp_exemplar_v1",
+  "schemas": {
+    "checkpoint": "autopilot/admin/schemas/checkpoint.schema.json",
+    "relic_template": "autopilot/admin/schemas/relic_template.schema.json",
+    "art_requirement": "autopilot/admin/schemas/art_requirement.schema.json",
+    "generation_rule": "autopilot/admin/schemas/generation_rule.schema.json"
+  },
+  "generation_rules_ref": "autopilot/admin/generation_rules/admin_autopilot_v1_rules.json",
+  "objects": {
+    "checkpoints": [
+      "autopilot/admin/checkpoints/cp_exemplar_v1.json"
+    ],
+    "relic_templates": [
+      "autopilot/admin/relic_templates/cp_exemplar_v1_relic_template.json"
+    ],
+    "art_requirements": [
+      "autopilot/admin/art_requirements/cp_exemplar_v1_art_requirement.json"
+    ]
+  },
+  "autopilot_contract": {
+    "load_order": [
+      "manifest",
+      "generation_rules",
+      "checkpoints",
+      "relic_templates",
+      "art_requirements"
+    ],
+    "expand_actions": [
+      "placeholder_create",
+      "expand_relic_template",
+      "queue_art_requirement",
+      "audit",
+      "freeze_prep",
+      "runtime_publish"
+    ],
+    "blocked_write_globs": [
+      "docs/canon/*",
+      "data/story/ch*.json",
+      "data/relics/*",
+      "data/rights/*",
+      "data/ar/*"
+    ]
+  },
+  "canonical_boundary": "Admin manifest only. Future checkpoint expansion reads this graph; does not modify CH01-CH05 L2 content or Canon."
+}

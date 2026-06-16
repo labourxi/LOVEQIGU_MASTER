@@ -1,0 +1,32 @@
+[
+  {
+    "coupon_id": "coupon_loveqigu_cafe_01",
+    "coupon_name": "咖啡券",
+    "action": "AVAILABLE",
+    "timestamp": "2026-06-15T15:00:00+08:00"
+  },
+  {
+    "coupon_id": "coupon_loveqigu_cafe_01",
+    "coupon_name": "咖啡券",
+    "action": "CLAIMED",
+    "timestamp": "2026-06-15T15:54:15.937152+08:00"
+  },
+  {
+    "coupon_id": "coupon_loveqigu_cafe_01",
+    "coupon_name": "咖啡券",
+    "action": "CLAIMED",
+    "timestamp": "2026-06-15T15:59:39.434987+08:00"
+  },
+  {
+    "coupon_id": "coupon_loveqigu_book_01",
+    "coupon_name": "书店券",
+    "action": "CLAIMED",
+    "timestamp": "2026-06-15T16:06:53+08:00"
+  },
+  {
+    "coupon_id": "coupon_loveqigu_book_01",
+    "coupon_name": "书店券",
+    "action": "CLAIMED",
+    "timestamp": "2026-06-15T16:07:37+08:00"
+  }
+]

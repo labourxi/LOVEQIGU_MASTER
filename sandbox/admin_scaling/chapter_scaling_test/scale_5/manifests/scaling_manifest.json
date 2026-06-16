@@ -1,0 +1,46 @@
+{
+  "schema": "loveqigu.admin.scaling_manifest.v1",
+  "version": "1.0.0",
+  "chapter_id": "chapter_scaling_test",
+  "checkpoint_count": 5,
+  "generation_rules_ref": "autopilot/admin/generation_rules/admin_autopilot_v1_rules.json",
+  "admin_manifest_ref": "autopilot/admin/manifest/ADMIN_CONTENT_MODEL_V1_MANIFEST.json",
+  "objects": {
+    "checkpoints": [
+      "sandbox/admin_scaling/chapter_scaling_test/scale_5/checkpoints/cp_scaling_001.json",
+      "sandbox/admin_scaling/chapter_scaling_test/scale_5/checkpoints/cp_scaling_002.json",
+      "sandbox/admin_scaling/chapter_scaling_test/scale_5/checkpoints/cp_scaling_003.json",
+      "sandbox/admin_scaling/chapter_scaling_test/scale_5/checkpoints/cp_scaling_004.json",
+      "sandbox/admin_scaling/chapter_scaling_test/scale_5/checkpoints/cp_scaling_005.json"
+    ],
+    "relic_templates": [
+      "sandbox/admin_scaling/chapter_scaling_test/scale_5/relic_templates/cp_scaling_001_relic_template.json",
+      "sandbox/admin_scaling/chapter_scaling_test/scale_5/relic_templates/cp_scaling_002_relic_template.json",
+      "sandbox/admin_scaling/chapter_scaling_test/scale_5/relic_templates/cp_scaling_003_relic_template.json",
+      "sandbox/admin_scaling/chapter_scaling_test/scale_5/relic_templates/cp_scaling_004_relic_template.json",
+      "sandbox/admin_scaling/chapter_scaling_test/scale_5/relic_templates/cp_scaling_005_relic_template.json"
+    ],
+    "ar_placeholders": [
+      "sandbox/admin_scaling/chapter_scaling_test/scale_5/ar_placeholders/cp_scaling_001_ar_placeholder.json",
+      "sandbox/admin_scaling/chapter_scaling_test/scale_5/ar_placeholders/cp_scaling_002_ar_placeholder.json",
+      "sandbox/admin_scaling/chapter_scaling_test/scale_5/ar_placeholders/cp_scaling_003_ar_placeholder.json",
+      "sandbox/admin_scaling/chapter_scaling_test/scale_5/ar_placeholders/cp_scaling_004_ar_placeholder.json",
+      "sandbox/admin_scaling/chapter_scaling_test/scale_5/ar_placeholders/cp_scaling_005_ar_placeholder.json"
+    ],
+    "art_requirements": [
+      "sandbox/admin_scaling/chapter_scaling_test/scale_5/art_requirements/cp_scaling_001_art_requirement.json",
+      "sandbox/admin_scaling/chapter_scaling_test/scale_5/art_requirements/cp_scaling_002_art_requirement.json",
+      "sandbox/admin_scaling/chapter_scaling_test/scale_5/art_requirements/cp_scaling_003_art_requirement.json",
+      "sandbox/admin_scaling/chapter_scaling_test/scale_5/art_requirements/cp_scaling_004_art_requirement.json",
+      "sandbox/admin_scaling/chapter_scaling_test/scale_5/art_requirements/cp_scaling_005_art_requirement.json"
+    ]
+  },
+  "generation_rule_applications": {
+    "gr_checkpoint_placeholder_create": 5,
+    "gr_relic_template_expand": 5,
+    "gr_art_requirement_queue": 5,
+    "gr_ar_placeholder_create": 5
+  },
+  "runtime_registry_draft_entries": 20,
+  "canonical_boundary": "Sandbox scaling simulation only."
+}

@@ -4,21 +4,21 @@ function mapAtoms() {
   return atomService.getAllAtoms().map((atom) => ({
     id: atom.atom_id,
     title: atom.title,
-    meta: atom.flow_ref,
+    meta: '云门初醒流程',
     copy: atom.copy,
-    tag: atom.asset_ref,
+    tag: '内容节点',
     path: atom.next_path
   }));
 }
 
 function buildPageData() {
   return {
-    title: 'Atom',
-    intro: 'Path A continues from AR Entry through approved Atom records and into Lottie.',
-    highlights: ['Existing CH01 refs only', 'No new Canon', 'Continue to Lottie'],
-    sectionTitle: 'Atom records',
-    sectionSubtitle: 'These entries only surface approved flow references.',
-    actionLabel: 'Open Lottie',
+    title: '内容节点',
+    intro: '探索路径从场域入口经内容节点记录进入动效步骤。',
+    highlights: ['仅用已定初觉引用', '不新增世界观', '继续动效'],
+    sectionTitle: '内容节点记录',
+    sectionSubtitle: '条目仅展示已定流程引用。',
+    actionLabel: '进入动效',
     items: mapAtoms()
   };
 }

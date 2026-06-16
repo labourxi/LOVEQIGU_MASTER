@@ -1,0 +1,15 @@
+{
+  "schema": "loveqigu.admin.checkpoint.v1",
+  "version": "1.0.0",
+  "checkpoint_id": "cp_exemplar_v1",
+  "chapter_id": "TBD",
+  "map_region": "admin_placeholder_region",
+  "title": "Admin Exemplar Checkpoint",
+  "placeholder_status": "draft",
+  "runtime_status": "draft_only",
+  "relic_template_ref": "autopilot/admin/relic_templates/cp_exemplar_v1_relic_template.json",
+  "ar_template_ref": "autopilot/admin/art_requirements/cp_exemplar_v1_art_requirement.json",
+  "audit_status": "pending",
+  "publish_status": "unpublished",
+  "canonical_boundary": "Admin checkpoint placeholder only. Not L2 Story node. Not Canon. Not CH01-CH05 production data."
+}

@@ -1,0 +1,62 @@
+﻿# Cursor codebase indexing exclusions
+# Align with .gitignore build artifacts + large generated dirs
+
+node_modules/
+dist/
+build/
+out/
+.next/
+.nuxt/
+.vite/
+coverage/
+miniprogram_npm/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+.cache/
+tmp/
+temp/
+
+# WeChat / miniapp build artifacts
+*.wxss.map
+*.wxml.map
+*.js.map
+.miniprogram/
+.weapp/
+apps/miniapp/.cloudbase/
+
+# Local environment
+.env
+.env.*
+!.env.example
+*.local
+
+# OS and editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# OMX / Ductor local output
+omx/.cache/
+omx/tmp/
+omx/output/
+omx/dist/
+ductor/.cache/
+ductor/tmp/
+ductor/output/
+ductor/dist/
+
+# Large generated data (runtime bridges)
+data/relics/generated/
+data/story/generated/
+
+# Logs
+*.log
+
+# Git stabilization temp lists (local only)
+.git_batch_*.txt

@@ -1,0 +1,55 @@
+@import '../../styles/prototype-v1.wxss';
+
+.reward-center-page {
+  padding-bottom: 64rpx;
+}
+
+.reward-card {
+  margin-bottom: 16rpx;
+  padding: 24rpx;
+  border-radius: 16rpx;
+  background: #fff;
+  box-shadow: 0 8rpx 24rpx rgba(17, 24, 39, 0.06);
+}
+
+.reward-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16rpx;
+}
+
+.reward-name {
+  font-size: 30rpx;
+  font-weight: 800;
+  color: #111827;
+}
+
+.reward-status {
+  flex: 0 0 auto;
+  padding: 6rpx 14rpx;
+  border-radius: 999rpx;
+  background: #f3f4f6;
+  color: #6b7280;
+  font-size: 22rpx;
+  font-weight: 700;
+}
+
+.reward-status--ready {
+  background: #e8d8b4;
+  color: #263a34;
+}
+
+.reward-desc {
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  line-height: 1.5;
+  color: #6b7280;
+}
+
+.reward-type {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: #7f4f24;
+  font-weight: 700;
+}

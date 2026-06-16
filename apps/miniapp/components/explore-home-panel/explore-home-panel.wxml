@@ -1,0 +1,173 @@
+<view class="explore-panel">
+  <view class="home-entry-row">
+    <view
+      class="home-entry-card"
+      hover-class="home-entry-card--active"
+      data-path="{{panel.relicSummary.path}}"
+      bindtap="onOpenPage"
+    >
+      <view class="home-entry-label">信物库</view>
+      <view class="home-entry-value">{{panel.relicSummary.label}}</view>
+      <view class="home-entry-link">进入 ></view>
+    </view>
+    <view
+      class="home-entry-card home-entry-card--star"
+      hover-class="home-entry-card--active"
+      data-path="{{panel.starMapSummary.path}}"
+      bindtap="onOpenPage"
+    >
+      <view class="home-entry-label">星图</view>
+      <view class="home-entry-value">{{panel.starMapSummary.litDisplay}}</view>
+      <view class="home-entry-link">进入 ></view>
+    </view>
+    <view
+      class="home-entry-card home-entry-card--meridian"
+      hover-class="home-entry-card--active"
+      data-path="{{panel.meridianMapSummary.path}}"
+      bindtap="onOpenPage"
+    >
+      <view class="home-entry-label">经络图</view>
+      <view class="home-entry-value">{{panel.meridianMapSummary.litDisplay}}</view>
+      <view class="home-entry-link">进入 ></view>
+    </view>
+  </view>
+
+  <view
+    class="home-entry-banner"
+    hover-class="home-entry-banner--active"
+    data-path="{{panel.unitySummary.path}}"
+    bindtap="onOpenPage"
+  >
+    <view class="home-entry-banner-head">
+      <view class="home-entry-label">天人合一</view>
+      <view class="home-entry-banner-status">{{panel.unitySummary.statusLabel}}</view>
+    </view>
+    <view class="home-entry-banner-value">天印 {{panel.unitySummary.heavenDisplay}} · 人印 {{panel.unitySummary.humanDisplay}}</view>
+    <view class="home-entry-link">进入 ></view>
+  </view>
+
+  <view
+    class="home-entry-banner home-entry-banner--synthesis"
+    hover-class="home-entry-banner--active"
+    data-path="{{panel.synthesisSummary.path}}"
+    bindtap="onOpenPage"
+  >
+    <view class="home-entry-banner-head">
+      <view class="home-entry-label">信物合成</view>
+      <view class="home-entry-banner-status">{{panel.synthesisSummary.readyCount}} 项可合成</view>
+    </view>
+    <view class="home-entry-banner-value">{{panel.synthesisSummary.desc}}</view>
+    <view class="home-entry-link">进入 ></view>
+  </view>
+
+  <view
+    class="home-entry-banner home-entry-banner--reward"
+    hover-class="home-entry-banner--active"
+    data-path="{{panel.rewardSummary.path}}"
+    bindtap="onOpenPage"
+  >
+    <view class="home-entry-banner-head">
+      <view class="home-entry-label">我的祝福收藏册</view>
+    </view>
+    <view class="home-entry-banner-value">{{panel.rewardSummary.desc}}</view>
+    <view class="home-entry-link">进入 ></view>
+  </view>
+
+  <view class="explore-hero explore-hero--proto">
+    <view class="explore-kicker">东方美学 · 探索首页</view>
+    <view class="explore-title">{{panel.prototype.tagline}}</view>
+    <view class="explore-copy">可点击高保真演示 · 基于已定章节与信物数据</view>
+    <view class="proto-stats-inline">
+      <view class="proto-stat-inline" wx:for="{{panel.prototype.stats}}" wx:key="id">
+        <view class="proto-stat-inline-value">{{item.value}}{{item.unit}}</view>
+        <view class="proto-stat-inline-label">{{item.label}}</view>
+      </view>
+    </view>
+    <button
+      class="explore-primary"
+      data-path="{{panel.primaryAction.path}}"
+      bindtap="onOpenPage"
+    >
+      {{panel.primaryAction.label}}
+    </button>
+  </view>
+
+  <view class="section-block">
+    <view class="section-head-row">
+      <view class="section-label">附近景区</view>
+      <button class="text-link-inline" data-path="/pages/scenic-list/index" bindtap="onOpenPage">全部</button>
+    </view>
+    <view class="scenic-scroll">
+      <view
+        class="scenic-chip"
+        wx:for="{{panel.prototype.nearbyScenics}}"
+        wx:key="id"
+        data-path="/pages/scenic-detail/index?id={{item.id}}"
+        bindtap="onOpenPage"
+      >
+        <view class="scenic-chip-name">{{item.name}}</view>
+        <view class="scenic-chip-meta">{{item.distanceKm}}km · {{item.theme}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section-block">
+    <view class="section-label">快捷入口</view>
+    <view class="proto-nav-grid">
+      <view
+        class="proto-nav-item"
+        wx:for="{{panel.prototype.quickLinks}}"
+        wx:key="path"
+        data-path="{{item.path}}"
+        bindtap="onOpenPage"
+      >
+        <view class="proto-nav-title">{{item.label}}</view>
+        <view class="proto-nav-desc">{{item.desc}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view
+    class="chapter-card"
+    hover-class="chapter-card--active"
+    data-path="{{panel.chapter.path}}"
+    bindtap="onOpenPage"
+  >
+    <view class="card-head">
+      <view>
+        <view class="card-label">当前章节</view>
+        <view class="card-title">{{panel.chapter.title}}</view>
+      </view>
+      <view class="card-badge">{{panel.chapter.progress.display}}</view>
+    </view>
+    <view class="card-copy">{{panel.chapter.copy}}</view>
+    <view class="card-action">进入探索地图</view>
+  </view>
+
+  <view class="section-block">
+    <view class="section-head-row">
+      <view class="section-label">最近获得</view>
+      <button
+        class="text-link-inline"
+        data-path="/pages/relic-archive/index"
+        bindtap="onOpenPage"
+      >
+        查看全部 >
+      </button>
+    </view>
+    <view class="relic-list" wx:if="{{panel.recentRelics.length}}">
+      <view
+        class="relic-item"
+        wx:for="{{panel.recentRelics}}"
+        wx:key="id"
+        hover-class="relic-item--active"
+        data-path="{{item.path}}"
+        bindtap="onOpenPage"
+      >
+        <view class="relic-name">{{item.name}}</view>
+        <view class="relic-meta">{{item.node_title}}</view>
+      </view>
+    </view>
+    <view class="empty-hint" wx:else>暂无信物记念，完成探索后将在此回顾。</view>
+  </view>
+</view>

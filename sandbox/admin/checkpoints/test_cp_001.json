@@ -1,0 +1,12 @@
+{
+  "checkpoint_id": "test_cp_001",
+  "chapter_id": "CH04",
+  "map_region": "sandbox_admin_test_region",
+  "title": "Sandbox Acceptance Checkpoint",
+  "placeholder_status": "draft",
+  "runtime_status": "draft_only",
+  "relic_template_ref": "sandbox\\admin\\relic_templates\\test_cp_001_relic_template.json",
+  "ar_template_ref": "sandbox\\admin\\art_requirements\\test_cp_001_art_requirement.json",
+  "audit_status": "pending",
+  "publish_status": "unpublished"
+}

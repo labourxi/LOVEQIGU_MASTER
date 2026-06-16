@@ -1,0 +1,47 @@
+{
+  "schema": "loveqigu.story.chapters.v1",
+  "version": "1.0.0",
+  "source": "AUTOPILOT_V1",
+  "layer": "L2",
+  "status": "active",
+  "chapters": [
+    {
+      "id": "ch04_sandbox_chapter",
+      "chapter_code": "CH04",
+      "title": "CH04 Sandbox",
+      "status": "active",
+      "nodes": [
+        {
+          "id": "n1_gate",
+          "type": "exploration"
+        },
+        {
+          "id": "n2_bridge",
+          "type": "exploration"
+        },
+        {
+          "id": "n3_echo",
+          "type": "exploration"
+        },
+        {
+          "id": "n4_practice",
+          "type": "practice"
+        },
+        {
+          "id": "n5_complete",
+          "type": "chapter_completion"
+        }
+      ],
+      "previous_chapter": "ch03_field_reunion",
+      "next_chapter": "TBD",
+      "progress": {
+        "explored_nodes": 0,
+        "total_nodes": 5,
+        "display": "0/5"
+      },
+      "completion": {
+        "status": "ready"
+      }
+    }
+  ]
+}

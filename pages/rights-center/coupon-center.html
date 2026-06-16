@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>coupon-center</title>
+  <style>
+    :root {
+      --bg: #f7f1e8;
+      --panel: #fffaf1;
+      --text: #2b2118;
+      --muted: #6f5d4d;
+      --line: #d8c6b0;
+      --accent: #8b5d3b;
+      --good: #2c7a4b;
+      --warn: #b26b1b;
+      --bad: #a4412b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #f7f1e8 0%, #efe5d7 100%);
+      color: var(--text);
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    .page { max-width: 1280px; margin: 0 auto; padding: 20px; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 16px; }
+    .brand h1 { margin: 0; font-size: 28px; }
+    .brand p { margin: 4px 0 0; color: var(--muted); }
+    .toolbar { display: flex; gap: 8px; flex-wrap: wrap; }
+    .button {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 999px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .button.primary { background: #f2e5d4; color: var(--accent); border-color: #d7c0a8; }
+    .button:disabled { opacity: 0.55; cursor: not-allowed; }
+    .hero {
+      padding: 18px;
+      background: rgba(255,255,255,0.86);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      margin-bottom: 16px;
+    }
+    .hero h2 { margin: 0 0 6px; font-size: 24px; }
+    .hero p { margin: 0; color: var(--muted); }
+    .meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      border: 1px solid transparent;
+    }
+    .badge--neutral { background: #f3eadf; color: #6a5848; border-color: #dfcfbc; }
+    .badge--good { background: #e3f1e9; color: var(--good); border-color: #bdd9c9; }
+    .badge--warn { background: #fbefde; color: var(--warn); border-color: #eed0a9; }
+    .badge--bad { background: #f6e0db; color: var(--bad); border-color: #e9b8ad; }
+    .badge--accent { background: #f2e5d4; color: var(--accent); border-color: #d8c0aa; }
+    .layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 16px; }
+    .sidebar, .panel {
+      background: rgba(255,255,255,0.84);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(85, 58, 25, 0.05);
+    }
+    .sidebar { padding: 16px; position: sticky; top: 16px; align-self: start; }
+    .sidebar h3 { margin: 0 0 12px; font-size: 16px; }
+    .nav-stack { display: grid; gap: 8px; }
+    .nav-link { display: block; padding: 9px 12px; border-radius: 12px; border: 1px solid transparent; background: rgba(255,255,255,0.7); }
+    .nav-link.active { border-color: #d0b897; background: #f2e5d4; color: var(--accent); font-weight: 700; }
+    .panel { padding: 18px; }
+    .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 14px; }
+    .card {
+      background: rgba(255,255,255,0.9);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .span-12 { grid-column: span 12; }
+    .span-6 { grid-column: span 6; }
+    .coupon-grid { display: grid; gap: 12px; }
+    .coupon-card {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.74);
+    }
+    .coupon-head { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
+    .coupon-head h4 { margin: 0; font-size: 18px; }
+    .coupon-copy { color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .my-coupon-list, .history-list { display: grid; gap: 10px; }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      background: rgba(255,255,255,0.75);
+    }
+    .empty, .loading {
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.55);
+    }
+    .hidden { display: none !important; }
+    .footer { color: var(--muted); font-size: 12px; margin-top: 16px; }
+    @media (max-width: 1080px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <div class="brand">
+        <h1>coupon-center</h1>
+        <p>爱企谷首场活动领券中心</p>
+      </div>
+      <div class="toolbar">
+        <a class="button" href="./index.html">返回</a>
+        <button class="button" onclick="history.back()">返回上一页</button>
+      </div>
+    </div>
+
+    <div class="hero">
+      <h2>爱企谷初见寻宝节 · 卡券领取</h2>
+      <p>领取按钮会更新本地状态；脚本可将领取结果写入 data/user_mock/user_coupon.mock.json。</p>
+      <div class="meta-row">
+        <span class="badge badge--neutral">AVAILABLE / CLAIMED / USED / EXPIRED</span>
+        <span class="badge badge--accent">活动码 LOVEQIGU_FIRST_EVENT_CASE_V1</span>
+      </div>
+    </div>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <h3>权益中心导航</h3>
+        <div class="nav-stack">
+          <a class="nav-link active" href="./coupon-center.html">coupon-center</a>
+          <a class="nav-link" href="../merchant-event/index.html">merchant-event</a>
+        </div>
+      </aside>
+      <main class="panel">
+        <div class="grid">
+          <section class="card span-12">
+            <h3>可领取卡券</h3>
+            <div id="loading" class="loading hidden">Loading state placeholder...</div>
+            <div id="empty" class="empty hidden">暂无可领取卡券。</div>
+            <div id="coupon-list" class="coupon-grid"></div>
+          </section>
+          <section class="card span-6">
+            <h3>我的卡券</h3>
+            <div id="my-coupon-list" class="my-coupon-list"></div>
+          </section>
+          <section class="card span-6">
+            <h3>领取记录</h3>
+            <div id="history-list" class="history-list"></div>
+          </section>
+        </div>
+        <div class="footer">Mock only. 状态保存在 localStorage；领取脚本可同步写入 data/user_mock。</div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const COUPONS = [{"coupon_id": "coupon_loveqigu_cafe_01", "coupon_name": "咖啡券", "coupon_type": "discount", "discount_value": 8, "merchant_id": "merchant_loveqigu_cafe_01"}, {"coupon_id": "coupon_loveqigu_book_01", "coupon_name": "书店券", "coupon_type": "gift", "discount_value": 10, "merchant_id": "merchant_loveqigu_book_01"}, {"coupon_id": "coupon_loveqigu_craft_01", "coupon_name": "手作券", "coupon_type": "discount", "discount_value": 12, "merchant_id": "merchant_loveqigu_craft_01"}];
+    const MERCHANT_MAP = {"merchant_loveqigu_cafe_01": "爱企谷咖啡", "merchant_loveqigu_book_01": "爱企谷书店", "merchant_loveqigu_craft_01": "爱企谷手作馆"};
+    const INITIAL_USER_COUPONS = [{"coupon_id": "coupon_loveqigu_cafe_01", "coupon_name": "咖啡券", "coupon_type": "discount", "discount_value": 8, "merchant_id": "merchant_loveqigu_cafe_01", "merchant_name": "爱企谷咖啡", "status": "CLAIMED", "claimed_at": "2026-06-15T15:54:15.936073+08:00", "used_at": null, "expired_at": "2026-07-20T21:00:00+08:00"}];
+    const INITIAL_HISTORY = [{"coupon_id": "coupon_loveqigu_cafe_01", "coupon_name": "咖啡券", "action": "AVAILABLE", "timestamp": "2026-06-15T15:00:00+08:00"}, {"coupon_id": "coupon_loveqigu_cafe_01", "coupon_name": "咖啡券", "action": "CLAIMED", "timestamp": "2026-06-15T15:54:15.937152+08:00"}, {"coupon_id": "coupon_loveqigu_cafe_01", "coupon_name": "咖啡券", "action": "CLAIMED", "timestamp": "2026-06-15T15:59:39.434987+08:00"}];
+
+    const STORAGE_KEYS = {
+      coupons: 'loveqigu_user_coupons',
+      history: 'loveqigu_coupon_history'
+    };
+
+    function loadState(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        if (!raw) return JSON.parse(JSON.stringify(fallback));
+        const parsed = JSON.parse(raw);
+        return parsed;
+      } catch (err) {
+        return JSON.parse(JSON.stringify(fallback));
+      }
+    }
+
+    function saveState(key, value) {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+
+    function statusBadge(status) {
+      const map = {
+        AVAILABLE: 'badge--good',
+        CLAIMED: 'badge--accent',
+        USED: 'badge--warn',
+        EXPIRED: 'badge--bad'
+      };
+      return map[status] || 'badge--neutral';
+    }
+
+    function renderCouponCard(item, claimedMap) {
+      const isClaimed = claimedMap.has(item.coupon_id);
+      const status = isClaimed ? 'CLAIMED' : 'AVAILABLE';
+      return `
+        <article class="coupon-card">
+          <div class="coupon-head">
+            <div>
+              <h4>${item.coupon_name}</h4>
+              <div class="coupon-copy">${MERCHANT_MAP[item.merchant_id] || item.merchant_id} · ${item.coupon_type} · 减免 ${item.discount_value}</div>
+            </div>
+            <span class="badge ${statusBadge(status)}">${status}</span>
+          </div>
+          <div class="coupon-copy">领取后可在「我的卡券」查看，状态会同步更新为 CLAIMED。</div>
+          <div>
+            <button class="button primary" ${isClaimed ? 'disabled' : ''} data-coupon-id="${item.coupon_id}">${isClaimed ? '已领取' : 'CLAIM'}</button>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderMyCoupon(item) {
+      return `
+        <div class="row">
+          <div>
+            <strong>${item.coupon_name}</strong>
+            <div class="coupon-copy">${item.merchant_name} · ${item.coupon_type} · ${item.discount_value}</div>
+            <div class="coupon-copy">领取时间：${item.claimed_at || '未领取'}</div>
+          </div>
+          <span class="badge ${statusBadge(item.status)}">${item.status}</span>
+        </div>
+      `;
+    }
+
+    function renderHistory(item) {
+      return `
+        <div class="row">
+          <div>
+            <strong>${item.coupon_name}</strong>
+            <div class="coupon-copy">${item.action} · ${item.timestamp}</div>
+          </div>
+          <span class="badge badge--neutral">${item.action}</span>
+        </div>
+      `;
+    }
+
+    function hydrate() {
+      const claimed = loadState(STORAGE_KEYS.coupons, INITIAL_USER_COUPONS);
+      const history = loadState(STORAGE_KEYS.history, INITIAL_HISTORY);
+      saveState(STORAGE_KEYS.coupons, claimed);
+      saveState(STORAGE_KEYS.history, history);
+
+      const claimedMap = new Map(claimed.map((item) => [item.coupon_id, item]));
+      const couponList = document.getElementById('coupon-list');
+      const myCouponList = document.getElementById('my-coupon-list');
+      const historyList = document.getElementById('history-list');
+      const empty = document.getElementById('empty');
+      const loading = document.getElementById('loading');
+
+      loading.classList.add('hidden');
+      const cards = COUPONS.map((item) => renderCouponCard(item, claimedMap)).join('');
+      couponList.innerHTML = cards;
+      empty.classList.toggle('hidden', COUPONS.length > 0);
+
+      const claimedItems = claimed.filter((item) => item.status === 'CLAIMED' || item.status === 'USED' || item.status === 'EXPIRED');
+      myCouponList.innerHTML = claimedItems.length ? claimedItems.map(renderMyCoupon).join('') : '<div class="empty">暂无已领取卡券。</div>';
+      historyList.innerHTML = history.length ? history.slice().reverse().map(renderHistory).join('') : '<div class="empty">暂无领取记录。</div>';
+
+      couponList.querySelectorAll('button[data-coupon-id]').forEach((button) => {
+        button.addEventListener('click', () => claimCoupon(button.getAttribute('data-coupon-id')));
+      });
+    }
+
+    function claimCoupon(couponId) {
+      const now = new Date().toISOString();
+      const coupons = loadState(STORAGE_KEYS.coupons, INITIAL_USER_COUPONS);
+      const history = loadState(STORAGE_KEYS.history, INITIAL_HISTORY);
+      const template = COUPONS.find((item) => item.coupon_id === couponId);
+      if (!template) return;
+      const merchantName = MERCHANT_MAP[template.merchant_id] || template.merchant_id;
+      const existing = coupons.find((item) => item.coupon_id === couponId);
+      if (existing) {
+        existing.status = 'CLAIMED';
+        existing.claimed_at = existing.claimed_at || now;
+      } else {
+        coupons.push({
+          coupon_id: template.coupon_id,
+          coupon_name: template.coupon_name,
+          coupon_type: template.coupon_type,
+          discount_value: template.discount_value,
+          merchant_id: template.merchant_id,
+          merchant_name: merchantName,
+          status: 'CLAIMED',
+          claimed_at: now,
+          used_at: null,
+          expired_at: '2026-07-20T21:00:00+08:00'
+        });
+      }
+      history.push({
+        coupon_id: template.coupon_id,
+        coupon_name: template.coupon_name,
+        action: 'CLAIMED',
+        timestamp: now
+      });
+      saveState(STORAGE_KEYS.coupons, coupons);
+      saveState(STORAGE_KEYS.history, history);
+      hydrate();
+    }
+
+    window.addEventListener('DOMContentLoaded', hydrate);
+    </script>
+</body>
+</html>

@@ -1,26 +1,26 @@
 const ATOMS = [
   {
     atom_id: 'atom_v2_symbol_gate_state',
-    title: 'Gate State',
+    title: '云门状态',
     flow_ref: 'sf_ch01_threshold_pulse',
     asset_ref: 'ar_v2_gate_threshold',
-    copy: 'Threshold entry uses existing CH01 gate and threshold assets only.',
+    copy: '阈值入口仅使用已定云门与阈值资产。',
     next_path: '/pages/lottie/index'
   },
   {
     atom_id: 'atom_v2_ritual_awareness_line',
-    title: 'Awareness Line',
+    title: '觉察语句',
     flow_ref: 'sf_ch01_first_awareness',
     asset_ref: 'ar_v2_first_awareness',
-    copy: 'Awareness routing stays inside the approved CH01 reflection context.',
+    copy: '觉察路由保持在已定初觉反思语境内。',
     next_path: '/pages/lottie/index'
   },
   {
     atom_id: 'atom_v2_symbol_map_trace',
-    title: 'Map Trace',
+    title: '地图足迹',
     flow_ref: 'sf_ch01_map_trace',
     asset_ref: 'ar_v2_map_trace',
-    copy: 'Exploration-map routing stays within the existing discovery context.',
+    copy: '探索地图路由保持在既有发现语境内。',
     next_path: '/pages/lottie/index'
   }
 ];

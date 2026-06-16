@@ -1,0 +1,17 @@
+{
+  "status": "success",
+  "factory": "RelicFactory",
+  "task_id": "jiao_su",
+  "target": "角宿",
+  "generated_at": "2026-06-15T04:54:51.724222Z",
+  "output_dir": "data\\relics\\generated",
+  "record": {
+    "relic_id": "jiao_su_relic",
+    "name": "角宿",
+    "source": {
+      "task_id": "jiao_su",
+      "target": "角宿",
+      "source": "REAL_PRODUCTION_VALIDATION_V1"
+    }
+  }
+}

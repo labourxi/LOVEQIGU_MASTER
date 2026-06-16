@@ -1,0 +1,21 @@
+<view class="proto-page reward-center-page">
+  <view class="proto-hero">
+    <view class="proto-kicker">祝福收藏册</view>
+    <view class="proto-title">{{title}}</view>
+    <view class="proto-subtitle">{{subtitle}}</view>
+  </view>
+
+  <view class="proto-section" wx:for="{{categories}}" wx:key="id">
+    <view class="proto-section-head">
+      <view class="proto-section-title">{{item.title}}</view>
+    </view>
+    <view class="reward-card" wx:for="{{item.items}}" wx:key="id" wx:for-item="reward">
+      <view class="reward-head">
+        <view class="reward-name">{{reward.name}}</view>
+        <view class="reward-status {{reward.unlocked ? 'reward-status--ready' : ''}}">{{reward.status}}</view>
+      </view>
+      <view class="reward-desc">{{reward.desc}}</view>
+      <view class="reward-type" wx:if="{{reward.unlocked}}">{{reward.reward_type_label}}</view>
+    </view>
+  </view>
+</view>

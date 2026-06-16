@@ -1,0 +1,242 @@
+{
+  "version": "1.0",
+  "history": [
+    {
+      "timestamp": "2026-06-14T13:26:56.391783Z",
+      "task": {
+        "task_id": "auto_generated",
+        "task_type": "new_relic",
+        "target": "角宿一",
+        "workflow": "new_relic",
+        "raw_task": "新增角宿一"
+      },
+      "plan": {
+        "task_id": "auto_generated",
+        "workflow": "new_relic",
+        "target": "角宿一",
+        "status": "planned",
+        "steps": [
+          {
+            "factory": "story_factory",
+            "status": "completed"
+          },
+          {
+            "factory": "relic_factory",
+            "status": "completed"
+          },
+          {
+            "factory": "visual_factory",
+            "status": "completed"
+          },
+          {
+            "factory": "atlas_factory",
+            "status": "completed"
+          },
+          {
+            "factory": "blessing_factory",
+            "status": "completed"
+          },
+          {
+            "factory": "runtime_factory",
+            "status": "completed"
+          }
+        ]
+      },
+      "status": "completed"
+    },
+    {
+      "timestamp": "2026-06-14T13:40:45.938921Z",
+      "task": {
+        "task_id": "auto_generated",
+        "task_type": "new_relic",
+        "target": "角宿一",
+        "workflow": "new_relic",
+        "raw_task": "新增角宿一"
+      },
+      "plan": {
+        "task_id": "auto_generated",
+        "workflow": "new_relic",
+        "target": "角宿一",
+        "status": "planned",
+        "steps": [
+          {
+            "factory": "story_factory",
+            "status": "completed"
+          },
+          {
+            "factory": "relic_factory",
+            "status": "completed"
+          },
+          {
+            "factory": "visual_factory",
+            "status": "completed"
+          },
+          {
+            "factory": "atlas_factory",
+            "status": "completed"
+          },
+          {
+            "factory": "blessing_factory",
+            "status": "completed"
+          },
+          {
+            "factory": "runtime_factory",
+            "status": "completed"
+          }
+        ]
+      },
+      "status": "completed"
+    },
+    {
+      "timestamp": "2026-06-14T14:04:22.938785Z",
+      "task": {
+        "task_id": "auto_generated",
+        "task_type": "new_visual",
+        "target": "视觉",
+        "workflow": "new_visual",
+        "raw_task": "新增视觉"
+      },
+      "plan": {
+        "task_id": "auto_generated",
+        "workflow": "new_visual",
+        "target": "视觉",
+        "status": "planned",
+        "steps": [
+          {
+            "factory": "visual_factory",
+            "status": "completed"
+          },
+          {
+            "factory": "runtime_factory",
+            "status": "completed"
+          }
+        ]
+      },
+      "status": "completed"
+    },
+    {
+      "timestamp": "2026-06-14T14:04:22.940589Z",
+      "task": {
+        "task_id": "auto_generated",
+        "task_type": "new_story",
+        "target": "故事",
+        "workflow": "new_story",
+        "raw_task": "新增故事"
+      },
+      "plan": {
+        "task_id": "auto_generated",
+        "workflow": "new_story",
+        "target": "故事",
+        "status": "planned",
+        "steps": [
+          {
+            "factory": "story_factory",
+            "status": "completed"
+          },
+          {
+            "factory": "runtime_factory",
+            "status": "completed"
+          }
+        ]
+      },
+      "status": "completed"
+    },
+    {
+      "timestamp": "2026-06-14T14:07:41.585983Z",
+      "task": {
+        "task_id": "auto_generated",
+        "task_type": "new_relic",
+        "target": "角宿一",
+        "workflow": "new_relic",
+        "raw_task": "新增角宿一"
+      },
+      "plan": {
+        "task_id": "auto_generated",
+        "workflow": "new_relic",
+        "target": "角宿一",
+        "status": "planned",
+        "steps": [
+          {
+            "factory": "story_factory",
+            "status": "completed"
+          },
+          {
+            "factory": "relic_factory",
+            "status": "completed"
+          },
+          {
+            "factory": "visual_factory",
+            "status": "completed"
+          },
+          {
+            "factory": "atlas_factory",
+            "status": "completed"
+          },
+          {
+            "factory": "blessing_factory",
+            "status": "completed"
+          },
+          {
+            "factory": "runtime_factory",
+            "status": "completed"
+          }
+        ]
+      },
+      "status": "completed"
+    },
+    {
+      "timestamp": "2026-06-14T14:07:41.587942Z",
+      "task": {
+        "task_id": "auto_generated",
+        "task_type": "new_story",
+        "target": "故事",
+        "workflow": "new_story",
+        "raw_task": "新增故事"
+      },
+      "plan": {
+        "task_id": "auto_generated",
+        "workflow": "new_story",
+        "target": "故事",
+        "status": "planned",
+        "steps": [
+          {
+            "factory": "story_factory",
+            "status": "completed"
+          },
+          {
+            "factory": "runtime_factory",
+            "status": "completed"
+          }
+        ]
+      },
+      "status": "completed"
+    },
+    {
+      "timestamp": "2026-06-14T14:26:58.243227Z",
+      "task": {
+        "task_id": "auto_generated",
+        "task_type": "new_story",
+        "target": "故事",
+        "workflow": "new_story",
+        "raw_task": "新增故事"
+      },
+      "plan": {
+        "task_id": "auto_generated",
+        "workflow": "new_story",
+        "target": "故事",
+        "status": "planned",
+        "steps": [
+          {
+            "factory": "story_factory",
+            "status": "completed"
+          },
+          {
+            "factory": "runtime_factory",
+            "status": "completed"
+          }
+        ]
+      },
+      "status": "completed"
+    }
+  ]
+}

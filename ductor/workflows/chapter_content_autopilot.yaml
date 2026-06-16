@@ -1,0 +1,38 @@
+schema: LOVEQIGU_CHAPTER_CONTENT_AUTOPILOT_V1
+version: 1.0.0
+status: active
+spec: docs/automation/LOVEQIGU_AUTOPILOT_V1.md
+registry: automation/chapters/registry.yaml
+stages:
+  - name: CANON_CHECK
+    gate: human_on_missing
+  - name: PLACEHOLDER
+    script: scripts/autopilot/run_chapter_autopilot.py placeholder
+    gate: auto
+  - name: PLACEHOLDER_AUDIT
+    script: scripts/autopilot/run_chapter_autopilot.py validate --mode placeholder
+    gate: auto
+  - name: FILL
+    gate: human_on_manifest_missing
+  - name: AUDIT
+    script: scripts/autopilot/run_chapter_autopilot.py validate
+    gate: fail_stops_pipeline
+  - name: LINK
+    gate: auto
+  - name: DC_REGISTER
+    gate: auto
+  - name: FINAL_AUDIT
+    gate: warn_allowed
+  - name: FREEZE_PREP
+    gate: human_on_commit
+runner:
+  validate_all: python scripts/autopilot/run_chapter_autopilot.py validate --all
+  validate_placeholder: python scripts/autopilot/run_chapter_autopilot.py validate --mode placeholder --all
+  run_chapter: python scripts/autopilot/run_chapter_autopilot.py run --chapter
+  ductor: node scripts/ductor/run_chapter_autopilot.js
+human_gates:
+  - G-CANON
+  - G-FILL
+  - G-AUDIT-FAIL
+  - G-FREEZE
+completion_marker: LOVEQIGU_AUTOPILOT_V1_READY = YES

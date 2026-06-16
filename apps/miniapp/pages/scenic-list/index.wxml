@@ -1,0 +1,37 @@
+<view class="proto-page">
+  <view class="proto-hero">
+    <view class="proto-kicker">探索发现</view>
+    <view class="proto-title">景区列表</view>
+    <view class="proto-subtitle">附近 · 热门 · 推荐 · 示例景区数据</view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-section-title">附近景区</view>
+    <view class="proto-card" wx:for="{{nearby}}" wx:key="id" data-id="{{item.id}}" bindtap="onOpenDetail">
+      <view class="proto-row">
+        <view class="proto-card-title">{{item.name}}</view>
+        <view class="proto-badge">{{item.distanceKm}}km</view>
+      </view>
+      <view class="proto-card-meta">{{item.levelLabel}} · {{item.theme}} · {{item.explorationPoints}} 探索点</view>
+    </view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-section-title">热门景区</view>
+    <view class="proto-card" wx:for="{{hot}}" wx:key="id" data-id="{{item.id}}" bindtap="onOpenDetail">
+      <view class="proto-row">
+        <view class="proto-card-title">{{item.name}}</view>
+        <view class="proto-badge proto-badge--gold">热度 {{item.hotScore}}</view>
+      </view>
+      <view class="proto-card-meta">{{item.feature}}</view>
+    </view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-section-title">推荐景区</view>
+    <view class="proto-card" wx:for="{{recommended}}" wx:key="id" data-id="{{item.id}}" bindtap="onOpenDetail">
+      <view class="proto-card-title">{{item.name}}</view>
+      <view class="proto-card-copy">{{item.intro}}</view>
+    </view>
+  </view>
+</view>

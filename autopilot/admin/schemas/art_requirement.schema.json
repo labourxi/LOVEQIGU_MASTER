@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "loveqigu.admin.art_requirement.v1",
+  "title": "LOVEQIGU Admin Art Requirement V1",
+  "type": "object",
+  "required": [
+    "schema",
+    "version",
+    "art_requirement_id",
+    "source_checkpoint",
+    "asset_type",
+    "asset_name",
+    "asset_description",
+    "priority",
+    "status"
+  ],
+  "properties": {
+    "schema": { "const": "loveqigu.admin.art_requirement.v1" },
+    "version": { "type": "string" },
+    "art_requirement_id": { "type": "string" },
+    "source_checkpoint": { "type": "string" },
+    "asset_type": { "type": "string" },
+    "asset_name": { "type": "string" },
+    "asset_description": { "type": "string" },
+    "priority": { "enum": ["low", "normal", "high"] },
+    "status": { "enum": ["queued", "in_progress", "done", "blocked"] },
+    "canonical_boundary": { "type": "string" }
+  },
+  "additionalProperties": true
+}

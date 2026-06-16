@@ -1,0 +1,80 @@
+{
+  "schema": "loveqigu.admin.generation_rules.v1",
+  "version": "1.0.0",
+  "source_ref": "docs/admin/ADMIN_CONTENT_MODEL_V1.md",
+  "canonical_boundary": "Declarative admin autopilot rules only. Does not expand Canon scope.",
+  "rules": [
+    {
+      "schema": "loveqigu.admin.generation_rule.v1",
+      "version": "1.0.0",
+      "rule_id": "gr_checkpoint_placeholder_create",
+      "trigger": "checkpoint.created",
+      "target_object": "checkpoint",
+      "generation_action": "placeholder_create",
+      "audit_required": false,
+      "freeze_required": false,
+      "runtime_publish_required": false,
+      "canonical_boundary": "Materialize admin sandbox or autopilot/admin draft records only."
+    },
+    {
+      "schema": "loveqigu.admin.generation_rule.v1",
+      "version": "1.0.0",
+      "rule_id": "gr_relic_template_expand",
+      "trigger": "checkpoint.placeholder_ready",
+      "target_object": "relic_template",
+      "generation_action": "expand_relic_template",
+      "audit_required": true,
+      "freeze_required": false,
+      "runtime_publish_required": false,
+      "canonical_boundary": "Template expansion must preserve Relic != Digital Collectible boundary."
+    },
+    {
+      "schema": "loveqigu.admin.generation_rule.v1",
+      "version": "1.0.0",
+      "rule_id": "gr_art_requirement_queue",
+      "trigger": "checkpoint.placeholder_ready",
+      "target_object": "art_requirement",
+      "generation_action": "queue_art_requirement",
+      "audit_required": false,
+      "freeze_required": false,
+      "runtime_publish_required": false,
+      "canonical_boundary": "Art queue only; no Canon or L2 mutation."
+    },
+    {
+      "schema": "loveqigu.admin.generation_rule.v1",
+      "version": "1.0.0",
+      "rule_id": "gr_checkpoint_audit",
+      "trigger": "checkpoint.filled",
+      "target_object": "checkpoint",
+      "generation_action": "audit",
+      "audit_required": true,
+      "freeze_required": false,
+      "runtime_publish_required": false,
+      "canonical_boundary": "Read-only audit against admin model contract and frozen CH01-CH05."
+    },
+    {
+      "schema": "loveqigu.admin.generation_rule.v1",
+      "version": "1.0.0",
+      "rule_id": "gr_runtime_registry_freeze_prep",
+      "trigger": "checkpoint.audit_pass",
+      "target_object": "runtime_registry",
+      "generation_action": "freeze_prep",
+      "audit_required": true,
+      "freeze_required": true,
+      "runtime_publish_required": false,
+      "canonical_boundary": "Draft runtime registry only until human G-FREEZE."
+    },
+    {
+      "schema": "loveqigu.admin.generation_rule.v1",
+      "version": "1.0.0",
+      "rule_id": "gr_runtime_publish",
+      "trigger": "checkpoint.freeze_approved",
+      "target_object": "runtime_registry",
+      "generation_action": "runtime_publish",
+      "audit_required": true,
+      "freeze_required": true,
+      "runtime_publish_required": true,
+      "canonical_boundary": "Publish approved runtime surface only; never write into data/story CH01-CH05 paths."
+    }
+  ]
+}

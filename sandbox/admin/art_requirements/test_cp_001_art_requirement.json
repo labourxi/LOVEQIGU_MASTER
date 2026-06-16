@@ -1,0 +1,9 @@
+{
+  "art_requirement_id": "test_cp_001_art_requirement",
+  "source_checkpoint": "test_cp_001",
+  "asset_type": "placeholder_art",
+  "asset_name": "CH04 sandbox art brief",
+  "asset_description": "Acceptance-test art brief for checkpoint expansion sandbox.",
+  "priority": "low",
+  "status": "queued"
+}

@@ -1,0 +1,1556 @@
+LOVEQIGU_MASTER/
+|-- apps/
+|   |-- admin/
+|   |   |-- merchant-portal/
+|   |   |   |-- merchant_account/
+|   |   |   |-- merchant_coupon_detail/
+|   |   |   |-- merchant_coupons/
+|   |   |   |-- merchant_dashboard/
+|   |   |   |-- merchant_finance/
+|   |   |   |-- merchant_help/
+|   |   |   |-- merchant_redemption_detail/
+|   |   |   |-- merchant_redemptions/
+|   |   |   |-- merchant_scan/
+|   |   |   |-- merchant_staff/
+|   |   |   |-- merchant_ticket_detail/
+|   |   |   |-- merchant_ticket_new/
+|   |   |   |-- merchant_tickets/
+|   |   |   `-- shared/
+|   |   |-- park-admin/
+|   |   |   |-- park_admin_activities/
+|   |   |   |-- park_admin_activity_detail/
+|   |   |   |-- park_admin_activity_new/
+|   |   |   |-- park_admin_activity_publish_check/
+|   |   |   |-- park_admin_dashboard/
+|   |   |   |-- park_admin_merchants/
+|   |   |   |-- park_admin_tickets/
+|   |   |   `-- shared/
+|   |   |-- platform-admin/
+|   |   |   |-- activities/
+|   |   |   |-- coupons/
+|   |   |   |-- dashboard/
+|   |   |   |-- login/
+|   |   |   |-- merchants/
+|   |   |   |-- messages/
+|   |   |   |-- parks/
+|   |   |   |-- publish/
+|   |   |   |-- reviews/
+|   |   |   |-- settings/
+|   |   |   |-- shared/
+|   |   |   |-- tickets/
+|   |   |   |-- training/
+|   |   |   |-- verification/
+|   |   |   `-- index.html
+|   |   |-- shared/
+|   |   |   |-- components/
+|   |   |   |-- figma-ready/
+|   |   |   |-- backoffice-shell.js
+|   |   |   `-- backoffice.css
+|   |   |-- .gitkeep
+|   |   `-- index.html
+|   |-- h5/
+|   |   `-- .gitkeep
+|   `-- miniapp/
+|       |-- .cloudbase/
+|       |   `-- container/
+|       |-- assets/
+|       |   |-- images/
+|       |   `-- star-ritual/
+|       |-- components/
+|       |   |-- affinity-home-panel/
+|       |   |-- campaign-home-panel/
+|       |   |-- campaign-mode-banner/
+|       |   |-- celebration-modal/
+|       |   |-- explore-home-panel/
+|       |   |-- home-mode-switch/
+|       |   `-- star-activation-ritual/
+|       |-- config/
+|       |   |-- brand.v1.js
+|       |   |-- home-policy.v1.js
+|       |   `-- home-policy.v1.json
+|       |-- data/
+|       |   |-- ar/
+|       |   |-- cultural/
+|       |   |-- meridian-map/
+|       |   |-- relic-alias/
+|       |   |-- relics/
+|       |   |-- rights/
+|       |   |-- star-map/
+|       |   |-- story/
+|       |   `-- synthesis/
+|       |-- data-js/
+|       |   |-- ar/
+|       |   |-- relics/
+|       |   |-- rights/
+|       |   `-- story/
+|       |-- pages/
+|       |   |-- ar-entry/
+|       |   |-- atom/
+|       |   |-- campaign-closure/
+|       |   |-- digital-collectible/
+|       |   |-- echo/
+|       |   |-- event-complete/
+|       |   |-- explore-map/
+|       |   |-- heaven-human-unity/
+|       |   |-- index/
+|       |   |-- lottie/
+|       |   |-- merchant-event/
+|       |   |-- meridian-map/
+|       |   |-- next-activity/
+|       |   |-- profile/
+|       |   |-- progress-center/
+|       |   |-- relic-archive/
+|       |   |-- reward-center/
+|       |   |-- rights-center/
+|       |   |-- scenic-detail/
+|       |   |-- scenic-list/
+|       |   |-- seals/
+|       |   |-- star-map/
+|       |   |-- story-archive/
+|       |   |-- story-flow/
+|       |   `-- synthesis/
+|       |-- services/
+|       |   |-- ar/
+|       |   |-- atom/
+|       |   |-- campaign/
+|       |   |-- chapter/
+|       |   |-- cultural/
+|       |   |-- digital-collectible/
+|       |   |-- echo/
+|       |   |-- explore-map/
+|       |   |-- heaven-human-unity/
+|       |   |-- home/
+|       |   |-- immersion/
+|       |   |-- lottie/
+|       |   |-- merchant-event/
+|       |   |-- meridian-map/
+|       |   |-- next-activity/
+|       |   |-- prototype/
+|       |   |-- relic/
+|       |   |-- relic-alias/
+|       |   |-- reward/
+|       |   |-- rights/
+|       |   |-- star-map/
+|       |   |-- story/
+|       |   |-- synthesis/
+|       |   |-- user-progress/
+|       |   `-- star-ritual-service.js
+|       |-- styles/
+|       |   `-- prototype-v1.wxss
+|       |-- utils/
+|       |   `-- platform-info.js
+|       |-- .gitignore
+|       |-- app.js
+|       |-- app.json
+|       |-- app.wxss
+|       |-- project.config.json
+|       |-- project.private.config.json
+|       `-- sitemap.json
+|-- AR_ENGINE_V2/
+|   |-- AR_ENGINE_V2_LIBRARY.yaml
+|   `-- AR_ENGINE_V2_MANIFEST.yaml
+|-- assets/
+|   `-- visual-autopilot/
+|       |-- alignment/
+|       |   |-- history.json
+|       |   |-- preference_summary.json
+|       |   |-- preferences.json
+|       |   `-- review_queue.json
+|       |-- candidates/
+|       |   |-- .gitkeep
+|       |   |-- seedream_ark_1781361910.jpg
+|       |   |-- seedream_ark_1781394406832243400_1.jpg
+|       |   |-- seedream_ark_1781394432125724800_2.jpg
+|       |   |-- seedream_ark_1781394461778755300_3.jpg
+|       |   |-- seedream_ark_1781394485436712300_4.jpg
+|       |   |-- seedream_ark_1781394513125634100_5.jpg
+|       |   |-- seedream_ark_1781395418015674900_1.jpg
+|       |   |-- seedream_ark_1781395452753400700_1.jpg
+|       |   |-- seedream_ark_1781395496206223800_1.jpg
+|       |   |-- seedream_ark_1781395528697580100_1.jpg
+|       |   |-- seedream_ark_1781395566711441800_1.jpg
+|       |   |-- seedream_ark_1781445343114789600_1.jpg
+|       |   |-- seedream_ark_1781445373406868100_1.jpg
+|       |   |-- seedream_ark_1781445411621113100_1.jpg
+|       |   |-- seedream_ark_1781445444009295900_1.jpg
+|       |   |-- seedream_ark_1781445478641503900_1.jpg
+|       |   |-- seedream_ark_1781445515425813400_1.jpg
+|       |   |-- seedream_ark_1781445553232583400_1.jpg
+|       |   |-- seedream_ark_1781445589352199200_1.jpg
+|       |   |-- seedream_ark_1781445621410884400_1.jpg
+|       |   |-- seedream_ark_1781445656822397300_1.jpg
+|       |   |-- seedream_ark_1781445698530544800_1.jpg
+|       |   |-- seedream_ark_1781445729914035700_1.jpg
+|       |   |-- seedream_ark_1781445733380242300_1.jpg
+|       |   |-- seedream_ark_1781445769754425300_1.jpg
+|       |   |-- seedream_ark_1781445776838766700_1.jpg
+|       |   |-- seedream_ark_1781445803533191200_1.jpg
+|       |   |-- seedream_ark_1781445817437591000_1.jpg
+|       |   |-- seedream_ark_1781445838610565400_1.jpg
+|       |   |-- seedream_ark_1781445852063475700_1.jpg
+|       |   |-- seedream_ark_1781445877673843600_1.jpg
+|       |   |-- seedream_ark_1781445920302375300_1.jpg
+|       |   |-- seedream_ark_1781445957383854700_1.jpg
+|       |   |-- seedream_ark_1781445994558320300_1.jpg
+|       |   |-- seedream_ark_1781446021644108900_1.jpg
+|       |   |-- seedream_ark_1781446060170509700_1.jpg
+|       |   |-- seedream_ark_1781446911563807100_1.jpg
+|       |   |-- seedream_ark_1781446940740219100_1.jpg
+|       |   |-- seedream_ark_1781446967751537400_1.jpg
+|       |   |-- seedream_ark_1781447007085958900_1.jpg
+|       |   |-- seedream_ark_1781447043728948400_1.jpg
+|       |   |-- seedream_ark_1781447088159973600_1.jpg
+|       |   |-- seedream_ark_1781447123486702800_1.jpg
+|       |   |-- seedream_ark_1781447156078840900_1.jpg
+|       |   |-- seedream_ark_1781447185223966500_1.jpg
+|       |   |-- seedream_ark_1781447217153645600_1.jpg
+|       |   |-- seedream_ark_1781450188912566700_1.jpg
+|       |   |-- seedream_ark_1781450387334254700_1.jpg
+|       |   |-- seedream_ark_1781450579494921300_1.jpg
+|       |   |-- seedream_ark_1781450914632703700_1.jpg
+|       |   |-- seedream_ark_1781451106446001000_1.jpg
+|       |   |-- seedream_ark_1781451300210434900_1.jpg
+|       |   |-- seedream_ark_1781451492697632700_1.jpg
+|       |   |-- seedream_ark_1781451690646620100_1.jpg
+|       |   |-- seedream_ark_1781451947402105300_1.jpg
+|       |   |-- seedream_ark_1781452149855203600_1.jpg
+|       |   |-- seedream_ark_1781452355638019400_1.jpg
+|       |   |-- seedream_ark_1781452549285777900_1.jpg
+|       |   |-- seedream_ark_1781452746706793700_1.jpg
+|       |   |-- seedream_ark_1781492625417553800_1.jpg
+|       |   |-- seedream_ark_1781492849008261500_1.jpg
+|       |   |-- seedream_ark_1781493045443889900_1.jpg
+|       |   |-- seedream_ark_1781493243288903300_1.jpg
+|       |   |-- seedream_ark_1781493440421844200_1.jpg
+|       |   |-- seedream_ark_1781493635020553700_1.jpg
+|       |   |-- seedream_ark_1781494453357326600_1.jpg
+|       |   |-- seedream_ark_1781494767791941000_1.jpg
+|       |   |-- seedream_ark_1781494974350398200_1.jpg
+|       |   |-- seedream_ark_1781495140181616900_1.jpg
+|       |   |-- seedream_ark_1781495867915665800_1.jpg
+|       |   |-- seedream_ark_1781495871068495400_1.jpg
+|       |   |-- seedream_ark_1781495871329371600_1.jpg
+|       |   |-- seedream_ark_1781495872223032500_1.jpg
+|       |   |-- seedream_ark_1781495915398580800_1.jpg
+|       |   |-- seedream_ark_1781495917135664500_1.jpg
+|       |   |-- seedream_ark_1781495919410775900_1.jpg
+|       |   |-- seedream_ark_1781495919841356300_1.jpg
+|       |   |-- seedream_ark_1781496073861213700_1.jpg
+|       |   |-- seedream_ark_1781496077527360900_1.jpg
+|       |   |-- seedream_ark_1781496078208854300_1.jpg
+|       |   |-- seedream_ark_1781496079108386500_1.jpg
+|       |   |-- seedream_ark_1781496080133245000_1.jpg
+|       |   |-- seedream_ark_1781496180446118100_1.jpg
+|       |   |-- seedream_ark_1781496182949362200_1.jpg
+|       |   |-- seedream_ark_1781496185368247400_1.jpg
+|       |   |-- seedream_ark_1781499241177405400_1.jpg
+|       |   |-- seedream_ark_1781499242788889500_1.jpg
+|       |   |-- seedream_ark_1781499245976107400_1.jpg
+|       |   |-- seedream_ark_1781499316367071700_1.jpg
+|       |   |-- seedream_ark_1781499318745364600_1.jpg
+|       |   `-- seedream_ark_1781499319714662000_1.jpg
+|       |-- governance/
+|       |   `-- usage.json
+|       |-- judge/
+|       |   |-- judge_report.json
+|       |   |-- judge_report_calibrated.json
+|       |   |-- ranking.json
+|       |   `-- ranking_calibrated.json
+|       |-- prompts/
+|       |   |-- candidate_A.txt
+|       |   |-- candidate_B.txt
+|       |   |-- candidate_C.txt
+|       |   |-- candidate_D.txt
+|       |   `-- candidate_E.txt
+|       |-- reports/
+|       |   |-- .gitkeep
+|       |   |-- art04_four_symbol_dragon_20260613_135047.json
+|       |   |-- art04_four_symbol_dragon_20260613_140019.json
+|       |   |-- art04_four_symbol_dragon_20260613_141713.json
+|       |   |-- art04_four_symbol_dragon_20260613_141845.json
+|       |   `-- art04_four_symbol_dragon_20260613_142404.json
+|       |-- review/
+|       |   |-- manual_review_package_jiao_xiu_v1.json
+|       |   |-- review_package.json
+|       |   `-- review_status.json
+|       `-- winner/
+|           `-- winner.jpg
+|-- automation/
+|   `-- chapters/
+|       `-- registry.yaml
+|-- autopilot/
+|   |-- admin/
+|   |   |-- art_requirements/
+|   |   |   `-- cp_exemplar_v1_art_requirement.json
+|   |   |-- checkpoints/
+|   |   |   `-- cp_exemplar_v1.json
+|   |   |-- generation_rules/
+|   |   |   `-- admin_autopilot_v1_rules.json
+|   |   |-- manifest/
+|   |   |   `-- ADMIN_CONTENT_MODEL_V1_MANIFEST.json
+|   |   |-- relic_templates/
+|   |   |   `-- cp_exemplar_v1_relic_template.json
+|   |   `-- schemas/
+|   |       |-- art_requirement.schema.json
+|   |       |-- checkpoint.schema.json
+|   |       |-- generation_rule.schema.json
+|   |       `-- relic_template.schema.json
+|   |-- admin_content_model_v1.config.json
+|   `-- autopilot_v1.config.json
+|-- CONTENT_ENGINE/
+|   |-- AR_EVENT_LIBRARY/
+|   |   |-- ar_events_v1.yaml
+|   |   `-- ar_events_v2.yaml
+|   |-- ATOM_LIBRARY/
+|   |   |-- atoms_v1.yaml
+|   |   `-- atoms_v2_batch.yaml
+|   |-- COLLECTIBLE_LIBRARY/
+|   |   |-- digital_collectibles_v2.yaml
+|   |   `-- relics_v1.yaml
+|   |-- DIGITAL_COLLECTIBLE_EXPANSION/
+|   |   |-- DIGITAL_COLLECTIBLE_MANIFEST.yaml
+|   |   `-- DIGITAL_COLLECTIBLES_V2.yaml
+|   |-- LOTTIE_LIBRARY/
+|   |   `-- lottie_templates_v1.yaml
+|   |-- TOKEN_LIBRARY/
+|   |   |-- digital_collectibles_v1.yaml
+|   |   `-- relic_tokens_v2.yaml
+|   |-- V3/
+|   |   |-- AR_EVENT_LIBRARY/
+|   |   |   `-- ar_events_v3.yaml
+|   |   |-- ATOM_LIBRARY/
+|   |   |   `-- atoms_v3_batch.yaml
+|   |   |-- COLLECTIBLE_LIBRARY/
+|   |   |   `-- digital_collectibles_v3.yaml
+|   |   |-- TOKEN_LIBRARY/
+|   |   |   `-- relic_tokens_v3.yaml
+|   |   `-- V3_BATCH_MANIFEST.yaml
+|   |-- AR_EVENT_TEMPLATE.yaml
+|   |-- COLLECTIBLE_TEMPLATE.yaml
+|   |-- CONTENT_ATOM_SCHEMA.yaml
+|   `-- TOKEN_TEMPLATE.yaml
+|-- data/
+|   |-- ar/
+|   |   |-- ar-events.json
+|   |   |-- ch02_ar-events.json
+|   |   |-- ch03_ar-events.json
+|   |   |-- ch04_ar-events.json
+|   |   |-- ch05_ar-events.json
+|   |   |-- ch06_ar-events.json
+|   |   |-- ch07_ar-events.json
+|   |   |-- ch08_ar-events.json
+|   |   |-- ch09_ar-events.json
+|   |   `-- ch10_ar-events.json
+|   |-- event_lifecycle/
+|   |   |-- activity_lifecycle.mock.json
+|   |   `-- activity_lifecycle.schema.json
+|   |-- merchant_event/
+|   |   |-- activity.mock.json
+|   |   |-- activity.schema.json
+|   |   |-- activity.seed.json
+|   |   |-- activity_asset.mock.json
+|   |   |-- activity_asset.schema.json
+|   |   |-- activity_task.mock.json
+|   |   |-- activity_task.schema.json
+|   |   |-- bindings.seed.json
+|   |   |-- coupon_template.mock.json
+|   |   |-- coupon_template.schema.json
+|   |   |-- coupon_templates.seed.json
+|   |   |-- exploration_points.seed.json
+|   |   |-- merchant_binding.mock.json
+|   |   |-- merchant_binding.schema.json
+|   |   |-- merchants.seed.json
+|   |   |-- relics.seed.json
+|   |   `-- tasks.seed.json
+|   |-- merchant_portal/
+|   |   |-- coupon_redemption_record.mock.json
+|   |   |-- coupon_redemption_record.schema.json
+|   |   |-- merchant_bill.mock.json
+|   |   |-- merchant_bill.schema.json
+|   |   |-- merchant_coupon.mock.json
+|   |   |-- merchant_coupon.schema.json
+|   |   |-- merchant_profile.mock.json
+|   |   |-- merchant_profile.schema.json
+|   |   |-- merchant_redemption_center.mock.json
+|   |   |-- merchant_redemption_center.schema.json
+|   |   |-- merchant_ticket.mock.json
+|   |   `-- merchant_ticket.schema.json
+|   |-- park_admin/
+|   |   |-- park_activity.mock.json
+|   |   |-- park_activity.schema.json
+|   |   |-- park_activity_coupon_link.mock.json
+|   |   |-- park_activity_coupon_link.schema.json
+|   |   |-- park_activity_merchant_link.mock.json
+|   |   |-- park_activity_merchant_link.schema.json
+|   |   |-- park_admin_dashboard_summary.mock.json
+|   |   |-- park_admin_dashboard_summary.schema.json
+|   |   |-- rule_based_optimization_suggestion.mock.json
+|   |   `-- rule_based_optimization_suggestion.schema.json
+|   |-- platform_admin/
+|   |   |-- platform_activity_review.mock.json
+|   |   |-- platform_activity_review.schema.json
+|   |   |-- platform_coupon_review.mock.json
+|   |   |-- platform_coupon_review.schema.json
+|   |   |-- platform_coupons.mock.json
+|   |   |-- platform_dashboard_summary.mock.json
+|   |   |-- platform_dashboard_summary.schema.json
+|   |   |-- platform_merchant_review.mock.json
+|   |   |-- platform_merchant_review.schema.json
+|   |   |-- platform_merchants.mock.json
+|   |   |-- platform_parks.mock.json
+|   |   |-- platform_release.mock.json
+|   |   |-- platform_release.schema.json
+|   |   `-- platform_tickets.mock.json
+|   |-- relics/
+|   |   |-- generated/
+|   |   |   |-- auto_generated_relic.json
+|   |   |   |-- jiao_su_relic.json
+|   |   |   `-- phase3_relic_relic.json
+|   |   |-- ch02_relics.json
+|   |   |-- ch03_relics.json
+|   |   |-- ch04_relics.json
+|   |   |-- ch05_relics.json
+|   |   |-- ch06_relics.json
+|   |   |-- ch07_relics.json
+|   |   |-- ch08_relics.json
+|   |   |-- ch09_relics.json
+|   |   |-- ch10_relics.json
+|   |   `-- relics.json
+|   |-- rights/
+|   |   |-- ch02_rights.json
+|   |   |-- ch03_rights.json
+|   |   |-- ch04_rights.json
+|   |   |-- ch05_rights.json
+|   |   |-- ch06_rights.json
+|   |   |-- ch07_rights.json
+|   |   |-- ch08_rights.json
+|   |   |-- ch09_rights.json
+|   |   |-- ch10_rights.json
+|   |   `-- rights.json
+|   |-- story/
+|   |   |-- generated/
+|   |   |   |-- auto_generated_story.json
+|   |   |   |-- jiao_su_story.json
+|   |   |   `-- phase3_story_story.json
+|   |   |-- ch02_chapters.json
+|   |   |-- ch03_chapters.json
+|   |   |-- ch04_chapters.json
+|   |   |-- ch05_chapters.json
+|   |   |-- ch06_chapters.json
+|   |   |-- ch07_chapters.json
+|   |   |-- ch08_chapters.json
+|   |   |-- ch09_chapters.json
+|   |   |-- ch10_chapters.json
+|   |   `-- chapters.json
+|   `-- user_mock/
+|       |-- user_coupon.mock.json
+|       `-- user_coupon_claim_history.mock.json
+|-- docs/
+|   |-- admin/
+|   |   |-- dashboard/
+|   |   |   `-- ADMIN_OPERATION_DASHBOARD_SPEC_V1.1.md
+|   |   |-- visual/
+|   |   |   `-- ADMIN_OPERATION_VISUAL_SYSTEM_V1.md
+|   |   |-- ADMIN_CONTENT_MODEL_V1.md
+|   |   |-- ADMIN_INDEX_V1.md
+|   |   `-- LOVEQIGU_MASTER.lnk
+|   |-- architecture/
+|   |   `-- LOVEQIGU_INFORMATION_ARCHITECTURE_V1.md
+|   |-- art/
+|   |   |-- discovery_templates/
+|   |   |   |-- DISCOVERY_TEMPLATE_001_ACCEPTANCE_REPORT_V1.md
+|   |   |   |-- DISCOVERY_TEMPLATE_002_GOLDEN_LIST_PATH_SPEC_V1.md
+|   |   |   `-- DISCOVERY_TEMPLATE_REGISTRY_V1.md
+|   |   |-- revelation_ritual/
+|   |   |   |-- ART_03_AR_REVELATION_ASSET_SYSTEM_V1.md
+|   |   |   |-- ART_03_REVELATION_RITUAL_PATCH_01.md
+|   |   |   `-- ART_03_VISUAL_ASSET_LIST_V1.md
+|   |   |-- ritual_system/
+|   |   |   `-- ART_03_REVELATION_RITUAL_V1.md
+|   |   |-- scenic/
+|   |   |   `-- aiqigu/
+|   |   |-- template/
+|   |   |   |-- DISCOVERY_TEMPLATE_001_XIANGYUN_GATE_SPEC_V1.md
+|   |   |   |-- DISCOVERY_TEMPLATE_002_GOLDEN_LIST_PATH_SPEC_V1_1.md
+|   |   |   |-- DISCOVERY_TEMPLATE_GOVERNANCE_V1.md
+|   |   |   |-- DISCOVERY_TEMPLATE_GOVERNANCE_V2.md
+|   |   |   |-- DISCOVERY_TEMPLATE_REGISTRY_V1.md
+|   |   |   `-- LOVEQIGU_DISCOVERY_TEMPLATE_STANDARD_V1.md
+|   |   |-- ui_pages/
+|   |   |   |-- XIANGYUN_GATE_UI_PAGE_03.md
+|   |   |   |-- XIANGYUN_GATE_UI_PAGE_03B.md
+|   |   |   |-- XIANGYUN_GATE_UI_PAGE_04.md
+|   |   |   |-- XIANGYUN_GATE_UI_PAGE_05.md
+|   |   |   |-- XIANGYUN_GATE_UI_PAGE_05A.md
+|   |   |   |-- XIANGYUN_GATE_UI_PAGE_06.md
+|   |   |   |-- XIANGYUN_GATE_UI_PAGE_07A.md
+|   |   |   |-- XIANGYUN_GATE_UI_PAGE_07B.md
+|   |   |   `-- XIANGYUN_GATE_UI_PAGE_07C.md
+|   |   |-- ART_02_AR_CULTURAL_EXPERIENCE_MODEL_V1.md
+|   |   |-- ART_02_ASSET_PACKAGE_V1.md
+|   |   |-- ART_02_DUAL_HOME_VISUAL_SYSTEM_V1.md
+|   |   |-- ART_02_KEY_VISUAL_V1.md
+|   |   |-- ART_02_RELIC_IDENTITY_SYSTEM_V1.md
+|   |   |-- ART_02_RELIC_LANGUAGE_V1.md
+|   |   |-- ART_03_FINAL_KEYFRAME_GUIDE_V1.md
+|   |   |-- ART_03_RELATIONSHIP_REVEALED_V1.md
+|   |   |-- ART_03_REVELATION_RITUAL_V1.md
+|   |   |-- ART_03_STAR_ACTIVATION_V2.md
+|   |   |-- ART_03_VISUAL_PHILOSOPHY_V1.md
+|   |   |-- ART_03A_REVELATION_PARTICLE_SYSTEM_V1.md
+|   |   |-- ART_03B_TREASURE_REVELATION_TEMPLATE_V1.md
+|   |   |-- ART_03C_CONNECTION_LIGHTING_TEMPLATE_V1.md
+|   |   |-- ART_04_VISUAL_PROTOTYPE_V1.md
+|   |   |-- ART_04A_PROTOTYPE_FLOW_V1.md
+|   |   |-- ART_04B_SCREEN_STORYBOARD_V1.md
+|   |   |-- ART_04C_MOTION_SPEC_V1.md
+|   |   |-- ART_INDEX_V1.md
+|   |   |-- ART_INDEX_V1_REPORT.md
+|   |   |-- ART_SCENIC_CONTENT_PIPELINE_V1.md
+|   |   |-- ART_VISUAL_VALIDATION_V1.md
+|   |   |-- AZURE_DRAGON_ASSET_BATCH_V1.md
+|   |   |-- AZURE_DRAGON_ATLAS_V1.md
+|   |   |-- AZURE_DRAGON_GENERATION_WORKFLOW_V1.md
+|   |   |-- AZURE_DRAGON_PROMPT_LIBRARY_V1.md
+|   |   |-- AZURE_DRAGON_VISUAL_SPEC_V1.md
+|   |   |-- CENTRAL_RESONANCE_VISUAL_SYSTEM_V1.md
+|   |   |-- FOUR_SYMBOL_ATLAS_ARCHITECTURE_V1.md
+|   |   |-- FOUR_SYMBOL_VISUAL_SYSTEM_V1.md
+|   |   |-- FOUR_SYMBOL_VISUAL_SYSTEM_V1_1.md
+|   |   |-- PROMPT_OPTIMIZATION_CANON_V1.md
+|   |   |-- RELIC_VISUAL_SYSTEM_V1.md
+|   |   |-- STAR_NODE_RULE_V1.md
+|   |   |-- TREASURE_ARCHETYPE_SYSTEM_V1.md
+|   |   |-- VERMILION_BIRD_ASSET_BATCH_V1.md
+|   |   |-- VERMILION_BIRD_GENERATION_WORKFLOW_V1.md
+|   |   |-- VERMILION_BIRD_PROMPT_LIBRARY_V1.md
+|   |   `-- VERMILION_BIRD_VISUAL_SPEC_V1.md
+|   |-- audit/
+|   |   |-- ADMIN_AUTOPILOT_V1_DUCTOR_REPORT.md
+|   |   |-- AUTOPILOT_V1_ACCEPTANCE_TEST_REPORT.md
+|   |   |-- AUTOPILOT_V1_OPERATIONALIZATION_DUCTOR_REPORT.md
+|   |   |-- BASELINE_AUDIT_REPORT.md
+|   |   |-- CH01-CH03_PRODUCT_ACCEPTANCE_REPORT.md
+|   |   |-- CH04_PLACEHOLDER_AUDIT_REPORT.md
+|   |   |-- CH06_PLACEHOLDER_AUDIT_REPORT.md
+|   |   |-- CH07_PLACEHOLDER_AUDIT_REPORT.md
+|   |   |-- PRODUCT_ACCEPTANCE_REMEDIATION_REPORT.md
+|   |   `-- RUNTIME_ALIGNMENT_REPORT.md
+|   |-- automation/
+|   |   |-- AUTOPILOT_ARCHITECTURE_REPORT.md
+|   |   |-- LOVEQIGU_AUTOPILOT_V1.md
+|   |   |-- LOVEQIGU_AUTOPILOT_V1_ARCHITECTURE.md
+|   |   |-- LOVEQIGU_AUTOPILOT_V1_REPORT.md
+|   |   `-- RUNTIME_CONSISTENCY_AUDIT_REPORT.md
+|   |-- beiwang/
+|   |   |-- 20260609.txt
+|   |   |-- LOVEQIGU 项目备忘录（2026-06-08）.txt
+|   |   |-- LOVEQIGU_AUTOMATION_STRATEGY_MEMO.md
+|   |   `-- LOVEQIGU_CURSOR_AUDIT_MEMO.md
+|   |-- canon/
+|   |   |-- CANON_GAP_REGISTRY.md
+|   |   |-- LOVEQIGU_CANON_INDEX.md
+|   |   `-- LOVEQIGU_WORLD_RULES_CANON_V1.md
+|   |-- content/
+|   |   |-- canon/
+|   |   |   |-- CH06_CONTENT_CANON_V1.md
+|   |   |   |-- CH07_CONTENT_CANON_V1.md
+|   |   |   |-- CH08_CONTENT_CANON_V1.md
+|   |   |   |-- CH09_CONTENT_CANON_V1.md
+|   |   |   `-- CH10_CONTENT_CANON_V1.md
+|   |   |-- CH01_CH02_LINKING_REPORT.md
+|   |   |-- CH01_FINAL_FREEZE_REPORT.md
+|   |   |-- CH02_CONTENT_AUDIT_CREATE_REPORT.md
+|   |   |-- CH02_CONTENT_CANON_V1.md
+|   |   |-- CH02_CONTENT_FILL_CREATE_REPORT.md
+|   |   |-- CH02_DIGITAL_COLLECTIBLE_REGISTRATION_REPORT.md
+|   |   |-- CH02_FINAL_CONTENT_AUDIT_CREATE_REPORT.md
+|   |   |-- CH02_FINAL_FREEZE_REPORT.md
+|   |   |-- CH02_L2_PLACEHOLDER_CREATE_REPORT.md
+|   |   |-- CH03_CH04_LINKING_REPORT.md
+|   |   |-- CH03_CONTENT_CANON_V1.md
+|   |   |-- CH03_CONTENT_FILL_CREATE_REPORT.md
+|   |   |-- CH03_FINAL_FREEZE_REPORT.md
+|   |   |-- CH03_L2_PLACEHOLDER_CREATE_REPORT.md
+|   |   |-- CH03_RUNTIME_REPORT.md
+|   |   |-- CH04_CONTENT_AUDIT_CREATE_REPORT.md
+|   |   |-- CH04_CONTENT_CANON_V1.md
+|   |   |-- CH04_CONTENT_FILL_CREATE_REPORT.md
+|   |   |-- CH04_FINAL_FREEZE_REPORT.md
+|   |   |-- CH04_L2_PLACEHOLDER_CREATE_REPORT.md
+|   |   |-- CH04_LINK_AND_FREEZE_CREATE_REPORT.md
+|   |   |-- CH05_CH06_LINKING_REPORT.md
+|   |   |-- CH05_CONTENT_AUDIT_CREATE_REPORT.md
+|   |   |-- CH05_CONTENT_CANON_V1.md
+|   |   |-- CH05_CONTENT_CANON_V1_CREATE_REPORT.md
+|   |   |-- CH05_CONTENT_FILL_CREATE_REPORT.md
+|   |   |-- CH05_L2_PLACEHOLDER_CREATE_REPORT.md
+|   |   |-- CH06_CH07_LINKING_REPORT.md
+|   |   |-- CH06_CONTENT_AUDIT_CREATE_REPORT.md
+|   |   |-- CH06_CONTENT_FILL_CREATE_REPORT.md
+|   |   |-- CH06_FINAL_FREEZE_REPORT.md
+|   |   |-- CH06_L2_PLACEHOLDER_CREATE_REPORT.md
+|   |   |-- CH06_LINK_AND_FREEZE_CREATE_REPORT.md
+|   |   |-- CH07_CH08_LINKING_REPORT.md
+|   |   |-- CH07_CONTENT_AUDIT_CREATE_REPORT.md
+|   |   |-- CH07_CONTENT_FILL_CREATE_REPORT.md
+|   |   |-- CH07_FINAL_FREEZE_REPORT.md
+|   |   |-- CH07_L2_PLACEHOLDER_CREATE_REPORT.md
+|   |   |-- CH07_LINK_AND_FREEZE_CREATE_REPORT.md
+|   |   |-- CH08_CH09_LINKING_REPORT.md
+|   |   |-- CH08_CONTENT_AUDIT_CREATE_REPORT.md
+|   |   |-- CH08_CONTENT_FILL_CREATE_REPORT.md
+|   |   |-- CH08_FINAL_FREEZE_REPORT.md
+|   |   |-- CH08_L2_PLACEHOLDER_CREATE_REPORT.md
+|   |   |-- CH08_LINK_AND_FREEZE_CREATE_REPORT.md
+|   |   |-- CH08_RUNTIME_BRIDGE_REPORT.md
+|   |   |-- CH09_CH10_LINKING_REPORT.md
+|   |   |-- CH09_CONTENT_AUDIT_CREATE_REPORT.md
+|   |   |-- CH09_CONTENT_FILL_CREATE_REPORT.md
+|   |   |-- CH09_FINAL_FREEZE_REPORT.md
+|   |   |-- CH09_L2_PLACEHOLDER_CREATE_REPORT.md
+|   |   |-- CH09_LINK_AND_FREEZE_CREATE_REPORT.md
+|   |   |-- CH10_CONTENT_AUDIT_CREATE_REPORT.md
+|   |   |-- CH10_CONTENT_FILL_CREATE_REPORT.md
+|   |   |-- CH10_FINAL_FREEZE_REPORT.md
+|   |   |-- CH10_L2_PLACEHOLDER_CREATE_REPORT.md
+|   |   |-- CH10_LINK_AND_FREEZE_CREATE_REPORT.md
+|   |   |-- CH10_RUNTIME_BRIDGE_REPORT.md
+|   |   |-- DIGITAL_COLLECTIBLE_REGISTRY_CH01.md
+|   |   |-- DIGITAL_COLLECTIBLE_REGISTRY_CH02.md
+|   |   |-- DIGITAL_COLLECTIBLE_REGISTRY_CH03.md
+|   |   |-- DIGITAL_COLLECTIBLE_REGISTRY_CH04.md
+|   |   |-- DIGITAL_COLLECTIBLE_REGISTRY_CH05.md
+|   |   |-- DIGITAL_COLLECTIBLE_REGISTRY_CH06.md
+|   |   |-- DIGITAL_COLLECTIBLE_REGISTRY_CH07.md
+|   |   |-- DIGITAL_COLLECTIBLE_REGISTRY_CH08.md
+|   |   |-- DIGITAL_COLLECTIBLE_REGISTRY_CH09.md
+|   |   |-- DIGITAL_COLLECTIBLE_REGISTRY_CH10.md
+|   |   |-- LOVEQIGU_CONTENT_CANON_V1.md
+|   |   `-- RUNTIME_BRIDGE_BATCH_CH04_CH09_REPORT.md
+|   |-- content-engine/
+|   |   |-- APPROVAL_CONSOLE_V1_REPORT.md
+|   |   |-- CONTENT_ENGINE_STATUS_V1.md
+|   |   |-- CONTENT_ENGINE_STATUS_V1_REPORT.md
+|   |   |-- CONTENT_FACTORY_DASHBOARD_V1.md
+|   |   |-- CONTENT_FACTORY_DASHBOARD_V1_REPORT.md
+|   |   |-- CONTENT_FACTORY_GOVERNANCE_V1.md
+|   |   |-- CONTENT_FACTORY_GOVERNANCE_V1_REPORT.md
+|   |   |-- CONTENT_FACTORY_MASTER_ARCHITECTURE_V1.md
+|   |   |-- CONTENT_ORCHESTRATOR_IMPLEMENTATION_REPORT.md
+|   |   |-- CONTENT_ORCHESTRATOR_PHASE2_REPORT.md
+|   |   |-- CONTENT_ORCHESTRATOR_V1.md
+|   |   |-- FACTORY_DISPATCHER_V1_REPORT.md
+|   |   |-- FACTORY_REAL_BINDING_V1_REPORT.md
+|   |   |-- GEMINI_CONNECTIVITY_DIAGNOSIS_V1.md
+|   |   |-- GEMINI_JUDGE_FAILURE_DIAGNOSIS_V1.md
+|   |   |-- GEMINI_UNAVAILABLE_FALLBACK_POLICY_V1.md
+|   |   |-- HUMAN_REVIEW_GATE_V1_REPORT.md
+|   |   |-- MANUAL_REVIEW_PACKAGE_FILL_JIAO_XIU_V1.md
+|   |   |-- REAL_PRODUCTION_VALIDATION_V1.md
+|   |   |-- REAL_PRODUCTION_VALIDATION_V1_REPORT.md
+|   |   `-- RELEASE_MANAGER_V1_REPORT.md
+|   |-- governance/
+|   |   |-- VISUAL_AUTOPILOT_COST_CONTROL_V1.md
+|   |   |-- VISUAL_AUTOPILOT_ENVIRONMENT_INTEGRATION_V1.md
+|   |   |-- VISUAL_AUTOPILOT_EVALUATOR_V1.md
+|   |   |-- VISUAL_AUTOPILOT_GOVERNANCE_V1.md
+|   |   |-- VISUAL_AUTOPILOT_IMPLEMENTATION_PLAN_V1.md
+|   |   |-- VISUAL_AUTOPILOT_PIPELINE_INTEGRATION_V1.md
+|   |   |-- VISUAL_AUTOPILOT_PIPELINE_V1.md
+|   |   |-- VISUAL_AUTOPILOT_PROJECT_SKELETON_V1.md
+|   |   |-- VISUAL_AUTOPILOT_PROVIDER_ABSTRACTION_V1.md
+|   |   |-- VISUAL_AUTOPILOT_PROVIDER_CAPABILITY_MATRIX_V1.md
+|   |   |-- VISUAL_AUTOPILOT_PROVIDER_IMPLEMENTATION_V1.md
+|   |   |-- VISUAL_AUTOPILOT_ROUTER_V1.md
+|   |   |-- VISUAL_AUTOPILOT_SELECTION_ENGINE_V1.md
+|   |   `-- VISUAL_AUTOPILOT_V3_ARCHITECTURE_V1.md
+|   |-- language/
+|   |   |-- LOVEQIGU_LANGUAGE_CONSTITUTION_V1.md
+|   |   `-- LOVEQIGU_TERMINOLOGY_V1.md
+|   |-- product/
+|   |   |-- ar/
+|   |   |   |-- AR_INTERACTION_ARCHITECTURE_V1.1.md
+|   |   |   |-- AR_INTERACTION_ARCHITECTURE_V1.md
+|   |   |   `-- AR_PRODUCT_INDEX_V1.md
+|   |   |-- ar_factory/
+|   |   |   |-- LANDMARK_AR_AUTOGEN_PHASE1_FREEZE_V1.md
+|   |   |   `-- LANDMARK_AR_AUTOGEN_PHASE1_FREEZE_V1_REPORT.md
+|   |   |-- backoffice/
+|   |   |   |-- ADMIN_COMPONENT_LIBRARY_V1.md
+|   |   |   |-- ADMIN_COMPONENT_LIBRARY_V1_REPORT.md
+|   |   |   |-- BACKOFFICE_BLESSING_VISUAL_SYSTEM_V1.md
+|   |   |   |-- BACKOFFICE_BLESSING_VISUAL_SYSTEM_V1_REPORT.md
+|   |   |   |-- BACKOFFICE_DESIGN_SYSTEM_V1.md
+|   |   |   |-- BACKOFFICE_DESIGN_SYSTEM_V1_REPORT.md
+|   |   |   |-- BACKOFFICE_FIGMA_READY_UI_SYSTEM_V1.md
+|   |   |   |-- BACKOFFICE_FIGMA_READY_UI_SYSTEM_V1_REPORT.md
+|   |   |   |-- BACKOFFICE_VISUAL_MOCKUP_V1.md
+|   |   |   |-- BACKOFFICE_VISUAL_MOCKUP_V1_REPORT.md
+|   |   |   |-- PHASE_UI_BUILD_V1.md
+|   |   |   `-- PHASE_UI_BUILD_V1_REPORT.md
+|   |   |-- blessing_system/
+|   |   |   |-- BLESSING_CANON_V1.md
+|   |   |   |-- BLESSING_GOVERNANCE_RULE_V1.md
+|   |   |   |-- BLESSING_LIBRARY_V1.md
+|   |   |   |-- BLESSING_RESONANCE_MODEL_V1.md
+|   |   |   |-- BLESSING_SYSTEM_INDEX_V1.md
+|   |   |   |-- BLESSING_TRIGGER_RULE_V1.md
+|   |   |   `-- LOVEQIGU_BLESSING_COLLECTION_CANON_V1.md
+|   |   |-- content/
+|   |   |   |-- azure_dragon/
+|   |   |   |-- AZURE_DRAGON_CONTENT_BATCH_V2.md
+|   |   |   |-- BLACK_TORTOISE_CONTENT_BATCH_V1.md
+|   |   |   |-- CONTENT_ASSET_PRODUCTION_V1.md
+|   |   |   |-- VERMILION_BIRD_CONTENT_BATCH_V2.2.md
+|   |   |   `-- WHITE_TIGER_CONTENT_BATCH_V1.md
+|   |   |-- dual_home/
+|   |   |   |-- DUAL_HOME_RUNTIME_MAPPING_V1.md
+|   |   |   `-- DUAL_HOME_VISUAL_SYSTEM_V1.md
+|   |   |-- event/
+|   |   |   |-- EVENT_LIFECYCLE_ENGINE_V1.md
+|   |   |   |-- EVENT_LIFECYCLE_ENGINE_V1_REPORT.md
+|   |   |   |-- EVENT_PLAYER_EXPERIENCE_V1.md
+|   |   |   |-- EVENT_PLAYER_EXPERIENCE_V1_REPORT.md
+|   |   |   |-- EVENT_RUNTIME_SMOKE_TEST_V1.md
+|   |   |   |-- EVENT_RUNTIME_SMOKE_TEST_V1_REPORT.md
+|   |   |   |-- EVENT_RUNTIME_UI_AUDIT_V1.md
+|   |   |   |-- EVENT_RUNTIME_UI_AUDIT_V1_REPORT.md
+|   |   |   |-- FIRST_EVENT_OPERATION_FLOW_AUDIT_V1.md
+|   |   |   |-- FIRST_EVENT_OPERATION_FLOW_AUDIT_V1_REPORT.md
+|   |   |   |-- FIRST_EVENT_READINESS_REFRESH_V1.md
+|   |   |   |-- FIRST_EVENT_READINESS_REFRESH_V1_REPORT.md
+|   |   |   |-- FIRST_EVENT_RUNTIME_READINESS_AUDIT_V1.md
+|   |   |   |-- FIRST_EVENT_RUNTIME_REASSESS_V2.md
+|   |   |   |-- FIRST_EVENT_RUNTIME_REASSESS_V2_REPORT.md
+|   |   |   |-- MERCHANT_EVENT_SEED_COMPLETE_V1.md
+|   |   |   |-- MERCHANT_EVENT_SEED_COMPLETE_V1_REPORT.md
+|   |   |   |-- MINIMUM_EVENT_RUNTIME_PATH_PHASE2_V1.md
+|   |   |   |-- MINIMUM_EVENT_RUNTIME_PATH_PHASE2_V1_REPORT.md
+|   |   |   |-- MINIMUM_EVENT_RUNTIME_PATH_V1.md
+|   |   |   |-- MINIMUM_EVENT_RUNTIME_PATH_V1_REPORT.md
+|   |   |   |-- REAL_SCENIC_OPERATION_FLOW_V1.md
+|   |   |   |-- REAL_SCENIC_OPERATION_FLOW_V1_REPORT.md
+|   |   |   |-- T2_API_BACKBONE_V1.md
+|   |   |   |-- T2_API_BACKBONE_V1_REPORT.md
+|   |   |   |-- T3_PUBLISH_RUNTIME_V1.md
+|   |   |   |-- T3_PUBLISH_RUNTIME_V1_REPORT.md
+|   |   |   |-- T4_EVENT_ENTRY_PAGE_V1.md
+|   |   |   |-- T4_EVENT_ENTRY_PAGE_V1_REPORT.md
+|   |   |   |-- T5_COUPON_CLAIM_V1.md
+|   |   |   `-- T5_COUPON_CLAIM_V1_REPORT.md
+|   |   |-- exploration/
+|   |   |   `-- EXPLORATION_NODE_MODEL_V1.md
+|   |   |-- explore_map/
+|   |   |   `-- LOVEQIGU_EXPLORE_MAP_CANON_V1.md
+|   |   |-- governance/
+|   |   |   |-- FILTER_CANON_V1.md
+|   |   |   |-- FRAME_CANON_V1.md
+|   |   |   `-- LOVEQIGU_PRODUCT_CANON_V1_AUDIT_PATCH_01.md
+|   |   |-- homepage/
+|   |   |   `-- LOVEQIGU_HOMEPAGE_CANON_V1.md
+|   |   |-- merchant/
+|   |   |   |-- MERCHANT_AND_PARK_ADMIN_MVP_SCOPE_REFINEMENT_V1.md
+|   |   |   |-- MERCHANT_FIRST_DAY_FIELD_TEST_V1.md
+|   |   |   |-- MERCHANT_FIRST_DAY_FIELD_TEST_V1_REPORT.md
+|   |   |   |-- MERCHANT_LOW_TECH_ONBOARDING_DESIGN_V1.md
+|   |   |   |-- MERCHANT_LOW_TECH_ONBOARDING_DESIGN_V1_REPORT.md
+|   |   |   |-- MERCHANT_LOW_TECH_UX_AUDIT_V1.md
+|   |   |   |-- MERCHANT_LOW_TECH_UX_AUDIT_V1_REPORT.md
+|   |   |   |-- MERCHANT_OPERATION_GAP_ANALYSIS_V1.md
+|   |   |   |-- MERCHANT_OPERATION_GAP_ANALYSIS_V1_REPORT.md
+|   |   |   |-- MERCHANT_PORTAL_MVP_INTERACTION_V1.md
+|   |   |   |-- MERCHANT_PORTAL_MVP_INTERACTION_V1_REPORT.md
+|   |   |   |-- MERCHANT_PORTAL_MVP_PAGE_SKELETON_V1.md
+|   |   |   |-- MERCHANT_PORTAL_MVP_PAGE_SKELETON_V1_REPORT.md
+|   |   |   |-- MERCHANT_PORTAL_MVP_SCHEMA_V1.md
+|   |   |   |-- MERCHANT_PORTAL_MVP_SCHEMA_V1_REPORT.md
+|   |   |   |-- MERCHANT_REDEMPTION_CENTER_V1.md
+|   |   |   |-- MERCHANT_REDEMPTION_CENTER_V1_REPORT.md
+|   |   |   |-- MERCHANT_WORKORDER_CENTER_V1.md
+|   |   |   |-- MERCHANT_WORKORDER_CENTER_V1_REPORT.md
+|   |   |   |-- MERCHANT_ZERO_TRAINING_RUNTIME_V1.md
+|   |   |   |-- MERCHANT_ZERO_TRAINING_RUNTIME_V1_REPORT.md
+|   |   |   |-- PARK_ACTIVITY_MANAGEMENT_V1.md
+|   |   |   |-- PARK_ACTIVITY_MANAGEMENT_V1_REPORT.md
+|   |   |   |-- PARK_ADMIN_MVP_INTERACTION_V1.md
+|   |   |   |-- PARK_ADMIN_MVP_INTERACTION_V1_REPORT.md
+|   |   |   |-- PARK_ADMIN_MVP_PAGE_SKELETON_V1.md
+|   |   |   |-- PARK_ADMIN_MVP_PAGE_SKELETON_V1_REPORT.md
+|   |   |   |-- PARK_ADMIN_MVP_SCHEMA_V1.md
+|   |   |   |-- PARK_ADMIN_MVP_SCHEMA_V1_REPORT.md
+|   |   |   |-- PARK_ADMIN_OPERATION_GAP_ANALYSIS_V1.md
+|   |   |   `-- PARK_ADMIN_OPERATION_GAP_ANALYSIS_V1_REPORT.md
+|   |   |-- merchant_event_engine/
+|   |   |   |-- LOVEQIGU_FIRST_EVENT_ADMIN_CONFIG_V1.md
+|   |   |   |-- LOVEQIGU_FIRST_EVENT_CASE_V1.md
+|   |   |   |-- LOVEQIGU_FIRST_EVENT_MERCHANT_SCRIPT_V1.md
+|   |   |   |-- MERCHANT_EVENT_ENGINE_ACTIVITY_NAMING_V1.md
+|   |   |   |-- MERCHANT_EVENT_ENGINE_INDEX_V1.md
+|   |   |   |-- MERCHANT_EVENT_ENGINE_V1.md
+|   |   |   `-- MERCHANT_EVENT_ENGINE_V1_REPORT.md
+|   |   |-- operations/
+|   |   |   |-- FIRST_EVENT_OPERATION_PLAYBOOK_V1.md
+|   |   |   |-- FIRST_EVENT_OPERATION_PLAYBOOK_V1_REPORT.md
+|   |   |   |-- SCENIC_OPERATION_ONBOARDING_V1.md
+|   |   |   `-- SCENIC_OPERATION_ONBOARDING_V1_REPORT.md
+|   |   |-- orchestrator/
+|   |   |   |-- ORCHESTRATOR_EXECUTION_ENGINE_V1.1.md
+|   |   |   `-- ORCHESTRATOR_EXECUTION_ENGINE_V1.md
+|   |   |-- philosophy/
+|   |   |   |-- LOVEQIGU_AXIOM_V1.md
+|   |   |   |-- LOVEQIGU_CORE_PHILOSOPHY_V1.md
+|   |   |   `-- REVELATION_TEXT_SYSTEM_V1.md
+|   |   |-- platform/
+|   |   |   |-- screenshots/
+|   |   |   |-- PLATFORM_ADMIN_CONSOLE_V1.md
+|   |   |   |-- PLATFORM_ADMIN_CONSOLE_V1_REPORT.md
+|   |   |   |-- PLATFORM_ADMIN_RUNTIME_PHASE1.md
+|   |   |   |-- PLATFORM_ADMIN_RUNTIME_PHASE1_REPORT.md
+|   |   |   |-- PLATFORM_ADMIN_RUNTIME_PHASE2_V1.md
+|   |   |   |-- PLATFORM_ADMIN_RUNTIME_PHASE2_V1_REPORT.md
+|   |   |   |-- PLATFORM_ADMIN_UI_V1.md
+|   |   |   `-- PLATFORM_ADMIN_UI_V1_REPORT.md
+|   |   |-- platform_admin/
+|   |   |   |-- PLATFORM_ADMIN_MVP_SCHEMA_V1.md
+|   |   |   |-- PLATFORM_ADMIN_MVP_SCHEMA_V1_REPORT.md
+|   |   |   |-- PLATFORM_ADMIN_MVP_UI_V1.md
+|   |   |   |-- PLATFORM_ADMIN_MVP_UI_V1_REPORT.md
+|   |   |   |-- PLATFORM_OPERATION_ADMIN_GAP_ANALYSIS_V1.md
+|   |   |   `-- PLATFORM_OPERATION_ADMIN_GAP_ANALYSIS_V1_REPORT.md
+|   |   |-- relic_system/
+|   |   |   |-- HEAVEN_SYSTEM_HIERARCHY_CANON_V1.md
+|   |   |   |-- RELIC_CANON_V2.md
+|   |   |   |-- RELIC_CONTENT_DENSITY_RULE_V1.md
+|   |   |   |-- RELIC_CONTENT_GENERATION_CANON_V1.md
+|   |   |   |-- RELIC_DROP_ALGORITHM_CANON_V1.md
+|   |   |   |-- RELIC_NAMING_RULE_V1.md
+|   |   |   |-- RELIC_SYSTEM_ALIGNMENT_REPORT_V1.md
+|   |   |   |-- RELIC_SYSTEM_REGISTRY_V1.md
+|   |   |   |-- RELIC_VISUAL_CANON_V1.md
+|   |   |   `-- STAR_OFFICER_BATCH_PLAN_V1.md
+|   |   |-- rights_center/
+|   |   |   `-- LOVEQIGU_POINTS_AND_RIGHTS_CANON_V1.md
+|   |   |-- runtime/
+|   |   |   |-- USER_PROGRESS_CENTER_V1.md
+|   |   |   `-- USER_PROGRESS_CENTER_V1_REPORT.md
+|   |   |-- scenic_access/
+|   |   |   `-- LOVEQIGU_SCENIC_LANDING_PAGE_CANON_V1.md
+|   |   |-- visual/
+|   |   |   |-- home/
+|   |   |   |-- PRODUCT_UI_SCORECARD_V1.md
+|   |   |   `-- PRODUCT_VISUAL_SYSTEM_V1.md
+|   |   |-- world/
+|   |   |   |-- FOUR_SYMBOL_ARCHITECTURE_V1.md
+|   |   |   |-- LOVEQIGU_AXIOM_V1.md
+|   |   |   |-- LOVEQIGU_CORE_PHILOSOPHY_V1.md
+|   |   |   |-- WORLD_CANON_FILE_AUDIT_REPORT_V1.md
+|   |   |   |-- WORLD_CANON_INDEX_V1.md
+|   |   |   `-- WORLD_CANON_INDEX_V1_REPORT.md
+|   |   |-- EXPLORATION_POINT_SCALING_V1.md
+|   |   `-- USER_PROGRESS_STORE_AUDIT_V1.md
+|   |-- tech/
+|   |   |-- ar_factory/
+|   |   |   |-- pipeline/
+|   |   |   |-- runtime/
+|   |   |   |-- templates/
+|   |   |   |-- AR_FACTORY_ARCHITECTURE_V1.md
+|   |   |   `-- AR_FACTORY_INDEX_V1.md
+|   |   |-- merchant_event/
+|   |   |   `-- MERCHANT_PORTAL_AND_PARK_ADMIN_V1.md
+|   |   `-- runtime/
+|   |       `-- SCENIC_SCENE_ROUTING_SYSTEM_V1.md
+|   |-- visual_autopilot/
+|   |   |-- ART_RUNTIME_DEPLOYMENT_V1.md
+|   |   |-- PROMPT_EVOLUTION_TREE_V1.md
+|   |   |-- VISUAL_AUTOPILOT_MULTI_PROVIDER_V3_REFACTOR.md
+|   |   |-- VISUAL_AUTOPILOT_RETRY_V1.md
+|   |   `-- VISUAL_SCORECARD_V1.md
+|   |-- world/
+|   |   |-- CENTRAL_RESONANCE_SYSTEM_V1.md
+|   |   |-- FOUR_SYMBOL_LIFE_CYCLE_V1.md
+|   |   |-- FOUR_SYMBOL_SYSTEM_INDEX_V1.md
+|   |   `-- LOVEQIGU_WORLD_BIBLE_V1.md
+|   |-- .gitkeep
+|   |-- ADMIN_AUTOPILOT_V1_REPORT.md
+|   |-- ADMIN_CONTENT_MODEL_V1_REPORT.md
+|   |-- ADMIN_SCALING_VALIDATION_V1_REPORT.md
+|   |-- AR_ENGINE_V2_REPORT.md
+|   |-- AR_STORY_ENGINE_FOUNDATION_REPORT.md
+|   |-- AR_STORY_ENGINE_PIPELINE_REPORT.md
+|   |-- AR_STORY_ENGINE_REVIEW_REPORT.md
+|   |-- AR_STORY_ENGINE_SIMULATION_REPORT.md
+|   |-- ART-02_TECH_FEASIBILITY_REVIEW_V1.md
+|   |-- ART_02_IMPLEMENTATION_V1_REPORT.md
+|   |-- ART_02_VISUAL_ASSET_SPEC_V1.md
+|   |-- ART_BIBLE_V1.md
+|   |-- ART_KNOWLEDGE_REBUILD_V1_REPORT.md
+|   |-- ART_KNOWLEDGE_SYNC_V1_REPORT.md
+|   |-- ARTIFACT_CONCEPT_V1.md
+|   |-- AUTOPILOT_ACCEPTANCE_REPORT.md
+|   |-- AUTOPILOT_FREEZE_REPORT.md
+|   |-- AUTOPILOT_IMPLEMENTATION_REPORT.md
+|   |-- AUTOPILOT_V1_OPERATIONALIZATION_REPORT.md
+|   |-- AUTOPILOT_VALIDATE_REPORT.md
+|   |-- BASELINE_FREEZE_REPORT.md
+|   |-- BASELINE_V1_FINAL_REPORT.md
+|   |-- CH05_LINK_AND_FREEZE_REPORT.md
+|   |-- CH06_LINK_AND_FREEZE_REPORT.md
+|   |-- CH07_LINK_AND_FREEZE_REPORT.md
+|   |-- CH08_LINK_AND_FREEZE_REPORT.md
+|   |-- CH09_LINK_AND_FREEZE_REPORT.md
+|   |-- CH10_LINK_AND_FREEZE_REPORT.md
+|   |-- CONTENT_ENGINE_CURSOR_AUDIT_REPORT.json
+|   |-- CONTENT_ENGINE_CURSOR_AUDIT_REPORT.md
+|   |-- CONTENT_ENGINE_GOVERNANCE_REPORT.md
+|   |-- CONTENT_ENGINE_GOVERNANCE_V2_REPORT.md
+|   |-- CONTENT_ENGINE_PIPELINE_REPORT.md
+|   |-- CONTENT_ENGINE_V3_CURSOR_AUDIT_REPORT.md
+|   |-- CONTENT_ENGINE_V3_GOVERNANCE_REPORT.md
+|   |-- DATA_MODEL_REPORT.md
+|   |-- DIGITAL_COLLECTIBLE_EXPANSION_CURSOR_AUDIT_REPORT.md
+|   |-- DIGITAL_COLLECTIBLE_EXPANSION_GOVERNANCE_REPORT.md
+|   |-- DUAL_HOME_IMPLEMENTATION_V1_REPORT.md
+|   |-- DUAL_HOME_PRODUCT_ARCHITECTURE_V1.md
+|   |-- DUAL_HOME_RUNTIME_VALIDATION_V1_REPORT.md
+|   |-- DUCTOR_GOVERNANCE_V2_FIX_REPORT.md
+|   |-- DUCTOR_PIPELINE_DESIGN.md
+|   |-- ENABLE_REQUIRED_COMPONENTS_LAZY_LOADING_REPORT.md
+|   |-- EXPLORE_MAP_CHAPTER_PICKER_V1_REPORT.md
+|   |-- FIXPACK_06_REPORT.md
+|   |-- FIXPACK_BRAND_UNIFICATION_REPORT.md
+|   |-- FIXPACK_ORPHAN_PAGE_REPORT.md
+|   |-- FIXPACK_PROFILE_RELIC_REPORT.md
+|   |-- FIXPACK_TERMINOLOGY_REPORT.md
+|   |-- FOUR_SYMBOL_VISUAL_SYSTEM_INDEX_UPDATE_REPORT.md
+|   |-- GEMINI_ENV_LOCAL_LOAD_FIX_V1_REPORT.md
+|   |-- GEMINI_ENV_RECHECK_V1_REPORT.md
+|   |-- GEMINI_RUNTIME_ENV_BINDING_V1_REPORT.md
+|   |-- GET_SYSTEM_INFO_HARMONYOS_MIGRATION_REPORT.md
+|   |-- GIT_HYGIENE_AUDIT.md
+|   |-- GOVERNANCE_117_ANALYSIS.md
+|   |-- GOVERNANCE_AUDIT_REPORT.md
+|   |-- HEAVEN_HUMAN_UNITY_SYSTEM_V1_REPORT.md
+|   |-- HOME_RELIC_DISCOVERY_IMPROVEMENT_REPORT.md
+|   |-- LEGACY_AUTO_FIX_REPORT.md
+|   |-- LEGACY_CLEANUP_INVENTORY.md
+|   |-- LEGACY_WARNING_INVESTIGATION_REPORT.md
+|   |-- LIVE_OPS_ENGINE_FINAL_REVIEW_REPORT.md
+|   |-- LIVE_OPS_ENGINE_FOUNDATION_REPORT.md
+|   |-- LIVE_OPS_ENGINE_PIPELINE_REPORT.md
+|   |-- LIVE_OPS_ENGINE_REVIEW_REPORT.md
+|   |-- LIVE_OPS_ENGINE_SIMULATION_REPORT.md
+|   |-- LOTTIE_LIBRARY_CURSOR_AUDIT_REPORT.md
+|   |-- LOTTIE_LIBRARY_GOVERNANCE_REPORT.md
+|   |-- LOVEQIGU_BASELINE_V1.md
+|   |-- LOVEQIGU_BASELINE_V1_REPORT.md
+|   |-- LOVEQIGU_BLESSING_COLLECTION_CANON_V1.md
+|   |-- LOVEQIGU_CLICKABLE_PROTOTYPE_V1_REPORT.md
+|   |-- LOVEQIGU_PROJECT_RELEASE_READINESS_REPORT.md
+|   |-- LOVEQIGU_RC1_BASELINE.md
+|   |-- LOVEQIGU_RC1_BASELINE_REPORT.md
+|   |-- MERIDIAN_MAP_SYSTEM_V1_REPORT.md
+|   |-- MINIAPP_ALL_SERVICE_BRIDGE_FIX_REPORT.md
+|   |-- MINIAPP_AR_ENTRY_MODULE_FIX_REPORT.md
+|   |-- MINIAPP_BIND_REPORT.md
+|   |-- MINIAPP_BOOT_WHITE_SCREEN_RUNTIME_IMPORT_FIX_REPORT.md
+|   |-- MINIAPP_DATA_JS_MISSING_IN_PROJECT_ROOT_FIX_REPORT.md
+|   |-- MINIAPP_DYNAMIC_REQUIRE_BLOCKER_FIX_REPORT.md
+|   |-- MINIAPP_EMPTY_PAGE_FIX_REPORT.md
+|   |-- MINIAPP_EXPLORE_MAP_MODULE_FIX_REPORT.md
+|   |-- MINIAPP_FIX_MODULE_REQUIRE_PATH_REPORT.md
+|   |-- MINIAPP_JSON_REQUIRE_BLOCKER_FIX_REPORT.md
+|   |-- MINIAPP_PATH_C_BRIDGE_FIX_REPORT.md
+|   |-- MINIAPP_PATH_MODULE_BLOCKER_FIX_REPORT.md
+|   |-- MINIAPP_REQUIRE_PATH_AUDIT_REPORT.md
+|   |-- MINIAPP_SIZE_REPORT.md
+|   |-- MINIAPP_STORY_SERVICE_BRIDGE_FIX_REPORT.md
+|   |-- MISSION_002_FINAL_REVIEW.md
+|   |-- MVP_ACCEPTANCE_REPORT.md
+|   |-- MVP_BUILD_REPORT.md
+|   |-- OMX_AUDIT_REPORT.md
+|   |-- OMX_REPORT.md
+|   |-- PAYMENT_READINESS_AUDIT_REPORT.md
+|   |-- PRODUCT_CANON_ALIGNMENT_FIXPACK_REPORT.md
+|   |-- PRODUCT_CANON_CODE_ALIGNMENT_AUDIT_REPORT.md
+|   |-- PROJECT_CONTEXT_MEMORY_V1.md
+|   |-- PROJECT_CONTEXT_MEMORY_V1_REPORT.md
+|   |-- PROJECT_CONTEXT_PREFLIGHT_V1_REPORT.md
+|   |-- PROJECT_CONTEXT_REGISTRY_V1.md
+|   |-- PROJECT_CONTEXT_REGISTRY_V1_REPORT.md
+|   |-- PROJECT_CONTEXT_ROUTER_V1.md
+|   |-- PROJECT_CONTEXT_ROUTER_V1_REPORT.md
+|   |-- PROJECT_FILE_CLASSIFICATION_REPORT.md
+|   |-- PROJECT_FILE_CLASSIFICATION_V1.md
+|   |-- PROJECT_FILE_INVENTORY_REFRESH_REPORT.md
+|   |-- PROJECT_FILE_INVENTORY_REFRESH_V2_REPORT.md
+|   |-- PROJECT_FILE_INVENTORY_REFRESH_V3_REPORT.md
+|   |-- PROJECT_FILE_INVENTORY_REFRESH_V4_REPORT.md
+|   |-- PROJECT_FILE_INVENTORY_REFRESH_V5_REPORT.md
+|   |-- PROJECT_FILE_INVENTORY_REPORT.md
+|   |-- PROJECT_FILE_INVENTORY_V1.md
+|   |-- PROJECT_KNOWLEDGE_SYNC_REPORT.md
+|   |-- PROJECT_KNOWLEDGE_SYNC_V2_REPORT.md
+|   |-- RC1_FINAL_USER_JOURNEY_VALIDATION_REPORT.md
+|   |-- RC1_GAP_CLOSURE_ANALYSIS.md
+|   |-- RC1_GAP_CLOSURE_IMPLEMENTATION_REPORT.md
+|   |-- RC1_USER_JOURNEY_AUDIT_REPORT.md
+|   |-- RC2_ACCEPTANCE_AUDIT_REPORT.md
+|   |-- RC2_BASELINE_ARCHIVE_REPORT.md
+|   |-- RC2_BASELINE_INDEX.md
+|   |-- RC2_BASELINE_RECORD.md
+|   |-- RC2_FREEZE_BASELINE.md
+|   |-- RC2_FREEZE_CHANGELOG.md
+|   |-- RC2_FREEZE_RELEASE_READINESS.md
+|   |-- RC2_FREEZE_RISKS.md
+|   |-- RC2_FREEZE_SUMMARY.md
+|   |-- RC2_NEXT_PHASE_RECOMMENDATION.md
+|   |-- RELIC_ALIAS_MAPPING_SYSTEM_V1_REPORT.md
+|   |-- RELIC_LIBRARY_DISCOVERY_AUDIT_REPORT.md
+|   |-- RELIC_SYNTHESIS_SYSTEM_V1_REPORT.md
+|   |-- REPOSITORY_BASELINE_V1.md
+|   |-- REPOSITORY_COMMIT_PLAN.md
+|   |-- REVIEW_BUILD_V1_AUDIT_REPORT.md
+|   |-- REVIEW_BUILD_V1_EXECUTION.md
+|   |-- REVIEW_BUILD_V1_FIXPACK_REPORT.md
+|   |-- REVIEW_BUILD_V1_REPORT.md
+|   |-- RUNTIME_ALIGNMENT_REPORT.md
+|   |-- SEEDREAM_ARK_IMAGE_PROVIDER_V1_REPORT.md
+|   |-- SEEDREAM_ARK_REAL_GENERATION_SUCCESS_SYNC_V1_REPORT.md
+|   |-- SEEDREAM_ENV_BRIDGE_V2_REPORT.md
+|   |-- SEEDREAM_ENV_BRIDGE_V3_FORCE_LOAD_REPORT.md
+|   |-- SEEDREAM_ENV_BRIDGE_V4_ABSOLUTE_PATH_FIX_REPORT.md
+|   |-- SEEDREAM_ENV_CONTEXT_AUDIT_V1_REPORT.md
+|   |-- SEEDREAM_LOCAL_VALIDATION_V1_REPORT.md
+|   |-- SEEDREAM_MODELARK_IMAGE_API_DISCOVERY_V1_REPORT.md
+|   |-- SEEDREAM_PROVIDER_ENV_AUDIT_V1_REPORT.md
+|   |-- SEEDREAM_PROVIDER_ENV_BINDING_V1_REPORT.md
+|   |-- SEEDREAM_PROVIDER_HEALTHCHECK_V1_REPORT.md
+|   |-- SEEDREAM_PROVIDER_RUNTIME_RECHECK_V1_REPORT.md
+|   |-- SEEDREAM_PROVIDER_RUNTIME_RECHECK_V2_REPORT.md
+|   |-- SEEDREAM_REAL_API_SIGNATURE_V1_REPORT.md
+|   |-- SEEDREAM_REAL_GENERATION_V1_REPORT.md
+|   |-- SEEDREAM_REAL_IMAGE_GENERATION_V1_REPORT.md
+|   |-- SEEDREAM_REAL_IMAGE_GENERATION_V1_RETRY_AFTER_CVFULLACCESS_REPORT.md
+|   |-- SEEDREAM_SANDBOX_ENV_BRIDGE_V1_REPORT.md
+|   |-- SEEDREAM_VOLCENGINE_AKSK_AUTH_V1_REPORT.md
+|   |-- SEEDREAM_VOLCENGINE_AKSK_RUNTIME_CHECK_V1_REPORT.md
+|   |-- STAR_ACTIVATION_RITUAL_V1.md
+|   |-- STAR_MAP_SYSTEM_V1_REPORT.md
+|   |-- SYNC_REPORT.md
+|   |-- TERMINOLOGY_FIX_REPORT.md
+|   |-- UI_CHINESE_LOCALIZATION_REPORT.md
+|   |-- V3_ACCEPTANCE_REPORT.md
+|   |-- VISUAL_AUTOPILOT_GEMINI_IMAGE_CAPABILITY_CHECK_V1_REPORT.md
+|   |-- VISUAL_AUTOPILOT_GEMINI_JUDGE_V1_REPORT.md
+|   |-- VISUAL_AUTOPILOT_GEMINI_PROVIDER_IMPLEMENTATION_V1_REPORT.md
+|   |-- VISUAL_AUTOPILOT_GEMINI_RUNTIME_PROOF_V1_REPORT.md
+|   |-- VISUAL_AUTOPILOT_GENERATION_BRIDGE_FIXPACK_V1_REPORT.md
+|   |-- VISUAL_AUTOPILOT_GENERATION_BRIDGE_V1_CODE_AUDIT_REPORT.md
+|   |-- VISUAL_AUTOPILOT_GENERATION_BRIDGE_V1_REPORT.md
+|   |-- VISUAL_AUTOPILOT_GENERATION_BRIDGE_V2_REPORT.md
+|   |-- VISUAL_AUTOPILOT_HUMAN_ALIGNMENT_V1.md
+|   |-- VISUAL_AUTOPILOT_HUMAN_ALIGNMENT_V1_REPORT.md
+|   |-- VISUAL_AUTOPILOT_JUDGE_CALIBRATION_V1_REPORT.md
+|   |-- VISUAL_AUTOPILOT_JUDGE_V1_REPORT.md
+|   |-- VISUAL_AUTOPILOT_MULTI_CANDIDATE_RANKING_V1_REPORT.md
+|   |-- VISUAL_AUTOPILOT_MULTI_PROVIDER_V3_REFACTOR_REPORT.md
+|   |-- VISUAL_AUTOPILOT_PIPELINE_V1_REPORT.md
+|   |-- VISUAL_AUTOPILOT_PROJECT_SKELETON_V1_REPORT.md
+|   |-- VISUAL_AUTOPILOT_TYPES_MODULE_RENAME_FIX_V1_REPORT.md
+|   |-- VISUAL_AUTOPILOT_USAGE_GOVERNANCE_V1_REPORT.md
+|   |-- VISUAL_AUTOPILOT_VARIATION_ENGINE_V1.md
+|   |-- VISUAL_AUTOPILOT_VARIATION_ENGINE_V1_REPORT.md
+|   |-- WORKFLOW_VALIDATION_REPORT.md
+|   `-- WORKSPACE_CLEANUP_REPORT.md
+|-- ductor/
+|   |-- logs/
+|   |   |-- ductor_bootstrap_report.md
+|   |   `-- ductor_live_report.md
+|   |-- workflows/
+|   |   |-- ar_story_engine_pipeline.yaml
+|   |   |-- chapter_content_autopilot.yaml
+|   |   |-- content_engine_cursor_audit.md
+|   |   |-- content_engine_pipeline.yaml
+|   |   |-- first_codex_git_init_dry_run.md
+|   |   |-- live_ops_engine_pipeline.yaml
+|   |   `-- rc1_gap_closure_pipeline.yaml
+|   `-- .gitkeep
+|-- governance/
+|   |-- AI_DECISION_LOG.md
+|   |-- CHANGELOG.md
+|   |-- content_engine_cursor_workflow.yaml
+|   |-- content_engine_rules.yaml
+|   `-- TERMINOLOGY_MIGRATION_LOG.md
+|-- LIVE_OPS_ENGINE/
+|   |-- campaigns.yaml
+|   |-- engagement_policies.yaml
+|   |-- event_calendar.yaml
+|   `-- season_rules.yaml
+|-- omx/
+|   `-- .gitkeep
+|-- orchestrator/
+|   |-- dashboard/
+|   |   |-- __init__.py
+|   |   |-- dashboard.py
+|   |   `-- stats.py
+|   |-- engine/
+|   |   |-- __init__.py
+|   |   |-- factory_dispatcher.py
+|   |   |-- task_parser.py
+|   |   |-- task_planner.py
+|   |   |-- task_runner.py
+|   |   `-- task_state_machine.py
+|   |-- factories/
+|   |   |-- adapters/
+|   |   |   |-- __init__.py
+|   |   |   |-- relic_factory.py
+|   |   |   |-- story_factory.py
+|   |   |   `-- visual_factory.py
+|   |   `-- factory_registry.json
+|   |-- governance/
+|   |   |-- __init__.py
+|   |   |-- asset_registry.py
+|   |   |-- execution_log.json
+|   |   |-- release_registry.py
+|   |   `-- version_registry.py
+|   |-- history/
+|   |   `-- .gitkeep
+|   |-- publish/
+|   |   |-- __init__.py
+|   |   `-- publish_runtime.py
+|   |-- release/
+|   |   |-- __init__.py
+|   |   `-- release_manager.py
+|   |-- review/
+|   |   |-- __init__.py
+|   |   |-- approval_console.py
+|   |   `-- human_review_gate.py
+|   |-- runtime/
+|   |   `-- runtime_manifest.json
+|   |-- tasks/
+|   |   |-- task_history.json
+|   |   `-- task_queue.json
+|   |-- templates/
+|   |   |-- new_poi_workflow.json
+|   |   `-- new_relic_workflow.json
+|   |-- tests/
+|   |   |-- __init__.py
+|   |   |-- run_phase3_real_binding_test.py
+|   |   |-- run_phase3_test.py
+|   |   |-- run_phase4_test.py
+|   |   |-- run_phase5_test.py
+|   |   |-- run_phase6_test.py
+|   |   |-- run_phase7_test.py
+|   |   |-- run_phase8_test.py
+|   |   |-- run_publish_runtime_test.py
+|   |   |-- run_real_production_validation.py
+|   |   |-- run_test.py
+|   |   |-- test_approval_console.py
+|   |   |-- test_content_factory_dashboard.py
+|   |   |-- test_content_factory_governance.py
+|   |   |-- test_factory_dispatcher.py
+|   |   |-- test_factory_real_binding.py
+|   |   |-- test_human_review_gate.py
+|   |   |-- test_new_relic.json
+|   |   |-- test_publish_runtime.py
+|   |   `-- test_release_manager.py
+|   |-- __init__.py
+|   `-- orchestrator_status.json
+|-- pages/
+|   |-- merchant-event/
+|   |   |-- detail.html
+|   |   |-- exploration.html
+|   |   `-- index.html
+|   `-- rights-center/
+|       `-- coupon-center.html
+|-- product/
+|   `-- relic/
+|       `-- PRODUCT_01_RELIC_TO_GAMEPLAY_V1.md
+|-- prompts/
+|   `-- old/
+|       |-- 55_CH05_LINK_AND_FREEZE.md
+|       |-- 66_ADMIN_CONTENT_MODEL_V1.md
+|       |-- 67_ADMIN_AUTOPILOT_V1.md
+|       |-- AR_ENGINE_V2_EXPANSION.prompt.md
+|       |-- AR_STORY_ENGINE_FOUNDATION.prompt.md
+|       |-- AR_STORY_ENGINE_PIPELINE.prompt.md
+|       |-- AR_STORY_ENGINE_REVIEW.prompt.md
+|       |-- AR_STORY_ENGINE_SIMULATION.prompt.md
+|       |-- ART_02_IMPLEMENTATION_V1.md
+|       |-- ART_02_VISUAL_ASSET_SPEC_V1.prompt.md
+|       |-- ART_BIBLE_V1.prompt.md
+|       |-- ART_INDEX_V1.md
+|       |-- ART_KNOWLEDGE_REBUILD_V1.md
+|       |-- ART_KNOWLEDGE_SYNC_V1.md
+|       |-- ARTIFACT_CONCEPT_V1.prompt.md
+|       |-- autopilot_v1_acceptance_test.md
+|       |-- autopilot_v1_implementation.md
+|       |-- autopilot_v1_operationalization.md
+|       |-- baseline_commit_v1.md
+|       |-- bind_miniapp_to_data_model.md
+|       |-- build_core_mvp.md
+|       |-- build_data_model.md
+|       |-- CH03_RUNTIME_ALIGNMENT_EXECUTE.md
+|       |-- CH04_CONTENT_CANON_V1.md.txt
+|       |-- CH05_CONTENT_CANON_V1.md.txt
+|       |-- CODEX_ENV_CHECK.prompt.md
+|       |-- CONTENT_ENGINE_AUDIT.prompt.md
+|       |-- CONTENT_ENGINE_CURSOR_WORKFLOW.prompt.md
+|       |-- CONTENT_ENGINE_GOVERNANCE_APPLY.prompt.md
+|       |-- CONTENT_ENGINE_GOVERNANCE_AUDIT_117.prompt.md
+|       |-- CONTENT_ENGINE_GOVERNANCE_V2.prompt.md
+|       |-- CONTENT_ENGINE_V1_BUILD.prompt.md
+|       |-- CONTENT_ENGINE_V2_PROMPT.prompt.md
+|       |-- CONTENT_ENGINE_V3_BATCH_GENERATION.prompt.md
+|       |-- CURSOR_FINAL_REVIEW.prompt.md
+|       |-- DIGITAL_COLLECTIBLE_EXPANSION.prompt.md
+|       |-- DUAL_HOME_PRODUCT_ARCHITECTURE_V1.prompt.md
+|       |-- DUCTOR_CONTENT_ENGINE_PIPELINE.prompt.md
+|       |-- DUCTOR_GOVERNANCE_V2_COMPATIBILITY_FIX.prompt.md
+|       |-- ductor_live_init.md
+|       |-- EXPLORE_MAP_FIX_PATH.prompt.md
+|       |-- fix_terminology.md
+|       |-- generate_miniapp_pages.md
+|       |-- git_hygiene_audit.md
+|       |-- git_init.md
+|       |-- governance_init.md
+|       |-- knowledge_check.md
+|       |-- LEGACY_AUTO_FIX.prompt.md
+|       |-- LEGACY_CLEANUP_INVENTORY.prompt.md
+|       |-- LEGACY_WARNING_INVESTIGATION.prompt.md
+|       |-- LIVE_OPS_ENGINE_FINAL_REVIEW.prompt.md
+|       |-- LIVE_OPS_ENGINE_FOUNDATION.prompt.md
+|       |-- LIVE_OPS_ENGINE_PIPELINE.prompt.md
+|       |-- LIVE_OPS_ENGINE_REVIEW.prompt.md
+|       |-- LIVE_OPS_ENGINE_SIMULATION.prompt.md
+|       |-- LOTTIE_LIBRARY_EXPANSION.prompt.md
+|       |-- LOVEQIGU_PROJECT_BASELINE_V1.prompt.md
+|       |-- LOVEQIGU_PROJECT_RELEASE_READINESS_V1.prompt.md
+|       |-- MINIAPP_ALL_SERVICE_BRIDGE_FIX.prompt.md
+|       |-- MINIAPP_AR_ENTRY_MODULE_FIX.prompt.md
+|       |-- MINIAPP_EMPTY_PAGE_FIX.prompt.md
+|       |-- MINIAPP_EXPLORE_MAP_MODULE_FIX.prompt.md
+|       |-- MINIAPP_FIX_MODULE_REQUIRE_PATH.prompt.md
+|       |-- miniapp_package_size_reduction.md
+|       |-- MINIAPP_PATH_C_BRIDGE_FIX.prompt.md
+|       |-- MINIAPP_REQUIRE_PATH_AUDIT.prompt.md
+|       |-- MINIAPP_STORY_SERVICE_BRIDGE_FIX.prompt.md
+|       |-- MISSION_002_FINAL_REVIEW.prompt.md
+|       |-- mvp_acceptance_audit.md
+|       |-- omx_bootstrap.md
+|       |-- P1_MINIAPP_START.md
+|       |-- PRODUCT_CANON_ALIGNMENT_FIXPACK_V1.md
+|       |-- PRODUCT_CANON_CODE_ALIGNMENT_AUDIT_V1.md
+|       |-- PROJECT_CONTEXT_MEMORY_V1.md
+|       |-- PROJECT_CONTEXT_PREFLIGHT_V1.md
+|       |-- PROJECT_CONTEXT_REGISTRY_V1.md
+|       |-- PROJECT_CONTEXT_ROUTER_V1.md
+|       |-- PROJECT_FILE_CLASSIFICATION_V1.md
+|       |-- PROJECT_FILE_INVENTORY_REFRESH_V1.md
+|       |-- PROJECT_FILE_INVENTORY_REFRESH_V2.md
+|       |-- PROJECT_FILE_INVENTORY_REFRESH_V3.md
+|       |-- PROJECT_FILE_INVENTORY_REFRESH_V4.md
+|       |-- PROJECT_FILE_INVENTORY_V1.md
+|       |-- PROJECT_KNOWLEDGE_SYNC_V1.md
+|       |-- PROJECT_KNOWLEDGE_SYNC_V2.md
+|       |-- RC1_BASELINE_FREEZE.prompt.md
+|       |-- RC1_FINAL_USER_JOURNEY_VALIDATION.prompt.md
+|       |-- RC1_GAP_CLOSURE_ANALYSIS.prompt.md
+|       |-- RC1_GAP_CLOSURE_IMPLEMENTATION.prompt.md
+|       |-- RC1_USER_JOURNEY_AUDIT.prompt.md
+|       |-- RC2_ACCEPTANCE_AUDIT.prompt.md
+|       |-- RC2_ACCEPTANCE_FREEZE.prompt.md
+|       |-- RC2_BASELINE_TAG_AND_ARCHIVE.prompt.md
+|       |-- repository_baseline_freeze.md
+|       |-- STAR_ACTIVATION_RITUAL_V1.prompt.md
+|       |-- terminology_fix_and_git_cleanup.md
+|       |-- update_docs_terminology.md
+|       |-- V3_ACCEPTANCE_REVIEW.prompt.md
+|       |-- VISUAL_AUTOPILOT_GENERATION_BRIDGE_V1.md
+|       `-- workflow_validation.md
+|-- registry/
+|   `-- runtime_registry.json
+|-- runtime/
+|   |-- dashboard/
+|   |   `-- dashboard.json
+|   |-- events/
+|   |   |-- blocked/
+|   |   |   `-- .gitkeep
+|   |   |-- published/
+|   |   |   |-- .gitkeep
+|   |   |   `-- LOVEQIGU_FIRST_EVENT_CASE_V1.json
+|   |   |-- .gitkeep
+|   |   `-- event_index.json
+|   |-- registry/
+|   |   |-- assets.json
+|   |   `-- releases.json
+|   |-- releases/
+|   |   |-- release_history.json
+|   |   `-- release_manifest.json
+|   |-- state_engine/
+|   |   |-- __init__.py
+|   |   `-- event_state_engine.py
+|   |-- user_progress/
+|   |   `-- user_progress.json
+|   `-- __init__.py
+|-- sandbox/
+|   |-- admin/
+|   |   |-- art_requirements/
+|   |   |   `-- test_cp_001_art_requirement.json
+|   |   |-- checkpoints/
+|   |   |   `-- test_cp_001.json
+|   |   |-- relic_templates/
+|   |   |   `-- test_cp_001_relic_template.json
+|   |   `-- runtime_registry/
+|   |       `-- draft_registry.json
+|   |-- admin_scaling/
+|   |   `-- chapter_scaling_test/
+|   |       |-- scale_20/
+|   |       |-- scale_5/
+|   |       `-- scale_50/
+|   |-- autopilot/
+|   |   `-- CH04/
+|   |       |-- docs/
+|   |       |-- fill/
+|   |       |-- placeholder/
+|   |       `-- reports/
+|   |-- ch05_freeze_simulation/
+|   |   |-- freeze_manifest.json
+|   |   `-- link_manifest.json
+|   |-- ch06_freeze_simulation/
+|   |   |-- freeze_manifest.json
+|   |   `-- link_manifest.json
+|   |-- ch07_freeze_simulation/
+|   |   |-- freeze_manifest.json
+|   |   `-- link_manifest.json
+|   |-- ch08_freeze_simulation/
+|   |   |-- freeze_manifest.json
+|   |   `-- link_manifest.json
+|   |-- ch09_freeze_simulation/
+|   |   |-- freeze_manifest.json
+|   |   `-- link_manifest.json
+|   |-- ch10_freeze_simulation/
+|   |   |-- freeze_manifest.json
+|   |   `-- link_manifest.json
+|   |-- chapter_acceptance_test/
+|   `-- review_build_v1/
+|       |-- freeze_manifest.json
+|       `-- runtime_snapshot.json
+|-- scripts/
+|   |-- admin_components/
+|   |   `-- validate_component_library.js
+|   |-- audit/
+|   |   |-- ch04-content-audit.py
+|   |   |-- ch04-placeholder-audit.py
+|   |   |-- ch05-content-audit.py
+|   |   |-- ch06-content-audit.py
+|   |   |-- ch06-placeholder-audit.py
+|   |   |-- ch07-content-audit.py
+|   |   |-- ch07-placeholder-audit.py
+|   |   |-- ch08-content-audit.py
+|   |   |-- ch08-runtime-bridge-validation.js
+|   |   |-- ch09-content-audit.py
+|   |   |-- ch10-content-audit.py
+|   |   |-- ch10-runtime-bridge-validation.js
+|   |   |-- clickable-prototype-v1-validation.js
+|   |   |-- content-product-acceptance-check.js
+|   |   |-- dual-home-runtime-validation-v1.js
+|   |   |-- enable-required-components-lazy-loading-validation.js
+|   |   |-- explore-map-chapter-picker-v1-validation.js
+|   |   |-- fixpack-brand-unification-validation.js
+|   |   |-- fixpack-ui-chinese-localization-validation.js
+|   |   |-- get-system-info-harmonyos-migration-validation.js
+|   |   |-- home-relic-discovery-improvement-validation.js
+|   |   |-- miniapp-boot-white-screen-runtime-import-fix-validation.js
+|   |   |-- miniapp-data-js-missing-in-project-root-fix-validation.js
+|   |   |-- miniapp-dynamic-require-blocker-fix-validation.js
+|   |   |-- miniapp-json-require-blocker-fix-validation.js
+|   |   |-- miniapp-path-module-blocker-fix-validation.js
+|   |   |-- review-build-v1-execution.py
+|   |   |-- review-build-v1-fixpack-execution.js
+|   |   |-- runtime-alignment-check.js
+|   |   `-- runtime-bridge-batch-ch04-ch09-validation.js
+|   |-- autopilot/
+|   |   |-- admin_content_gate.py
+|   |   |-- admin_scaling_validation_v1.py
+|   |   |-- autopilot_v1_gate.py
+|   |   |-- fill_ch04_content.py
+|   |   |-- fill_ch05_content.py
+|   |   |-- fill_ch06_content.py
+|   |   |-- fill_ch07_content.py
+|   |   |-- fill_ch08_content.py
+|   |   |-- fill_ch09_content.py
+|   |   |-- fill_ch10_content.py
+|   |   |-- generate_ch04_placeholder.py
+|   |   |-- generate_ch05_placeholder.py
+|   |   |-- generate_ch06_placeholder.py
+|   |   |-- generate_ch07_placeholder.py
+|   |   |-- generate_ch08_placeholder.py
+|   |   |-- generate_ch09_placeholder.py
+|   |   |-- generate_ch10_placeholder.py
+|   |   |-- run_admin_content_model_v1.py
+|   |   |-- run_autopilot_v1.py
+|   |   |-- run_autopilot_v1_acceptance_test.py
+|   |   |-- run_chapter_autopilot.py
+|   |   `-- validate_admin_content_model_v1.py
+|   |-- coupon/
+|   |   |-- claim_coupon.py
+|   |   `-- render_coupon_center.py
+|   |-- cursor/
+|   |   `-- run_content_audit.js
+|   |-- ductor/
+|   |   |-- run_admin_content_model_v1.js
+|   |   |-- run_ar_story_engine_pipeline.js
+|   |   |-- run_autopilot_v1.js
+|   |   |-- run_chapter_autopilot.js
+|   |   |-- run_content_engine_pipeline.js
+|   |   |-- run_live_ops_engine_pipeline.js
+|   |   `-- run_rc1_gap_closure_pipeline.js
+|   |-- event_lifecycle/
+|   |   |-- lifecycle_engine.py
+|   |   |-- README.md
+|   |   `-- validate_lifecycle.py
+|   |-- event_runtime/
+|   |   `-- generate_event_page.py
+|   |-- governance/
+|   |   |-- check_content_engine.js
+|   |   |-- check_content_engine_v1.js.bak
+|   |   `-- project_context_preflight.py
+|   |-- merchant_event/
+|   |   |-- validate_schema.py
+|   |   `-- validate_seed.py
+|   |-- merchant_portal/
+|   |   |-- generate_interaction_pages.py
+|   |   |-- generate_page_skeletons.py
+|   |   `-- validate_schema.py
+|   |-- miniapp/
+|   |   |-- fix-terminology-ch05-confirm.js
+|   |   |-- generate-relic-alias-maps.js
+|   |   |-- generate-synthesis-rules.js
+|   |   |-- regenerate-runtime-bridges.js
+|   |   |-- sync-runtime-data-js-to-miniapp.js
+|   |   |-- sync-runtime-data-to-chapter-flat.js
+|   |   |-- sync-runtime-data-to-chapter-runtime-data.js
+|   |   |-- sync-runtime-data-to-miniapp.js
+|   |   |-- validate-fixpack-06.js
+|   |   |-- validate-heaven-human-unity-v1.js
+|   |   |-- validate-meridian-map-v1.js
+|   |   |-- validate-relic-alias-mapping-v1.js
+|   |   |-- validate-relic-synthesis-v1.js
+|   |   `-- validate-star-map-v1.js
+|   |-- omx/
+|   |   |-- backups/
+|   |   |   |-- miniapp-pages/
+|   |   |   |-- index.index.js.bak
+|   |   |   |-- rights-center.index.json.bak
+|   |   |   `-- rights-center.index.wxml.bak
+|   |   |-- check-canon.js
+|   |   |-- check-content-engine-cursor.js
+|   |   |-- check-json.js
+|   |   |-- check-routes.js
+|   |   |-- check-terminology.js
+|   |   |-- omx-utils.js
+|   |   `-- run_omx_checks.js
+|   |-- platform_admin/
+|   |   |-- validate_runtime_phase1.js
+|   |   |-- validate_schema.py
+|   |   `-- validate_ui.js
+|   |-- visual_autopilot/
+|   |   |-- providers/
+|   |   |   |-- base.py
+|   |   |   |-- gemini.py
+|   |   |   |-- openai.py
+|   |   |   |-- seedream.py
+|   |   |   |-- seedream_ark.py
+|   |   |   |-- wanxiang.py
+|   |   |   `-- wenxin_yige.py
+|   |   |-- storage/
+|   |   |   |-- candidate_store.py
+|   |   |   `-- registry_store.py
+|   |   |-- tests/
+|   |   |   |-- test_evaluator.py
+|   |   |   |-- test_pipeline.py
+|   |   |   `-- test_router.py
+|   |   |-- audit_engine.py
+|   |   |-- candidate_judge.py
+|   |   |-- config.py
+|   |   |-- credentials.py
+|   |   |-- diagnose_gemini_connectivity.py
+|   |   |-- evaluator.py
+|   |   |-- executor.py
+|   |   |-- gemini_judge.py
+|   |   |-- human_alignment.py
+|   |   |-- main.py
+|   |   |-- pipeline.py
+|   |   |-- preference_memory.py
+|   |   |-- router.py
+|   |   |-- run_human_alignment.py
+|   |   |-- run_judge_calibration.py
+|   |   |-- run_multi_candidate_ranking.py
+|   |   |-- selection_engine.py
+|   |   |-- variation_engine.py
+|   |   |-- visual_generation_bridge_v1.py
+|   |   |-- visual_generation_config.example.json
+|   |   |-- visual_prompt_request_schema.json
+|   |   `-- visual_types.py
+|   `-- .gitkeep
+|-- server/
+|   |-- api/
+|   |   |-- event/
+|   |   |   `-- __init__.py
+|   |   |-- merchant/
+|   |   |   `-- __init__.py
+|   |   |-- park/
+|   |   |   `-- __init__.py
+|   |   |-- platform/
+|   |   |   `-- __init__.py
+|   |   |-- __init__.py
+|   |   |-- mock_loader.py
+|   |   `-- router.py
+|   |-- tests/
+|   |   |-- __init__.py
+|   |   `-- test_api_backbone.py
+|   `-- __init__.py
+|-- services/
+|   |-- ar/
+|   |   |-- .gitkeep
+|   |   `-- ar-service.js
+|   |-- atom/
+|   |   `-- atom-service.js
+|   |-- campaign/
+|   |   `-- campaign-service.js
+|   |-- chapter/
+|   |   |-- ch03-runtime-service.js
+|   |   |-- ch08-runtime-service.js
+|   |   `-- ch10-runtime-service.js
+|   |-- digital-collectible/
+|   |   `-- digital-collectible-service.js
+|   |-- echo/
+|   |   `-- echo-service.js
+|   |-- lottie/
+|   |   `-- lottie-service.js
+|   |-- next-activity/
+|   |   `-- next-activity-service.js
+|   |-- relic/
+|   |   |-- .gitkeep
+|   |   `-- relic-service.js
+|   |-- rights/
+|   |   |-- .gitkeep
+|   |   `-- rights-service.js
+|   `-- story/
+|       |-- .gitkeep
+|       |-- story-flow-service.js
+|       `-- story-service.js
+|-- STORY_ENGINE/
+|   |-- ar_story_chains.yaml
+|   |-- story_flows.yaml
+|   `-- trigger_rules.yaml
+|-- tests/
+|   `-- run_phase2_runtime_test.py
+|-- .env.local
+|-- .gitignore
+|-- AGENTS.md
+|-- LOVEQIGU_MASTER_TREE.txt
+|-- README.md
+`-- run_seedream.py

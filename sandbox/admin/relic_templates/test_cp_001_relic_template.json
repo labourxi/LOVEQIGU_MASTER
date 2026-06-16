@@ -1,0 +1,17 @@
+{
+  "relic_template_id": "test_cp_001_relic_template",
+  "chapter_id": "CH04",
+  "relic_type": "story_progression_placeholder",
+  "rarity_level": "template",
+  "required_art": [
+    "placeholder_visual"
+  ],
+  "required_story": [
+    "test_cp_001"
+  ],
+  "required_rights": [
+    "sandbox_share_right"
+  ],
+  "dc_enabled": false,
+  "status": "draft"
+}

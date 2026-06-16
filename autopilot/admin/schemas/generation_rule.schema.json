@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "loveqigu.admin.generation_rule.v1",
+  "title": "LOVEQIGU Admin Generation Rule V1",
+  "type": "object",
+  "required": [
+    "schema",
+    "version",
+    "rule_id",
+    "trigger",
+    "target_object",
+    "generation_action",
+    "audit_required",
+    "freeze_required",
+    "runtime_publish_required"
+  ],
+  "properties": {
+    "schema": { "const": "loveqigu.admin.generation_rule.v1" },
+    "version": { "type": "string" },
+    "rule_id": { "type": "string" },
+    "trigger": { "type": "string" },
+    "target_object": {
+      "enum": ["checkpoint", "relic_template", "art_requirement", "runtime_registry"]
+    },
+    "generation_action": { "type": "string" },
+    "audit_required": { "type": "boolean" },
+    "freeze_required": { "type": "boolean" },
+    "runtime_publish_required": { "type": "boolean" },
+    "canonical_boundary": { "type": "string" }
+  },
+  "additionalProperties": true
+}

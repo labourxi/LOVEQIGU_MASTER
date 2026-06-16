@@ -1,0 +1,134 @@
+# LOVEQIGU Chapter Registry — Autopilot V1
+version: "1.0.0"
+global_canon: docs/content/LOVEQIGU_CONTENT_CANON_V1.md
+chapters:
+  - num: 1
+    code: CH01
+    id: ch01_cloud_awakening
+    title: 云间初醒
+    album_code: A
+    story: data/story/chapters.json
+    relics: data/relics/relics.json
+    rights: data/rights/rights.json
+    ar: data/ar/ar-events.json
+    canon: docs/content/LOVEQIGU_CONTENT_CANON_V1.md
+    dc_registry: docs/content/DIGITAL_COLLECTIBLE_REGISTRY_CH01.md
+    prev: null
+    next: ch02_mountain_gate_echo
+  - num: 2
+    code: CH02
+    id: ch02_mountain_gate_echo
+    title: 山门回响
+    album_code: B
+    story: data/story/ch02_chapters.json
+    relics: data/relics/ch02_relics.json
+    rights: data/rights/ch02_rights.json
+    ar: data/ar/ch02_ar-events.json
+    canon: docs/content/CH02_CONTENT_CANON_V1.md
+    dc_registry: docs/content/DIGITAL_COLLECTIBLE_REGISTRY_CH02.md
+    prev: ch01_cloud_awakening
+    next: ch03_field_reunion
+  - num: 3
+    code: CH03
+    id: ch03_field_reunion
+    title: 再度重逢
+    album_code: C
+    story: data/story/ch03_chapters.json
+    relics: data/relics/ch03_relics.json
+    rights: data/rights/ch03_rights.json
+    ar: data/ar/ch03_ar-events.json
+    canon: docs/content/CH03_CONTENT_CANON_V1.md
+    dc_registry: docs/content/DIGITAL_COLLECTIBLE_REGISTRY_CH03.md
+    prev: ch02_mountain_gate_echo
+    next: ch04_field_awakening
+  - num: 4
+    code: CH04
+    id: ch04_field_awakening
+    title: 田野初醒
+    album_code: D
+    story: data/story/ch04_chapters.json
+    relics: data/relics/ch04_relics.json
+    rights: data/rights/ch04_rights.json
+    ar: data/ar/ch04_ar-events.json
+    canon: docs/content/CH04_CONTENT_CANON_V1.md
+    dc_registry: docs/content/DIGITAL_COLLECTIBLE_REGISTRY_CH04.md
+    prev: ch03_field_reunion
+    next: ch05_field_return
+  - num: 5
+    code: CH05
+    id: ch05_field_return
+    title: 场域归位
+    album_code: E
+    story: data/story/ch05_chapters.json
+    relics: data/relics/ch05_relics.json
+    rights: data/rights/ch05_rights.json
+    ar: data/ar/ch05_ar-events.json
+    canon: docs/content/CH05_CONTENT_CANON_V1.md
+    dc_registry: docs/content/DIGITAL_COLLECTIBLE_REGISTRY_CH05.md
+    prev: ch04_field_awakening
+    next: ch06_field_completion
+  - num: 6
+    code: CH06
+    id: ch06_field_completion
+    title: 归位觉醒
+    album_code: F
+    story: data/story/ch06_chapters.json
+    relics: data/relics/ch06_relics.json
+    rights: data/rights/ch06_rights.json
+    ar: data/ar/ch06_ar-events.json
+    canon: docs/content/canon/CH06_CONTENT_CANON_V1.md
+    dc_registry: docs/content/DIGITAL_COLLECTIBLE_REGISTRY_CH06.md
+    prev: ch05_field_return
+    next: ch07_field_echo
+  - num: 7
+    code: CH07
+    id: ch07_field_echo
+    title: 回响之路
+    album_code: G
+    story: data/story/ch07_chapters.json
+    relics: data/relics/ch07_relics.json
+    rights: data/rights/ch07_rights.json
+    ar: data/ar/ch07_ar-events.json
+    canon: docs/content/canon/CH07_CONTENT_CANON_V1.md
+    dc_registry: docs/content/DIGITAL_COLLECTIBLE_REGISTRY_CH07.md
+    prev: ch06_field_completion
+    next: ch08_field_echo_legacy
+  - num: 8
+    code: CH08
+    id: ch08_field_echo_legacy
+    title: 传承之路
+    album_code: G
+    story: data/story/ch08_chapters.json
+    relics: data/relics/ch08_relics.json
+    rights: data/rights/ch08_rights.json
+    ar: data/ar/ch08_ar-events.json
+    canon: docs/content/canon/CH08_CONTENT_CANON_V1.md
+    dc_registry: docs/content/DIGITAL_COLLECTIBLE_REGISTRY_CH08.md
+    prev: ch07_field_echo
+    next: ch09_field_echo_future
+  - num: 9
+    code: CH09
+    id: ch09_field_echo_future
+    title: 未来之约
+    album_code: H
+    story: data/story/ch09_chapters.json
+    relics: data/relics/ch09_relics.json
+    rights: data/rights/ch09_rights.json
+    ar: data/ar/ch09_ar-events.json
+    canon: docs/content/canon/CH09_CONTENT_CANON_V1.md
+    dc_registry: docs/content/DIGITAL_COLLECTIBLE_REGISTRY_CH09.md
+    prev: ch08_field_echo_legacy
+    next: ch10_field_echo_innovation
+  - num: 10
+    code: CH10
+    id: ch10_field_echo_innovation
+    title: 创新之路
+    album_code: I
+    story: data/story/ch10_chapters.json
+    relics: data/relics/ch10_relics.json
+    rights: data/rights/ch10_rights.json
+    ar: data/ar/ch10_ar-events.json
+    canon: docs/content/canon/CH10_CONTENT_CANON_V1.md
+    dc_registry: docs/content/DIGITAL_COLLECTIBLE_REGISTRY_CH10.md
+    prev: ch09_field_echo_future
+    next: TBD

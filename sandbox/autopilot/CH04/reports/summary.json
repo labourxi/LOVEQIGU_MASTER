@@ -1,0 +1,14 @@
+{
+  "chapter": "CH04",
+  "mode": "dry-run",
+  "sandbox_root": "sandbox\\autopilot\\CH04",
+  "steps": {
+    "placeholder": "PASS",
+    "placeholder_audit": "PASS",
+    "fill": "PASS",
+    "content_audit": "PASS_WITH_WARNING",
+    "dc_registration": "PASS",
+    "link": "PASS",
+    "freeze": "PASS"
+  }
+}

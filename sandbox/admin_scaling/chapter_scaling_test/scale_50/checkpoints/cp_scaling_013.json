@@ -1,0 +1,17 @@
+{
+  "schema": "loveqigu.admin.checkpoint.v1",
+  "version": "1.0.0",
+  "checkpoint_id": "cp_scaling_013",
+  "chapter_id": "chapter_scaling_test",
+  "map_region": "scaling_test_region_2",
+  "title": "Scaling Test Checkpoint 13",
+  "sequence": 13,
+  "placeholder_status": "placeholder",
+  "runtime_status": "draft_only",
+  "relic_template_ref": "sandbox/admin_scaling/chapter_scaling_test/scale_50/relic_templates/cp_scaling_013_relic_template.json",
+  "ar_template_ref": "sandbox/admin_scaling/chapter_scaling_test/scale_50/ar_placeholders/cp_scaling_013_ar_placeholder.json",
+  "art_requirement_ref": "sandbox/admin_scaling/chapter_scaling_test/scale_50/art_requirements/cp_scaling_013_art_requirement.json",
+  "audit_status": "pending",
+  "publish_status": "unpublished",
+  "canonical_boundary": "Sandbox scaling test only. Not L2 Story node. Not CH01-CH06."
+}

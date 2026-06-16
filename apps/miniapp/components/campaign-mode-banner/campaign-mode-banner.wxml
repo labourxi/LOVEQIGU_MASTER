@@ -1,0 +1,5 @@
+<view class="campaign-banner" wx:if="{{campaign.visible}}">
+  <view class="campaign-badge">活动模式 · 预留</view>
+  <view class="campaign-title">{{campaign.title}}</view>
+  <view class="campaign-copy">{{campaign.copy}}</view>
+</view>

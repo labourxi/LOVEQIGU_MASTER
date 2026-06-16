@@ -47,6 +47,26 @@ function parseTerminologyPairs(markdown) {
   return pairs;
 }
 
+const CONFIRM_ALLOWED_PHRASES = [
+  '确认章成',
+  '确认探索',
+  '确认留下',
+  '确认完成',
+  '前往合真之路确认章成',
+  '前往任务中心确认章成'
+];
+
+function containsOutdatedTerm(text, pair) {
+  if (pair.id === 'T-N5-009' && pair.oldTerm === '确认') {
+    let masked = text;
+    CONFIRM_ALLOWED_PHRASES.forEach((phrase) => {
+      masked = masked.split(phrase).join('·'.repeat(phrase.length));
+    });
+    return masked.includes('确认');
+  }
+  return text.includes(pair.oldTerm);
+}
+
 function run() {
   const result = createResult('check-terminology');
 
@@ -69,7 +89,7 @@ function run() {
   for (const file of files) {
     const text = readText(file);
     for (const pair of pairs) {
-      if (text.includes(pair.oldTerm)) {
+      if (containsOutdatedTerm(text, pair)) {
         fail(result, `${relativeFromRoot(file)}: found outdated term "${pair.oldTerm}" from ${pair.id}; expected "${pair.newTerm}".`);
       }
     }

@@ -1,26 +1,26 @@
 const NEXT_ACTIVITIES = [
   {
     activity_id: 'next_home',
-    title: 'Home',
-    copy: 'Return to the main entry surface.',
+    title: '首页',
+    copy: '返回主入口页面。',
     path: '/pages/index/index'
   },
   {
     activity_id: 'next_explore_map',
-    title: 'Explore Map',
-    copy: 'Continue the exploration entry flow.',
+    title: '探索地图',
+    copy: '继续探索入口流程。',
     path: '/pages/explore-map/index'
   },
   {
     activity_id: 'next_story_archive',
-    title: 'Story Archive',
-    copy: 'Review the chapter archive and open Story Flow execution.',
+    title: '故事档案',
+    copy: '查看章节档案并进入故事流程。',
     path: '/pages/story-archive/index'
   },
   {
     activity_id: 'next_rights_center',
-    title: 'Rights Center',
-    copy: 'Review the rights surface and open Campaign Closure.',
+    title: '权益中心',
+    copy: '查看权益展示并进入活动记念。',
     path: '/pages/rights-center/index'
   }
 ];

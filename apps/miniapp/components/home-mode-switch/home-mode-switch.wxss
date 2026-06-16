@@ -1,0 +1,35 @@
+.mode-switch {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 8rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 8rpx 24rpx rgba(17, 24, 39, 0.08);
+}
+
+.mode-tab {
+  flex: 1;
+  padding: 16rpx 24rpx;
+  border-radius: 999rpx;
+  color: #6b7280;
+  font-size: 26rpx;
+  font-weight: 700;
+  text-align: center;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.mode-tab--active.mode-tab--explore {
+  background: #263a34;
+  color: #f4f1eb;
+}
+
+.mode-tab--active.mode-tab--affinity {
+  background: #7f4f24;
+  color: #fff7ed;
+}
+
+.mode-tab--active.mode-tab--campaign {
+  background: #9a3412;
+  color: #fff7ed;
+}

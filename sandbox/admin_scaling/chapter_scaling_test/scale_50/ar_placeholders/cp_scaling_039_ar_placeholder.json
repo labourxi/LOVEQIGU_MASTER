@@ -1,0 +1,15 @@
+{
+  "schema": "loveqigu.admin.ar_placeholder.v1",
+  "version": "1.0.0",
+  "ar_placeholder_id": "cp_scaling_039_ar_placeholder",
+  "source_checkpoint": "cp_scaling_039",
+  "chapter_id": "chapter_scaling_test",
+  "interaction": "guide_sequence",
+  "camera_enabled": false,
+  "fake_ar_enabled": true,
+  "required_art": [
+    "ar_scene_visual"
+  ],
+  "status": "draft",
+  "canonical_boundary": "AR placeholder only. Does not create 云门 state."
+}

@@ -1,34 +1,74 @@
+const homePolicy = require('../../services/home/home-policy-service');
+const homeShell = require('../../services/home/home-shell-service');
+const brand = require('../../config/brand.v1');
+
 Page({
   data: {
-    title: 'LOVEQIGU',
-    heroImage: '/assets/images/home-hero.jpg',
-    chapter: {
-      name: '云门初醒',
-      status: 'RC1 状态',
-      copy: '保留可见入口，继续在现有场域中完成探索。'
-    },
-    entries: [
-      { label: '探索地图', desc: '查看区域、节点与 AR 入口', path: '/pages/explore-map/index' },
-      { label: '信物档案', desc: '查看已获得的故事进度资产', path: '/pages/relic-archive/index' },
-      { label: '故事档案', desc: '查看章节结构与占位内容', path: '/pages/story-archive/index' },
-      { label: '结缘商城', desc: '进入商业权益与卡券区域', path: '/pages/rights-center/index' }
-    ],
-    summary: [
-      { value: '5', label: '探索点' },
-      { value: '6', label: '信物位' },
-      { value: '2', label: 'AR 预览' }
-    ],
-    notices: [
-      { title: '内容边界', desc: '当前页面只使用已登记的产品结构，不补写 Canon 空白。' },
-      { title: '资产边界', desc: '信物用于故事进度展示，传播资产由用户主动生成。' }
-    ]
+    activeMode: homePolicy.MODES.EXPLORE,
+    showCampaignTab: false,
+    policy: homePolicy.DEFAULT_POLICY,
+    explore: {},
+    affinity: {},
+    campaign: {}
   },
 
-  onOpenPage(event) {
-    const { path } = event.currentTarget.dataset;
+  onLoad(options) {
+    this.bootstrap(options || {});
+  },
 
-    wx.navigateTo({
-      url: path
+  onShow() {
+    this.refreshShell();
+  },
+
+  bootstrap(options) {
+    const policy = homePolicy.getPolicy();
+    const activeMode = homePolicy.resolveActiveMode(policy, options);
+    const shell = homeShell.buildShellData(policy);
+
+    this.setData({
+      policy,
+      activeMode,
+      showCampaignTab: homePolicy.isCampaignTabVisible(policy),
+      explore: shell.explore,
+      affinity: shell.affinity,
+      campaign: shell.campaign
     });
+
+    homePolicy.persistLastMode(activeMode);
+    this.syncNavigationTitle(activeMode);
+  },
+
+  refreshShell() {
+    const shell = homeShell.buildShellData(this.data.policy);
+    this.setData({
+      explore: shell.explore,
+      affinity: shell.affinity,
+      campaign: shell.campaign
+    });
+  },
+
+  syncNavigationTitle(mode) {
+    const title = mode === homePolicy.MODES.AFFINITY ? '权益' : mode === homePolicy.MODES.CAMPAIGN ? '活动' : '探索';
+    wx.setNavigationBarTitle({ title: `${brand.productName} · ${title}` });
+  },
+
+  onModeChange(event) {
+    const { mode } = event.detail;
+    if (!mode || mode === this.data.activeMode) {
+      return;
+    }
+
+    this.setData({ activeMode: mode });
+    homePolicy.persistLastMode(mode);
+    this.syncNavigationTitle(mode);
+  },
+
+  onNavigate(event) {
+    const path = event.detail.path || event.currentTarget.dataset.path;
+    if (!path) {
+      return;
+    }
+
+    wx.navigateTo({ url: path });
   }
 });

@@ -1,0 +1,12 @@
+{
+  "workflow": "new_poi",
+  "steps": [
+    "product_factory",
+    "story_factory",
+    "relic_factory",
+    "visual_factory",
+    "atlas_factory",
+    "blessing_factory",
+    "runtime_factory"
+  ]
+}

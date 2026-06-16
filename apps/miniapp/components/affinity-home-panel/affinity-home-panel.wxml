@@ -1,0 +1,36 @@
+<view class="affinity-panel">
+  <view class="affinity-hero">
+    <view class="affinity-kicker">权益模式</view>
+    <view class="affinity-title">权益中心</view>
+    <view class="affinity-copy">清晰查看权益礼遇、活动与回访入口，不混入仪式链。</view>
+    <button
+      class="affinity-primary"
+      data-path="{{panel.primaryAction.path}}"
+      bindtap="onOpenPage"
+    >
+      {{panel.primaryAction.label}}
+    </button>
+  </view>
+
+  <view class="featured-card">
+    <view class="featured-label">本期推荐</view>
+    <view class="featured-title">{{panel.featured.title}}</view>
+    <view class="featured-copy">{{panel.featured.copy}}</view>
+    <button class="featured-link" data-path="{{panel.featured.path}}" bindtap="onOpenPage">查看推荐</button>
+  </view>
+
+  <view class="entry-grid">
+    <button class="grid-card" data-path="/pages/rights-center/index" bindtap="onOpenPage">
+      <view class="grid-title">我的权益</view>
+      <view class="grid-desc">卡券、权益礼遇与核销状态</view>
+    </button>
+    <button class="grid-card" data-path="/pages/campaign-closure/index" bindtap="onOpenPage">
+      <view class="grid-title">活动中心</view>
+      <view class="grid-desc">运营活动与记念入口 · {{panel.campaignCount}} 项占位</view>
+    </button>
+    <button class="grid-card grid-card--wide" data-path="/pages/next-activity/index" bindtap="onOpenPage">
+      <view class="grid-title">下次活动</view>
+      <view class="grid-desc">下一场活动预告与回访提醒</view>
+    </button>
+  </view>
+</view>

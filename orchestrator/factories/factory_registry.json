@@ -1,0 +1,37 @@
+{
+  "version": "1.0",
+  "factories": [
+    {
+      "id": "product_factory",
+      "status": "active"
+    },
+    {
+      "id": "story_factory",
+      "status": "active"
+    },
+    {
+      "id": "relic_factory",
+      "status": "active"
+    },
+    {
+      "id": "visual_factory",
+      "status": "active"
+    },
+    {
+      "id": "blessing_factory",
+      "status": "active"
+    },
+    {
+      "id": "atlas_factory",
+      "status": "active"
+    },
+    {
+      "id": "runtime_factory",
+      "status": "active"
+    },
+    {
+      "id": "governance_factory",
+      "status": "active"
+    }
+  ]
+}

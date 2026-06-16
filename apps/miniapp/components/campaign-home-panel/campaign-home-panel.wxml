@@ -1,0 +1,6 @@
+<view class="campaign-panel">
+  <view class="campaign-panel-badge">活动模式 · 预留</view>
+  <view class="campaign-panel-title">{{panel.title}}</view>
+  <view class="campaign-panel-copy">{{panel.copy}}</view>
+  <view class="campaign-panel-note">活动模式由后台运营配置控制。当前为占位，待后续发布。</view>
+</view>

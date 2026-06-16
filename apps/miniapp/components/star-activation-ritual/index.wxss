@@ -1,0 +1,104 @@
+.star-ritual {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  padding: 24rpx;
+  border-radius: 8rpx;
+  background: #f6f1e8;
+  border: 1rpx solid rgba(32, 58, 53, 0.12);
+}
+
+.star-ritual--hidden {
+  opacity: 0.72;
+}
+
+.star-ritual__head {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.star-ritual__kicker {
+  color: #b08a3d;
+  font-size: 20rpx;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.star-ritual__title {
+  color: #203a35;
+  font-size: 34rpx;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.star-ritual__subtitle,
+.star-ritual__copy,
+.star-ritual__motion-copy,
+.star-ritual__motion-note,
+.star-ritual__note {
+  color: #4c514b;
+  font-size: 24rpx;
+  line-height: 1.5;
+}
+
+.star-ritual__canvas-shell {
+  padding: 10rpx;
+  border-radius: 8rpx;
+  background: linear-gradient(180deg, rgba(32, 58, 53, 0.06), rgba(32, 58, 53, 0.02));
+}
+
+.star-ritual__canvas {
+  display: block;
+  width: 100%;
+  height: 320rpx;
+  background: #f6f1e8;
+  border-radius: 8rpx;
+}
+
+.star-ritual__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.star-ritual__state {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12rpx;
+}
+
+.star-ritual__state-label {
+  color: #203a35;
+  font-size: 28rpx;
+  font-weight: 800;
+}
+
+.star-ritual__state-progress {
+  color: #b08a3d;
+  font-size: 22rpx;
+  font-weight: 800;
+}
+
+.star-ritual__motion {
+  padding: 16rpx;
+  border-radius: 8rpx;
+  background: rgba(32, 58, 53, 0.05);
+}
+
+.star-ritual__motion-title {
+  color: #203a35;
+  font-size: 24rpx;
+  font-weight: 800;
+}
+
+.star-ritual__motion-note {
+  color: #8a6a4a;
+  margin-top: 6rpx;
+}
+
+.star-ritual__note {
+  color: #8a6a4a;
+  font-size: 22rpx;
+}

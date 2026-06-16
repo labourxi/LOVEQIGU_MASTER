@@ -1,4 +1,11 @@
 {
-  "navigationBarTitleText": "爱企谷",
-  "backgroundColor": "#f4f1eb"
+  "navigationBarTitleText": "AR游伴",
+  "backgroundColor": "#f4f1eb",
+  "usingComponents": {
+    "home-mode-switch": "/components/home-mode-switch/home-mode-switch",
+    "explore-home-panel": "/components/explore-home-panel/explore-home-panel",
+    "affinity-home-panel": "/components/affinity-home-panel/affinity-home-panel",
+    "campaign-mode-banner": "/components/campaign-mode-banner/campaign-mode-banner",
+    "campaign-home-panel": "/components/campaign-home-panel/campaign-home-panel"
+  }
 }

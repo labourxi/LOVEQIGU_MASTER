@@ -1,0 +1,21 @@
+{
+  "status": "migrated",
+  "migrated_keys": [
+    "dual_home_last_mode",
+    "explore_map_selected_chapter_id",
+    "loveqigu_synthesis_v1",
+    "loveqigu_first_light_v1",
+    "loveqigu_user_coupons",
+    "loveqigu_coupon_history"
+  ],
+  "source_keys": [
+    "dual_home_last_mode",
+    "explore_map_selected_chapter_id",
+    "loveqigu_synthesis_v1",
+    "loveqigu_first_light_v1",
+    "loveqigu_user_coupons",
+    "loveqigu_coupon_history"
+  ],
+  "target_key": "loveqigu_user_progress_v1",
+  "updated_at": "2026-06-15T08:15:24.429Z"
+}

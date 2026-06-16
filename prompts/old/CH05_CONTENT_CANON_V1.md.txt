@@ -1,0 +1,252 @@
+# CH05_CONTENT_CANON_V1
+
+Version: V1
+
+Status:
+
+DRAFT
+
+Chapter Code:
+
+CH05
+
+Chapter ID:
+
+ch05_field_return
+
+Title:
+
+场域归位
+
+Display Title:
+
+《场域归位》
+
+Album Code:
+
+E
+
+Previous Chapter:
+
+ch04_field_awakening
+
+Next Chapter:
+
+TBD
+
+---
+
+## Position
+
+CH05 是 CH04《田野初醒》之后的下一章节。
+
+本章继续沿用：
+
+五处觉察结构
+
+以及：
+
+印谱收集结构
+
+本章不新增：
+
+神明
+
+文明
+
+组织
+
+历史事件
+
+Lore
+
+Cosmology
+
+Canonical Geography
+
+---
+
+## Theme
+
+主题：
+
+从安住走向归位。
+
+关键词：
+
+归位
+
+确认
+
+想起
+
+在场
+
+不向外追寻
+
+不追求终点
+
+---
+
+## Product Layer Intent
+
+用户在本章中：
+
+不再向外寻找终点。
+
+而是在已有场域中：
+
+确认归位。
+
+记念。
+
+觉察。
+
+本章属于：
+
+L2 Product Layer
+
+不是：
+
+L0 Canon Layer
+
+---
+
+## Awareness Structure
+
+Total Nodes:
+
+5
+
+Structure:
+
+Node 1
+Exploration
+
+Node 2
+Exploration
+
+Node 3
+Human Field
+
+Node 4
+Practice
+
+Node 5
+Chapter Completion
+
+---
+
+## Relic Structure
+
+Total Relics:
+
+6
+
+Asset Class:
+
+story_progression
+
+Boundary:
+
+Relic ≠ Digital Collectible
+
+---
+
+## Rights Structure
+
+Total Rights:
+
+5
+
+Layer:
+
+L1_COMMERCIAL
+
+Boundary:
+
+Rights do not affect Story Progression
+
+---
+
+## AR Event Structure
+
+Total Events:
+
+6
+
+Boundary:
+
+AR does not change Story State
+
+Digital Collectible only appears in Completion Event
+
+---
+
+## Digital Collectible
+
+Completion Poster:
+
+dc_ch05_completion_poster
+
+Story State Effect:
+
+none
+
+Progression Effect:
+
+none
+
+Relic Effect:
+
+none
+
+Rights Effect:
+
+none
+
+---
+
+## Forbidden
+
+Do Not Create:
+
+New God
+
+New Civilization
+
+New Organization
+
+New History
+
+New Cosmology
+
+Canon Gap Fill
+
+Retcon
+
+---
+
+## Output Target
+
+Placeholder Factory:
+
+5 Nodes
+
+6 Relics
+
+5 Rights
+
+6 AR Events
+
+Album:
+
+E
+
+Chapter:
+
+CH05
+
+Status:
+
+READY_FOR_PLACEHOLDER

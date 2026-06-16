@@ -1,16 +1,20 @@
 const storyService = require('../../services/story/story-service');
 const arService = require('../../services/ar/ar-service');
+const chapterPicker = require('../../services/explore-map/explore-map-chapter-picker-service');
 
 const NODE_STATUS_LABELS = {
   available: '已发现',
+  locked: '待解锁',
   placeholder: '待探索',
   mvp_placeholder: '待探索'
 };
 
-function getPrimaryChapter() {
-  const chapters = storyService.getAllChapters();
-  return chapters[0] || null;
-}
+const EXPLORATION_STATUS = {
+  available: '已探索',
+  locked: '待解锁',
+  placeholder: '待觉察',
+  mvp_placeholder: '待觉察'
+};
 
 function hasArEntry(node) {
   return (node.ar_event_refs || []).some((eventId) => arService.getArEventById(eventId));
@@ -26,38 +30,50 @@ function mapLocations(chapter) {
     const relicCount = (node.relic_refs || []).length;
 
     return {
+      id: node.id,
       name: node.title,
       region: '探索区域',
-      state: NODE_STATUS_LABELS[node.status] || node.status,
+      state: EXPLORATION_STATUS[node.status] || NODE_STATUS_LABELS[node.status] || node.status,
+      hasAr: hasArEntry(node),
       copy: hasArEntry(node)
         ? `已连接 ${arCount} 个 AR 入口，关联 ${relicCount} 个信物。`
-        : `数据模型节点，关联 ${relicCount} 个信物。`
+        : `探索点节点，关联 ${relicCount} 个信物。`
     };
   });
 }
 
-function buildPageData() {
-  const chapter = getPrimaryChapter();
+function buildPageData(options) {
+  const chapterOptions = chapterPicker.getAllChapterOptions();
+  const selectedChapterId = chapterPicker.resolveChapterIdFromOptions(options || {});
+  const selectedIndex = chapterPicker.getSelectedChapterIndex();
+  const chapter = storyService.getChapterById(selectedChapterId);
   const locations = mapLocations(chapter);
-  const arEvents = arService.getAllArEvents();
+  const arEvents = chapterPicker.getArEventsForChapter(selectedChapterId);
 
   return {
+    chapterOptions,
+    selectedChapterId,
+    selectedChapterIndex: selectedIndex,
+    selectedChapterLabel: chapterOptions[selectedIndex]
+      ? chapterOptions[selectedIndex].label
+      : '章节待接入',
     progress: {
       chapter: chapter ? chapter.title : '章节待接入',
+      displayTitle: chapter && chapter.display_title ? chapter.display_title : '',
       explored: chapter && chapter.progress ? chapter.progress.explored_nodes : 0,
       total: chapter && chapter.progress ? chapter.progress.total_nodes : locations.length,
-      note: '个人探索进度来自故事数据模型。'
+      note: '切换章节查看各章探索节点；个人进度来自故事数据模型。'
     },
     regions: [
       {
         name: '探索区域',
-        desc: `当前已接入 ${locations.length} 个探索节点与 ${arEvents.length} 个 AR 入口。`,
+        desc: `《${chapter ? chapter.title : '—'}》已接入 ${locations.length} 个探索节点与 ${arEvents.length} 个 AR 入口。`,
         status: '开放探索'
       },
       {
-        name: '后续区域',
-        desc: '保留区域容器，等待正式 L2 数据接入。',
-        status: '待接入'
+        name: '章节切换',
+        desc: `共 ${chapterOptions.length} 章可供浏览。`,
+        status: '章节选择'
       }
     ],
     locations,
@@ -68,13 +84,28 @@ function buildPageData() {
 Page({
   data: buildPageData(),
 
-  onLoad() {
+  onLoad(options) {
+    this.setData(buildPageData(options));
+  },
+
+  onChapterPick(event) {
+    const index = Number(event.detail.value);
+    const option = this.data.chapterOptions[index];
+    if (!option) {
+      return;
+    }
+    chapterPicker.setSelectedChapterId(option.id);
     this.setData(buildPageData());
   },
 
   onOpenAr() {
+    const chapterId = this.data.selectedChapterId || '';
     wx.navigateTo({
-      url: '/pages/ar-entry/index'
+      url: `/pages/ar-entry/index?context=explore&chapterId=${chapterId}`
     });
+  },
+
+  onOpenArForNode() {
+    this.onOpenAr();
   }
 });

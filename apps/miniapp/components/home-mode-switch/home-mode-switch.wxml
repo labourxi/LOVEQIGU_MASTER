@@ -1,0 +1,24 @@
+<view class="mode-switch">
+  <view
+    class="mode-tab {{activeMode === 'explore' ? 'mode-tab--active mode-tab--explore' : ''}}"
+    data-mode="explore"
+    bindtap="onTapMode"
+  >
+    探索
+  </view>
+  <view
+    class="mode-tab {{activeMode === 'affinity' ? 'mode-tab--active mode-tab--affinity' : ''}}"
+    data-mode="affinity"
+    bindtap="onTapMode"
+  >
+    权益
+  </view>
+  <view
+    wx:if="{{showCampaignTab}}"
+    class="mode-tab {{activeMode === 'campaign' ? 'mode-tab--active mode-tab--campaign' : ''}}"
+    data-mode="campaign"
+    bindtap="onTapMode"
+  >
+    活动
+  </view>
+</view>

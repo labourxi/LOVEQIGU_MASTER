@@ -1,0 +1,16 @@
+{
+  "schema": "loveqigu.admin.relic_template.v1",
+  "version": "1.0.0",
+  "relic_template_id": "cp_exemplar_v1_relic_template",
+  "chapter_id": "TBD",
+  "relic_type": "story_progression_placeholder",
+  "template_class": "admin_template",
+  "required_art": ["field_visual", "memorial_copy"],
+  "required_story": ["cp_exemplar_v1"],
+  "required_rights": [],
+  "dc_enabled": false,
+  "status": "draft",
+  "asset_class_target": "story_progression",
+  "forbidden_semantics": ["rarity", "level", "grade", "rank", "equipment", "loot", "trophy"],
+  "canonical_boundary": "Relic template is not a Relic entity. template_class is admin-only; must not surface as user-facing rarity."
+}

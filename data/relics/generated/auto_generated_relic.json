@@ -1,0 +1,19 @@
+{
+  "status": "success",
+  "factory": "RelicFactory",
+  "task_id": "auto_generated",
+  "target": "角宿一",
+  "generated_at": "2026-06-14T14:07:41.583727Z",
+  "output_dir": "data\\relics\\generated",
+  "record": {
+    "relic_id": "auto_generated_relic",
+    "name": "角宿一",
+    "source": {
+      "task_id": "auto_generated",
+      "task_type": "new_relic",
+      "target": "角宿一",
+      "workflow": "new_relic",
+      "raw_task": "新增角宿一"
+    }
+  }
+}

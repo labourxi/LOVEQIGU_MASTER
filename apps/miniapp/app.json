@@ -13,14 +13,28 @@
     "pages/relic-archive/index",
     "pages/story-archive/index",
     "pages/rights-center/index",
-    "pages/profile/index"
+    "pages/profile/index",
+    "pages/scenic-list/index",
+    "pages/scenic-detail/index",
+    "pages/progress-center/index",
+    "pages/event-complete/index",
+    "pages/merchant-event/index/index",
+    "pages/merchant-event/exploration/index",
+    "pages/merchant-event/detail/index",
+    "pages/star-map/index",
+    "pages/meridian-map/index",
+    "pages/heaven-human-unity/index",
+    "pages/synthesis/index",
+    "pages/seals/index",
+    "pages/reward-center/index"
   ],
   "window": {
-    "navigationBarTitleText": "爱企谷",
+    "navigationBarTitleText": "AR游伴",
     "navigationBarBackgroundColor": "#263a34",
     "navigationBarTextStyle": "white",
     "backgroundColor": "#f4f1eb"
   },
   "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
   "sitemapLocation": "sitemap.json"
 }

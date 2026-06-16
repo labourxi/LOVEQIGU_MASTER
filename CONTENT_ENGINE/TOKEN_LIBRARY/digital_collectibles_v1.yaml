@@ -5,7 +5,7 @@ asset_type: DIGITAL_COLLECTIBLE
 asset_boundary: Digital Collectible is a marketing and communication asset only.
 digital_collectibles:
   - token_id: dc_ch01_completion_poster
-    name: 云门初醒分享海报
+    name: 云间初醒分享海报
     source_context: CH01 completion share flow.
     communication_role: User-generated share poster.
     user_action: generate_share_poster

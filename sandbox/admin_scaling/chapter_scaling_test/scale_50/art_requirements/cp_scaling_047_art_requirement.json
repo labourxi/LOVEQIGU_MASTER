@@ -1,0 +1,12 @@
+{
+  "schema": "loveqigu.admin.art_requirement.v1",
+  "version": "1.0.0",
+  "art_requirement_id": "cp_scaling_047_art_requirement",
+  "source_checkpoint": "cp_scaling_047",
+  "asset_type": "placeholder_art",
+  "asset_name": "chapter_scaling_test checkpoint 47 art brief",
+  "asset_description": "Scaling validation art brief. Zero story progression effect.",
+  "priority": "low",
+  "status": "queued",
+  "canonical_boundary": "Art queue artifact only."
+}

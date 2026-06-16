@@ -1,0 +1,32 @@
+{
+  "chapter_code": "CH05",
+  "chapter_id": "ch05_field_return",
+  "chapter_title": "场域归位",
+  "generated": "2026-06-08",
+  "mode": "sandbox_only",
+  "source_files": {
+    "story": "data/story/ch05_chapters.json",
+    "relics": "data/relics/ch05_relics.json",
+    "rights": "data/rights/ch05_rights.json",
+    "ar": "data/ar/ch05_ar-events.json",
+    "dc_registry": "docs/content/DIGITAL_COLLECTIBLE_REGISTRY_CH05.md"
+  },
+  "validation": {
+    "link_validation": "WARN",
+    "freeze_readiness": "WARN",
+    "autopilot_compatibility": "YES",
+    "omx": "PASS_WITH_WARNING",
+    "governance": "WARN",
+    "runtime_compatibility": "YES"
+  },
+  "freeze_package": {
+    "all_refs_resolved": true,
+    "sandbox_link_closed": true,
+    "production_assets_modified": false,
+    "runtime_published": false
+  },
+  "notes": [
+    "Sandbox freeze package is complete.",
+    "Production CH04 -> CH05 link remains pending and is tracked as a warning only."
+  ]
+}

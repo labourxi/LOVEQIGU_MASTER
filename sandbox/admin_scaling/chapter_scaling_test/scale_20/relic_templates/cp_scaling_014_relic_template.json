@@ -1,0 +1,27 @@
+{
+  "schema": "loveqigu.admin.relic_template.v1",
+  "version": "1.0.0",
+  "relic_template_id": "cp_scaling_014_relic_template",
+  "chapter_id": "chapter_scaling_test",
+  "relic_type": "awareness_relic",
+  "template_class": "admin_template",
+  "required_art": [
+    "field_visual",
+    "memorial_copy"
+  ],
+  "required_story": [
+    "cp_scaling_014"
+  ],
+  "required_rights": [],
+  "dc_enabled": false,
+  "status": "draft",
+  "asset_class_target": "story_progression",
+  "forbidden_semantics": [
+    "rarity",
+    "level",
+    "grade",
+    "rank",
+    "equipment"
+  ],
+  "canonical_boundary": "Relic template placeholder only."
+}

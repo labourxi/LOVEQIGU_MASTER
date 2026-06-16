@@ -1,0 +1,119 @@
+.celebration-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(17, 24, 39, 0.45);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.celebration-mask--show {
+  opacity: 1;
+}
+
+.celebration-card {
+  position: relative;
+  z-index: 2;
+  width: 620rpx;
+  padding: 48rpx 40rpx 40rpx;
+  border-radius: 24rpx;
+  background: linear-gradient(160deg, #faf8f4 0%, #ffffff 100%);
+  box-shadow: 0 24rpx 64rpx rgba(38, 58, 52, 0.22);
+  transform: scale(0.88);
+  opacity: 0;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease;
+}
+
+.celebration-card--show {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.celebration-title {
+  font-size: 34rpx;
+  font-weight: 800;
+  color: #263a34;
+  text-align: center;
+}
+
+.celebration-message {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  line-height: 1.7;
+  color: #4b635c;
+  text-align: center;
+  white-space: pre-line;
+}
+
+.celebration-reward {
+  margin-top: 28rpx;
+  padding: 24rpx;
+  border-radius: 16rpx;
+  background: rgba(38, 58, 52, 0.06);
+  text-align: center;
+}
+
+.celebration-reward-kicker {
+  font-size: 24rpx;
+  color: #6b7280;
+}
+
+.celebration-reward-name {
+  margin-top: 10rpx;
+  font-size: 36rpx;
+  font-weight: 800;
+  color: #263a34;
+}
+
+.celebration-reward-label {
+  margin-top: 12rpx;
+  font-size: 26rpx;
+  color: #7f4f24;
+}
+
+.celebration-btn {
+  margin: 32rpx 0 0;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 40rpx;
+  background: #263a34;
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.celebration-btn::after {
+  border: 0;
+}
+
+.celebration-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.celebration-dot {
+  position: absolute;
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background: #f4d7a6;
+  opacity: 0;
+  animation: celebration-float 1.8s ease-in-out infinite;
+}
+
+.celebration-dot--1 { top: 28%; left: 22%; animation-delay: 0s; }
+.celebration-dot--2 { top: 34%; right: 20%; animation-delay: 0.2s; }
+.celebration-dot--3 { top: 52%; left: 16%; animation-delay: 0.35s; }
+.celebration-dot--4 { top: 58%; right: 24%; animation-delay: 0.5s; }
+.celebration-dot--5 { top: 42%; left: 48%; animation-delay: 0.15s; }
+.celebration-dot--6 { top: 64%; left: 42%; animation-delay: 0.65s; }
+
+@keyframes celebration-float {
+  0% { opacity: 0; transform: translateY(12rpx) scale(0.6); }
+  35% { opacity: 0.95; }
+  100% { opacity: 0; transform: translateY(-36rpx) scale(1.1); }
+}

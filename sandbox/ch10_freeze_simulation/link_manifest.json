@@ -1,0 +1,41 @@
+{
+  "chapter_code": "CH10",
+  "chapter_id": "ch10_field_echo_innovation",
+  "chapter_title": "创新之路",
+  "generated": "2026-06-08",
+  "mode": "sandbox_only",
+  "production_link_state": {
+    "previous_chapter": "ch09_field_echo_future",
+    "next_chapter": "TBD",
+    "upstream_link": {
+      "from": "ch09_field_echo_future",
+      "to": "ch10_field_echo_innovation",
+      "status": "PASS",
+      "note": "CH09 next_chapter wired in production (CH09_CH10_LINKING)"
+    },
+    "status": "PASS"
+  },
+  "sandbox_link_state": {
+    "previous_chapter": "ch09_field_echo_future",
+    "next_chapter": "TBD",
+    "status": "PASS",
+    "note": "Sandbox simulation keeps CH10 internal refs intact; CH09->CH10 production link closed"
+  },
+  "resolved_internal_refs": {
+    "story_relic_refs": 6,
+    "story_ar_refs": 6,
+    "story_rights_refs": 0,
+    "relic_records": 6,
+    "rights_records": 5,
+    "ar_records": 6,
+    "digital_collectible_records": 1
+  },
+  "broken_refs": [],
+  "circular_refs": [],
+  "invalid_chapter_refs": [],
+  "notes": [
+    "All CH10 internal story/relic/rights/ar/dc references resolve locally.",
+    "CH09 -> CH10 production link is closed.",
+    "CH10 next_chapter remains TBD per Canon pause boundary."
+  ]
+}

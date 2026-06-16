@@ -1,0 +1,9 @@
+{
+  "schema": "loveqigu.rights.v1",
+  "version": "1.0.0",
+  "rights": [
+    {
+      "id": "right_ch04_share"
+    }
+  ]
+}

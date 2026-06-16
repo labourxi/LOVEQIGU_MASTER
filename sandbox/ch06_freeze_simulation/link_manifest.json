@@ -1,0 +1,41 @@
+{
+  "chapter_code": "CH06",
+  "chapter_id": "ch06_field_completion",
+  "chapter_title": "归位觉醒",
+  "generated": "2026-06-08",
+  "mode": "sandbox_only",
+  "production_link_state": {
+    "previous_chapter": "ch05_field_return",
+    "next_chapter": "TBD",
+    "upstream_link": {
+      "from": "ch05_field_return",
+      "to": "ch06_field_completion",
+      "status": "PASS",
+      "note": "CH05 next_chapter wired in production"
+    },
+    "status": "PASS"
+  },
+  "sandbox_link_state": {
+    "previous_chapter": "ch05_field_return",
+    "next_chapter": "TBD",
+    "status": "PASS",
+    "note": "Sandbox simulation keeps CH06 internal refs intact; CH05->CH06 production link closed"
+  },
+  "resolved_internal_refs": {
+    "story_relic_refs": 6,
+    "story_ar_refs": 6,
+    "story_rights_refs": 0,
+    "relic_records": 6,
+    "rights_records": 5,
+    "ar_records": 6,
+    "digital_collectible_records": 1
+  },
+  "broken_refs": [],
+  "circular_refs": [],
+  "invalid_chapter_refs": [],
+  "notes": [
+    "All CH06 internal story/relic/rights/ar/dc references resolve locally.",
+    "CH05 -> CH06 production link is closed.",
+    "CH06 next_chapter remains TBD per Canon pause boundary."
+  ]
+}

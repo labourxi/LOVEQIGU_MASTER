@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>merchant-event</title>
+  <style>
+    :root {
+      --bg: #f7f1e8;
+      --panel: #fffaf1;
+      --text: #2b2118;
+      --muted: #6f5d4d;
+      --line: #d8c6b0;
+      --accent: #8b5d3b;
+      --good: #2c7a4b;
+      --warn: #b26b1b;
+      --bad: #a4412b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #f7f1e8 0%, #efe5d7 100%);
+      color: var(--text);
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    .page { max-width: 1280px; margin: 0 auto; padding: 20px; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 16px; }
+    .brand h1 { margin: 0; font-size: 28px; }
+    .brand p { margin: 4px 0 0; color: var(--muted); }
+    .toolbar { display: flex; gap: 8px; flex-wrap: wrap; }
+    .button {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 999px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .button.primary { background: #f2e5d4; color: var(--accent); border-color: #d7c0a8; }
+    .breadcrumbs { display: flex; gap: 8px; align-items: center; color: var(--muted); font-size: 13px; margin-bottom: 14px; }
+    .layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 16px; }
+    .sidebar, .panel {
+      background: rgba(255,255,255,0.84);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(85, 58, 25, 0.05);
+    }
+    .sidebar { padding: 16px; position: sticky; top: 16px; align-self: start; }
+    .sidebar h3 { margin: 0 0 12px; font-size: 16px; }
+    .nav-stack { display: grid; gap: 8px; }
+    .nav-link { display: block; padding: 9px 12px; border-radius: 12px; border: 1px solid transparent; background: rgba(255,255,255,0.7); }
+    .nav-link.active { border-color: #d0b897; background: #f2e5d4; color: var(--accent); font-weight: 700; }
+    .panel { padding: 18px; }
+    .hero { margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+    .hero h2 { margin: 0 0 6px; font-size: 24px; }
+    .hero p { margin: 0; color: var(--muted); }
+    .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 14px; }
+    .card {
+      background: rgba(255,255,255,0.9);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .metric { grid-column: span 3; min-height: 104px; }
+    .span-4 { grid-column: span 4; }
+    .span-6 { grid-column: span 6; }
+    .span-8 { grid-column: span 8; }
+    .span-12 { grid-column: span 12; }
+    .metric .label { color: var(--muted); font-size: 13px; }
+    .metric .value { font-size: 28px; font-weight: 700; margin-top: 8px; }
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      border: 1px solid transparent;
+    }
+    .badge--neutral { background: #f3eadf; color: #6a5848; border-color: #dfcfbc; }
+    .badge--good { background: #e3f1e9; color: var(--good); border-color: #bdd9c9; }
+    .badge--warn { background: #fbefde; color: var(--warn); border-color: #eed0a9; }
+    .badge--bad { background: #f6e0db; color: var(--bad); border-color: #e9b8ad; }
+    .badge--accent { background: #f2e5d4; color: var(--accent); border-color: #d8c0aa; }
+    .list { display: grid; gap: 10px; }
+    .item {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      background: rgba(255,255,255,0.7);
+    }
+    .table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .table th, .table td { border-bottom: 1px solid rgba(216,198,176,0.7); padding: 10px 8px; text-align: left; vertical-align: top; }
+    .table th { color: var(--muted); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; }
+    .chart {
+      height: 160px;
+      border-radius: 12px;
+      border: 1px dashed var(--line);
+      background:
+        linear-gradient(90deg, rgba(139,93,59,0.05) 1px, transparent 1px) 0 0 / 16px 16px,
+        linear-gradient(180deg, rgba(139,93,59,0.05) 1px, transparent 1px) 0 0 / 16px 16px,
+        linear-gradient(180deg, rgba(255,255,255,0.92), rgba(242,229,213,0.72));
+    }
+    .empty, .loading {
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.55);
+    }
+    .hidden { display: none !important; }
+    @media (max-width: 1080px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+    }
+    @media (max-width: 900px) {
+      .metric, .span-4, .span-6, .span-8, .span-12 { grid-column: span 12; }
+      .topbar { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <div class="brand">
+        <h1>merchant-event</h1>
+        <p>爱企谷初见寻宝节活动入口</p>
+      </div>
+      <div class="toolbar">
+        <a class="button" href="./index.html">返回首页</a>
+        <button class="button" onclick="history.back()">返回</button>
+      </div>
+    </div>
+    
+    <div class="hero">
+      <h2>爱企谷初见寻宝节</h2>
+      <p>爱企谷首场商家联动寻宝节，用于验证探索、卡券、核销和复盘闭环。</p>
+      <div class="toolbar" style="margin-top:12px;">
+        <span class="badge badge--neutral">DRAFT</span>
+        <span class="badge badge--accent">开始时间 2026-06-20T09:00:00+08:00</span>
+        <span class="badge badge--accent">结束时间 2026-07-20T21:00:00+08:00</span>
+      </div>
+    </div>
+    <div class="grid">
+      <section class="card span-12">
+        <h3>活动头图区域</h3>
+        <div class="chart"></div>
+      </section>
+      <section class="card span-12">
+        <h3>探索点列表</h3>
+        <table class="table">
+          <tr><th>point_name</th><th>merchant_name</th><th>task_count</th></tr>
+          <tr><td>入口广场</td><td>爱企谷咖啡</td><td>1</td></tr><tr><td>爱企谷咖啡</td><td>爱企谷咖啡</td><td>1</td></tr><tr><td>爱企谷书店</td><td>爱企谷书店</td><td>1</td></tr><tr><td>爱企谷手作馆</td><td>爱企谷手作馆</td><td>1</td></tr><tr><td>中心广场</td><td>爱企谷咖啡</td><td>1</td></tr>
+        </table>
+      </section>
+      <section class="card span-12">
+        <h3>任务列表</h3>
+        <table class="table">
+          <tr><th>task_name</th><th>task_type</th><th>task_reward</th><th>status</th></tr>
+          <tr><td>入口签到</td><td>CHECKIN</td><td>获得企谷初见印碎片</td><td>未开始</td></tr><tr><td>咖啡馆扫码</td><td>SCAN</td><td>获得咖啡礼遇券领取资格</td><td>未开始</td></tr><tr><td>书店问答</td><td>QUIZ</td><td>获得书页线索</td><td>未开始</td></tr><tr><td>手作馆集章</td><td>CHECKIN</td><td>获得手作纪念章</td><td>未开始</td></tr><tr><td>中心广场完成</td><td>SCAN</td><td>获得爱企谷初见纪念藏品</td><td>未开始</td></tr>
+        </table>
+      </section>
+      <section class="card span-12">
+        <h3>信物展示</h3>
+        <div class="list"><div class='item'><strong>企谷初见印</strong><div><span class='badge badge--accent'>legendary</span></div><p>完成三处探索后收集到的首场活动核心印记。</p></div><div class='item'><strong>咖啡馆印记</strong><div><span class='badge badge--accent'>common</span></div><p>来自爱企谷咖啡的第一枚活动印章。</p></div><div class='item'><strong>书页印记</strong><div><span class='badge badge--accent'>uncommon</span></div><p>在爱企谷书店完成任务后留下的纸页印记。</p></div><div class='item'><strong>手作印记</strong><div><span class='badge badge--accent'>rare</span></div><p>在爱企谷手作馆完成集章后获得的手作纪念。</p></div><div class='item'><strong>中心广场纪念章</strong><div><span class='badge badge--accent'>epic</span></div><p>完成活动收束后获得的最终纪念印记。</p></div></div>
+      </section>
+      <section class="card span-12">
+        <a class="button primary" href="./exploration.html">开始探索</a>
+      </section>
+    </div>
+        
+  </div>
+</body>
+</html>

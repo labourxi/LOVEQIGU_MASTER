@@ -1,0 +1,12 @@
+{
+  "schema": "loveqigu.admin.art_requirement.v1",
+  "version": "1.0.0",
+  "art_requirement_id": "cp_exemplar_v1_art_requirement",
+  "source_checkpoint": "cp_exemplar_v1",
+  "asset_type": "placeholder_art",
+  "asset_name": "Admin exemplar field visual",
+  "asset_description": "Placeholder art brief for future checkpoint expansion. Does not mutate Canon or chapter L2 JSON.",
+  "priority": "low",
+  "status": "queued",
+  "canonical_boundary": "Art requirement is a production queue artifact only. Zero story progression effect."
+}

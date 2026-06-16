@@ -1,0 +1,34 @@
+@import '../../styles/prototype-v1.wxss';
+
+.proto-card .proto-btn {
+  margin-top: 16rpx;
+}
+
+.proto-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.proto-hero::after {
+  content: '';
+  position: absolute;
+  right: -40rpx;
+  top: -40rpx;
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(244, 215, 166, 0.45), rgba(244, 215, 166, 0));
+  animation: protoPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes protoPulse {
+  0%,
+  100% {
+    transform: scale(0.96);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
