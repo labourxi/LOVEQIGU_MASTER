@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "rule_based_optimization_suggestion",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string" },
+    "status": { "type": "string" },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" },
+    "owner_scope": { "type": "string" },
+    "suggestion_id": { "type": "string" },
+    "rule_code": { "type": "string" },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "priority": { "type": "string" }
+  },
+  "required": ["id", "status", "created_at", "updated_at", "owner_scope", "suggestion_id", "rule_code", "title", "description", "priority"]
+}

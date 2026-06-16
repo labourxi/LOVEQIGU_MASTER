@@ -1,0 +1,20 @@
+{
+  "id": "coupon_001",
+  "status": "ACTIVE",
+  "created_at": "2026-06-15T00:00:00+08:00",
+  "updated_at": "2026-06-15T00:00:00+08:00",
+  "owner_scope": "merchant",
+  "coupon_id": "coupon_001",
+  "coupon_name": "爱企谷到店核销券",
+  "activity_id": "activity_001",
+  "activity_name": "爱企谷首场探索活动",
+  "status_label": "PUBLISHED",
+  "issued_count": 100,
+  "claimed_count": 65,
+  "redeemed_count": 38,
+  "unredeemed_count": 62,
+  "redemption_rate": 0.38,
+  "valid_from": "2026-06-15",
+  "valid_to": "2026-06-30",
+  "redemption_records": []
+}

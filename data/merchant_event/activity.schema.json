@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "activity",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string" },
+    "status": { "type": "string" },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" },
+    "activity_name": { "type": "string" },
+    "activity_code": { "type": "string" },
+    "park_id": { "type": "string" },
+    "park_name": { "type": "string" },
+    "theme": { "type": "string" },
+    "description": { "type": "string" },
+    "start_time": { "type": "string" },
+    "end_time": { "type": "string" }
+  },
+  "required": [
+    "id",
+    "status",
+    "created_at",
+    "updated_at",
+    "activity_name",
+    "activity_code",
+    "park_id",
+    "park_name",
+    "theme",
+    "description",
+    "start_time",
+    "end_time"
+  ]
+}

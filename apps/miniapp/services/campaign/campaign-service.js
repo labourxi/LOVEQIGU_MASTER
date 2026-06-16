@@ -1,43 +1,43 @@
 const CAMPAIGNS = [
   {
     campaign_id: 'lop_spring_threshold_launch',
-    title: 'Spring Threshold Launch',
-    season_ref: 'Spring',
+    title: '春季阈值发布',
+    season_ref: '春季',
     story_flow_ref: 'sf_ch01_threshold_pulse',
     next_path: '/pages/next-activity/index',
-    copy: 'Threshold entry and first-visible contact.'
+    copy: '阈值入口与首次可见接触。'
   },
   {
     campaign_id: 'lop_spring_awareness_walk',
-    title: 'Spring Awareness Walk',
-    season_ref: 'Spring',
+    title: '春季觉察行走',
+    season_ref: '春季',
     story_flow_ref: 'sf_ch01_first_awareness',
     next_path: '/pages/next-activity/index',
-    copy: 'Awareness and recognition without scoring.'
+    copy: '觉察与认取，不含评分竞争。'
   },
   {
     campaign_id: 'lop_summer_map_trace',
-    title: 'Summer Map Trace',
-    season_ref: 'Summer',
+    title: '夏季地图足迹',
+    season_ref: '夏季',
     story_flow_ref: 'sf_ch01_map_trace',
     next_path: '/pages/next-activity/index',
-    copy: 'Route memory and exploration visibility.'
+    copy: '路线记念与探索可见性。'
   },
   {
     campaign_id: 'lop_autumn_guide_return',
-    title: 'Autumn Guide Return',
-    season_ref: 'Autumn',
+    title: '秋季引导回访',
+    season_ref: '秋季',
     story_flow_ref: 'sf_ch01_guide_return',
     next_path: '/pages/next-activity/index',
-    copy: 'Guide entry and return-flow communication.'
+    copy: '引导入口与回访传播。'
   },
   {
     campaign_id: 'lop_winter_completion_share',
-    title: 'Winter Completion Share',
-    season_ref: 'Winter',
+    title: '冬季章成分享',
+    season_ref: '冬季',
     story_flow_ref: 'sf_ch01_completion_share',
     next_path: '/pages/next-activity/index',
-    copy: 'Completion and share-out after chapter closure.'
+    copy: '章成后的完成与对外分享。'
   }
 ];
 

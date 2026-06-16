@@ -1,0 +1,65 @@
+[
+  {
+    "activity_id": "activity_loveqigu_first_event_v1",
+    "activity_name": "爱企谷初见寻宝节",
+    "current_status": "DRAFT",
+    "allowed_next_status": ["SUBMITTED"],
+    "updated_at": "2026-06-15T10:00:00+08:00"
+  },
+  {
+    "activity_id": "activity_loveqigu_first_event_v1",
+    "activity_name": "爱企谷初见寻宝节",
+    "current_status": "SUBMITTED",
+    "allowed_next_status": ["PARK_REVIEW"],
+    "updated_at": "2026-06-15T10:05:00+08:00"
+  },
+  {
+    "activity_id": "activity_loveqigu_first_event_v1",
+    "activity_name": "爱企谷初见寻宝节",
+    "current_status": "PARK_REVIEW",
+    "allowed_next_status": ["PLATFORM_REVIEW"],
+    "updated_at": "2026-06-15T10:10:00+08:00"
+  },
+  {
+    "activity_id": "activity_loveqigu_first_event_v1",
+    "activity_name": "爱企谷初见寻宝节",
+    "current_status": "PLATFORM_REVIEW",
+    "allowed_next_status": ["APPROVED", "REJECTED"],
+    "updated_at": "2026-06-15T10:15:00+08:00"
+  },
+  {
+    "activity_id": "activity_loveqigu_first_event_v1",
+    "activity_name": "爱企谷初见寻宝节",
+    "current_status": "APPROVED",
+    "allowed_next_status": ["PUBLISHED"],
+    "updated_at": "2026-06-15T10:20:00+08:00"
+  },
+  {
+    "activity_id": "activity_loveqigu_first_event_v1",
+    "activity_name": "爱企谷初见寻宝节",
+    "current_status": "PUBLISHED",
+    "allowed_next_status": ["RUNNING"],
+    "updated_at": "2026-06-15T10:25:00+08:00"
+  },
+  {
+    "activity_id": "activity_loveqigu_first_event_v1",
+    "activity_name": "爱企谷初见寻宝节",
+    "current_status": "RUNNING",
+    "allowed_next_status": ["FINISHED"],
+    "updated_at": "2026-06-15T10:30:00+08:00"
+  },
+  {
+    "activity_id": "activity_loveqigu_first_event_v1",
+    "activity_name": "爱企谷初见寻宝节",
+    "current_status": "FINISHED",
+    "allowed_next_status": ["ARCHIVED"],
+    "updated_at": "2026-06-15T10:35:00+08:00"
+  },
+  {
+    "activity_id": "activity_loveqigu_first_event_v1",
+    "activity_name": "爱企谷初见寻宝节",
+    "current_status": "REJECTED",
+    "allowed_next_status": [],
+    "updated_at": "2026-06-15T10:18:00+08:00"
+  }
+]

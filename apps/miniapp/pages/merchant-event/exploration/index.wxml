@@ -1,0 +1,23 @@
+<view class="proto-page">
+  <view class="proto-hero">
+    <view class="proto-kicker">探索点浏览</view>
+    <view class="proto-title">{{activity.event_name}}</view>
+    <view class="proto-subtitle">点开任一探索点可查看任务、信物和卡券的绑定关系。</view>
+  </view>
+
+  <view class="proto-section">
+    <button class="proto-btn proto-btn--ghost" bindtap="onBack">返回活动页</button>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-card" wx:for="{{points}}" wx:key="point_id" data-point-id="{{item.point_id}}" bindtap="onOpenDetail">
+      <view class="proto-row">
+        <view class="proto-card-title">{{item.point_name}}</view>
+        <view class="proto-badge">{{item.coupon_status}}</view>
+      </view>
+      <view class="proto-card-meta">{{item.merchant_name}} 路 {{item.task_name}}</view>
+      <view class="proto-card-copy">信物：{{item.relic_name}} | 任务：{{item.task_status}}</view>
+    </view>
+  </view>
+</view>
+

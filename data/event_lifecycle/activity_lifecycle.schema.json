@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "activity_lifecycle",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "activity_id": { "type": "string" },
+    "activity_name": { "type": "string" },
+    "current_status": { "type": "string" },
+    "allowed_next_status": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "updated_at": { "type": "string" }
+  },
+  "required": [
+    "activity_id",
+    "activity_name",
+    "current_status",
+    "allowed_next_status",
+    "updated_at"
+  ]
+}

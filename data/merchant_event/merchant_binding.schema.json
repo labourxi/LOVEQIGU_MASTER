@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "merchant_binding",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string" },
+    "status": { "type": "string" },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" },
+    "activity_id": { "type": "string" },
+    "activity_name": { "type": "string" },
+    "merchant_id": { "type": "string" },
+    "merchant_name": { "type": "string" },
+    "participation_level": { "type": "string" },
+    "contact_name": { "type": "string" },
+    "contact_phone": { "type": "string" }
+  },
+  "required": [
+    "id",
+    "status",
+    "created_at",
+    "updated_at",
+    "activity_id",
+    "activity_name",
+    "merchant_id",
+    "merchant_name",
+    "participation_level",
+    "contact_name",
+    "contact_phone"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "activity_asset",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string" },
+    "status": { "type": "string" },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" },
+    "activity_id": { "type": "string" },
+    "asset_name": { "type": "string" },
+    "asset_type": { "type": "string" },
+    "source_type": { "type": "string" },
+    "linked_coupon_template_id": { "type": "string" },
+    "linked_merchant_id": { "type": "string" },
+    "valid_from": { "type": "string" },
+    "valid_to": { "type": "string" },
+    "description": { "type": "string" }
+  },
+  "required": [
+    "id",
+    "status",
+    "created_at",
+    "updated_at",
+    "activity_id",
+    "asset_name",
+    "asset_type",
+    "source_type",
+    "linked_coupon_template_id",
+    "linked_merchant_id",
+    "valid_from",
+    "valid_to",
+    "description"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "id": "binding_loveqigu_cafe_01",
+  "status": "ACTIVE",
+  "created_at": "2026-06-15T09:00:00+08:00",
+  "updated_at": "2026-06-15T09:00:00+08:00",
+  "activity_id": "activity_loveqigu_first_event_v1",
+  "activity_name": "爱企谷初见寻宝节",
+  "merchant_id": "merchant_loveqigu_cafe_01",
+  "merchant_name": "爱企谷咖啡馆",
+  "participation_level": "core",
+  "contact_name": "周晴",
+  "contact_phone": "13800001234"
+}

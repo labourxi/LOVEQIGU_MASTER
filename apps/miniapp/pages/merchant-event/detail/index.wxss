@@ -1,0 +1,6 @@
+@import '../../../styles/prototype-v1.wxss';
+
+.proto-section .proto-btn {
+  margin-right: 16rpx;
+}
+

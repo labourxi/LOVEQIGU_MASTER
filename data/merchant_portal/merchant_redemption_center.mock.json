@@ -1,0 +1,102 @@
+[
+  {
+    "redemption_id": "red_001",
+    "coupon_name": "爱企谷初见到店礼",
+    "coupon_code": "LQG-CAFE-1001",
+    "user_id": "user_10001",
+    "merchant_name": "爱企谷咖啡",
+    "claim_time": "2026-06-20T10:15:00+08:00",
+    "redeem_time": "",
+    "status": "PENDING"
+  },
+  {
+    "redemption_id": "red_002",
+    "coupon_name": "爱企谷初见到店礼",
+    "coupon_code": "LQG-CAFE-1002",
+    "user_id": "user_10002",
+    "merchant_name": "爱企谷咖啡",
+    "claim_time": "2026-06-20T11:20:00+08:00",
+    "redeem_time": "",
+    "status": "PENDING"
+  },
+  {
+    "redemption_id": "red_003",
+    "coupon_name": "爱企谷初见到店礼",
+    "coupon_code": "LQG-CAFE-1003",
+    "user_id": "user_10003",
+    "merchant_name": "爱企谷咖啡",
+    "claim_time": "2026-06-19T14:30:00+08:00",
+    "redeem_time": "2026-06-19T15:05:00+08:00",
+    "status": "VERIFIED"
+  },
+  {
+    "redemption_id": "red_004",
+    "coupon_name": "书店阅读体验券",
+    "coupon_code": "LQG-BOOK-2001",
+    "user_id": "user_10004",
+    "merchant_name": "爱企谷书店",
+    "claim_time": "2026-06-18T09:00:00+08:00",
+    "redeem_time": "",
+    "status": "PENDING"
+  },
+  {
+    "redemption_id": "red_005",
+    "coupon_name": "书店阅读体验券",
+    "coupon_code": "LQG-BOOK-2002",
+    "user_id": "user_10005",
+    "merchant_name": "爱企谷书店",
+    "claim_time": "2026-06-17T16:40:00+08:00",
+    "redeem_time": "",
+    "status": "FAILED"
+  },
+  {
+    "redemption_id": "red_006",
+    "coupon_name": "手作体验礼遇券",
+    "coupon_code": "LQG-CRAFT-3001",
+    "user_id": "user_10006",
+    "merchant_name": "爱企谷手作馆",
+    "claim_time": "2026-06-10T12:00:00+08:00",
+    "redeem_time": "",
+    "status": "EXPIRED"
+  },
+  {
+    "redemption_id": "red_007",
+    "coupon_name": "爱企谷初见到店礼",
+    "coupon_code": "LQG-CAFE-1004",
+    "user_id": "user_10007",
+    "merchant_name": "爱企谷咖啡",
+    "claim_time": "2026-06-20T13:45:00+08:00",
+    "redeem_time": "",
+    "status": "PENDING"
+  },
+  {
+    "redemption_id": "red_008",
+    "coupon_name": "手作体验礼遇券",
+    "coupon_code": "LQG-CRAFT-3002",
+    "user_id": "user_10008",
+    "merchant_name": "爱企谷手作馆",
+    "claim_time": "2026-06-19T10:10:00+08:00",
+    "redeem_time": "2026-06-19T10:35:00+08:00",
+    "status": "VERIFIED"
+  },
+  {
+    "redemption_id": "red_009",
+    "coupon_name": "书店阅读体验券",
+    "coupon_code": "LQG-BOOK-2003",
+    "user_id": "user_10009",
+    "merchant_name": "爱企谷书店",
+    "claim_time": "2026-06-20T08:50:00+08:00",
+    "redeem_time": "",
+    "status": "PENDING"
+  },
+  {
+    "redemption_id": "red_010",
+    "coupon_name": "爱企谷初见到店礼",
+    "coupon_code": "LQG-CAFE-1005",
+    "user_id": "user_10010",
+    "merchant_name": "爱企谷咖啡",
+    "claim_time": "2026-06-16T18:20:00+08:00",
+    "redeem_time": "",
+    "status": "FAILED"
+  }
+]

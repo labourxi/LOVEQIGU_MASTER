@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "park_activity",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string"
+    },
+    "owner_scope": {
+      "type": "string"
+    },
+    "activity_id": {
+      "type": "string"
+    },
+    "activity_name": {
+      "type": "string"
+    },
+    "start_time": {
+      "type": "string"
+    },
+    "end_time": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "publish_status": {
+      "type": "string"
+    },
+    "publish_check_result": {
+      "type": "string"
+    },
+    "publish_check_items": {
+      "type": "array"
+    },
+    "participating_merchant_names": {
+      "type": "array"
+    },
+    "linked_coupon_names": {
+      "type": "array"
+    },
+    "draft_note": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "status",
+    "created_at",
+    "updated_at",
+    "owner_scope",
+    "activity_id",
+    "activity_name",
+    "start_time",
+    "end_time",
+    "description",
+    "publish_status",
+    "publish_check_result",
+    "publish_check_items",
+    "participating_merchant_names",
+    "linked_coupon_names",
+    "draft_note"
+  ]
+}

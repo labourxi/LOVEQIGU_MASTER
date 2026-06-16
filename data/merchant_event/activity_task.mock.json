@@ -1,0 +1,12 @@
+{
+  "id": "task_loveqigu_first_event_entry_01",
+  "status": "PENDING",
+  "created_at": "2026-06-15T09:00:00+08:00",
+  "updated_at": "2026-06-15T09:00:00+08:00",
+  "activity_id": "activity_loveqigu_first_event_v1",
+  "task_name": "入口寻宝任务",
+  "task_type": "exploration",
+  "exploration_node_id": "exploration_node_entry",
+  "task_order": 1,
+  "description": "用户到达活动入口后完成第一步探索任务。"
+}

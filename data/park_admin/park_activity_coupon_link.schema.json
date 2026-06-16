@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "park_activity_coupon_link",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string" },
+    "status": { "type": "string" },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" },
+    "owner_scope": { "type": "string" },
+    "link_id": { "type": "string" },
+    "activity_id": { "type": "string" },
+    "coupon_id": { "type": "string" }
+  },
+  "required": ["id", "status", "created_at", "updated_at", "owner_scope", "link_id", "activity_id", "coupon_id"]
+}

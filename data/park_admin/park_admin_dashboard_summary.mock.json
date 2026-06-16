@@ -1,0 +1,11 @@
+{
+  "id": "dashboard_summary_001",
+  "status": "SNAPSHOT",
+  "created_at": "2026-06-15T00:00:00+08:00",
+  "updated_at": "2026-06-15T00:00:00+08:00",
+  "owner_scope": "park_admin",
+  "total_merchant_count": 20,
+  "active_merchant_count": 12,
+  "participating_merchant_count": 8,
+  "overall_redemption_rate": 0.42
+}

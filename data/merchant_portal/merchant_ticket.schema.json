@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "merchant_ticket",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string"
+    },
+    "owner_scope": {
+      "type": "string"
+    },
+    "ticket_id": {
+      "type": "string"
+    },
+    "ticket_type": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "merchant_id": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string"
+    },
+    "submitted_at": {
+      "type": "string"
+    },
+    "last_reply_at": {
+      "type": "string"
+    },
+    "reply_history": {
+      "type": "array"
+    },
+    "related_activity_id": {
+      "type": "string"
+    },
+    "related_activity_name": {
+      "type": "string"
+    },
+    "related_coupon_id": {
+      "type": "string"
+    },
+    "related_coupon_name": {
+      "type": "string"
+    },
+    "channel": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "status",
+    "created_at",
+    "updated_at",
+    "owner_scope",
+    "ticket_id",
+    "ticket_type",
+    "title",
+    "merchant_id",
+    "description",
+    "priority",
+    "submitted_at",
+    "last_reply_at",
+    "reply_history",
+    "related_activity_id",
+    "related_activity_name",
+    "related_coupon_id",
+    "related_coupon_name",
+    "channel"
+  ]
+}

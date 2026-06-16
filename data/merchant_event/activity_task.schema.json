@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "activity_task",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string" },
+    "status": { "type": "string" },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" },
+    "activity_id": { "type": "string" },
+    "task_name": { "type": "string" },
+    "task_type": { "type": "string" },
+    "exploration_node_id": { "type": "string" },
+    "task_order": { "type": "integer" },
+    "description": { "type": "string" }
+  },
+  "required": [
+    "id",
+    "status",
+    "created_at",
+    "updated_at",
+    "activity_id",
+    "task_name",
+    "task_type",
+    "exploration_node_id",
+    "task_order",
+    "description"
+  ]
+}

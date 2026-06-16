@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "coupon_redemption_record",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string" },
+    "status": { "type": "string" },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" },
+    "owner_scope": { "type": "string" },
+    "record_id": { "type": "string" },
+    "coupon_id": { "type": "string" },
+    "merchant_id": { "type": "string" },
+    "redeemed_at": { "type": "string" },
+    "redeemed_by": { "type": "string" }
+  },
+  "required": ["id", "status", "created_at", "updated_at", "owner_scope", "record_id", "coupon_id", "merchant_id", "redeemed_at", "redeemed_by"]
+}

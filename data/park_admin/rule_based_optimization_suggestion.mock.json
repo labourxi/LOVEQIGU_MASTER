@@ -1,0 +1,12 @@
+{
+  "id": "suggestion_001",
+  "status": "ACTIVE",
+  "created_at": "2026-06-15T00:00:00+08:00",
+  "updated_at": "2026-06-15T00:00:00+08:00",
+  "owner_scope": "park_admin",
+  "suggestion_id": "suggestion_001",
+  "rule_code": "HIGH_CLAIM_LOW_REDEEM",
+  "title": "领取高、核销低",
+  "description": "建议优化到店引导",
+  "priority": "MEDIUM"
+}

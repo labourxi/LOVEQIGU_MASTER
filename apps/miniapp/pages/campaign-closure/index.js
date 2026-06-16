@@ -6,19 +6,19 @@ function mapCampaigns() {
     title: item.title,
     meta: item.season_ref,
     copy: item.copy,
-    tag: item.story_flow_ref,
+    tag: '活动记念',
     path: item.next_path
   }));
 }
 
 function buildPageData() {
   return {
-    title: 'Campaign Closure',
-    intro: 'Campaign Closure packages the live-ops templates and hands the user to Next Activity.',
-    highlights: ['Existing live-ops refs only', 'No new Canon', 'Continue to Next Activity'],
-    sectionTitle: 'Campaign templates',
-    sectionSubtitle: 'These templates only reference approved story and asset identifiers.',
-    actionLabel: 'Open Next Activity',
+    title: '活动记念',
+    intro: '活动记念打包运营模板，随后进入下一步活动。',
+    highlights: ['仅用已定运营引用', '不新增世界观', '继续下一步活动'],
+    sectionTitle: '活动模板',
+    sectionSubtitle: '模板仅引用已定故事与资产标识。',
+    actionLabel: '进入下一步活动',
     items: mapCampaigns()
   };
 }

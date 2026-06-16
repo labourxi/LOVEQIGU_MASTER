@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "merchant_redemption_center",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "redemption_id": { "type": "string" },
+    "coupon_name": { "type": "string" },
+    "coupon_code": { "type": "string" },
+    "user_id": { "type": "string" },
+    "merchant_name": { "type": "string" },
+    "claim_time": { "type": "string" },
+    "redeem_time": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["PENDING", "VERIFIED", "FAILED", "EXPIRED"]
+    }
+  },
+  "required": [
+    "redemption_id",
+    "coupon_name",
+    "coupon_code",
+    "user_id",
+    "merchant_name",
+    "claim_time",
+    "redeem_time",
+    "status"
+  ]
+}

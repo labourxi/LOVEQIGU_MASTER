@@ -1,0 +1,57 @@
+<view class="proto-page" wx:if="{{detail}}">
+  <view class="proto-hero">
+    <view class="proto-kicker">探索点详情</view>
+    <view class="proto-title">{{detail.point_name}}</view>
+    <view class="proto-subtitle">{{detail.merchant_name}} · {{detail.task_name}}</view>
+  </view>
+
+  <view class="proto-section">
+    <button class="proto-btn proto-btn--ghost" bindtap="onBack">返回列表</button>
+    <button class="proto-btn" bindtap="onOpenExploration">查看全部探索点</button>
+    <button class="proto-btn proto-btn--primary" bindtap="onOpenProgressCenter">查看进度中心</button>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-card">
+      <view class="proto-row">
+        <view class="proto-card-title">任务状态</view>
+        <view class="proto-badge">{{detail.task_status}}</view>
+      </view>
+      <view class="proto-card-meta">任务：{{detail.task.task_name}}</view>
+      <view class="proto-card-copy">奖励：{{detail.task.task_reward}}</view>
+      <button wx:if="{{detail.canCompleteTask}}" class="proto-btn proto-btn--primary" bindtap="onCompleteTask">
+        完成任务
+      </button>
+    </view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-card">
+      <view class="proto-row">
+        <view class="proto-card-title">信物</view>
+        <view class="proto-badge proto-badge--gold">{{detail.relic.status}}</view>
+      </view>
+      <view class="proto-card-meta">{{detail.relic.relic_name}}</view>
+      <view class="proto-card-copy">{{detail.relic.story_snippet}}</view>
+    </view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-card">
+      <view class="proto-row">
+        <view class="proto-card-title">卡券</view>
+        <view class="proto-badge proto-badge--warm">{{detail.coupon.status}}</view>
+      </view>
+      <view class="proto-card-meta">{{detail.coupon.coupon_name}}</view>
+      <view class="proto-card-copy">{{detail.coupon.merchant_name}} · {{detail.coupon.coupon_type}} · {{detail.coupon.discount_value}}</view>
+      <button wx:if="{{detail.canClaimCoupon}}" class="proto-btn" bindtap="onClaimCoupon">领取卡券</button>
+    </view>
+  </view>
+</view>
+
+<view class="proto-page" wx:else>
+  <view class="proto-card">
+    <view class="proto-card-title">探索点未找到</view>
+    <view class="proto-card-copy">请返回探索列表重新选择。</view>
+  </view>
+</view>

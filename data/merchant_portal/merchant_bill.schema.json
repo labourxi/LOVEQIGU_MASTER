@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "merchant_bill",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string" },
+    "status": { "type": "string" },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" },
+    "owner_scope": { "type": "string" },
+    "bill_id": { "type": "string" },
+    "bill_period": { "type": "string" },
+    "bill_type": { "type": "string" },
+    "amount": { "type": "number" },
+    "payment_notice": { "type": "string" },
+    "payment_due_date": { "type": "string" },
+    "paid_at": { "type": "string" },
+    "invoice_note": { "type": "string" },
+    "platform_note": { "type": "string" }
+  },
+  "required": ["id", "status", "created_at", "updated_at", "owner_scope", "bill_id", "bill_period", "bill_type", "amount", "payment_notice", "payment_due_date", "paid_at", "invoice_note", "platform_note"]
+}

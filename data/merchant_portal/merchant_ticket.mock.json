@@ -1,0 +1,27 @@
+{
+  "id": "ticket_001",
+  "status": "OPEN",
+  "created_at": "2026-06-15T00:00:00+08:00",
+  "updated_at": "2026-06-15T00:00:00+08:00",
+  "owner_scope": "merchant",
+  "ticket_id": "ticket_001",
+  "ticket_type": "COUPON_ISSUE",
+  "title": "卡券领取数异常",
+  "merchant_id": "merchant_001",
+  "description": "??????????????????????",
+  "priority": "HIGH",
+  "submitted_at": "2026-06-15T09:30:00+08:00",
+  "last_reply_at": "2026-06-15T10:00:00+08:00",
+  "reply_history": [
+    {
+      "author": "platform",
+      "time": "2026-06-15T10:00:00+08:00",
+      "content": "??????????"
+    }
+  ],
+  "related_activity_id": "activity_001",
+  "related_activity_name": "?????????",
+  "related_coupon_id": "coupon_001",
+  "related_coupon_name": "????????",
+  "channel": "merchant_portal"
+}
