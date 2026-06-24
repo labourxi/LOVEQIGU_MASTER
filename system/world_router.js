@@ -5,7 +5,8 @@
 
 import {
   generateWorldEvent,
-  pickLocationForGeneration
+  pickLocationForGeneration,
+  enrichWorldEvent
 } from './world_generator.js';
 import {
   recordVisitPath,
@@ -65,11 +66,12 @@ export async function prepareRoute(name) {
   const location = pickLocationForGeneration(memory, seedHint);
 
   if (name === 'explore') {
-    const worldEvent = await generateWorldEvent({
+    const raw = await generateWorldEvent({
       location: location,
       user_state: user_state,
       event: 'explore_enter'
     });
+    const worldEvent = enrichWorldEvent(raw);
     setGeneratedWorldEvent(worldEvent);
     recordEventTrigger({
       route: name,
@@ -84,11 +86,12 @@ export async function prepareRoute(name) {
   if (name === 'ar' || name === 'ar-event' || name === 'ar_event') {
     let worldEvent = getGeneratedWorldEvent();
     if (!worldEvent) {
-      worldEvent = await generateWorldEvent({
+      const raw = await generateWorldEvent({
         location: location,
         user_state: 'ar',
         event: 'ar_trigger'
       });
+      worldEvent = enrichWorldEvent(raw);
       setGeneratedWorldEvent(worldEvent);
     }
     recordEventTrigger({
@@ -102,11 +105,12 @@ export async function prepareRoute(name) {
   }
 
   if (name === 'world' || name === 'landing') {
-    const worldEvent = await generateWorldEvent({
+    const raw = await generateWorldEvent({
       location: location,
       user_state: user_state,
       event: 'world_enter'
     });
+    const worldEvent = enrichWorldEvent(raw);
     setGeneratedWorldEvent(worldEvent);
     recordEventTrigger({
       route: name,

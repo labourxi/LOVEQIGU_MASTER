@@ -11,6 +11,9 @@ import {
   CONTENT_EMOTION,
   CONTENT_VISUAL
 } from './world_engine/content_model.js';
+import { buildNpcFromEvent, getDialogueLine } from './npc/world_npc_system.js';
+import { createEconomyArtifact, getRarityLabel } from './economy/artifact_economy.js';
+import { createFeedbackState, processUserAction } from './feedback/world_feedback_loop.js';
 
 const SEEDS_URL = new URL('./content_seed.json', import.meta.url);
 
@@ -93,6 +96,64 @@ export async function generateWorldEvent(input) {
 }
 
 /**
+ * V0.5.1 — enrich world_event with interactive NPC, economy artifact, feedback loop.
+ * generateWorldEvent remains unchanged; call this after generation.
+ */
+export function enrichWorldEvent(worldEvent) {
+  if (!worldEvent) return null;
+
+  const interactiveNpc = buildNpcFromEvent(worldEvent);
+  const economyArtifact = createEconomyArtifact(worldEvent);
+  const feedback = createFeedbackState(worldEvent);
+
+  if (economyArtifact) {
+    economyArtifact.rarity_label = getRarityLabel(economyArtifact.rarity);
+  }
+
+  const enriched = Object.assign({}, worldEvent, {
+    npc: interactiveNpc
+      ? Object.assign({}, worldEvent.npc, interactiveNpc)
+      : worldEvent.npc,
+    artifact: economyArtifact || worldEvent.artifact,
+    interactive: {
+      npc: interactiveNpc,
+      economyArtifact: economyArtifact,
+      feedback: feedback
+    }
+  });
+
+  return enriched;
+}
+
+/**
+ * V0.5.1 — process user action through feedback loop.
+ */
+export function processInteractiveAction(user_action, worldEvent) {
+  const feedbackState = (worldEvent.interactive && worldEvent.interactive.feedback)
+    || createFeedbackState(worldEvent);
+  const npc = (worldEvent.interactive && worldEvent.interactive.npc)
+    || buildNpcFromEvent(worldEvent);
+
+  const result = processUserAction(user_action, {
+    feedbackState: feedbackState,
+    worldEvent: worldEvent,
+    npc: npc
+  });
+
+  const updated = Object.assign({}, worldEvent, {
+    interactive: Object.assign({}, worldEvent.interactive || {}, {
+      npc: npc,
+      feedback: result.feedbackState
+    })
+  });
+
+  return {
+    worldEvent: updated,
+    world_delta: result.world_delta
+  };
+}
+
+/**
  * Convert world_event → stream renderer content model.
  */
 export function worldEventToStreamContent(worldEvent, worldState) {
@@ -101,6 +162,14 @@ export function worldEventToStreamContent(worldEvent, worldState) {
   const visual = VISUAL_MAP[worldEvent.visual] || CONTENT_VISUAL.GARDEN_LANTERN;
   const emotion = EMOTION_MAP[worldEvent.story.tone] || CONTENT_EMOTION.QUIET_DISCOVERY;
   const type = worldState === WORLD_STATE.REVELATION ? CONTENT_TYPE.RELIC : CONTENT_TYPE.PLACE;
+
+  const npcLine = worldEvent.interactive && worldEvent.interactive.npc
+    ? getDialogueLine(worldEvent.interactive.npc, worldEvent.interactive.npc.current_state || 'greet')
+    : (worldEvent.npc.greeting || worldEvent.npc.name);
+
+  const artifactHint = worldEvent.artifact && worldEvent.artifact.rarity_label
+    ? '信物已生成 · ' + worldEvent.artifact.rarity_label
+    : '信物已生成';
 
   const items = [
     createContentModel({
@@ -115,11 +184,11 @@ export function worldEventToStreamContent(worldEvent, worldState) {
     createContentModel({
       id: worldEvent.id + '-npc',
       title: worldEvent.npc.name,
-      subtitle: worldEvent.npc.greeting,
+      subtitle: npcLine,
       type: CONTENT_TYPE.ECHO,
       emotion: CONTENT_EMOTION.WARM_MEMORY,
       visual: visual,
-      hint: worldEvent.npc.role
+      hint: worldEvent.npc.role || (worldEvent.npc.personality && worldEvent.npc.personality.trait) || ''
     }),
     createContentModel({
       id: worldEvent.id + '-artifact',
@@ -128,7 +197,7 @@ export function worldEventToStreamContent(worldEvent, worldState) {
       type: CONTENT_TYPE.RELIC,
       emotion: CONTENT_EMOTION.AWAKENED,
       visual: visual,
-      hint: '信物已生成'
+      hint: artifactHint
     })
   ];
 

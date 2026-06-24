@@ -28,7 +28,10 @@ function applyGeneratedWorld() {
   const primary = document.querySelector('.subtitle-layer__primary');
 
   if (whisper && worldEvent.npc) {
-    whisper.textContent = worldEvent.npc.name + '：' + worldEvent.npc.greeting;
+    const greet = worldEvent.npc.dialogue_state
+      ? worldEvent.npc.dialogue_state.greet
+      : worldEvent.npc.greeting;
+    whisper.textContent = worldEvent.npc.name + '：' + greet;
   }
 
   if (primary && worldEvent.story) {

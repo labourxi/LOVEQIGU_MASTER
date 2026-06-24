@@ -11,6 +11,9 @@ function defaultMemory() {
     visitPaths: [],
     eventHistory: [],
     artifacts: [],
+    npc_interactions: [],
+    artifact_history: [],
+    user_world_delta: [],
     userState: 'world',
     lastLocation: null
   };
@@ -25,6 +28,9 @@ function loadMemory() {
       visitPaths: Array.isArray(parsed.visitPaths) ? parsed.visitPaths : [],
       eventHistory: Array.isArray(parsed.eventHistory) ? parsed.eventHistory : [],
       artifacts: Array.isArray(parsed.artifacts) ? parsed.artifacts : [],
+      npc_interactions: Array.isArray(parsed.npc_interactions) ? parsed.npc_interactions : [],
+      artifact_history: Array.isArray(parsed.artifact_history) ? parsed.artifact_history : [],
+      user_world_delta: Array.isArray(parsed.user_world_delta) ? parsed.user_world_delta : [],
       userState: parsed.userState || 'world',
       lastLocation: parsed.lastLocation || null
     };
@@ -90,11 +96,75 @@ export function recordArtifact(artifact) {
       name: artifact.name,
       description: artifact.description,
       type: artifact.type || 'relic',
+      rarity: artifact.rarity || null,
+      origin_location: artifact.origin_location || null,
+      story_binding: artifact.story_binding || null,
       acquiredAt: Date.now()
     });
   }
   saveMemory(memory);
   return memory;
+}
+
+export function recordNpcInteraction(entry) {
+  if (!entry) return memory;
+  memory.npc_interactions.push({
+    npc_id: entry.npc_id || null,
+    npc_name: entry.npc_name || null,
+    dialogue_state: entry.dialogue_state || null,
+    action: entry.action || null,
+    ts: Date.now()
+  });
+  if (memory.npc_interactions.length > 150) {
+    memory.npc_interactions = memory.npc_interactions.slice(-120);
+  }
+  saveMemory(memory);
+  return memory;
+}
+
+export function recordArtifactHistory(entry) {
+  if (!entry) return memory;
+  memory.artifact_history.push({
+    action: entry.action || null,
+    artifact_id: entry.artifact && entry.artifact.id ? entry.artifact.id : null,
+    artifact_name: entry.artifact && entry.artifact.name ? entry.artifact.name : null,
+    rarity: entry.artifact && entry.artifact.rarity ? entry.artifact.rarity : null,
+    ts: Date.now()
+  });
+  if (memory.artifact_history.length > 150) {
+    memory.artifact_history = memory.artifact_history.slice(-120);
+  }
+  saveMemory(memory);
+  return memory;
+}
+
+export function recordUserWorldDelta(delta) {
+  if (!delta) return memory;
+  memory.user_world_delta.push({
+    world_state_shift: delta.world_state_shift || null,
+    npc_state_shift: delta.npc_state_shift || null,
+    artifact_spawn_rate_delta: delta.artifact_spawn_rate_delta || 0,
+    resonance_delta: delta.resonance_delta || 0,
+    messages: delta.messages || [],
+    ts: Date.now()
+  });
+  if (memory.user_world_delta.length > 100) {
+    memory.user_world_delta = memory.user_world_delta.slice(-80);
+  }
+  saveMemory(memory);
+  return memory;
+}
+
+export function getNpcInteractions() {
+  return memory.npc_interactions.slice();
+}
+
+export function getArtifactHistory() {
+  return memory.artifact_history.slice();
+}
+
+export function getUserWorldDeltas() {
+  return memory.user_world_delta.slice();
 }
 
 export function getArtifacts() {
