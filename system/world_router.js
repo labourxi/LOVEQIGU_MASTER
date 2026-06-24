@@ -1,52 +1,82 @@
 /**
- * WORLD_ROUTER — V0.4 unified world gateway routing
- * Single entry → landing | explore | ar-event (extensible world_state)
+ * WORLD_ROUTER — V0.4.1 unified local world routing
+ * Single world engine · no submodule / cross-repo URLs
  */
-
-const WORLD_MODULE = 'ar-youban-world-system';
 
 export const WORLD_ROUTES = {
   gateway: './index.html',
-  landing: `${WORLD_MODULE}/pages/landing/index.html`,
-  explore: `${WORLD_MODULE}/pages/explore/index.html`,
-  arEvent: `${WORLD_MODULE}/pages/landing/index.html?entry=ar-event`
+  world: 'pages/landing/index.html',
+  landing: 'pages/landing/index.html',
+  explore: 'pages/explore/index.html',
+  ar: 'pages/landing/index.html?entry=ar-event'
 };
 
 const ROUTE_ALIASES = {
+  gateway: WORLD_ROUTES.gateway,
+  world: WORLD_ROUTES.world,
   landing: WORLD_ROUTES.landing,
   explore: WORLD_ROUTES.explore,
-  'ar-event': WORLD_ROUTES.arEvent,
-  ar_event: WORLD_ROUTES.arEvent
+  ar: WORLD_ROUTES.ar,
+  'ar-event': WORLD_ROUTES.ar,
+  ar_event: WORLD_ROUTES.ar
 };
 
+const WORLD_STATE_KEY = 'world_state';
+const WORLD_ENTRY_KEY = 'world_entry';
+
 /**
- * Navigate to a named world route.
- * @param {'landing'|'explore'|'ar-event'|'gateway'} name
+ * Persist gateway-level world_state for downstream pages.
+ */
+export function setStoredWorldState(state) {
+  try {
+    if (state) sessionStorage.setItem(WORLD_STATE_KEY, state);
+    else sessionStorage.removeItem(WORLD_STATE_KEY);
+  } catch (e) { /* ignore */ }
+}
+
+export function getStoredWorldState() {
+  try {
+    return sessionStorage.getItem(WORLD_STATE_KEY) || null;
+  } catch (e) {
+    return null;
+  }
+}
+
+/**
+ * Navigate to a named world route (local paths only).
+ * @param {'world'|'landing'|'explore'|'ar'|'gateway'} name
  */
 export function navigateTo(name) {
   const target = resolveRoute(name);
   if (!target) return false;
-  if (name === 'ar-event' || name === 'ar_event') {
+
+  if (name === 'ar' || name === 'ar-event' || name === 'ar_event') {
     try {
-      sessionStorage.setItem('world_entry', 'ar-event');
+      sessionStorage.setItem(WORLD_ENTRY_KEY, 'ar');
     } catch (e) { /* ignore */ }
+    setStoredWorldState('ar');
+  } else if (name === 'explore') {
+    setStoredWorldState('explore');
+  } else if (name === 'world' || name === 'landing') {
+    setStoredWorldState('world');
   }
+
   window.location.href = target;
   return true;
 }
 
 /**
- * Resolve route name or path to URL.
+ * Resolve route name or path to local URL.
  */
 export function resolveRoute(nameOrPath) {
-  if (!nameOrPath) return WORLD_ROUTES.landing;
+  if (!nameOrPath) return WORLD_ROUTES.world;
   if (ROUTE_ALIASES[nameOrPath]) return ROUTE_ALIASES[nameOrPath];
   if (typeof nameOrPath === 'string' && nameOrPath.indexOf('/') !== -1) return nameOrPath;
   return null;
 }
 
 /**
- * Read optional world_state hint from query (?route= / ?world_state=).
+ * Read route hint from query (?route= / ?world_state=).
  */
 export function getWorldStateHint() {
   const params = new URLSearchParams(window.location.search);
@@ -54,7 +84,7 @@ export function getWorldStateHint() {
 }
 
 /**
- * Auto-redirect when gateway opened with ?route=landing|explore|ar-event
+ * Auto-redirect when gateway opened with ?route=world|landing|explore|ar
  */
 export function applyQueryRoute() {
   const hint = getWorldStateHint();
@@ -67,10 +97,8 @@ export function applyQueryRoute() {
 }
 
 /**
- * Module base path for static assets (GitHub Pages / local).
+ * Local asset base (empty = repo root; GitHub Pages compatible).
  */
-export function getWorldModuleBase() {
-  return WORLD_MODULE;
+export function getWorldBase() {
+  return '';
 }
-
-export { WORLD_MODULE };

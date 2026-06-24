@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f2848" />
+  <title>AR游伴 · 世界入口</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="landing">
+  <div class="world-layer" aria-hidden="true">
+    <div class="world-layer__sky"></div>
+    <div class="world-layer__galaxy"></div>
+    <div class="world-layer__mountains"></div>
+    <div class="world-layer__mist"></div>
+    <div class="world-layer__mist world-layer__mist--east"></div>
+    <div class="world-layer__stars"></div>
+    <div class="world-layer__star-tracks"></div>
+    <canvas id="world-particles" class="world-layer__canvas"></canvas>
+    <div class="world-layer__radial-pulse"></div>
+    <div class="world-layer__noise-fog"></div>
+    <div class="world-layer__gate-glow"></div>
+    <div class="world-layer__horizon"></div>
+    <div class="world-layer__steps"></div>
+    <div class="world-layer__path"></div>
+  </div>
+
+  <main class="landing">
+    <header class="title-layer">
+      <h1 class="title-layer__main">AR游伴</h1>
+    </header>
+
+    <div class="subtitle-layer">
+      <p class="subtitle-layer__primary">留在足迹里，收藏世界</p>
+      <p class="subtitle-layer__whisper">在行走之间，世界缓缓显现</p>
+    </div>
+
+    <section class="landing__center">
+      <div class="revelation-core" aria-hidden="true">
+        <div class="revelation-core__field"></div>
+        <div class="revelation-core__light"></div>
+        <div class="revelation-core__ring"></div>
+        <div class="revelation-core__ring revelation-core__ring--inner"></div>
+        <div class="revelation-core__threshold"></div>
+      </div>
+
+      <div class="cta-layer">
+        <button type="button" class="cta cta-layer__trigger" id="landing-cta">进入探索</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="perception-anchor" aria-hidden="true">
+    <div class="perception-anchor__figure"></div>
+  </div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
