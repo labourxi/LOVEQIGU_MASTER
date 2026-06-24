@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f2848" />
+  <title>AR游伴 · 世界之门</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="gateway.css" />
+</head>
+<body data-page="gateway">
+  <div class="gateway-layer" aria-hidden="true">
+    <div class="gateway-layer__sky"></div>
+    <div class="gateway-layer__stars"></div>
+    <div class="gateway-layer__mist"></div>
+    <div class="gateway-layer__gate"></div>
+  </div>
+
+  <main class="gateway">
+    <header>
+      <h1 class="gateway__brand">AR游伴</h1>
+      <p class="gateway__tagline">留在足迹里，收藏世界</p>
+      <p class="gateway__whisper">单入口世界 · 多模块运行</p>
+    </header>
+
+    <div class="gateway__core" aria-hidden="true">
+      <div class="gateway__core-ring"></div>
+      <div class="gateway__core-light"></div>
+    </div>
+
+    <nav class="gateway__actions" aria-label="世界入口">
+      <button type="button" class="gateway__btn gateway__btn--primary" id="btn-enter-world" data-route="landing">
+        进入世界
+      </button>
+      <button type="button" class="gateway__btn gateway__btn--secondary" id="btn-enter-explore" data-route="explore">
+        进入探索
+      </button>
+    </nav>
+
+    <p class="gateway__footnote">V0.4 World Gateway · ar-youban-world-system</p>
+  </main>
+
+  <script type="module" src="gateway-main.js"></script>
+</body>
+</html>
