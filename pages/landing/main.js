@@ -1,4 +1,5 @@
 import { bootstrap } from '../../bootstrap.js';
+import { getGeneratedWorldEvent } from '../../system/world_memory.js';
 
 bootstrap();
 
@@ -17,6 +18,30 @@ function bindLandingVisualDrift() {
   requestAnimationFrame(bindLandingVisualDrift);
 }
 
+function applyGeneratedWorld() {
+  const worldEvent = getGeneratedWorldEvent();
+  if (!worldEvent) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const isAr = params.get('entry') === 'ar-event';
+  const whisper = document.querySelector('.subtitle-layer__whisper');
+  const primary = document.querySelector('.subtitle-layer__primary');
+
+  if (whisper && worldEvent.npc) {
+    whisper.textContent = worldEvent.npc.name + '：' + worldEvent.npc.greeting;
+  }
+
+  if (primary && worldEvent.story) {
+    primary.textContent = worldEvent.location + ' · ' + worldEvent.story.title;
+  }
+
+  if (isAr && worldEvent.artifact) {
+    document.body.setAttribute('data-ar-artifact', worldEvent.artifact.id);
+    document.body.setAttribute('data-ar-npc', worldEvent.npc.id);
+  }
+}
+
 if (document.body && document.body.getAttribute('data-page') === 'landing') {
+  applyGeneratedWorld();
   requestAnimationFrame(bindLandingVisualDrift);
 }

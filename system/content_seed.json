@@ -1,0 +1,198 @@
+{
+  "version": "0.5",
+  "locations": [
+    {
+      "id": "west-lake",
+      "name": "西湖",
+      "visual": "garden_lantern",
+      "emotion": "soft_flow",
+      "stories": [
+        {
+          "title": "断桥残雪",
+          "body": "湖面薄雾升起，旧日的足迹在水光里轻轻折返。",
+          "tone": "quiet_discovery"
+        },
+        {
+          "title": "苏堤春晓",
+          "body": "柳线拂过晨风，一段未被写下的旅程正等待被点亮。",
+          "tone": "warm_memory"
+        },
+        {
+          "title": "三潭印月",
+          "body": "月影沉入波心，世界在此处留下一声轻响。",
+          "tone": "drifting"
+        }
+      ],
+      "npcs": [
+        {
+          "id": "lotus-keeper",
+          "name": "荷衣行者",
+          "role": "湖畔引路人",
+          "lines": ["你来得正好，风正从湖面吹来。", "有些路，只有走过才会显现。"]
+        },
+        {
+          "id": "mist-watcher",
+          "name": "雾中守灯人",
+          "role": "残雪守望者",
+          "lines": ["灯还未灭，故事也还未散尽。", "跟随光走，不必急于抵达。"]
+        }
+      ],
+      "artifacts": [
+        {
+          "id": "lotus-seal",
+          "name": "荷印信物",
+          "description": "一枚自湖面拾起的印记，封存了断桥边的微风。",
+          "type": "relic"
+        },
+        {
+          "id": "moon-fragment",
+          "name": "印月残片",
+          "description": "三潭水影凝成的一缕微光，可收藏于行囊。",
+          "type": "relic"
+        }
+      ],
+      "triggers": ["world_enter", "explore_enter", "ar_scan"]
+    },
+    {
+      "id": "leifeng-pagoda",
+      "name": "雷峰塔",
+      "visual": "garden_lantern",
+      "emotion": "old_garden_light",
+      "stories": [
+        {
+          "title": "塔影夕照",
+          "body": "斜阳穿过塔檐，一段沉静的回响正从砖石间渗出。",
+          "tone": "old_garden_light"
+        },
+        {
+          "title": "夕照钟声",
+          "body": "远钟荡开暮色，信物在塔影尽头微微发亮。",
+          "tone": "awakened"
+        }
+      ],
+      "npcs": [
+        {
+          "id": "pagoda-scribe",
+          "name": "塔下抄经人",
+          "role": "夕照守塔者",
+          "lines": ["塔影长时，心便可静。", "你听见的那声钟，是世界的回响。"]
+        },
+        {
+          "id": "sunset-guide",
+          "name": "夕照引路人",
+          "role": "塔阶行者",
+          "lines": ["拾级而上，不必回头。", "有些信物，只在暮色里现身。"]
+        }
+      ],
+      "artifacts": [
+        {
+          "id": "pagoda-bell-echo",
+          "name": "塔钟回响",
+          "description": "夕照中凝取的一声钟韵，可作为信物收藏。",
+          "type": "relic"
+        },
+        {
+          "id": "brick-light",
+          "name": "砖影微光",
+          "description": "雷峰塔砖缝间溢出的一缕光，记录塔下足迹。",
+          "type": "relic"
+        }
+      ],
+      "triggers": ["world_enter", "explore_enter", "ar_trigger"]
+    },
+    {
+      "id": "forbidden-city",
+      "name": "故宫",
+      "visual": "book_window",
+      "emotion": "quiet_reading",
+      "stories": [
+        {
+          "title": "午门晨光",
+          "body": "宫墙之内，时间走得极慢，每一步都像翻开一页旧书。",
+          "tone": "quiet_reading"
+        },
+        {
+          "title": "御道残响",
+          "body": "石板上留着无数旅人的足音，今日又添了你的那一行。",
+          "tone": "bookish_mist"
+        }
+      ],
+      "npcs": [
+        {
+          "id": "gate-keeper",
+          "name": "午门值守者",
+          "role": "宫门引路人",
+          "lines": ["宫门为行者而开。", "沿御道前行，世界会自行展开。"]
+        },
+        {
+          "id": "archive-walker",
+          "name": "典籍行旅人",
+          "role": "书卷守望者",
+          "lines": ["纸页会记住你来过。", "信物常藏于静处。"]
+        }
+      ],
+      "artifacts": [
+        {
+          "id": "imperial-seal-trace",
+          "name": "御印痕",
+          "description": "宫砖上隐约的一枚印迹，可收为信物。",
+          "type": "relic"
+        },
+        {
+          "id": "courtyard-echo",
+          "name": "庭院回响",
+          "description": "午门晨光里拾取的一缕静气，封存于信物之中。",
+          "type": "relic"
+        }
+      ],
+      "triggers": ["world_enter", "explore_enter", "ar_scan"]
+    },
+    {
+      "id": "the-bund",
+      "name": "外滩",
+      "visual": "river_night_gold",
+      "emotion": "quiet_discovery",
+      "stories": [
+        {
+          "title": "江岸夜行",
+          "body": "江风载星过岸，霓虹与古建在水光里彼此照见。",
+          "tone": "quiet_discovery"
+        },
+        {
+          "title": "万国灯火",
+          "body": "两岸灯火连成一线，你的足迹正汇入这座城的夜。",
+          "tone": "warm_memory"
+        }
+      ],
+      "npcs": [
+        {
+          "id": "river-walker",
+          "name": "江风行者",
+          "role": "江畔引路人",
+          "lines": ["江风知道所有秘密。", "跟光走，城市会为你让路。"]
+        },
+        {
+          "id": "night-lantern",
+          "name": "岸灯守望者",
+          "role": "夜航守灯人",
+          "lines": ["灯亮处，便有归处。", "今夜的外滩，为你留了一盏灯。"]
+        }
+      ],
+      "artifacts": [
+        {
+          "id": "river-star",
+          "name": "江星信物",
+          "description": "江面倒映的一颗星子，可收藏为夜行信物。",
+          "type": "relic"
+        },
+        {
+          "id": "bund-light-fold",
+          "name": "岸光折页",
+          "description": "万国建筑灯火折入掌中，成为可携带的信物。",
+          "type": "relic"
+        }
+      ],
+      "triggers": ["world_enter", "explore_enter", "ar_trigger"]
+    }
+  ]
+}

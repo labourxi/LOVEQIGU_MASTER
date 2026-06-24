@@ -3,7 +3,7 @@
  */
 
 import { WORLD_STATE, setWorldState } from './state_machine.js';
-import { navigateTo } from '../world_router.js';
+import { navigateWithGeneration } from '../world_router.js';
 
 let transitionTimer = null;
 
@@ -37,7 +37,7 @@ function onWorldStateChange(event) {
 
   if (state === WORLD_STATE.TRANSITION) {
     setTimeout(function () {
-      navigateTo('explore');
+      navigateWithGeneration('explore');
     }, 1200);
   }
 }

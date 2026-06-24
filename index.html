@@ -22,7 +22,7 @@
     <header>
       <h1 class="gateway__brand">AR游伴</h1>
       <p class="gateway__tagline">留在足迹里，收藏世界</p>
-      <p class="gateway__whisper">单入口 · 单世界引擎</p>
+      <p class="gateway__whisper">自生成世界 · 每次进入皆不同</p>
     </header>
 
     <div class="gateway__core" aria-hidden="true">
@@ -36,7 +36,12 @@
       </button>
     </nav>
 
-    <p class="gateway__footnote">V0.4.1 World Engine · LOVEQIGU_MASTER</p>
+    <div class="gateway__loading" id="gateway-loading" hidden aria-live="polite" aria-busy="false">
+      <div class="gateway__loading-ring" aria-hidden="true"></div>
+      <p class="gateway__loading-text">世界生成中...</p>
+    </div>
+
+    <p class="gateway__footnote">V0.5 Self-Generating World · LOVEQIGU_MASTER</p>
   </main>
 
   <script type="module" src="gateway-main.js"></script>

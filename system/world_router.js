@@ -1,7 +1,21 @@
 /**
- * WORLD_ROUTER — V0.4.1 unified local world routing
- * Single world engine · no submodule / cross-repo URLs
+ * WORLD_ROUTER — V0.5 self-generating world routing
+ * explore / ar routes invoke world_generator before navigation
  */
+
+import {
+  generateWorldEvent,
+  pickLocationForGeneration
+} from './world_generator.js';
+import {
+  recordVisitPath,
+  recordEventTrigger,
+  recordArtifact,
+  setGeneratedWorldEvent,
+  getGeneratedWorldEvent,
+  getMemory,
+  setUserState
+} from './world_memory.js';
 
 export const WORLD_ROUTES = {
   gateway: './index.html',
@@ -24,14 +38,12 @@ const ROUTE_ALIASES = {
 const WORLD_STATE_KEY = 'world_state';
 const WORLD_ENTRY_KEY = 'world_entry';
 
-/**
- * Persist gateway-level world_state for downstream pages.
- */
 export function setStoredWorldState(state) {
   try {
     if (state) sessionStorage.setItem(WORLD_STATE_KEY, state);
     else sessionStorage.removeItem(WORLD_STATE_KEY);
   } catch (e) { /* ignore */ }
+  setUserState(state);
 }
 
 export function getStoredWorldState() {
@@ -43,21 +55,98 @@ export function getStoredWorldState() {
 }
 
 /**
- * Navigate to a named world route (local paths only).
- * @param {'world'|'landing'|'explore'|'ar'|'gateway'} name
+ * Generate world content for route before navigation.
+ * @param {'world'|'landing'|'explore'|'ar'} name
  */
+export async function prepareRoute(name) {
+  const memory = getMemory();
+  const user_state = getStoredWorldState() || memory.userState || 'world';
+  const seedHint = Date.now();
+  const location = pickLocationForGeneration(memory, seedHint);
+
+  if (name === 'explore') {
+    const worldEvent = await generateWorldEvent({
+      location: location,
+      user_state: user_state,
+      event: 'explore_enter'
+    });
+    setGeneratedWorldEvent(worldEvent);
+    recordEventTrigger({
+      route: name,
+      event: 'explore_enter',
+      worldEventId: worldEvent.id,
+      location: worldEvent.location
+    });
+    if (worldEvent.artifact) recordArtifact(worldEvent.artifact);
+    return worldEvent;
+  }
+
+  if (name === 'ar' || name === 'ar-event' || name === 'ar_event') {
+    let worldEvent = getGeneratedWorldEvent();
+    if (!worldEvent) {
+      worldEvent = await generateWorldEvent({
+        location: location,
+        user_state: 'ar',
+        event: 'ar_trigger'
+      });
+      setGeneratedWorldEvent(worldEvent);
+    }
+    recordEventTrigger({
+      route: name,
+      event: 'ar_trigger',
+      worldEventId: worldEvent.id,
+      location: worldEvent.location
+    });
+    if (worldEvent.artifact) recordArtifact(worldEvent.artifact);
+    return worldEvent;
+  }
+
+  if (name === 'world' || name === 'landing') {
+    const worldEvent = await generateWorldEvent({
+      location: location,
+      user_state: user_state,
+      event: 'world_enter'
+    });
+    setGeneratedWorldEvent(worldEvent);
+    recordEventTrigger({
+      route: name,
+      event: 'world_enter',
+      worldEventId: worldEvent.id,
+      location: worldEvent.location
+    });
+    if (worldEvent.artifact) recordArtifact(worldEvent.artifact);
+    return worldEvent;
+  }
+
+  return null;
+}
+
+/**
+ * Generate world event then navigate (self-generating mode).
+ */
+export async function navigateWithGeneration(name) {
+  const normalized = normalizeRouteName(name);
+  if (!normalized || normalized === 'gateway') return false;
+
+  await prepareRoute(normalized);
+  recordVisitPath(normalized);
+  return navigateTo(normalized);
+}
+
 export function navigateTo(name) {
   const target = resolveRoute(name);
   if (!target) return false;
 
-  if (name === 'ar' || name === 'ar-event' || name === 'ar_event') {
+  const normalized = normalizeRouteName(name);
+
+  if (normalized === 'ar' || normalized === 'ar-event' || normalized === 'ar_event') {
     try {
       sessionStorage.setItem(WORLD_ENTRY_KEY, 'ar');
     } catch (e) { /* ignore */ }
     setStoredWorldState('ar');
-  } else if (name === 'explore') {
+  } else if (normalized === 'explore') {
     setStoredWorldState('explore');
-  } else if (name === 'world' || name === 'landing') {
+  } else if (normalized === 'world' || normalized === 'landing') {
     setStoredWorldState('world');
   }
 
@@ -65,40 +154,37 @@ export function navigateTo(name) {
   return true;
 }
 
-/**
- * Resolve route name or path to local URL.
- */
+function normalizeRouteName(name) {
+  if (name === 'ar-event' || name === 'ar_event') return 'ar';
+  return name;
+}
+
 export function resolveRoute(nameOrPath) {
   if (!nameOrPath) return WORLD_ROUTES.world;
+  const key = normalizeRouteName(nameOrPath);
+  if (ROUTE_ALIASES[key]) return ROUTE_ALIASES[key];
   if (ROUTE_ALIASES[nameOrPath]) return ROUTE_ALIASES[nameOrPath];
   if (typeof nameOrPath === 'string' && nameOrPath.indexOf('/') !== -1) return nameOrPath;
   return null;
 }
 
-/**
- * Read route hint from query (?route= / ?world_state=).
- */
 export function getWorldStateHint() {
   const params = new URLSearchParams(window.location.search);
   return params.get('world_state') || params.get('route') || null;
 }
 
-/**
- * Auto-redirect when gateway opened with ?route=world|landing|explore|ar
- */
-export function applyQueryRoute() {
+export async function applyQueryRoute() {
   const hint = getWorldStateHint();
   if (!hint || hint === 'gateway') return false;
-  if (ROUTE_ALIASES[hint]) {
-    navigateTo(hint);
+  if (ROUTE_ALIASES[hint] || ROUTE_ALIASES[normalizeRouteName(hint)]) {
+    await navigateWithGeneration(hint);
     return true;
   }
   return false;
 }
 
-/**
- * Local asset base (empty = repo root; GitHub Pages compatible).
- */
 export function getWorldBase() {
   return '';
 }
+
+export { getGeneratedWorldEvent };
