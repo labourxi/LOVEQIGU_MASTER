@@ -51,14 +51,19 @@
         { id: "msg-system", label: "System Notice", href: "../messages/system/index.html" }
       ]
     },
-    { title: "Training", items: [{ id: "training", label: "Training Center", href: "../training/index.html" }] }
+    { title: "Training", items: [{ id: "training", label: "Training Center", href: "../training/index.html" }] },
+    { title: "Visual Factory", items: [{ id: "visual-task", label: "视觉任务", href: "../modules/visual-factory/index.html" }] }
   ];
 
   function badge(status) {
+    if (global.BackofficeShell && global.BackofficeShell.STATUS_MAP[status]) {
+      var s = global.BackofficeShell.STATUS_MAP[status];
+      return lib.renderStatusBadge({ text: s.label, tone: s.cls.replace("badge-", "") });
+    }
     var tone = "neutral";
     if (["APPROVED", "PUBLISHED", "ACTIVE", "READY", "RUNNING", "VERIFIED", "RESOLVED", "SENT"].indexOf(status) >= 0) tone = "success";
-    if (["PENDING", "PENDING_REVIEW", "BLOCKED", "OPEN", "PROCESSING", "DRAFT", "OVERDUE", "WARNING"].indexOf(status) >= 0) tone = "warning";
-    if (["REJECTED", "ERROR", "FAILED", "CLOSED", "EXCEPTION"].indexOf(status) >= 0) tone = "danger";
+    if (["PENDING", "PENDING_REVIEW", "BLOCKED", "OPEN", "PROCESSING", "DRAFT", "OVERDUE", "WARNING", "NEED_INFO"].indexOf(status) >= 0) tone = "warning";
+    if (["REJECTED", "ERROR", "FAILED", "CLOSED", "EXCEPTION", "PUBLISH_FAILED"].indexOf(status) >= 0) tone = "danger";
     return lib.renderStatusBadge({ text: status, tone: tone });
   }
 

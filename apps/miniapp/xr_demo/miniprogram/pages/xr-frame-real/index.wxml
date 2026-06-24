@@ -1,0 +1,31 @@
+<view class="page">
+  <view class="card">
+    <view class="title">XR-Frame Real Bootstrap</view>
+    <view class="copy">{{devtoolsHint}}</view>
+    <view class="status">BOOT_STATE: {{renderState}}</view>
+    <view class="status">BOOT_REASON: {{bootstrapReason}}</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">Capability Check</view>
+    <view class="row"><text>XR_FRAME_EXISTS</text><text>{{xrFrameExists ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>XR_PAGE_READY</text><text>YES</text></view>
+    <view class="row"><text>CAMERA_READY</text><text>{{cameraReady ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>XR_SCENE_READY</text><text>{{xrSceneReady ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>XR_OBJECT_RENDER_READY</text><text>{{xrObjectRenderReady ? 'YES' : 'NO'}}</text></view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">Runtime Surface</view>
+    <camera wx:if="{{cameraReady}}" class="camera" device-position="back"></camera>
+    <view wx:else class="placeholder">
+      <view class="placeholder-title">XR runtime unavailable</view>
+      <view class="placeholder-copy">The page attempted real XR bootstrap and failed because the API is not present in this environment.</view>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{deviceVerificationRequired}}">
+    <view class="section-title">Verification Note</view>
+    <view class="copy">This result requires real-device XR capability verification. WeChat DevTools cannot prove a live XR scene here.</view>
+  </view>
+</view>

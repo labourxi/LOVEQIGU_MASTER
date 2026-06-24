@@ -1,0 +1,31 @@
+<view wx:if="{{visible}}" class="pilot-fx-overlay pilot-fx-overlay--{{effectId}}">
+  <view class="pilot-fx-backdrop"></view>
+
+  <view wx:if="{{effectId === 'xr_start_v1'}}" class="pilot-fx-scene pilot-fx-scene--xr-start">
+    <view class="pilot-fx-ring pilot-fx-ring--outer"></view>
+    <view class="pilot-fx-ring pilot-fx-ring--inner"></view>
+    <view class="pilot-fx-gate-glow"></view>
+    <view class="pilot-fx-gate-line pilot-fx-gate-line--left"></view>
+    <view class="pilot-fx-gate-line pilot-fx-gate-line--right"></view>
+  </view>
+
+  <view wx:elif="{{effectId === 'space_trail_v1'}}" class="pilot-fx-scene pilot-fx-scene--space-trail">
+    <view class="pilot-fx-trail-path"></view>
+    <view class="pilot-fx-trail-node pilot-fx-trail-node--a"></view>
+    <view class="pilot-fx-trail-node pilot-fx-trail-node--b"></view>
+    <view class="pilot-fx-trail-node pilot-fx-trail-node--c"></view>
+    <view class="pilot-fx-trail-spark pilot-fx-trail-spark--1"></view>
+    <view class="pilot-fx-trail-spark pilot-fx-trail-spark--2"></view>
+    <view class="pilot-fx-trail-spark pilot-fx-trail-spark--3"></view>
+  </view>
+
+  <view wx:elif="{{effectId === 'relic_emerge_v1'}}" class="pilot-fx-scene pilot-fx-scene--relic-emerge">
+    <view class="pilot-fx-relic-halo"></view>
+    <view class="pilot-fx-relic-core"></view>
+    <view class="pilot-fx-relic-shard pilot-fx-relic-shard--1"></view>
+    <view class="pilot-fx-relic-shard pilot-fx-relic-shard--2"></view>
+    <view class="pilot-fx-relic-shard pilot-fx-relic-shard--3"></view>
+  </view>
+
+  <view wx:if="{{label}}" class="pilot-fx-label">{{label}}</view>
+</view>

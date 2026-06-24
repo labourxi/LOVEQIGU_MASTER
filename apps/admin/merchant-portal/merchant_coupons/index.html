@@ -13,19 +13,17 @@
       <div id="bo-sidebar"></div>
       <main class="bo-content">
         <div id="bo-breadcrumb"></div>
-        <div class="bo-page-header"><h2>我的卡券</h2><p>门店卡券配置与数据（Mock）</p></div>
+        <div class="bo-page-header">
+          <h2>我的卡券</h2>
+          <p>管理游客完成探索后可到店使用的在地礼遇</p>
+        </div>
+        <div class="bo-section-side-note">探索礼遇由园区活动协作发放，游客完成探索后领取，到店出示礼遇码核销。</div>
+        <div class="bo-metric-grid" id="coupon-metrics"></div>
         <section class="card">
           <div class="table-wrap">
             <table class="table">
-              <thead><tr><th>卡券名称</th><th>类型</th><th>状态</th><th>领取</th><th>核销</th><th>有效期</th><th>操作</th></tr></thead>
-              <tbody>
-                <tr>
-                  <td>爱企谷初见到店礼</td><td>兑换券</td>
-                  <td><span class="badge badge-success">已发布</span></td>
-                  <td>65</td><td>38</td><td>2026-06-15 ~ 2026-06-30</td>
-                  <td><a class="btn" href="../merchant_coupon_detail/index.html">详情</a></td>
-                </tr>
-              </tbody>
+              <thead><tr><th>礼遇名称</th><th>所属活动</th><th>状态</th><th>有效期</th><th>发放</th><th>领取</th><th>核销</th><th>核销率</th><th>操作</th></tr></thead>
+              <tbody id="coupon-body"></tbody>
             </table>
           </div>
         </section>
@@ -33,7 +31,30 @@
     </div>
   </div>
   <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/merchant-adapter-boot.js"></script>
+  <script src="../shared/status-labels.js"></script>
   <script src="../shared/page-boot.js"></script>
-  <script>MerchantPageBoot.boot("coupons", [{ label: "商家工作台" }, { label: "我的卡券" }]);</script>
+  <script>
+    MerchantPageBoot.boot("coupons", [{ label: "商家工作台" }, { label: "我的卡券" }]);
+    MerchantAdapterBoot.ensureAdapterScripts(function () {
+      var adapter = MerchantAdapterBoot.getAdapter();
+      var ctx = MerchantAdapterBoot.getMerchantContext();
+      var coupons = adapter.getMerchantCoupons(ctx.merchantId);
+      var totalClaimed = 0, totalRedeemed = 0;
+      coupons.forEach(function (c) { totalClaimed += c.claimedCount; totalRedeemed += c.redeemedCount; });
+      var rate = totalClaimed ? Math.round((totalRedeemed / totalClaimed) * 100) : 0;
+      document.getElementById("coupon-metrics").innerHTML =
+        '<div class="bo-metric-card"><div class="bo-metric-card__label">生效中</div><div class="bo-metric-card__value">' + coupons.length + '</div></div>' +
+        '<div class="bo-metric-card"><div class="bo-metric-card__label">累计领取</div><div class="bo-metric-card__value">' + totalClaimed + '</div></div>' +
+        '<div class="bo-metric-card"><div class="bo-metric-card__label">累计到店核销</div><div class="bo-metric-card__value">' + totalRedeemed + '</div></div>' +
+        '<div class="bo-metric-card bo-metric-card--highlight"><div class="bo-metric-card__label">核销率</div><div class="bo-metric-card__value">' + rate + '%</div></div>';
+      document.getElementById("coupon-body").innerHTML = coupons.map(function (c) {
+        return "<tr><td><span class=\"bo-gift-tag\">探索礼遇</span>" + c.name + "</td><td>爱企谷初见寻宝节</td><td><span class=\"badge badge-success\">" +
+          c.statusLabel + "</span></td><td>" + c.startDate + " ~ " + c.endDate + "</td><td>" + c.issueTotal + "</td><td>" + c.claimedCount +
+          "</td><td>" + c.redeemedCount + "</td><td>" + c.redemptionRateLabel + '</td><td><a class="btn" href="../merchant_coupon_detail/index.html?id=' +
+          encodeURIComponent(c.id) + '">查看详情</a></td></tr>';
+      }).join("");
+    });
+  </script>
 </body>
 </html>

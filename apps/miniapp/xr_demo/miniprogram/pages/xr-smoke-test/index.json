@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "XR Smoke Test",
+  "renderer": "xr-frame",
+  "usingComponents": {
+    "xr-smoke-frame": "/xr_demo/miniprogram/components/xr-smoke-frame/index"
+  }
+}

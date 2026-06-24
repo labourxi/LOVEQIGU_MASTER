@@ -15,6 +15,8 @@
     </view>
   </view>
 
+  <view class="map-atlas-intro">经络如路线，穴位如印记。以下为结构总览——完整穴位图谱视觉待专项补全。</view>
+
   <view class="meridian-map-toolbar" wx:if="{{view === 'meridian'}}">
     <button class="meridian-map-back" bindtap="onBackOverview">返回总览</button>
   </view>
@@ -76,7 +78,8 @@
       <view class="cultural-panel" wx:if="{{meridianCulturalCopy}}">{{meridianCulturalCopy}}</view>
       <view class="proto-card point-card {{meridianDetail.focused ? 'point-card--focus' : ''}}">
         <view class="proto-row">
-          <view class="proto-card-title">穴位列表</view>
+          <view class="proto-card-title">{{meridianDetail.name}}</view>
+          <view class="proto-badge">{{meridianDetail.litRatio}}</view>
         </view>
         <view class="proto-chip-row">
           <view
@@ -85,8 +88,8 @@
             wx:key="id"
             wx:for-item="point"
           >
+            <view class="star-chip-dot {{point.lit ? 'star-chip-dot--lit' : ''}}"></view>
             <view class="point-chip-name">{{point.name}}</view>
-            <view class="point-chip-status">{{point.statusLabel}}</view>
           </view>
         </view>
         <view class="empty-points-hint" wx:if="{{!meridianDetail.points.length}}">本脉穴位目录待专项补全。</view>

@@ -1,0 +1,14 @@
+{
+  "subject": "ancient_tree",
+  "scene_type": "landmark_ar",
+  "confidence": 0.41,
+  "analysis_mode": "heuristic_on_synthetic_inputs",
+  "subject_bbox": {
+    "x": 164,
+    "y": 88,
+    "w": 248,
+    "h": 396
+  },
+  "ar_recommendation": "landmark_ar",
+  "source_note": "requested inputs were missing; using diagnostic heuristic to keep the POC runnable"
+}

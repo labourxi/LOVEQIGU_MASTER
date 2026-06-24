@@ -1,6 +1,10 @@
 <view class="proto-page">
+  <view wx:if="{{pilotCommercialVisible}}" class="pilot-commercial-banner">
+    <view class="pilot-commercial-banner__title">{{pilotCommercialMessage}}</view>
+    <view class="pilot-commercial-banner__copy">欢迎继续探索更多印记与在地礼遇</view>
+  </view>
   <view class="proto-hero">
-    <view class="proto-kicker">活动完成页</view>
+    <view class="proto-kicker">信物获得页</view>
     <view class="proto-title">恭喜完成</view>
     <view class="proto-subtitle">{{activity.event_name}}</view>
     <view class="proto-chip-row">
@@ -13,7 +17,7 @@
   <view class="proto-section">
     <view class="proto-card">
       <view class="proto-card-title">{{completionNote}}</view>
-      <view class="proto-card-copy">活动进度已写入统一用户进度中心，刷新后仍可查看。</view>
+      <view class="proto-card-copy">活动进度已写入统一用户进度中心，刷新后仍然保留。</view>
       <view class="proto-progress-bar">
         <view class="proto-progress-fill" style="width: {{summary.completionRate}}%;"></view>
       </view>
@@ -53,7 +57,7 @@
   <view class="proto-section">
     <view class="proto-section-head">
       <view class="proto-section-title">推荐商家</view>
-      <view class="proto-section-more">可继续查看权益与活动</view>
+      <view class="proto-section-more">可继续前往探索地图</view>
     </view>
     <view class="proto-card" wx:for="{{recommendedMerchants}}" wx:key="merchant_id">
       <view class="proto-row">
@@ -66,10 +70,12 @@
 
   <view class="proto-section">
     <view class="proto-grid-2">
+      <button class="proto-btn proto-btn--ghost" bindtap="onReturnHome">返回首页</button>
       <button class="proto-btn proto-btn--ghost" bindtap="onBackToProgress">返回进度中心</button>
-      <button class="proto-btn" bindtap="onOpenExploration">继续浏览探索点</button>
+      <button class="proto-btn" bindtap="onOpenExploration">继续浏览探索地图</button>
       <button class="proto-btn proto-btn--primary" bindtap="onOpenRightsCenter">查看权益中心</button>
     </view>
-    <view class="proto-note">完成结果已保存，无需重新领取。</view>
   </view>
+
+  <user-bottom-nav activeKey="{{activeTab}}" bind:change="onBottomNavChange" />
 </view>

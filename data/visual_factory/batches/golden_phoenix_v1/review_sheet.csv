@@ -1,0 +1,17 @@
+batch_id,subject,provider,variant,round,index,filename,source_mode,source_path,output_path,status,review_state,approval_state,prompt,notes
+golden_phoenix_v1,11 金凤凰,GEMINI,R1_01,R1,01,GOLDEN_PHOENIX_GEMINI_R1_01.png,local_fallback,assets\visual-autopilot\candidates\seedream_ark_1781361910.jpg,data\visual_factory\batches\golden_phoenix_v1\GOLDEN_PHOENIX_GEMINI_R1_01.png,READY,PENDING_HUMAN_APPROVAL,WAITING,"11 金凤凰，金凤凰主题最小视觉批次，金色羽纹与发光轮廓，纯净背景，清晰主体，精致工艺感，无文字，无水印。
+Variant: GEMINI R1_01.
+Keep the main subject stable but allow minor composition variation.
+No text, no watermark.",fallback_from=seedream_ark_1781361910.jpg
+golden_phoenix_v1,11 金凤凰,GEMINI,R1_02,R1,02,GOLDEN_PHOENIX_GEMINI_R1_02.png,local_fallback,assets\visual-autopilot\candidates\seedream_ark_1781394406832243400_1.jpg,data\visual_factory\batches\golden_phoenix_v1\GOLDEN_PHOENIX_GEMINI_R1_02.png,READY,PENDING_HUMAN_APPROVAL,WAITING,"11 金凤凰，金凤凰主题最小视觉批次，金色羽纹与发光轮廓，纯净背景，清晰主体，精致工艺感，无文字，无水印。
+Variant: GEMINI R1_02.
+Keep the main subject stable but allow minor composition variation.
+No text, no watermark.",fallback_from=seedream_ark_1781394406832243400_1.jpg
+golden_phoenix_v1,11 金凤凰,DOUBAO,R1_01,R1,01,GOLDEN_PHOENIX_DOUBAO_R1_01.png,live_api,assets\visual-autopilot\candidates\seedream_ark_1782013215266012400_1.jpg,data\visual_factory\batches\golden_phoenix_v1\GOLDEN_PHOENIX_DOUBAO_R1_01.png,READY,PENDING_HUMAN_APPROVAL,WAITING,"11 金凤凰，金凤凰主题最小视觉批次，金色羽纹与发光轮廓，纯净背景，清晰主体，精致工艺感，无文字，无水印。
+Variant: DOUBAO R1_01.
+Keep the main subject stable but allow minor composition variation.
+No text, no watermark.",source=assets\visual-autopilot\candidates\seedream_ark_1782013215266012400_1.jpg
+golden_phoenix_v1,11 金凤凰,DOUBAO,R1_02,R1,02,GOLDEN_PHOENIX_DOUBAO_R1_02.png,live_api,assets\visual-autopilot\candidates\seedream_ark_1782013238580491300_2.jpg,data\visual_factory\batches\golden_phoenix_v1\GOLDEN_PHOENIX_DOUBAO_R1_02.png,READY,PENDING_HUMAN_APPROVAL,WAITING,"11 金凤凰，金凤凰主题最小视觉批次，金色羽纹与发光轮廓，纯净背景，清晰主体，精致工艺感，无文字，无水印。
+Variant: DOUBAO R1_02.
+Keep the main subject stable but allow minor composition variation.
+No text, no watermark.",source=assets\visual-autopilot\candidates\seedream_ark_1782013238580491300_2.jpg

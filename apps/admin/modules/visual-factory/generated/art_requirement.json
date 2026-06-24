@@ -1,0 +1,14 @@
+{
+  "id": "artreq_mqj8d8y5_a3zhms",
+  "exploration_point": "ancient_tree",
+  "effect_type": "dragon_imprint_lite",
+  "landmark_type": "ancient_tree",
+  "shareability_target": "S",
+  "style": "oriental_mystic",
+  "assets": [
+    "dragon_imprint_overlay",
+    "dragon_energy_flow",
+    "dragon_head_reveal",
+    "azure_dragon_seal"
+  ]
+}

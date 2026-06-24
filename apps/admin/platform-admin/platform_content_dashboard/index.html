@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>生产总览 · AR游伴内容生产线</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
+</head>
+<body>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div id="bo-breadcrumb"></div>
+        <div class="bo-page-header-row">
+          <div class="bo-page-header">
+            <h2>生产总览</h2>
+            <p>AR游伴内容生产线 · 探索点 / 信物 / 祝福 / AR / 美术资源</p>
+          </div>
+          <a class="btn btn-primary" href="../platform_exploration_points/index.html">探索点管理</a>
+        </div>
+
+        <div class="bo-content-production-summary">
+          <div class="bo-content-production-summary__title">本周生产摘要</div>
+          <div class="bo-content-production-summary__copy" id="summary-copy">加载中…</div>
+        </div>
+
+        <div class="bo-content-lineage">
+          <strong>生产链路</strong> 景区 → 活动 → 探索点 → 信物 → 祝福内容 / AR 内容 / 美术资源 → 审查 → 发布
+        </div>
+
+        <div class="bo-platform-kpi-grid" id="kpi-grid"></div>
+
+        <div class="grid">
+          <section class="card span-6">
+            <h3 class="card-title">待补齐内容</h3>
+            <div id="gaps-list"></div>
+          </section>
+          <section class="card span-6">
+            <h3 class="card-title">待审查 / 待发布</h3>
+            <div id="review-publish-list"></div>
+          </section>
+          <section class="card span-12">
+            <h3 class="card-title">近期生成任务</h3>
+            <div class="table-wrap">
+              <table class="table bo-generation-task-row">
+                <thead><tr><th>任务</th><th>类型</th><th>状态</th><th>更新</th><th>操作</th></tr></thead>
+                <tbody id="recent-tasks"></tbody>
+              </table>
+            </div>
+          </section>
+          <section class="card span-12">
+            <h3 class="card-title">风险提醒</h3>
+            <div id="risk-list"></div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script src="../shared/mock-store.js"></script>
+  <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/page-boot.js"></script>
+  <script src="../shared/platform-global-search.js"></script>
+  <script src="../shared/content-production-boot.js"></script>
+  <script src="../shared/platform-content-boot.js"></script>
+  <script>
+    PlatformContentBoot.boot("content_dashboard", "生产总览");
+    ContentProductionBoot.ensureAdapterScripts(function () {
+      var d = ContentProductionBoot.getAdapter().getContentProductionDashboard();
+      document.getElementById("summary-copy").textContent = d.summary;
+      document.getElementById("kpi-grid").innerHTML =
+        ["景区", "活动", "探索点", "信物", "祝福内容", "AR 内容", "美术需求单", "生成任务", "待审查", "待发布", "发布失败"].map(function (label, i) {
+          var vals = [d.parkCount, d.activityCount, d.explorationPointCount, d.relicCount, d.blessingCount, d.arCount, d.artRequestCount, d.generationTaskCount, d.pendingReview, d.pendingPublish, d.publishFailed];
+          var cls = i >= 8 ? " bo-metric-card--highlight" : "";
+          if (i === 10) cls = " bo-metric-card--risk";
+          return '<div class="bo-metric-card' + cls + '"><div class="bo-metric-card__label">' + label + '</div><div class="bo-metric-card__value">' + vals[i] + "</div></div>";
+        }).join("");
+      document.getElementById("gaps-list").innerHTML = d.gaps.map(function (g) {
+        return '<div class="bo-content-workflow-card">' + g.label + ' · <span class="badge badge-warning">' + g.status + "</span></div>";
+      }).join("") || '<p class="text-muted">暂无待补齐项</p>';
+      document.getElementById("review-publish-list").innerHTML =
+        '<div class="bo-content-workflow-card">待审查 ' + d.pendingReview + ' 项 · <a class="btn" href="../reviews/index.html">审查中心</a></div>' +
+        '<div class="bo-content-workflow-card">待发布 ' + d.pendingPublish + ' 项 · <a class="btn" href="../publish/index.html">发布中心</a></div>';
+      document.getElementById("recent-tasks").innerHTML = d.recentTasks.map(function (t) {
+        return "<tr><td>" + t.taskName + "</td><td>" + t.taskTypeLabel + "</td><td>" +
+          ContentProductionBoot.statusBadge(t.status) + "</td><td>" + (t.updatedAt || "").slice(0, 16).replace("T", " ") +
+          '</td><td><a class="btn" href="../platform_generation_tasks/index.html?taskId=' + t.id + '">查看</a></td></tr>';
+      }).join("");
+      document.getElementById("risk-list").innerHTML = d.risks.map(function (r) {
+        return '<div class="bo-content-warning"><strong>风险提醒</strong> ' + r.label + "</div>";
+      }).join("") || '<div class="bo-content-warning"><strong>正常</strong> 当前无额外风险提醒。</div>';
+    });
+  </script>
+</body>
+</html>

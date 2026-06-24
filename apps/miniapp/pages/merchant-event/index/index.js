@@ -1,4 +1,5 @@
 const merchantEventService = require('../../../services/merchant-event');
+const safeInteraction = require('../../../behaviors/safe-interaction');
 
 function buildPageData() {
   const overview = merchantEventService.enterActivity(merchantEventService.ACTIVITY_ID);
@@ -18,10 +19,14 @@ function buildPageData() {
 }
 
 Page({
+  behaviors: [safeInteraction],
   data: buildPageData(),
 
   onLoad() {
     this.refresh();
+    if (merchantEventService.ensureReadyAsync) {
+      merchantEventService.ensureReadyAsync().then(() => this.refresh());
+    }
   },
 
   refresh() {
@@ -29,19 +34,22 @@ Page({
   },
 
   onOpenExploration() {
-    wx.navigateTo({ url: '/pages/merchant-event/exploration/index' });
+    this.safeNavigate('/pages/merchant-event/exploration/index');
   },
 
   onOpenPoint(event) {
     const pointId = event.currentTarget.dataset.pointId;
-    if (pointId) {
-      wx.navigateTo({ url: `/pages/merchant-event/detail/index?pointId=${pointId}` });
+    if (!pointId) {
+      this.showFallbackToast('功能开发中');
+      return;
     }
+    this.safeNavigate(`/pages/merchant-event/detail/index?pointId=${pointId}`);
   },
 
   onCompleteTask(event) {
     const taskId = event.currentTarget.dataset.taskId;
     if (!taskId) {
+      this.showFallbackToast('功能开发中');
       return;
     }
     merchantEventService.completeTask(merchantEventService.ACTIVITY_ID, taskId);
@@ -51,10 +59,10 @@ Page({
   onClaimCoupon(event) {
     const couponId = event.currentTarget.dataset.couponId;
     if (!couponId) {
+      this.showFallbackToast('功能开发中');
       return;
     }
     merchantEventService.claimCoupon(merchantEventService.ACTIVITY_ID, couponId);
     this.refresh();
   }
 });
-

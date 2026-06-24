@@ -1,0 +1,97 @@
+<view class="page">
+  <view class="hero">
+    <view class="title">XR Smoke Test</view>
+    <view class="copy">Minimal XR mount check for runtime isolation.</view>
+  </view>
+
+  <view class="primitive-entry-panel">
+    <button class="primitive-entry-button" bindtap="openPrimitiveSample">Open Primitive Sample</button>
+    <text class="primitive-entry-hint">Used to verify xr-frame primitive geometry without affecting the current XR Smoke Test.</text>
+  </view>
+
+  <view class="card">
+    <view class="section-title">Status</view>
+    <view class="row"><text>PAGE_LOADED</text><text>{{pageLoaded ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>PAGE_READY</text><text>{{pageReady ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>XR_API_DETECTED</text><text>{{xrApiDetected ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>RAW_CREATE_XR_FRAME</text><text>{{rawCreateXRFrame ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>RAW_CAN_I_USE_XR_FRAME</text><text>{{rawCanIUseXrFrame ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>RAW_CAN_I_USE_XR_SCENE</text><text>{{rawCanIUseXrScene ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>RAW_CAN_I_USE_CAMERA</text><text>{{rawCanIUseCamera ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>XR_FRAME_NODE_EXISTS</text><text>{{xrFrameNodeExists ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>XR_SCENE_NODE_EXISTS</text><text>{{xrSceneNodeExists ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>SCENE_READY_EVENT_FIRED</text><text>{{sceneReadyEventFired ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>XR_RENDER_SURFACE_EXISTS</text><text>{{xrRenderSurfaceExists ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>MINIMAL_XR_READY</text><text>{{minimalXrReady ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>MINIMAL_XR_SURFACE_READY</text><text>{{minimalXrSurfaceReady ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>RUNTIME_OBSERVED_READY</text><text>{{runtimeObservedReady ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>READY_EVENT_CALLBACK_MISSING</text><text>{{readyEventCallbackMissing ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>MINIMAL_XR_READY_STATUS</text><text>{{minimalXrReadyStatus}}</text></view>
+    <view class="row"><text>RUNTIME_STATUS</text><text>{{runtimeStatus}}</text></view>
+    <view class="row"><text>RUNTIME_BLOCK_REASON</text><text>{{runtimeBlockReason}}</text></view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">Camera Permission</view>
+    <view class="row"><text>CAMERA_PERMISSION_KNOWN</text><text>{{cameraPermissionKnown ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>CAMERA_PERMISSION_GRANTED</text><text>{{cameraPermissionGranted ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>CAMERA_PERMISSION_STATUS</text><text>{{cameraPermissionStatus}}</text></view>
+    <view class="row"><text>CAMERA_PERMISSION_MESSAGE</text><text>{{cameraPermissionMessage}}</text></view>
+    <view class="row"><text>CAMERA_PERMISSION_CHECKED_AT</text><text>{{cameraPermissionCheckedAt}}</text></view>
+    <button class="primary-button" bindtap="checkCameraPermission">Check camera permission</button>
+    <button wx:if="{{cameraPermissionNeedOpenSetting}}" class="primary-button" style="margin-top: 16rpx;" bindtap="openCameraPermissionSetting">Open settings</button>
+    <button wx:if="{{!cameraPermissionNeedOpenSetting}}" class="primary-button" style="margin-top: 16rpx;" bindtap="requestCameraPermission">Request camera permission</button>
+  </view>
+
+  <view class="card">
+    <view class="section-title">XR Surface</view>
+    <xr-smoke-frame id="xr-smoke-frame" bind:smoke="onSmokeResult" bind:ready="onXrSceneReady"></xr-smoke-frame>
+  </view>
+
+  <view class="card">
+    <view class="section-title">Camera Preview Baseline</view>
+    <view class="copy" style="margin-bottom: 16rpx;">This phase only verifies camera preview preconditions. No marker, no 3D model, no business data.</view>
+    <view class="row"><text>CAMERA_PREVIEW_REQUESTED</text><text>{{cameraPreviewRequested ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>CAMERA_PREVIEW_AVAILABLE</text><text>{{cameraPreviewAvailable ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>CAMERA_PREVIEW_SURFACE_VISIBLE</text><text>{{cameraPreviewSurfaceVisible ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>CAMERA_PREVIEW_STATUS</text><text>{{cameraPreviewStatus}}</text></view>
+    <view class="row"><text>CAMERA_PREVIEW_BLOCK_REASON</text><text>{{cameraPreviewBlockReason}}</text></view>
+    <view class="row"><text>CAMERA_PREVIEW_CHECKED_AT</text><text>{{cameraPreviewCheckedAt}}</text></view>
+    <button class="primary-button" style="margin-top: 16rpx;" bindtap="startCameraPreviewBaseline">Start camera preview baseline</button>
+  </view>
+
+  <view class="card">
+    <view class="section-title">Simple 3D Object Render</view>
+    <view class="copy" style="margin-bottom: 16rpx;">此入口直接打开已通过真机验证的 xr-primitive-sample 页面，作为当前项目 XR 最小标准模板。</view>
+    <view class="simple3d-diagnostics-panel">
+      <button class="simple3d-diagnostics-button" bindtap="openSimple3dRendererPage">打开 XR 标准模板</button>
+      <view class="simple3d-diagnostics-hint">当前 XR 标准基线以 xr-primitive-sample 为准；本入口用于打开已通过模板，不再继续在 Smoke Test 内混排 xr-scene。</view>
+    </view>
+    <view class="row"><text>SIMPLE_3D_RENDER_REQUESTED</text><text>{{simple3dRenderRequested ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>SIMPLE_3D_RENDER_SOURCE</text><text>{{simple3dRenderSource || '-'}}</text></view>
+    <view class="row"><text>SIMPLE_3D_RENDERER_PAGE_OPENED</text><text>{{simple3dRendererPageOpened ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>SIMPLE_3D_FRAME_MOUNTED</text><text>{{simple3dFrameMounted ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>SIMPLE_3D_EVENT_RECEIVED</text><text>{{simple3dEventReceived ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>SIMPLE_3D_LAST_EVENT_TYPE</text><text>{{simple3dLastEventType}}</text></view>
+    <view class="row"><text>SIMPLE_3D_EVENT_CHECKED_AT</text><text>{{simple3dEventCheckedAt}}</text></view>
+    <view class="row"><text>SIMPLE_3D_OBJECT_VISIBLE</text><text>{{simple3dObjectVisible ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>SIMPLE_3D_RENDER_STATUS</text><text>{{simple3dRenderStatus}}</text></view>
+    <view class="row"><text>SIMPLE_3D_RENDER_BLOCK_REASON</text><text>{{simple3dRenderBlockReason}}</text></view>
+    <view class="row"><text>SIMPLE_3D_RENDER_CHECKED_AT</text><text>{{simple3dRenderCheckedAt}}</text></view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">景点 XR 显现</view>
+    <view class="copy" style="margin-bottom: 16rpx;">打开已通过真机验证的 XR 渲染页，查看景点信物的最小 3D 显现效果。</view>
+    <view class="scenic-point-entry-panel">
+      <button class="scenic-point-entry-button" bindtap="openScenicPointRenderer">打开景点 XR Renderer</button>
+      <view class="scenic-point-entry-hint">当前设备暂未完成 XR 显现，可继续通过普通探索流程获得信物。</view>
+    </view>
+    <view class="row"><text>XR_SCENIC_POINT_RENDER_RETURNED</text><text>{{scenicPointRenderReturned ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>XR_SCENIC_POINT_RENDER_STATUS</text><text>{{scenicPointRenderStatus}}</text></view>
+    <view class="row"><text>XR_SCENIC_POINT_OBJECT_VISIBLE</text><text>{{scenicPointObjectVisible ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>XR_SCENIC_POINT_BLOCK_REASON</text><text>{{scenicPointBlockReason}}</text></view>
+    <view class="row"><text>XR_SCENIC_POINT_CHECKED_AT</text><text>{{scenicPointCheckedAt}}</text></view>
+    <view wx:if="{{scenicPointFallbackMessage}}" class="scenic-point-result-message">{{scenicPointFallbackMessage}}</view>
+  </view>
+</view>

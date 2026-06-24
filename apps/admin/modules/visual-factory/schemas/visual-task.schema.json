@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Visual Task",
+  "type": "object",
+  "required": ["id", "type", "explorationPointId", "title", "status", "priority", "createdAt"],
+  "properties": {
+    "id": { "type": "string" },
+    "type": { "type": "string" },
+    "explorationPointId": { "type": "string" },
+    "title": { "type": "string" },
+    "effectType": { "type": "string" },
+    "status": { "type": "string" },
+    "priority": { "type": "string" },
+    "createdAt": { "type": "string" }
+  },
+  "additionalProperties": true
+}

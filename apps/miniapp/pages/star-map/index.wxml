@@ -15,6 +15,8 @@
     </view>
   </view>
 
+  <view class="map-atlas-intro">星宿如盘，缓缓展开。青龙象已完整呈现，其余星域结构就绪——完整星点网络视觉待专项补全。</view>
+
   <view class="star-map-toolbar" wx:if="{{view === 'symbol'}}">
     <button class="star-map-back" bindtap="onBackOverview">返回四象</button>
   </view>
@@ -66,14 +68,13 @@
           <view class="proto-progress-fill" style="width: {{mansion.progressPercent}}%;"></view>
         </view>
         <view class="proto-chip-row">
-          <view
-            class="proto-chip {{star.lit ? 'proto-chip--lit' : 'proto-chip--dim'}} {{star.focused ? 'proto-chip--focus' : ''}}"
+          <view class="proto-chip {{star.lit ? 'proto-chip--lit' : 'proto-chip--dim'}} {{star.focused ? 'proto-chip--focus' : ''}}"
             wx:for="{{mansion.stars}}"
             wx:key="id"
             wx:for-item="star"
           >
+            <view class="star-chip-dot {{star.lit ? 'star-chip-dot--lit' : ''}}"></view>
             <view class="star-chip-name">{{star.name}}</view>
-            <view class="star-chip-status">{{star.statusLabel}}</view>
           </view>
         </view>
       </view>

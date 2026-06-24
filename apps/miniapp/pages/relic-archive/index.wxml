@@ -1,110 +1,135 @@
-<view class="page mvp-page proto-relic-page">
-  <view class="page-title">{{title}}</view>
-  <view class="page-desc">{{intro}}</view>
-
-  <view class="progress-panel">
-    <view>
-      <view class="eyebrow">收藏进度</view>
-      <view class="progress-title">{{progress.display}}</view>
+<view class="proto-page user-phase1-page mvp-page proto-relic-page">
+  <view class="proto-hero relic-hero">
+    <view class="proto-kicker">收藏册</view>
+    <view class="proto-title">{{title}}</view>
+    <view class="proto-subtitle">印记次第显现，故事缓缓展开</view>
+    <view class="user-hero-stats">
+      <view class="user-stat-pill">
+        <view class="user-stat-value">{{progress.collected}}</view>
+        <view class="user-stat-label">已收录</view>
+      </view>
+      <view class="user-stat-pill">
+        <view class="user-stat-value">{{progress.total - progress.collected}}</view>
+        <view class="user-stat-label">待显现</view>
+      </view>
     </view>
-    <view class="progress-count">景区信物</view>
   </view>
 
   <view class="boundary-panel">{{boundary}}</view>
 
-  <view class="focused-relic-panel" wx:if="{{focusedRelic}}">
-    <view class="focused-head">
-      <view class="eyebrow">信物详情</view>
-      <button class="focus-dismiss" bindtap="onClearFocus">返回库</button>
-    </view>
-    <view class="focused-title">{{focusedRelic.name}}</view>
-    <view class="focused-status">{{focusedRelic.status}}</view>
-    <view class="detail-row">
-      <view class="detail-label">章节</view>
-      <view class="detail-copy">{{focusedRelic.chapter}}</view>
-    </view>
-    <view class="detail-row" wx:if="{{focusedRelic.nodeTitle}}">
-      <view class="detail-label">节点</view>
-      <view class="detail-copy">{{focusedRelic.nodeTitle}}</view>
-    </view>
-    <view class="detail-row" wx:if="{{focusedRelic.description}}">
-      <view class="detail-label">记念</view>
-      <view class="detail-copy">{{focusedRelic.description}}</view>
-    </view>
-    <view class="detail-row" wx:if="{{focusedRelic.awarenessLine}}">
-      <view class="detail-label">觉察</view>
-      <view class="detail-copy">{{focusedRelic.awarenessLine}}</view>
-    </view>
-    <view class="star-map-panel" wx:if="{{focusedRelic.starMapped}}">
-      <view class="detail-row">
-        <view class="detail-label">文化别名</view>
-        <view class="detail-copy">{{focusedRelic.starAliasName}}</view>
+  <view class="relic-focus-ritual" wx:if="{{focusedRelic}}">
+    <view class="relic-focus-ritual__kicker">当前选中的印记</view>
+    <view class="focused-relic-panel">
+      <view class="focused-head">
+        <view class="focused-title">{{focusedRelic.name}}</view>
+        <button class="focus-dismiss" bindtap="onClearFocus">合册</button>
       </view>
+      <view class="focused-status">{{focusedRelic.status}}</view>
       <view class="detail-row">
-        <view class="detail-label">所属星宿</view>
-        <view class="detail-copy">{{focusedRelic.starMansionName}}</view>
+        <view class="detail-label">章节</view>
+        <view class="detail-copy">{{focusedRelic.chapter}}</view>
       </view>
-      <view class="detail-row">
-        <view class="detail-label">所属四象</view>
-        <view class="detail-copy">{{focusedRelic.starSymbolName}}</view>
+      <view class="detail-row" wx:if="{{focusedRelic.description}}">
+        <view class="detail-label">记念</view>
+        <view class="detail-copy">{{focusedRelic.description}}</view>
       </view>
-      <button
-        class="star-map-link"
-        data-path="{{focusedRelic.starMapPath}}"
-        bindtap="onOpenStarMap"
-      >
-        查看星图
-      </button>
-    </view>
-    <view class="star-map-unmapped" wx:else>
-      <view class="detail-label">星图归属</view>
-      <view class="detail-copy">暂未归入星图</view>
-    </view>
-    <view class="meridian-map-panel" wx:if="{{focusedRelic.meridianMapped}}">
-      <view class="detail-row">
-        <view class="detail-label">文化别名</view>
-        <view class="detail-copy">{{focusedRelic.meridianPointName}}</view>
+      <view class="detail-row" wx:if="{{focusedRelic.awarenessLine}}">
+        <view class="detail-label">觉察</view>
+        <view class="detail-copy">{{focusedRelic.awarenessLine}}</view>
       </view>
-      <view class="detail-row">
-        <view class="detail-label">所属经络</view>
-        <view class="detail-copy">{{focusedRelic.meridianName}}</view>
-      </view>
-      <button
-        class="meridian-map-link"
-        data-path="{{focusedRelic.meridianMapPath}}"
-        bindtap="onOpenMeridianMap"
-      >
-        查看经络图
-      </button>
-    </view>
-    <view class="meridian-map-unmapped" wx:else>
-      <view class="detail-label">经络归属</view>
-      <view class="detail-copy">暂未归入经络图</view>
+      <button wx:if="{{focusedRelic.starMapped}}" class="star-map-link" data-path="{{focusedRelic.starMapPath}}" bindtap="onOpenStarMap">查看星图归属</button>
+      <button wx:if="{{focusedRelic.meridianMapped}}" class="meridian-map-link" data-path="{{focusedRelic.meridianMapPath}}" bindtap="onOpenMeridianMap">查看经络归属</button>
     </view>
   </view>
 
   <view class="scenic-group" wx:for="{{groups}}" wx:key="scenicId">
-    <view class="group-head">
-      <view>
-        <view class="group-title">{{item.scenicName}}</view>
-        <view class="group-meta">{{item.collected}}/{{item.total}} 已收藏</view>
-      </view>
-      <button class="group-link" data-id="{{item.scenicId}}" bindtap="onOpenScenic">景区</button>
+    <view class="relic-chapter-head">
+      <view class="relic-chapter-title">{{item.scenicName}}</view>
+      <view class="relic-chapter-meta">册页 · 已收录 {{item.collected}} / {{item.total}}</view>
     </view>
     <view class="group-progress-bar">
       <view class="group-progress-fill" style="width: {{item.total ? item.collected / item.total * 100 : 0}}%;"></view>
     </view>
-    <view class="placeholder-copy" wx:if="{{item.placeholder}}">{{item.placeholder}}</view>
-    <view class="list" wx:else>
-      <view class="relic-card {{item.highlighted ? 'relic-card--highlight' : ''}}" wx:for="{{item.relics}}" wx:key="id">
-        <view class="card-head">
-          <view>
-            <view class="card-title">{{item.name}}</view>
-            <view class="card-meta">{{item.chapter}}</view>
-          </view>
-          <view class="card-status">{{item.status}}</view>
+
+    <view class="relic-album-wrap">
+      <view class="relic-album-spine">印记册页</view>
+
+      <view class="placeholder-copy" wx:if="{{item.album.hasPlaceholder}}">{{item.album.placeholder}}</view>
+
+      <block wx:else>
+        <view class="relic-album-empty" wx:if="{{item.album.isEmptyOwned}}">
+          <view class="relic-album-empty__title">{{item.album.emptyState.title}}</view>
+          <view class="relic-album-empty__body">{{item.album.emptyState.body}}</view>
+          <button class="proto-btn proto-btn--primary relic-album-empty__btn" bindtap="onContinueExplore">前往探索</button>
         </view>
-      </view>
+
+        <view class="relic-album-grid" wx:if="{{item.album.visibleSlots.length}}">
+          <view
+            class="relic-album-slot relic-album-slot--{{slot.kind}} {{slot.highlighted ? 'relic-album-slot--focus' : ''}}"
+            wx:for="{{item.album.visibleSlots}}"
+            wx:for-item="slot"
+            wx:key="key"
+            data-relic-id="{{slot.id}}"
+            data-kind="{{slot.kind}}"
+            bindtap="onSlotTap"
+          >
+            <view class="relic-seal {{slot.kind !== 'owned' ? 'relic-seal--pending' : ''}}"></view>
+            <view class="relic-album-slot__name" wx:if="{{slot.kind === 'owned'}}">{{slot.name}}</view>
+            <view class="relic-album-slot__meta" wx:if="{{slot.kind === 'owned'}}">{{slot.chapter}}</view>
+            <view class="relic-album-slot__label" wx:else>{{slot.label}}</view>
+          </view>
+        </view>
+
+        <view class="relic-album-grid relic-album-grid--teaser" wx:if="{{item.album.isEmptyOwned && item.album.teaserSlots.length}}">
+          <view
+            class="relic-album-slot relic-album-slot--pending-teaser"
+            wx:for="{{item.album.teaserSlots}}"
+            wx:for-item="slot"
+            wx:key="key"
+          >
+            <view class="relic-seal relic-seal--pending"></view>
+            <view class="relic-album-slot__label">{{slot.label}}</view>
+          </view>
+        </view>
+
+        <view
+          class="relic-pending-fold"
+          wx:if="{{item.album.showFold && !item.album.pendingExpanded}}"
+          data-id="{{item.scenicId}}"
+          bindtap="onTogglePending"
+        >
+          <view class="relic-pending-fold__text">尚有 {{item.album.foldedPendingCount}} 枚印记未显现</view>
+          <view class="relic-pending-fold__sub">继续探索后，它们会逐步收进这里</view>
+          <view class="relic-pending-fold__hint" wx:if="{{item.album.showExpandAll}}">展开查看全部</view>
+        </view>
+
+        <view
+          class="relic-pending-fold relic-pending-fold--open"
+          wx:if="{{item.album.showFold && item.album.pendingExpanded}}"
+          data-id="{{item.scenicId}}"
+          bindtap="onTogglePending"
+        >
+          <view class="relic-pending-fold__text">收起未显现印记</view>
+        </view>
+
+        <view class="relic-album-grid" wx:if="{{item.album.pendingExpanded && item.album.expandedPendingSlots.length}}">
+          <view
+            class="relic-album-slot relic-album-slot--pending-full"
+            wx:for="{{item.album.expandedPendingSlots}}"
+            wx:for-item="slot"
+            wx:key="key"
+          >
+            <view class="relic-seal relic-seal--pending"></view>
+            <view class="relic-album-slot__label">{{slot.label}}</view>
+          </view>
+        </view>
+      </block>
     </view>
   </view>
+
+  <view class="proto-section">
+    <button class="proto-btn proto-btn--primary" bindtap="onContinueExplore">继续探索，寻觅未现印记</button>
+  </view>
+
+  <user-bottom-nav activeKey="{{activeTab}}" bind:change="onBottomNavChange" />
 </view>

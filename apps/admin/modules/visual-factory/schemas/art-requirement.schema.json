@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Art Requirement",
+  "type": "object",
+  "required": ["effect_type", "landmark_type", "shareability_target", "style", "assets"],
+  "properties": {
+    "effect_type": { "type": "string" },
+    "landmark_type": { "type": "string" },
+    "shareability_target": { "type": "string" },
+    "style": { "type": "string" },
+    "assets": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,12 @@
+{
+  "miniprogramRoot": "./",
+  "projectname": "ar-youban",
+  "description": "AR Youban bootstrap miniapp",
+  "appid": "touristappid",
+  "setting": {
+    "es6": true,
+    "minify": false,
+    "postcss": false,
+    "urlCheck": false
+  }
+}

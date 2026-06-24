@@ -1,9 +1,1 @@
 @import '../../styles/prototype-v1.wxss';
-
-.proto-card .proto-btn {
-  margin-top: 16rpx;
-}
-
-.proto-grid-2 .proto-btn {
-  width: 100%;
-}

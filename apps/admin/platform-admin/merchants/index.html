@@ -3,264 +3,68 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Merchant Management</title>
-  <link rel="stylesheet" href="../../shared/components/library.css" />
-  <link rel="stylesheet" href="../shared/platform-admin-ui.css" />
+  <title>商家索引 · AR游伴平台后台</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
 </head>
 <body>
-  <div class="platform-shell">
-    <div id="topnav"></div>
-    <div class="platform-shell__body">
-      <div id="sidenav"></div>
-      <main class="platform-shell__main">
-        <div class="platform-shell__page">
-          <div id="breadcrumbs"></div>
-          <div id="header"></div>
-          <div id="state-switch"></div>
-          <div id="filter"></div>
-          <div id="content"></div>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div id="bo-breadcrumb"></div>
+        <div class="bo-page-header">
+          <h2>全局商家索引</h2>
+          <p>查找商家并定位所属景区 · 主路径请通过景区管理进入园区视图</p>
         </div>
+        <div class="bo-risk-notice" style="border-left-color:var(--accent-gold);background:var(--notice-bg);">
+          <strong>非一级导航</strong>
+          商家资料归属景区。日常治理请使用 <a href="../parks/index.html">景区管理</a> → 进入园区视图 → 商家数据。
+        </div>
+        <section class="card" style="margin-top:16px;">
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th>商家</th><th>所属景区</th><th>业态</th><th>活动</th><th>卡券</th><th>核销量</th><th>合作状态</th><th>联系人</th><th>操作</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>爱企谷咖啡</td><td>爱企谷</td><td>咖啡饮品</td><td>2</td><td>3</td><td>118</td>
+                  <td><span class="badge badge-success">合作中</span></td>
+                  <td>张三 · 138****0000</td>
+                  <td class="table-actions">
+                    <a class="btn btn-primary" href="../../park-admin/park_admin_merchants/index.html?asPlatform=1&parkId=park_001">进入园区视图</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>探索书屋</td><td>爱企谷</td><td>书店文创</td><td>1</td><td>1</td><td>12</td>
+                  <td><span class="badge badge-warning">需关注</span></td>
+                  <td>李四 · 138****0001</td>
+                  <td class="table-actions">
+                    <a class="btn btn-primary" href="../../park-admin/park_admin_merchants/index.html?asPlatform=1&parkId=park_001">进入园区视图</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>爱企谷民宿</td><td>爱企谷湖畔</td><td>住宿</td><td>1</td><td>2</td><td>18</td>
+                  <td><span class="badge badge-warning">待审查</span></td>
+                  <td>周店长 · 138****0004</td>
+                  <td class="table-actions">
+                    <a class="btn" href="../reviews/index.html">审查</a>
+                    <a class="btn" href="../../park-admin/park_admin_dashboard/index.html?asPlatform=1&parkId=park_002">进入园区视图</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
       </main>
     </div>
   </div>
-
   <script src="../shared/mock-store.js"></script>
-  <script src="../../shared/components/index.js"></script>
-  <script src="../shared/platform-admin-ui.js"></script>
+  <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/platform-global-search.js"></script>
+  <script src="../shared/page-boot.js"></script>
   <script>
-    (function () {
-      if (!PlatformAdminMock.requireAuth()) return;
-
-      const lib = window.AdminComponentLibrary;
-      const ui = window.PlatformAdminUI;
-      const pageSize = 2;
-      let state = 'loading';
-      let query = '';
-      let status = 'ALL';
-      let page = 1;
-      let rows = [];
-      let selectedId = null;
-
-      const topnav = document.getElementById('topnav');
-      const sidenav = document.getElementById('sidenav');
-      const breadcrumbs = document.getElementById('breadcrumbs');
-      const header = document.getElementById('header');
-      const stateSwitch = document.getElementById('state-switch');
-      const filter = document.getElementById('filter');
-      const content = document.getElementById('content');
-
-      function normalizeRows(source) {
-        const list = (source || []).slice();
-        if (list.length < 4) {
-          list.push(
-            { merchant_id: 'merchant_003', merchant_name: '爱企谷手作馆', category: '文创', park_name: '爱企谷', coupon_count: 1, redeemed_count: 68, auth_status: 'APPROVED', training_status: 'COMPLETED', contact_name: '林店长', phone: '13800000003' },
-            { merchant_id: 'merchant_004', merchant_name: '爱企谷民宿', category: '住宿', park_name: '爱企谷', coupon_count: 3, redeemed_count: 24, auth_status: 'PENDING', training_status: 'NOT_STARTED', contact_name: '周店长', phone: '13800000004' },
-            { merchant_id: 'merchant_005', merchant_name: '爱企谷花店', category: '零售', park_name: '爱企谷', coupon_count: 2, redeemed_count: 41, auth_status: 'INACTIVE', training_status: 'COMPLETED', contact_name: '吴店长', phone: '13800000005' }
-          );
-        }
-        return list;
-      }
-
-      function renderShell() {
-        const shell = ui.shell('merchants', 'Platform Admin', 'Merchant Management');
-        topnav.innerHTML = shell.topnav;
-        sidenav.innerHTML = shell.sidenav;
-        breadcrumbs.innerHTML = ui.breadcrumbs([{ label: 'Platform Admin' }, { label: 'Merchant Management' }]);
-        header.innerHTML = ui.pageHeader('Merchant Management', '商家授权、培训与核销量查看。', [
-          { label: '新建商家' },
-          { label: '景区管理', href: '../parks/index.html', variant: 'primary' }
-        ]);
-        stateSwitch.innerHTML = ui.stateSwitcher(state);
-        stateSwitch.querySelectorAll('[data-state]').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            state = btn.getAttribute('data-state');
-            renderShell();
-            renderFilter();
-            renderContent();
-          });
-        });
-      }
-
-      function renderFilter() {
-        filter.innerHTML = lib.renderFilter({
-          controls: [
-            { label: '搜索商家', placeholder: '商家名称 / 景区 / 类目', value: query },
-            { label: '授权状态', type: 'select', value: status, options: [
-              { value: 'ALL', label: '全部' },
-              { value: 'ACTIVE', label: 'ACTIVE' },
-              { value: 'INACTIVE', label: 'INACTIVE' },
-              { value: 'PENDING', label: 'PENDING' },
-              { value: 'BLOCKED', label: 'BLOCKED' }
-            ] }
-          ],
-          actions: [
-            { label: '重置', variant: 'neutral', type: 'button' },
-            { label: '筛选', variant: 'primary', type: 'button' }
-          ]
-        });
-        const inputs = filter.querySelectorAll('.ad-input, .ad-select');
-        inputs[0].value = query;
-        inputs[1].value = status;
-        inputs[0].addEventListener('input', function (e) { query = e.target.value; page = 1; renderContent(); });
-        inputs[1].addEventListener('change', function (e) { status = e.target.value; page = 1; renderContent(); });
-        filter.querySelectorAll('.ad-btn').forEach(function (btn, index) {
-          btn.addEventListener('click', function () {
-            if (index === 0) {
-              query = '';
-              status = 'ALL';
-            }
-            page = 1;
-            renderFilter();
-            renderContent();
-          });
-        });
-      }
-
-      function filterRows() {
-        return rows.filter(function (item) {
-          const text = [item.merchant_name, item.park_name, item.category, item.contact_name].join(' ').toLowerCase();
-          const matchedQuery = !query || text.indexOf(query.toLowerCase()) >= 0;
-          const matchedStatus = status === 'ALL' || item.auth_status === status;
-          return matchedQuery && matchedStatus;
-        });
-      }
-
-      function selectedRow(list) {
-        return list.find(function (item) { return item.merchant_id === selectedId; }) || list[0] || null;
-      }
-
-      function detailHtml(row) {
-        if (!row) {
-          return '<div>' + ui.stateBlock('empty', { title: '请选择商家', description: '点击查看按钮打开详情' }) + '</div>';
-        }
-        return [
-          '<div class="detail-row"><div class="k">商家名称</div><div>' + row.merchant_name + '</div></div>',
-          '<div class="detail-row"><div class="k">所属景区</div><div>' + row.park_name + '</div></div>',
-          '<div class="detail-row"><div class="k">类目</div><div>' + row.category + '</div></div>',
-          '<div class="detail-row"><div class="k">授权状态</div><div>' + ui.badge(row.auth_status) + '</div></div>',
-          '<div class="detail-row"><div class="k">培训状态</div><div>' + ui.badge(row.training_status) + '</div></div>',
-          '<div class="detail-row"><div class="k">卡券数</div><div>' + row.coupon_count + '</div></div>',
-          '<div class="detail-row"><div class="k">核销量</div><div>' + row.redeemed_count + '</div></div>',
-          '<div class="detail-row"><div class="k">联系人</div><div>' + row.contact_name + ' / ' + row.phone + '</div></div>'
-        ].join('');
-      }
-
-      async function updateStatus(id, nextStatus) {
-        rows = rows.map(function (row) {
-          if (row.merchant_id !== id) return row;
-          return Object.assign({}, row, { auth_status: nextStatus });
-        });
-        await PlatformAdminMock.saveDataset('platform_merchants', rows);
-        selectedId = id;
-        renderContent();
-      }
-
-      function renderSuccess() {
-        const filtered = filterRows();
-        const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
-        if (page > totalPages) page = totalPages;
-        const slice = filtered.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
-        if (!filtered.length) {
-          content.innerHTML = ui.stateBlock('empty', { title: '暂无商家', description: '当前筛选条件下没有结果' });
-          return;
-        }
-        if (!selectedId && slice[0]) selectedId = slice[0].merchant_id;
-        const current = selectedRow(slice);
-
-        content.innerHTML = [
-          '<section class="detail-layout">',
-          '<div class="detail-stack">',
-          '<section class="ad-surface page-card">',
-          lib.renderTable({
-            columns: [
-              { key: 'merchant_name', label: '商家名称' },
-              { key: 'park_name', label: '所属景区' },
-              { key: 'auth_status', label: '授权状态', render: function (row) { return { html: ui.badge(row.auth_status) }; } },
-              { key: 'training_status', label: '培训状态', render: function (row) { return { html: ui.badge(row.training_status) }; } },
-              { key: 'coupon_count', label: '卡券数' },
-              { key: 'redeemed_count', label: '核销量' },
-              {
-                key: 'actions',
-                label: '操作',
-                render: function (row) {
-                  const toggle = row.auth_status === 'ACTIVE' ? '禁用' : '启用';
-                  const next = row.auth_status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
-                  return {
-                    html: '<div class="table-actions">' +
-                      '<button class="ad-btn" data-view="' + row.merchant_id + '">查看</button>' +
-                      '<button class="ad-btn ad-btn--primary" data-toggle="' + row.merchant_id + '" data-next="' + next + '">' + toggle + '</button>' +
-                      '</div>'
-                  };
-                }
-              }
-            ],
-            rows: slice
-          }),
-          '</section>',
-          '<div id="pagination"></div>',
-          '</div>',
-          '<div>' + lib.renderDrawer({
-            open: true,
-            title: '商家详情',
-            bodyHtml: detailHtml(current),
-            actions: [
-              { label: '启用', variant: 'primary', disabled: !current || current.auth_status === 'ACTIVE' },
-              { label: '禁用', variant: 'danger', disabled: !current || current.auth_status === 'INACTIVE' }
-            ]
-          }) + '</div>',
-          '</section>'
-        ].join('');
-
-        const pagination = document.getElementById('pagination');
-        pagination.innerHTML = lib.renderPagination({ page: page, totalPages: totalPages });
-        const pagerButtons = pagination.querySelectorAll('button');
-        if (pagerButtons[0]) pagerButtons[0].addEventListener('click', function () { if (page > 1) { page -= 1; renderSuccess(); } });
-        if (pagerButtons[1]) pagerButtons[1].addEventListener('click', function () { if (page < totalPages) { page += 1; renderSuccess(); } });
-
-        content.querySelectorAll('[data-view]').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            selectedId = btn.getAttribute('data-view');
-            renderSuccess();
-          });
-        });
-        content.querySelectorAll('[data-toggle]').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            updateStatus(btn.getAttribute('data-toggle'), btn.getAttribute('data-next'));
-          });
-        });
-      }
-
-      function renderContent() {
-        if (state === 'loading' || state === 'empty' || state === 'error') {
-          content.innerHTML = ui.stateBlock(state, {
-            title: state === 'loading' ? '商家列表加载中' : state === 'empty' ? '商家列表为空' : '商家列表加载失败',
-            description: '支持搜索、筛选、分页和状态切换。'
-          });
-          return;
-        }
-        renderSuccess();
-      }
-
-      async function boot() {
-        renderShell();
-        renderFilter();
-        renderContent();
-        try {
-          rows = normalizeRows(await PlatformAdminMock.loadDataset('platform_merchants'));
-          state = 'success';
-          renderShell();
-          renderFilter();
-          renderContent();
-        } catch (_err) {
-          state = 'error';
-          renderShell();
-          renderFilter();
-          renderContent();
-        }
-      }
-
-      boot();
-    })();
+    if (!PlatformAdminMock.requireAuth()) throw new Error("auth");
+    PlatformPageBoot.boot("parks", [{ label: "平台运营" }, { label: "商家索引" }]);
   </script>
 </body>
 </html>

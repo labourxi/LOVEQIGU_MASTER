@@ -1,0 +1,50 @@
+[
+  {
+    "path": "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1/alignment_overlay.png",
+    "before_kb": 71.61,
+    "after_kb": 233.86,
+    "saved_kb": -162.25
+  },
+  {
+    "path": "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1/position_guide.png",
+    "before_kb": 45.81,
+    "after_kb": 130.2,
+    "saved_kb": -84.39
+  },
+  {
+    "path": "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.png",
+    "before_kb": 105.88,
+    "after_kb": 312.63,
+    "saved_kb": -206.75
+  },
+  {
+    "path": "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_energy_flow.png",
+    "before_kb": 80.27,
+    "after_kb": 283.23,
+    "saved_kb": -202.96
+  },
+  {
+    "path": "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_head_reveal.png",
+    "before_kb": 95.46,
+    "after_kb": 339.75,
+    "saved_kb": -244.29
+  },
+  {
+    "path": "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/azure_dragon_seal.png",
+    "before_kb": 19.0,
+    "after_kb": 124.79,
+    "saved_kb": -105.79
+  },
+  {
+    "path": "apps/miniapp/assets/ar_factory/landmark_ar_poc_v1/alignment_overlay.png",
+    "before_kb": 10.74,
+    "after_kb": 10.12,
+    "saved_kb": 0.62
+  },
+  {
+    "path": "apps/miniapp/assets/ar_factory/landmark_ar_poc_v1/position_guide.png",
+    "before_kb": 6.61,
+    "after_kb": 4.32,
+    "saved_kb": 2.29
+  }
+]

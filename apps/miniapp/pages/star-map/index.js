@@ -1,5 +1,8 @@
 const starMapService = require('../../services/star-map/star-map-service');
 const culturalCopyService = require('../../services/cultural/cultural-copy-service');
+const userRuntime = require('../../services/user-runtime-adapter/index');
+const phase1PageGuard = require('../../behaviors/phase1-page-guard');
+const safeInteraction = require('../../behaviors/safe-interaction');
 
 const EMPTY_CELEBRATION = {
   visible: false,
@@ -20,12 +23,23 @@ function attachMansionCulture(mansion) {
 
 function buildOverviewData(focusAliasId) {
   const overview = starMapService.getStarMapOverview();
+  userRuntime.boot();
+  const adapter = userRuntime.getAdapter();
+  let progressPercent = overview.progressPercent;
+  let litDisplay = overview.litDisplay;
+  if (adapter) {
+    const runtimeProgress = adapter.getStarMapProgress(userRuntime.getUserId(), userRuntime.getActivityId());
+    if (runtimeProgress.litCount > 0) {
+      progressPercent = Math.max(progressPercent, runtimeProgress.progressPercent);
+      litDisplay = `${runtimeProgress.litCount}/${runtimeProgress.totalRelics || overview.litDisplay}`;
+    }
+  }
   return {
     view: 'overview',
     title: overview.title,
     subtitle: overview.subtitle,
-    litDisplay: overview.litDisplay,
-    progressPercent: overview.progressPercent,
+    litDisplay,
+    progressPercent,
     symbols: overview.symbols.map((symbol) => {
       const copy = culturalCopyService.getSymbolCopy(symbol.id);
       return {
@@ -67,6 +81,7 @@ function buildSymbolView(symbolId, focusAliasId) {
 }
 
 Page({
+  behaviors: [phase1PageGuard, safeInteraction],
   data: {
     ...buildOverviewData(),
     celebration: { ...EMPTY_CELEBRATION }
@@ -135,6 +150,7 @@ Page({
   onOpenSymbol(event) {
     const { id } = event.currentTarget.dataset;
     if (!id) {
+      this.showFallbackToast('功能开发中');
       return;
     }
     this.setData(buildSymbolView(id, ''));

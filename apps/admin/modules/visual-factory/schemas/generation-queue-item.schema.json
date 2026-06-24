@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generation Queue Item",
+  "type": "object",
+  "required": ["task_id", "prompt_id", "status", "created_at", "updated_at"],
+  "properties": {
+    "id": { "type": "string" },
+    "task_id": { "type": "string" },
+    "prompt_id": { "type": "string" },
+    "status": { "type": "string" },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" }
+  },
+  "additionalProperties": true
+}

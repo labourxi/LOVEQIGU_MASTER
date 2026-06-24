@@ -61,6 +61,9 @@ omx/tmp/
 omx/output/
 omx/dist/
 
+# Visual factory batch manifests (signed URLs may embed credentials)
+data/visual_factory/batches/**/batch_manifest.json
+
 # Ductor local artifacts
 ductor/.cache/
 ductor/tmp/

@@ -47,4 +47,8 @@
       <view class="seal-row-status">{{human.humanSeal.statusLabel}}</view>
     </view>
   </view>
+
+  <view class="proto-section">
+    <button class="proto-btn proto-btn--ghost" bindtap="onBackHome">返回首页</button>
+  </view>
 </view>

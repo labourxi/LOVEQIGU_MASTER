@@ -1,4 +1,5 @@
 const campaignService = require('../../services/campaign/campaign-service');
+const safeInteraction = require('../../behaviors/safe-interaction');
 
 function mapCampaigns() {
   return campaignService.getAllCampaigns().map((item) => ({
@@ -24,6 +25,7 @@ function buildPageData() {
 }
 
 Page({
+  behaviors: [safeInteraction],
   data: buildPageData(),
 
   onLoad() {
@@ -32,9 +34,10 @@ Page({
 
   onNavigate(event) {
     const { path } = event.currentTarget.dataset;
-
-    wx.navigateTo({
-      url: path
-    });
+    if (!path) {
+      this.showFallbackToast('功能开发中');
+      return;
+    }
+    this.safeNavigate(path);
   }
 });

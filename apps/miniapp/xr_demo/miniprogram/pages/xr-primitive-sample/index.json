@@ -1,0 +1,5 @@
+{
+  "navigationBarTitleText": "XR Primitive Sample",
+  "renderer": "xr-frame",
+  "usingComponents": {}
+}

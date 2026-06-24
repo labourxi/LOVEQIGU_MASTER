@@ -1,0 +1,64 @@
+<view class="page">
+  <view class="hero">
+    <view class="title">XR Primitive Sample</view>
+    <view class="copy">This isolated page verifies minimal xr-frame GLTF rendering. No marker, no anchor, no business data, no texture.</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">Status</view>
+    <view class="row"><text>PAGE_LOADED</text><text>{{pageLoaded ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>PAGE_READY</text><text>{{pageReady ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>PRIMITIVE_SAMPLE_MOUNTED</text><text>{{primitiveSampleMounted ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>PRIMITIVE_RENDER_SURFACE_VISIBLE</text><text>{{primitiveRenderSurfaceVisible ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>PRIMITIVE_SURFACE_OBSERVED</text><text>{{primitiveSurfaceObserved ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>PRIMITIVE_OBJECT_VISIBLE</text><text>{{primitiveObjectVisible ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>PRIMITIVE_OBJECT_QUERY_RESULT</text><text>{{primitiveObjectQueryResult || '-'}}</text></view>
+    <view class="row"><text>PRIMITIVE_SAMPLE_STATUS</text><text>{{primitiveSampleStatus}}</text></view>
+    <view class="row"><text>PRIMITIVE_BLOCK_REASON</text><text>{{primitiveBlockReason}}</text></view>
+    <view class="row"><text>PRIMITIVE_CHECKED_AT</text><text>{{primitiveCheckedAt}}</text></view>
+    <view class="row"><text>PRIMITIVE_ERROR</text><text>{{primitiveError || '-'}}</text></view>
+    <view class="row"><text>PRIMITIVE_RENDER_MODE</text><text>{{primitiveRenderMode}}</text></view>
+    <view class="row"><text>PRIMITIVE_TRACKER_ENABLED</text><text>{{primitiveTrackerEnabled ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>PRIMITIVE_TRACKER_TYPE</text><text>{{primitiveTrackerType}}</text></view>
+    <view class="row"><text>MINIMAL_GLTF_ASSET_ADDED</text><text>{{minimalGltfAssetAdded ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>MINIMAL_GLTF_ASSET_SIZE_KB</text><text>{{minimalGltfAssetSizeKb || '-'}}</text></view>
+    <view class="row"><text>SURFACE_BOX_QUERY_RESULT</text><text>{{surfaceBoxQueryResult || '-'}}</text></view>
+    <view class="row"><text>SCENE_QUERY_RESULT</text><text>{{sceneQueryResult || '-'}}</text></view>
+    <view class="row"><text>PRIMITIVE_NODE_QUERY_RESULT</text><text>{{primitiveNodeQueryResult || '-'}}</text></view>
+    <view class="row"><text>PRIMITIVE_OBJECT_QUERY_RESULT</text><text>{{primitiveObjectQueryResult || '-'}}</text></view>
+    <view class="row"><text>SELECTOR_DIAGNOSTICS_CHECKED_AT</text><text>{{selectorDiagnosticsCheckedAt || '-'}}</text></view>
+  </view>
+
+  <view class="primitive-diagnostics-panel">
+    <button class="primitive-diagnostics-button" bindtap="runPrimitiveSelectorDiagnostics">
+      运行 Primitive 节点诊断
+    </button>
+    <view class="primitive-diagnostics-hint">
+      查询 surface / scene / node / object 节点，用于确认最小 3D 对象是否挂载。
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">XR Surface</view>
+    <view class="copy" style="margin-bottom: 16rpx;">This page only checks minimal GLTF rendering. Plane tracker is isolated and disabled for the baseline.</view>
+    <view id="xr-primitive-surface-box" class="xr-surface-shell">
+      <xr-frame id="xr-primitive-frame">
+        <xr-scene id="xr-primitive-scene" bind:ready="handleReady">
+          <xr-assets>
+            <xr-asset-load type="gltf" asset-id="primitive-model" src="models/test.gltf" />
+          </xr-assets>
+          <xr-node id="xr-primitive-node">
+            <xr-gltf id="xr-primitive-object" model="primitive-model" />
+          </xr-node>
+          <xr-camera background="ar" is-ar-camera />
+        </xr-scene>
+      </xr-frame>
+    </view>
+    <view class="xr-surface-note">If the model cannot be confirmed on device, the page stays isolated and reports a clear block reason.</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">Diagnostics</view>
+    <view class="row"><text>SELECTOR_DIAGNOSTICS_COUNT</text><text>{{selectorDiagnostics.length}}</text></view>
+  </view>
+</view>

@@ -1,0 +1,51 @@
+[
+  {
+    "from": "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1/alignment_overlay.png",
+    "to": "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1/alignment_overlay.webp",
+    "before_kb": 233.86,
+    "after_kb": 114.25,
+    "quality": 82
+  },
+  {
+    "from": "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1/position_guide.png",
+    "to": "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1/position_guide.webp",
+    "before_kb": 130.2,
+    "after_kb": 25.06,
+    "quality": 82
+  },
+  {
+    "from": "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.png",
+    "to": "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.webp",
+    "before_kb": 312.63,
+    "after_kb": 75.41,
+    "quality": 82
+  },
+  {
+    "from": "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_energy_flow.png",
+    "to": "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_energy_flow.webp",
+    "before_kb": 283.23,
+    "after_kb": 55.81,
+    "quality": 82
+  },
+  {
+    "from": "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_head_reveal.png",
+    "to": "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_head_reveal.webp",
+    "before_kb": 339.75,
+    "after_kb": 72.19,
+    "quality": 82
+  },
+  {
+    "from": "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/azure_dragon_seal.png",
+    "to": "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/azure_dragon_seal.webp",
+    "before_kb": 124.79,
+    "after_kb": 78.12,
+    "quality": 82
+  },
+  {
+    "from": "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/preview_sheet.png",
+    "to": "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/preview_sheet.webp",
+    "before_kb": 114.71,
+    "after_kb": 82.63,
+    "quality": 82
+  }
+]

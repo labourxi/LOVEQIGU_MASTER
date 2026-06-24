@@ -64,26 +64,13 @@
   </view>
 
   <view class="proto-section">
-    <view class="proto-section-head">
-      <view class="proto-section-title">推荐商家</view>
-      <view class="proto-section-more">来自活动绑定点位</view>
-    </view>
-    <view class="proto-card" wx:for="{{merchantHighlights}}" wx:key="merchant_id">
-      <view class="proto-row">
-        <view class="proto-card-title">{{item.merchant_name}}</view>
-        <view class="proto-badge">{{item.task_status}}</view>
-      </view>
-      <view class="proto-card-copy">{{item.point_name}} · {{item.task_name}}</view>
-      <view class="proto-card-meta">卡券状态：{{item.coupon_status}}</view>
-    </view>
-  </view>
-
-  <view class="proto-section">
     <view class="proto-grid-2">
       <button class="proto-btn proto-btn--ghost" bindtap="onOpenEvent">返回活动页</button>
-      <button class="proto-btn" bindtap="onOpenExploration">查看探索点</button>
-      <button wx:if="{{isComplete}}" class="proto-btn proto-btn--primary" bindtap="onOpenCompletion">查看完成页</button>
+      <button class="proto-btn" bindtap="onOpenExploration">查看探索地图</button>
+      <button wx:if="{{isComplete}}" class="proto-btn proto-btn--primary" bindtap="onOpenCompletion">查看信物获得页</button>
       <button wx:if="{{!isComplete}}" class="proto-btn" disabled>活动未完成</button>
     </view>
   </view>
+
+  <user-bottom-nav activeKey="{{activeTab}}" bind:change="onBottomNavChange" />
 </view>

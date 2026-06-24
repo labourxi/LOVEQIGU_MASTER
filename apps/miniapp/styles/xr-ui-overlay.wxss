@@ -1,0 +1,41 @@
+/* UI / XR decouple: UI stays in overlay layers, never inside xr-frame. */
+
+.xr-page-fixed {
+  position: relative;
+  min-height: 100vh;
+}
+
+.xr-host-layer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.xr-host-layer--ar-entry {
+  height: 520rpx;
+}
+
+.ui-overlay-layer {
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.ui-overlay-layer--absolute {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 11;
+  pointer-events: none;
+}
+
+.ui-overlay-layer--absolute .proto-btn,
+.ui-overlay-layer--absolute button,
+.ui-overlay-layer--absolute .user-path-link {
+  pointer-events: auto;
+}

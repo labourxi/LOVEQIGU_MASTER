@@ -28,8 +28,9 @@
     "pages/seals/index",
     "pages/reward-center/index"
   ],
+  "subpackages": [],
   "window": {
-    "navigationBarTitleText": "AR游伴",
+    "navigationBarTitleText": "AR娓镐即",
     "navigationBarBackgroundColor": "#263a34",
     "navigationBarTextStyle": "white",
     "backgroundColor": "#f4f1eb"

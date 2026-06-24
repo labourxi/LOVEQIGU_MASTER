@@ -1,0 +1,86 @@
+{
+  "generated_at": "2026-06-23T09:34:00Z",
+  "batch": "VISUAL_LANDING_PRODUCTION_V1/batch_001",
+  "records": [
+    {
+      "filename": "landing_page_final_v1__gemini__v1.png",
+      "engine": "gemini",
+      "page_type": "Landing Page",
+      "direction": "方向1",
+      "variant": "v1",
+      "review_status": "FAILED",
+      "success": false,
+      "error": "HTTP 429 RESOURCE_EXHAUSTED gemini-3.1-flash-image"
+    },
+    {
+      "filename": "landing_page_final_v1__gemini__v2.png",
+      "engine": "gemini",
+      "page_type": "Landing Page",
+      "direction": "方向2",
+      "variant": "v2",
+      "review_status": "FAILED",
+      "success": false,
+      "error": "HTTP 429 RESOURCE_EXHAUSTED gemini-3.1-flash-image"
+    },
+    {
+      "filename": "landing_page_final_v1__doubao__v1.png",
+      "engine": "doubao",
+      "page_type": "Landing Page",
+      "direction": "方向1",
+      "variant": "v1",
+      "review_status": "READY",
+      "success": true,
+      "error": null
+    },
+    {
+      "filename": "landing_page_final_v1__doubao__v2.png",
+      "engine": "doubao",
+      "page_type": "Landing Page",
+      "direction": "方向2",
+      "variant": "v2",
+      "review_status": "READY",
+      "success": true,
+      "error": null
+    },
+    {
+      "filename": "explore_home_final_v1__gemini__v1.png",
+      "engine": "gemini",
+      "page_type": "Explore Home",
+      "direction": "方向1",
+      "variant": "v1",
+      "review_status": "FAILED",
+      "success": false,
+      "error": "HTTP 429 RESOURCE_EXHAUSTED gemini-3.1-flash-image"
+    },
+    {
+      "filename": "explore_home_final_v1__gemini__v2.png",
+      "engine": "gemini",
+      "page_type": "Explore Home",
+      "direction": "方向2",
+      "variant": "v2",
+      "review_status": "FAILED",
+      "success": false,
+      "error": "HTTP 429 RESOURCE_EXHAUSTED gemini-3.1-flash-image"
+    },
+    {
+      "filename": "explore_home_final_v1__doubao__v1.png",
+      "engine": "doubao",
+      "page_type": "Explore Home",
+      "direction": "方向1",
+      "variant": "v1",
+      "review_status": "READY",
+      "success": true,
+      "error": null
+    },
+    {
+      "filename": "explore_home_final_v1__doubao__v2.png",
+      "engine": "doubao",
+      "page_type": "Explore Home",
+      "direction": "方向2",
+      "variant": "v2",
+      "review_status": "READY",
+      "success": true,
+      "error": null
+    }
+  ]
+}

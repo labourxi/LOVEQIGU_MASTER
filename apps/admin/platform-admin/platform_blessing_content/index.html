@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>祝福内容管理 · AR游伴内容生产线</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
+</head>
+<body>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div id="bo-breadcrumb"></div>
+        <div class="bo-page-header"><h2>祝福内容管理</h2><p>祝福 / 显现 / 回响文案与探索提示</p></div>
+        <div class="bo-content-warning">
+          <strong>术语合规</strong> 使用祝福、显现、回响、探索提示、领取提示等已冻结术语；不使用愿力、祝由、合真等禁用术语。
+        </div>
+        <section class="card bo-content-object-table">
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>标题</th><th>类型</th><th>景区</th><th>活动</th><th>探索点</th><th>信物</th>
+                  <th>文案状态</th><th>审查</th><th>发布</th><th>Runtime</th><th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="blessing-tbody"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="../shared/mock-store.js"></script>
+  <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/page-boot.js"></script>
+  <script src="../shared/platform-global-search.js"></script>
+  <script src="../shared/content-production-boot.js"></script>
+  <script src="../shared/platform-content-boot.js"></script>
+  <script>
+    PlatformContentBoot.boot("blessing_content", "祝福内容管理");
+    ContentProductionBoot.ensureAdapterScripts(function () {
+      var adapter = ContentProductionBoot.getAdapter();
+      var actor = ContentProductionBoot.getActor();
+      function render() {
+        document.getElementById("blessing-tbody").innerHTML = adapter.getBlessingContents().map(function (b) {
+          return "<tr><td>" + b.title + "</td><td>" + b.contentTypeLabel + "</td><td>" + b.parkName +
+            "</td><td>" + b.activityName + "</td><td>" + (b.pointName || "—") + "</td><td>" + (b.relicName || "—") +
+            "</td><td>" + ContentProductionBoot.statusBadge(b.copyStatus) + "</td><td>" + ContentProductionBoot.statusBadge(b.reviewStatus, "review") +
+            "</td><td>" + ContentProductionBoot.statusBadge(b.publishStatus, "publish") + "</td><td>" + ContentProductionBoot.statusBadge(b.runtimeStatus, "runtime") +
+            '</td><td class="table-actions"><button class="btn" data-gen="' + b.explorationPointId + '">生成候选</button>' +
+            '<button class="btn btn-primary" data-review="' + b.id + '">提交审查</button>' +
+            '<a class="btn" href="../publish/index.html">发布状态</a></td></tr>';
+        }).join("");
+        document.querySelectorAll("[data-review]").forEach(function (btn) {
+          btn.onclick = function () {
+            var r = adapter.submitContentReview("blessing_content", btn.getAttribute("data-review"), {}, actor);
+            ContentProductionBoot.flash(r.message, r.ok);
+            render();
+          };
+        });
+        document.querySelectorAll("[data-gen]").forEach(function (btn) {
+          btn.onclick = function () {
+            var r = adapter.generateBlessingContent(btn.getAttribute("data-gen"), { contentType: "blessing" }, actor);
+            ContentProductionBoot.flash(r.message, r.ok);
+            render();
+          };
+        });
+      }
+      render();
+    });
+  </script>
+</body>
+</html>

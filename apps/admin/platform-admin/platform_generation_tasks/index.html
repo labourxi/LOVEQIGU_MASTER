@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>生成任务 · AR游伴内容生产线</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
+</head>
+<body>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div id="bo-breadcrumb"></div>
+        <div class="bo-page-header"><h2>生成任务</h2><p>占位生成 / 文案 / AR / 美术 / 审查 / 发布任务流</p></div>
+        <section class="card bo-content-object-table">
+          <div class="table-wrap">
+            <table class="table bo-generation-task-row">
+              <thead>
+                <tr>
+                  <th>任务名称</th><th>类型</th><th>景区</th><th>活动</th><th>绑定对象</th>
+                  <th>执行人/工具</th><th>状态</th><th>更新时间</th><th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="tasks-tbody"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="../shared/mock-store.js"></script>
+  <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/page-boot.js"></script>
+  <script src="../shared/platform-global-search.js"></script>
+  <script src="../shared/content-production-boot.js"></script>
+  <script src="../shared/platform-content-boot.js"></script>
+  <script>
+    PlatformContentBoot.boot("generation_tasks", "生成任务");
+    ContentProductionBoot.ensureAdapterScripts(function () {
+      var adapter = ContentProductionBoot.getAdapter();
+      document.getElementById("tasks-tbody").innerHTML = adapter.getGenerationTasks().map(function (t) {
+        return "<tr><td>" + t.taskName + "</td><td>" + t.taskTypeLabel + "</td><td>" + t.parkName +
+          "</td><td>" + t.activityName + "</td><td>" + t.targetId + "</td><td>" + t.executor +
+          "</td><td>" + ContentProductionBoot.statusBadge(t.status) + "</td><td>" +
+          (t.updatedAt || "").slice(0, 16).replace("T", " ") +
+          '</td><td class="table-actions"><button class="btn" data-log="' + t.id + '">查看日志</button>' +
+          (t.taskType === "submit_review" ? '<a class="btn btn-primary" href="../reviews/index.html">审查中心</a>' : "") +
+          (t.taskType === "publish_runtime" ? '<a class="btn" href="../publish/index.html">发布中心</a>' : "") +
+          "</td></tr>";
+      }).join("");
+      document.querySelectorAll("[data-log]").forEach(function (btn) {
+        btn.onclick = function () {
+          var t = adapter.getGenerationTaskDetail(btn.getAttribute("data-log"));
+          ContentProductionBoot.flash(t ? t.log || "无日志" : "任务不存在", true);
+        };
+      });
+    });
+  </script>
+</body>
+</html>

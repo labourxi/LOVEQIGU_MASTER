@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>发布中心 · AR游伴平台运营</title>
+  <title>发布中心 · AR游伴平台后台</title>
   <link rel="stylesheet" href="../../shared/backoffice.css" />
 </head>
 <body>
@@ -13,105 +13,125 @@
       <div id="bo-sidebar"></div>
       <main class="bo-content">
         <div id="bo-breadcrumb"></div>
-        <div class="bo-page-header">
-          <h2>发布中心</h2>
-          <p>活动发布 · 发布检查 · 上线 / 阻断（Mock 本地持久化）</p>
+        <div class="bo-page-header-row">
+          <div class="bo-page-header">
+            <h2>发布中心</h2>
+            <p>待发布内容 · Runtime 状态 · 发布风险管控</p>
+          </div>
+          <a class="btn" href="../reviews/index.html">审查中心</a>
         </div>
+
+        <div class="bo-risk-notice">
+          <strong>Mock Runtime 提示</strong>
+          当前为 Mock Runtime 发布占位，用于验证发布流程，不代表内容已真实上线。
+        </div>
+
         <div id="publish-banner" class="alert alert-success hidden"></div>
+
         <section class="card">
+          <h3 class="card-title">待发布队列</h3>
           <div class="table-wrap">
             <table class="table">
               <thead>
-                <tr><th>活动名称</th><th>审核状态</th><th>发布检查</th><th>发布状态</th><th>操作</th></tr>
+                <tr>
+                  <th>内容</th><th>类型</th><th>发布目标</th><th>关联景区</th>
+                  <th>审查状态</th><th>发布检查</th><th>Runtime</th><th>风险</th><th>操作</th>
+                </tr>
               </thead>
               <tbody id="publish-body"></tbody>
             </table>
           </div>
         </section>
-        <div class="drawer hidden" id="publish-detail">
+
+        <section class="card hidden" id="publish-detail-card" style="margin-top:16px;">
           <h3 class="card-title">发布详情</h3>
-          <div id="publish-detail-body"></div>
-        </div>
+          <div class="bo-publish-panel" id="publish-detail-body"></div>
+          <h4 class="card-title" style="margin-top:16px;border:0;padding-top:0;">发布日志</h4>
+          <div id="publish-log-panel"></div>
+        </section>
       </main>
     </div>
   </div>
   <script src="../shared/mock-store.js"></script>
   <script src="../../shared/backoffice-shell.js"></script>
-  <script src="../shared/shell.js"></script>
+  <script src="../shared/platform-adapter-boot.js"></script>
+  <script src="../shared/platform-global-search.js"></script>
+  <script src="../shared/page-boot.js"></script>
   <script>
     if (!PlatformAdminMock.requireAuth()) throw new Error("auth");
-    PlatformAdminShell.bindShell("publish", "发布中心");
-    var activities = [], releases = [];
+    PlatformPageBoot.boot("publish", [{ label: "平台运营" }, { label: "发布中心" }]);
 
-    function findRelease(id) {
-      return releases.find(function (r) { return r.release_type === "ACTIVITY" && r.target_id === id; }) || null;
-    }
+    PlatformAdapterBoot.ensureAdapterScripts(function () {
+      var adapter = PlatformAdapterBoot.getAdapter();
+      var ctx = PlatformAdapterBoot.getPlatformContext();
+      var highlightId = new URLSearchParams(location.search).get("publishId") || "";
 
-    function renderTable() {
-      var body = document.getElementById("publish-body");
-      if (!activities.length) {
-        body.innerHTML = "<tr><td colspan=\"5\"><div class=\"empty-state\"><h4>暂无活动</h4></div></td></tr>";
-        return;
+      function renderTable() {
+        var queue = adapter.getPublishQueue();
+        var body = document.getElementById("publish-body");
+        if (!queue.length) {
+          body.innerHTML = '<tr><td colspan="9"><div class="empty-state"><h4>暂无待发布内容</h4></div></td></tr>';
+          return;
+        }
+        body.innerHTML = queue.map(function (p) {
+          return "<tr><td>" + p.targetName + "</td><td>" + p.targetTypeLabel +
+            "</td><td>Runtime 占位</td><td>" + p.parkName + "</td><td>" +
+            PlatformAdapterBoot.statusBadge(p.reviewStatus, "review") + "</td><td>" +
+            PlatformAdapterBoot.statusBadge(p.publishCheckStatus, "publish") + "</td><td>" +
+            PlatformAdapterBoot.statusBadge(p.runtimeStatus, "runtime") + "</td><td>" +
+            PlatformAdapterBoot.statusBadge(p.riskStatus, "risk") + '</td><td class="table-actions">' +
+            '<button class="btn" data-detail="' + p.id + '">详情</button>' +
+            '<button class="btn btn-primary btn-publish" data-publish="' + p.id + '" ' +
+            (p.canPublish ? "" : "disabled") + ">发布</button>" +
+            '<button class="btn" data-log="' + p.id + '">日志</button>' +
+            '<button class="btn" disabled title="Mock 占位">回滚</button></td></tr>';
+        }).join("");
+
+        body.querySelectorAll("[data-detail]").forEach(function (b) {
+          b.onclick = function () { showDetail(b.getAttribute("data-detail")); };
+        });
+        body.querySelectorAll("[data-log]").forEach(function (b) {
+          b.onclick = function () { showDetail(b.getAttribute("data-log")); };
+        });
+        body.querySelectorAll(".btn-publish").forEach(function (b) {
+          b.onclick = function () { publishItem(b.getAttribute("data-publish")); };
+        });
+
+        if (highlightId) {
+          showDetail(highlightId);
+          highlightId = "";
+        }
       }
-      body.innerHTML = activities.map(function (act) {
-        var rel = findRelease(act.activity_id);
-        var rs = rel ? rel.release_status : "PENDING";
-        var canPub = act.review_status === "APPROVED" && act.publish_check_result === "READY" && rs !== "PUBLISHED" && rs !== "BLOCKED";
-        var canBlock = rs !== "BLOCKED";
-        return "<tr><td>" + act.activity_name + "</td><td>" + BackofficeShell.statusBadge(act.review_status) + "</td><td>" + BackofficeShell.statusBadge(act.publish_check_result) + "</td><td>" + BackofficeShell.statusBadge(rs) + "</td><td class=\"table-actions\"><button class=\"btn\" data-detail=\"" + act.activity_id + "\">详情</button><button class=\"btn btn-success\" data-publish=\"" + act.activity_id + "\" " + (canPub ? "" : "disabled") + ">发布</button><button class=\"btn btn-danger\" data-block=\"" + act.activity_id + "\" " + (canBlock ? "" : "disabled") + ">阻断</button></td></tr>";
-      }).join("");
-      body.querySelectorAll("[data-detail]").forEach(function (b) { b.onclick = function () { showDetail(b.getAttribute("data-detail")); }; });
-      body.querySelectorAll("[data-publish]").forEach(function (b) { b.onclick = function () { publishActivity(b.getAttribute("data-publish")); }; });
-      body.querySelectorAll("[data-block]").forEach(function (b) { b.onclick = function () { blockActivity(b.getAttribute("data-block")); }; });
-    }
 
-    function showDetail(id) {
-      var act = activities.find(function (a) { return a.activity_id === id; });
-      var rel = findRelease(id);
-      if (!act) return;
-      document.getElementById("publish-detail-body").innerHTML =
-        "<div class=\"detail-row\"><div class=\"k\">活动名称</div><div>" + act.activity_name + "</div></div>" +
-        "<div class=\"detail-row\"><div class=\"k\">景区</div><div>" + act.park_id + "</div></div>" +
-        "<div class=\"detail-row\"><div class=\"k\">审核状态</div><div>" + BackofficeShell.statusBadge(act.review_status) + "</div></div>" +
-        "<div class=\"detail-row\"><div class=\"k\">发布检查</div><div>" + BackofficeShell.statusBadge(act.publish_check_result) + "</div></div>" +
-        "<div class=\"detail-row\"><div class=\"k\">发布单号</div><div>" + (rel ? rel.release_id : "—") + "</div></div>" +
-        "<div class=\"detail-row\"><div class=\"k\">提交时间</div><div>" + act.submitted_at + "</div></div>";
-      document.getElementById("publish-detail").classList.remove("hidden");
-    }
-
-    async function upsertRelease(id, status) {
-      var rel = findRelease(id);
-      if (!rel) {
-        releases.push({ release_id: "rel_" + id, release_type: "ACTIVITY", target_id: id, release_status: status, created_at: PlatformAdminMock.nowIso(), released_at: status === "PUBLISHED" ? PlatformAdminMock.nowIso() : "" });
-      } else {
-        rel.release_status = status;
-        rel.released_at = status === "PUBLISHED" ? PlatformAdminMock.nowIso() : "";
+      function showDetail(id) {
+        var detail = adapter.getPublishDetail(id);
+        if (!detail) return;
+        document.getElementById("publish-detail-body").innerHTML =
+          '<div class="bo-detail-row"><div class="k">内容名称</div><div>' + detail.targetName + "</div></div>" +
+          '<div class="bo-detail-row"><div class="k">内容类型</div><div>' + detail.targetTypeLabel + "</div></div>" +
+          '<div class="bo-detail-row"><div class="k">景区</div><div>' + detail.parkName + "</div></div>" +
+          '<div class="bo-detail-row"><div class="k">审查状态</div><div>' + PlatformAdapterBoot.statusBadge(detail.reviewStatus, "review") + "</div></div>" +
+          '<div class="bo-detail-row"><div class="k">发布检查</div><div>' + PlatformAdapterBoot.statusBadge(detail.publishCheckStatus, "publish") + "</div></div>" +
+          '<div class="bo-detail-row"><div class="k">Runtime 状态</div><div>' + PlatformAdapterBoot.statusBadge(detail.runtimeStatus, "runtime") + "</div></div>" +
+          '<div class="bo-detail-row"><div class="k">发布单号</div><div>' + detail.id + "</div></div>" +
+          '<div class="bo-detail-row"><div class="k">最近更新</div><div>' + PlatformAdapterBoot.formatDateTime(detail.updatedAt) + "</div></div>";
+        PlatformAdapterBoot.renderPublishLogs(document.getElementById("publish-log-panel"), detail.logs);
+        document.getElementById("publish-detail-card").classList.remove("hidden");
       }
-      await PlatformAdminMock.saveDataset("platform_release", releases);
-    }
 
-    async function publishActivity(id) {
-      await upsertRelease(id, "PUBLISHED");
-      document.getElementById("publish-banner").textContent = "活动已发布上线";
-      document.getElementById("publish-banner").classList.remove("hidden");
-      await loadData();
-    }
+      function publishItem(id) {
+        if (!confirm("确认发布？此操作为 Mock Runtime 占位，不代表真实上线。")) return;
+        var result = adapter.publishTarget(id, ctx);
+        var banner = document.getElementById("publish-banner");
+        banner.textContent = result.message;
+        banner.className = "alert " + (result.ok ? "alert-success" : "alert-danger");
+        banner.classList.remove("hidden");
+        renderTable();
+        showDetail(id);
+      }
 
-    async function blockActivity(id) {
-      await upsertRelease(id, "BLOCKED");
-      activities = activities.map(function (a) { return a.activity_id !== id ? a : Object.assign({}, a, { publish_check_result: "BLOCKED" }); });
-      await PlatformAdminMock.saveDataset("platform_activity_review", activities);
-      document.getElementById("publish-banner").textContent = "活动已阻断发布";
-      document.getElementById("publish-banner").classList.remove("hidden");
-      await loadData();
-    }
-
-    async function loadData() {
-      activities = await PlatformAdminMock.loadDataset("platform_activity_review");
-      releases = await PlatformAdminMock.loadDataset("platform_release");
       renderTable();
-    }
-    loadData();
+    });
   </script>
 </body>
 </html>

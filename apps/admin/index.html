@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AR游伴 · 后台控制台</title>
+  <title>AR游伴后台控制台</title>
   <link rel="stylesheet" href="./shared/backoffice.css" />
   <style>
-    .hub-page { min-height: 100vh; padding: 48px 24px; max-width: 1200px; margin: 0 auto; }
+    .hub-page { min-height: 100vh; padding: 48px 24px; max-width: 1280px; margin: 0 auto; }
     .hub-header { text-align: center; margin-bottom: 48px; }
     .hub-header h1 { font-size: 32px; margin: 0 0 8px; }
     .hub-header p { color: var(--text-secondary); margin: 0; }
-    .hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .hub-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
     .hub-card { padding: 28px; transition: box-shadow 0.2s; }
-    .hub-card:hover { box-shadow: 0 4px 16px rgba(43,33,24,0.1); }
+    .hub-card:hover { box-shadow: 0 4px 16px rgba(43, 33, 24, 0.1); }
     .hub-card h2 { margin: 0 0 8px; font-size: 20px; }
     .hub-card p { color: var(--text-secondary); margin: 0 0 20px; font-size: 14px; }
     .hub-links { display: flex; flex-direction: column; gap: 8px; }
@@ -20,7 +20,8 @@
     .hub-links a:hover { background: var(--accent-light); color: var(--accent); }
     .hub-links a.primary { background: var(--accent); color: #fff; border-color: var(--accent); text-align: center; font-weight: 600; }
     .hub-links a.primary:hover { background: #4a3329; }
-    @media (max-width: 900px) { .hub-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 1100px) { .hub-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 720px) { .hub-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -29,8 +30,8 @@
       <div style="display:inline-flex;align-items:center;gap:12px;margin-bottom:16px;">
         <div class="logo" style="width:48px;height:48px;border-radius:12px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;">游</div>
       </div>
-      <h1>AR游伴 · 后台控制台</h1>
-      <p>高保真 UI 原型 · Mock 数据 · 不接 API · PHASE_UI_BUILD_V1</p>
+      <h1>AR游伴后台控制台</h1>
+      <p>Mock Runtime · UI 原型 · 不接 API · PHASE_UI_BUILD_V1</p>
     </div>
     <div class="hub-grid">
       <section class="card hub-card">
@@ -63,8 +64,18 @@
           <a href="./park-admin/park_admin_merchants/index.html">商家管理</a>
         </div>
       </section>
+      <section class="card hub-card">
+        <h2>视觉工具</h2>
+        <p>视觉任务 · 需求单 · Prompt · 待生图队列</p>
+        <div class="hub-links">
+          <a class="primary" href="./modules/visual-factory/index.html">进入视觉任务</a>
+          <a href="./modules/visual-factory/pages/task-list/index.html">Visual Task List</a>
+          <a href="./modules/visual-factory/pages/prompt-preview/index.html">Prompt Preview</a>
+          <a href="./modules/visual-factory/pages/generation-queue/index.html">Generation Queue</a>
+        </div>
+      </section>
     </div>
-    <p class="footer-note" style="text-align:center;margin-top:48px;">建议使用本地 HTTP 服务打开 · 如 npx serve apps/admin</p>
+    <p class="footer-note" style="text-align:center;margin-top:48px;">建议使用本地 HTTP 服务打开，例如 `npx serve apps/admin`</p>
     <p style="text-align:center;margin-top:12px;"><a href="./shared/figma-ready/index.html" style="color:var(--token-color-accent,#5c4033)">→ Figma Ready UI System V1</a></p>
     <p style="text-align:center;margin-top:8px;"><a href="./platform-admin/index.html" style="color:var(--token-color-accent,#5c4033)">→ Platform Admin Runtime Phase2</a></p>
   </div>

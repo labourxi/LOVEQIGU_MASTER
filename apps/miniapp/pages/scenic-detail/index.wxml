@@ -1,64 +1,47 @@
-<view class="proto-page" wx:if="{{!missing}}">
+<view class="proto-page user-phase1-page" wx:if="{{!missing}}">
   <view class="proto-hero">
-    <view class="proto-kicker">{{scenic.levelLabel}}｜{{scenic.theme}}</view>
+    <view class="proto-kicker">探索点</view>
     <view class="proto-title">{{scenic.name}}</view>
     <view class="proto-subtitle">{{scenic.intro}}</view>
   </view>
 
   <view class="proto-section">
-    <view class="proto-card">
-      <view class="proto-row">
-        <view>
-          <view class="proto-card-meta">面积</view>
-          <view class="proto-card-title">{{scenic.area}}</view>
+    <view class="scenic-scroll-flow">
+      <view class="scenic-flow-block">
+        <view class="scenic-flow-kicker">为何而来</view>
+        <view class="scenic-flow-copy">{{scenic.feature}}</view>
+        <view class="proto-card-meta" style="margin-top: 12rpx;">{{scenic.area}} · {{scenic.explorationPointsDisplay}} 处探索印记</view>
+      </view>
+      <view class="scenic-flow-block">
+        <view class="scenic-flow-kicker">可获得信物</view>
+        <view class="scenic-flow-copy">完成打卡与显现仪式后，探索印记将归入你的收藏册。信物承载故事，记录你与这片土地的相遇。</view>
+        <view class="scenic-relic-chip">信物 · 故事进度资产</view>
+      </view>
+      <view class="scenic-flow-block">
+        <view class="scenic-flow-kicker">显现 · AR</view>
+        <view class="scenic-flow-copy">抵达探索点后，可触发 AR 显现，以克制仪式感呈现印记与祝福。</view>
+        <button class="proto-btn proto-btn--primary" style="margin-top: 20rpx;" bindtap="onStartCheckIn">开始打卡</button>
+      </view>
+      <view class="scenic-flow-block" wx:if="{{nearbyCoupons.length}}">
+        <view class="scenic-flow-kicker">附近礼遇</view>
+        <view wx:for="{{nearbyCoupons}}" wx:key="id" style="margin-top: 16rpx;">
+          <view class="scenic-flow-copy">{{item.name}} · {{item.merchant}}</view>
+          <view class="rights-source">探索礼遇</view>
         </view>
-        <view>
-          <view class="proto-card-meta">探索点</view>
-          <view class="proto-card-title">{{scenic.explorationPointsDisplay}} 个</view>
-        </view>
       </view>
-      <view class="proto-card-copy">特色：{{scenic.feature}}</view>
-    </view>
-  </view>
-
-  <view class="proto-section">
-    <view class="proto-section-title">首场活动状态</view>
-    <view class="proto-card">
-      <view class="proto-row">
-        <view class="proto-card-title">{{eventOverview.activity.event_name}}</view>
-        <view class="proto-badge proto-badge--warm">{{eventOverview.activity.status}}</view>
+      <view class="scenic-flow-block" wx:else>
+        <view class="scenic-flow-kicker">附近礼遇</view>
+        <view class="scenic-flow-copy">继续探索，在地商家的礼遇将在此显现。</view>
       </view>
-      <view class="proto-card-meta">任务 {{eventQuickStats[0].value}} ｜ 信物 {{eventQuickStats[1].value}} ｜ 卡券 {{eventQuickStats[2].value}}</view>
-      <view class="proto-card-copy">{{eventOverview.activity.description}}</view>
-      <button class="proto-btn proto-btn--primary" bindtap="onOpenMerchantEvent">进入活动入口</button>
-      <button class="proto-btn proto-btn--ghost" bindtap="onOpenMerchantEventExploration">查看探索列表</button>
     </view>
-  </view>
-
-  <view class="proto-section">
-    <view class="proto-section-title">数字藏品</view>
-    <view class="proto-card" wx:for="{{scenic.digitalCollectibleList}}" wx:key="id">
-      <view class="proto-card-title">{{item.name}}</view>
-      <view class="proto-card-meta">传播资产｜不写入信物库</view>
-    </view>
-  </view>
-
-  <view class="proto-section">
-    <view class="proto-section-title">热门权益</view>
-    <view class="proto-card" wx:for="{{scenic.coupons}}" wx:key="id">
-      <view class="proto-row">
-        <view class="proto-card-title">{{item.name}}</view>
-        <view class="proto-badge proto-badge--warm">{{item.tag}}</view>
-      </view>
-      <view class="proto-card-copy">{{item.desc}}</view>
-    </view>
-    <button class="proto-btn proto-btn--ghost" bindtap="onOpenRights">前往权益中心</button>
   </view>
 
   <view class="proto-section action-row">
-    <button class="proto-btn" bindtap="onOpenExplore">进入探索地图</button>
-    <button class="proto-btn proto-btn--primary" bindtap="onNavigate">导航</button>
+    <button class="proto-btn" bindtap="onOpenExplore">返回探索图谱</button>
+    <button class="proto-btn proto-btn--ghost" bindtap="onNavigate">导航前往</button>
   </view>
+
+  <user-bottom-nav activeKey="{{activeTab}}" bind:change="onBottomNavChange" />
 </view>
 
 <view class="proto-page" wx:else>
@@ -66,4 +49,3 @@
     <view class="proto-card-title">{{title}}</view>
   </view>
 </view>
-

@@ -1,0 +1,300 @@
+.pilot-fx-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.pilot-fx-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(38, 58, 52, 0.32);
+  animation: pilot-fx-fade-in 0.25s ease-out both;
+}
+
+.pilot-fx-scene {
+  position: relative;
+  width: 520rpx;
+  height: 520rpx;
+}
+
+.pilot-fx-label {
+  position: absolute;
+  bottom: 22%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 30rpx;
+  color: #f4f1eb;
+  letter-spacing: 2rpx;
+  text-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.35);
+  animation: pilot-fx-label-rise 0.5s ease-out 0.2s both;
+}
+
+@keyframes pilot-fx-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pilot-fx-label-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* xr_start_v1 */
+.pilot-fx-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  border: 2rpx solid rgba(244, 241, 235, 0.45);
+  transform: translate(-50%, -50%) scale(0.2);
+  animation: pilot-fx-ring-expand 1.2s ease-out both;
+}
+
+.pilot-fx-ring--outer {
+  width: 420rpx;
+  height: 420rpx;
+}
+
+.pilot-fx-ring--inner {
+  width: 260rpx;
+  height: 260rpx;
+  animation-delay: 0.12s;
+  border-color: rgba(182, 138, 61, 0.55);
+}
+
+.pilot-fx-gate-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(244, 241, 235, 0.55) 0%, rgba(182, 138, 61, 0.2) 45%, transparent 70%);
+  transform: translate(-50%, -50%) scale(0.4);
+  animation: pilot-fx-glow-bloom 1s ease-out 0.15s both;
+}
+
+.pilot-fx-gate-line {
+  position: absolute;
+  top: 50%;
+  width: 120rpx;
+  height: 2rpx;
+  background: linear-gradient(90deg, transparent, rgba(244, 241, 235, 0.8), transparent);
+  opacity: 0;
+  animation: pilot-fx-gate-line 0.8s ease-out 0.35s both;
+}
+
+.pilot-fx-gate-line--left {
+  left: 12%;
+  transform: translateY(-50%) rotate(-8deg);
+}
+
+.pilot-fx-gate-line--right {
+  right: 12%;
+  transform: translateY(-50%) rotate(8deg);
+}
+
+@keyframes pilot-fx-ring-expand {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2);
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+@keyframes pilot-fx-glow-bloom {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.4);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.15;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+@keyframes pilot-fx-gate-line {
+  from {
+    opacity: 0;
+    width: 0;
+  }
+  to {
+    opacity: 1;
+    width: 120rpx;
+  }
+}
+
+/* space_trail_v1 */
+.pilot-fx-trail-path {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 360rpx;
+  height: 2rpx;
+  background: linear-gradient(90deg, transparent, rgba(182, 138, 61, 0.5), rgba(244, 241, 235, 0.7), rgba(182, 138, 61, 0.5), transparent);
+  transform: translate(-50%, -50%) rotate(-18deg) scaleX(0);
+  transform-origin: center;
+  animation: pilot-fx-trail-draw 1.1s ease-out 0.1s both;
+}
+
+.pilot-fx-trail-node {
+  position: absolute;
+  width: 18rpx;
+  height: 18rpx;
+  border-radius: 50%;
+  background: rgba(244, 241, 235, 0.35);
+  box-shadow: 0 0 12rpx rgba(182, 138, 61, 0.25);
+}
+
+.pilot-fx-trail-node--a { left: 18%; top: 58%; }
+.pilot-fx-trail-node--b { left: 46%; top: 42%; }
+.pilot-fx-trail-node--c { left: 72%; top: 34%; }
+
+.pilot-fx-trail-node--b,
+.pilot-fx-trail-node--c {
+  animation: pilot-fx-node-light 0.5s ease-out both;
+}
+
+.pilot-fx-trail-node--b { animation-delay: 0.55s; }
+.pilot-fx-trail-node--c { animation-delay: 0.85s; }
+
+.pilot-fx-trail-spark {
+  position: absolute;
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background: rgba(244, 241, 235, 0.9);
+  opacity: 0;
+}
+
+.pilot-fx-trail-spark--1 { animation: pilot-fx-spark-move 1.4s ease-in-out 0.2s both; }
+.pilot-fx-trail-spark--2 { animation: pilot-fx-spark-move 1.4s ease-in-out 0.45s both; }
+.pilot-fx-trail-spark--3 { animation: pilot-fx-spark-move 1.4s ease-in-out 0.7s both; }
+
+@keyframes pilot-fx-trail-draw {
+  from { transform: translate(-50%, -50%) rotate(-18deg) scaleX(0); opacity: 0; }
+  to { transform: translate(-50%, -50%) rotate(-18deg) scaleX(1); opacity: 1; }
+}
+
+@keyframes pilot-fx-node-light {
+  from {
+    background: rgba(244, 241, 235, 0.35);
+    box-shadow: 0 0 12rpx rgba(182, 138, 61, 0.25);
+  }
+  to {
+    background: rgba(244, 241, 235, 0.95);
+    box-shadow: 0 0 24rpx rgba(182, 138, 61, 0.55);
+  }
+}
+
+@keyframes pilot-fx-spark-move {
+  0% { left: 18%; top: 58%; opacity: 0; }
+  15% { opacity: 1; }
+  45% { left: 46%; top: 42%; opacity: 1; }
+  75% { left: 72%; top: 34%; opacity: 1; }
+  100% { left: 72%; top: 34%; opacity: 0; }
+}
+
+/* relic_emerge_v1 */
+.pilot-fx-relic-halo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 320rpx;
+  height: 320rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(182, 138, 61, 0.35) 0%, rgba(38, 58, 52, 0.05) 55%, transparent 72%);
+  transform: translate(-50%, -50%) scale(0.5);
+  animation: pilot-fx-relic-halo 1.2s ease-out both;
+}
+
+.pilot-fx-relic-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #f4f1eb 0%, #c9a96a 45%, #263a34 100%);
+  box-shadow: 0 0 40rpx rgba(182, 138, 61, 0.45);
+  transform: translate(-50%, -50%) scale(0);
+  animation: pilot-fx-relic-core 0.9s cubic-bezier(0.2, 0.9, 0.3, 1) 0.15s both;
+}
+
+.pilot-fx-relic-shard {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  background: rgba(244, 241, 235, 0.85);
+  opacity: 0;
+}
+
+.pilot-fx-relic-shard--1 { animation: pilot-fx-shard 0.8s ease-out 0.35s both; --dx: -80rpx; --dy: -40rpx; }
+.pilot-fx-relic-shard--2 { animation: pilot-fx-shard 0.8s ease-out 0.45s both; --dx: 70rpx; --dy: -60rpx; }
+.pilot-fx-relic-shard--3 { animation: pilot-fx-shard 0.8s ease-out 0.55s both; --dx: 20rpx; --dy: 90rpx; }
+
+@keyframes pilot-fx-relic-halo {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  50% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.2;
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+}
+
+@keyframes pilot-fx-relic-core {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes pilot-fx-shard {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2);
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0.6);
+  }
+}

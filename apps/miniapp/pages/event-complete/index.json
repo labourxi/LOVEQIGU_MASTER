@@ -1,4 +1,7 @@
 {
-  "navigationBarTitleText": "活动完成",
-  "usingComponents": {}
+  "navigationBarTitleText": "信物获得页",
+  "backgroundColor": "#f4f1eb",
+  "usingComponents": {
+    "user-bottom-nav": "/components/user-bottom-nav/index"
+  }
 }

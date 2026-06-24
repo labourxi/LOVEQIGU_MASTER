@@ -117,6 +117,38 @@ Dependencies:
 ART_BIBLE_V1 · ART_INDEX_V1 · FOUR_SYMBOL_VISUAL_SYSTEM_V1.1 · ART_03_VISUAL_PHILOSOPHY_V1 · ART_04_VISUAL_PROTOTYPE_V1
 
 --------------------------------------------------
+PRODUCT STRATEGY (Non-Canon)
+
+AR_VIRAL_ENGINE_POSITIONING_V1
+
+Path:
+docs/product/ar/AR_VIRAL_ENGINE_POSITIONING_V1.md
+
+Status:
+FROZEN
+
+Priority:
+P0
+
+Module:
+Product Strategy
+
+Role:
+AR Viral Engine positioning · commercial flywheel + viral flywheel
+
+Not:
+Canon
+
+Not:
+Philosophy
+
+Not:
+Runtime
+
+Role Detail:
+Defines AR revelation experience as AR Viral Engine; asset reclassification (Explore Map · 福印 · Digital Collectible · Merchant Benefit · AR Revelation); Shareability Score criteria for future AR reveal schemes.
+
+--------------------------------------------------
 LOAD ORDER
 
 1. LOVEQIGU_WORLD_RULES_CANON_V1
@@ -129,6 +161,7 @@ LOAD ORDER
 8. Relic System
 9. Product Governance
 10. VISUAL_AUTOPILOT_PIPELINE_V1 (Governance Layer · Non-Canon · load after visual canon)
+11. AR_VIRAL_ENGINE_POSITIONING_V1 (Product Strategy · Non-Canon · load after product world)
 
 --------------------------------------------------
 CONFLICT RULES
@@ -142,6 +175,8 @@ Product World overrides subsystem canon.
 Subsystem canon cannot redefine upper-layer canon.
 
 Governance Layer documents (e.g. VISUAL_AUTOPILOT_PIPELINE_V1) cannot redefine Canon, Philosophy, or World Bible. They govern production process only.
+
+Product Strategy documents (e.g. AR_VIRAL_ENGINE_POSITIONING_V1) cannot redefine Canon, Philosophy, or World Bible. They govern product growth and asset role classification only.
 
 --------------------------------------------------
 OUTPUT

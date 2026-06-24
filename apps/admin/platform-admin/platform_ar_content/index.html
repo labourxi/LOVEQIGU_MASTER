@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AR内容管理 · AR游伴内容生产线</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
+</head>
+<body>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div id="bo-breadcrumb"></div>
+        <div class="bo-page-header"><h2>AR内容管理</h2><p>服务于探索点、信物显现与故事进度</p></div>
+        <div class="bo-content-lineage">
+          <strong>绑定关系</strong> AR 内容绑定探索点与信物显现节点，不是独立炫技素材库。
+        </div>
+        <section class="card bo-content-object-table">
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>AR 名称</th><th>类型</th><th>景区</th><th>活动</th><th>探索点</th><th>信物</th>
+                  <th>资源</th><th>预览</th><th>审查</th><th>发布</th><th>Runtime</th><th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="ar-tbody"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="../shared/mock-store.js"></script>
+  <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/page-boot.js"></script>
+  <script src="../shared/platform-global-search.js"></script>
+  <script src="../shared/content-production-boot.js"></script>
+  <script src="../shared/platform-content-boot.js"></script>
+  <script>
+    PlatformContentBoot.boot("ar_content", "AR内容管理");
+    ContentProductionBoot.ensureAdapterScripts(function () {
+      var adapter = ContentProductionBoot.getAdapter();
+      var actor = ContentProductionBoot.getActor();
+      function render() {
+        document.getElementById("ar-tbody").innerHTML = adapter.getARContents().map(function (a) {
+          return "<tr><td>" + a.name + "</td><td>" + a.arTypeLabel + "</td><td>" + a.parkName +
+            "</td><td>" + a.activityName + "</td><td>" + a.pointName + "</td><td>" + (a.relicName || "—") +
+            "</td><td>" + ContentProductionBoot.statusBadge(a.resourceStatus, "ar") + "</td><td>" + ContentProductionBoot.statusBadge(a.previewStatus, "ar") +
+            "</td><td>" + ContentProductionBoot.statusBadge(a.reviewStatus, "review") + "</td><td>" + ContentProductionBoot.statusBadge(a.publishStatus, "publish") +
+            "</td><td>" + ContentProductionBoot.statusBadge(a.runtimeStatus, "runtime") +
+            '</td><td class="table-actions"><button class="btn" data-review="' + a.id + '">提交审查</button>' +
+            '<a class="btn" href="../reviews/index.html?reviewId=review_ar_001">审查</a>' +
+            '<a class="btn btn-primary" href="../publish/index.html?publishId=publish_ar_001">发布状态</a></td></tr>';
+        }).join("");
+        document.querySelectorAll("[data-review]").forEach(function (btn) {
+          btn.onclick = function () {
+            var r = adapter.submitContentReview("ar_content", btn.getAttribute("data-review"), {}, actor);
+            ContentProductionBoot.flash(r.message, r.ok);
+            render();
+          };
+        });
+      }
+      render();
+    });
+  </script>
+</body>
+</html>

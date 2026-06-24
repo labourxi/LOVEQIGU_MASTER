@@ -1,7 +1,9 @@
 {
-  "navigationBarTitleText": "鍦哄煙浣撻獙",
+  "navigationBarTitleText": "AR 显现",
   "backgroundColor": "#f4f1eb",
   "usingComponents": {
-    "star-activation-ritual": "/components/star-activation-ritual/index"
+    "user-bottom-nav": "/components/user-bottom-nav/index",
+    "ar-marker-entry": "/components/ar-marker-entry/index",
+    "pilot-fx-overlay": "/components/pilot-fx-overlay/index"
   }
 }

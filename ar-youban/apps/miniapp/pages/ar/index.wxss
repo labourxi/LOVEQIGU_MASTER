@@ -1,0 +1,62 @@
+.page {
+  padding: 24rpx;
+  background: #07110f;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.card {
+  margin-bottom: 20rpx;
+  padding: 24rpx;
+  border-radius: 16rpx;
+  background: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.08);
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #1f2a26;
+}
+
+.copy {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  line-height: 1.6;
+  color: #53625c;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16rpx;
+  margin-top: 12rpx;
+}
+
+.label {
+  font-size: 22rpx;
+  color: #7b8782;
+}
+
+.value {
+  font-size: 22rpx;
+  color: #1f2a26;
+  text-align: right;
+  max-width: 60%;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1f2a26;
+  margin-bottom: 12rpx;
+}
+
+.log-item {
+  font-size: 22rpx;
+  color: #34403a;
+  line-height: 1.5;
+  padding: 6rpx 0;
+  border-bottom: 1rpx solid #eef2ef;
+}
+

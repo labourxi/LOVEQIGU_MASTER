@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>探索点管理 · AR游伴内容生产线</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
+</head>
+<body>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div id="bo-breadcrumb"></div>
+        <div class="bo-page-header"><h2>探索点管理</h2><p>景区 / 活动下探索点内容生产状态</p></div>
+        <div class="bo-content-lineage"><strong>绑定关系</strong> 景区 → 活动 → 探索点 → 信物 / 祝福 / AR / 美术</div>
+        <section class="card bo-content-object-table">
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>探索点</th><th>景区</th><th>活动</th><th>场景类型</th>
+                  <th>信物</th><th>祝福</th><th>AR</th><th>美术</th>
+                  <th>审查</th><th>发布</th><th>Runtime</th><th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="points-tbody"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="../shared/mock-store.js"></script>
+  <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/page-boot.js"></script>
+  <script src="../shared/platform-global-search.js"></script>
+  <script src="../shared/content-production-boot.js"></script>
+  <script src="../shared/platform-content-boot.js"></script>
+  <script>
+    PlatformContentBoot.boot("exploration_points", "探索点管理");
+    ContentProductionBoot.ensureAdapterScripts(function () {
+      var adapter = ContentProductionBoot.getAdapter();
+      var actor = ContentProductionBoot.getActor();
+
+      function render() {
+        var points = adapter.getExplorationPoints();
+        document.getElementById("points-tbody").innerHTML = points.map(function (p) {
+          return "<tr><td>" + p.name + "</td><td>" + p.parkName + "</td><td>" + p.activityName +
+            "</td><td>" + p.sceneType + "</td><td>" + ContentProductionBoot.bindingChip(p.relicBound) +
+            "</td><td>" + ContentProductionBoot.bindingChip(p.blessingBound, "待补") +
+            "</td><td>" + ContentProductionBoot.bindingChip(p.arBound, "待绑定") +
+            "</td><td>" + ContentProductionBoot.bindingChip(p.artBound, "待生成") +
+            "</td><td>" + ContentProductionBoot.statusBadge(p.reviewStatus, "review") +
+            "</td><td>" + ContentProductionBoot.statusBadge(p.publishStatus, "publish") +
+            "</td><td>" + ContentProductionBoot.statusBadge(p.runtimeStatus, "runtime") +
+            '</td><td class="table-actions">' +
+            '<button class="btn" data-action="relic" data-id="' + p.id + '">信物占位</button>' +
+            '<button class="btn" data-action="blessing" data-id="' + p.id + '">祝福文案</button>' +
+            '<button class="btn" data-action="ar" data-id="' + p.id + '">AR 占位</button>' +
+            '<button class="btn" data-action="art" data-id="' + p.id + '">美术需求</button>' +
+            '<button class="btn btn-primary" data-action="review" data-id="' + p.id + '">提交审查</button></td></tr>';
+        }).join("");
+
+        document.getElementById("points-tbody").querySelectorAll("[data-action]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var id = btn.getAttribute("data-id");
+            var action = btn.getAttribute("data-action");
+            var result;
+            if (action === "relic") result = adapter.generateRelicPlaceholder(id, actor);
+            else if (action === "blessing") result = adapter.generateBlessingContent(id, { contentType: "claim_hint" }, actor);
+            else if (action === "ar") result = adapter.generateARPlaceholder(id, actor);
+            else if (action === "art") result = adapter.generateArtRequest("exploration_point", id, {}, actor);
+            else if (action === "review") result = adapter.submitContentReview("exploration_point", id, {}, actor);
+            ContentProductionBoot.flash(result.message, result.ok);
+            render();
+          });
+        });
+      }
+      render();
+    });
+  </script>
+</body>
+</html>

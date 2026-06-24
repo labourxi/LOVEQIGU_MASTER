@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "景区详情"
+  "navigationBarTitleText": "探索点详情",
+  "usingComponents": {
+    "user-bottom-nav": "/components/user-bottom-nav/index"
+  }
 }

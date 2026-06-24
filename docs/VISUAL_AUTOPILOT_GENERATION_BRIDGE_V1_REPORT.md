@@ -1,16 +1,15 @@
 # VISUAL_AUTOPILOT_GENERATION_BRIDGE_V1_REPORT
 
-Status: WARN
+Status: BLOCKED
 
 ## Generation Task
 
-- Task ID: `art04_four_symbol_dragon`
-- Prompt: ART-04 four symbol dragon bridge test
+- Task ID: `STAR_CHAIN_JIAOSU_MINIMAL_VISUAL_BATCH_V1`
+- Prompt: ARCHETYPE_VISUAL_FACTORY_AUTOMATION_V1 safe-run audit
 
 ## Providers Used
 
-- openai
-- gemini
+- Intended providers: openai, gemini
 
 ## Images Generated
 
@@ -18,22 +17,7 @@ Status: WARN
 
 ## Failed Providers
 
-- `openai`: HTTP 400 Bad Request: {
-  "error": {
-    "message": "Billing hard limit has been reached.",
-    "type": "billing_limit_user_error",
-    "param": null,
-    "code": "billing_hard_limit_reached"
-  }
-}
-
-## Missing API Keys
-
-- `GEMINI_API_KEY (or GOOGLE_API_KEY / GOOGLE_GENAI_API_KEY)`
-
-## Next Audit Step
-
-- Run the saved candidates through the visual audit engine and compare scores before any freeze decision.
+- Missing API key: `GEMINI_API_KEY (or GOOGLE_API_KEY / GOOGLE_GENAI_API_KEY)`
 
 ## Related Canon
 
@@ -42,5 +26,13 @@ Status: WARN
 - `FOUR_SYMBOL_VISUAL_SYSTEM_V1.1`
 - `ART_03_VISUAL_PHILOSOPHY_V1`
 - `ART_04_VISUAL_PROTOTYPE_V1`
+
+## Next Audit Step
+
+- Restore missing API keys, rerun the bridge, then feed saved candidates to the visual audit engine.
+
+## Result
+
+BLOCKED_BY_MISSING_API_KEY
 
 VISUAL_AUTOPILOT_GENERATION_BRIDGE_V1_READY = YES

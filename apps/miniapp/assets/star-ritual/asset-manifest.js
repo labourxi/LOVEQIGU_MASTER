@@ -1,0 +1,60 @@
+module.exports = {
+  "version": "1.0.0",
+  "scope": "ART-02",
+  "available": false,
+  "lottie": {
+    "chart_open": {
+      "path": "/assets/star-ritual/lottie/chart_open.json",
+      "available": false,
+      "purpose": "chart_open"
+    },
+    "star_activate": {
+      "path": "/assets/star-ritual/lottie/star_activate.json",
+      "available": false,
+      "purpose": "star_activate"
+    },
+    "gold_flow": {
+      "path": "/assets/star-ritual/lottie/gold_flow.json",
+      "available": false,
+      "purpose": "gold_flow"
+    },
+    "seal_complete": {
+      "path": "/assets/star-ritual/lottie/seal_complete.json",
+      "available": false,
+      "purpose": "seal_complete"
+    }
+  },
+  "textures": {
+    "paper_bg": {
+      "path": "/assets/star-ritual/textures/paper_bg.webp",
+      "available": false
+    },
+    "star_glow": {
+      "path": "/assets/star-ritual/textures/star_glow.webp",
+      "available": false
+    },
+    "seal": {
+      "path": "/assets/star-ritual/textures/seal.webp",
+      "available": false
+    }
+  },
+  "audio": {
+    "ignition": {
+      "path": "/assets/star-ritual/audio/ignition.mp3",
+      "available": false
+    },
+    "flow": {
+      "path": "/assets/star-ritual/audio/flow.mp3",
+      "available": false
+    },
+    "completion": {
+      "path": "/assets/star-ritual/audio/completion.mp3",
+      "available": false
+    }
+  },
+  "notes": [
+    "Asset references are lightweight placeholders only.",
+    "Do not treat this manifest as production-ready media inventory."
+  ]
+};
+

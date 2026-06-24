@@ -1,31 +1,54 @@
-<view class="page journey-page">
-  <view class="page-title">{{title}}</view>
-  <view class="page-desc">{{intro}}</view>
-
-  <view class="chip-row">
-    <view class="chip" wx:for="{{highlights}}" wx:key="*this">{{item}}</view>
+<view class="proto-page">
+  <view class="proto-hero">
+    <view class="proto-kicker">显现仪式页</view>
+    <view class="proto-title">{{ritualTitle}}</view>
+    <view class="proto-subtitle">{{ritualSubtitle}}</view>
   </view>
 
-  <view class="section">
-    <view class="section-head">
-      <view>
-        <view class="section-title">{{sectionTitle}}</view>
-        <view class="section-subtitle">{{sectionSubtitle}}</view>
+  <view class="proto-section">
+    <view class="proto-card">
+      <view class="proto-row">
+        <view class="proto-card-title">仪式状态</view>
+        <view class="proto-badge proto-badge--gold">{{ritualPreviewState}}</view>
       </view>
-    </view>
-
-    <view class="list">
-      <view class="journey-card" wx:for="{{items}}" wx:key="id">
-        <view class="card-head">
-          <view>
-            <view class="card-title">{{item.title}}</view>
-            <view class="card-meta">{{item.meta}}</view>
-          </view>
-          <view class="card-tag">{{item.tag}}</view>
-        </view>
-        <view class="card-copy">{{item.copy}}</view>
-        <button class="card-button" data-path="{{item.path}}" bindtap="onNavigate">{{actionLabel}}</button>
-      </view>
+      <view class="proto-card-copy">{{ritualCopy}}</view>
+      <view class="proto-card-meta">完成任务后进入此页，确认后进入信物获得页。</view>
+      <button class="proto-btn proto-btn--primary" bindtap="onStartStarRitualPreview">触发显现</button>
+      <button class="proto-btn" bindtap="onCompleteReveal">显现信物</button>
+      <button class="proto-btn proto-btn--ghost" bindtap="onResetStarRitualPreview">重置</button>
+      <button class="proto-btn proto-btn--ghost" bindtap="onBackToScan">返回显现流程</button>
     </view>
   </view>
+
+  <view class="proto-section">
+    <star-activation-ritual
+      id="starRitualPreview"
+      visible="{{ritualVisible}}"
+      autoplay="{{ritualAutoplay}}"
+      title="{{ritualTitle}}"
+      subtitle="{{ritualSubtitle}}"
+      demoLabel="{{ritualCopy}}"
+      targetIndex="{{journey.progressSummary.completedTaskCount % 3}}"
+      bind:complete="onCompleteReveal"
+    />
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-section-title">活动状态</view>
+    <view class="proto-card">
+      <view class="proto-card-meta">完成任务：{{overview.stats.completedTaskCount}} / {{overview.stats.taskCount}}</view>
+      <view class="proto-card-meta">已获信物：{{overview.stats.ownedRelicCount}}</view>
+      <view class="proto-card-meta">已领卡券：{{overview.stats.claimedCouponCount}}</view>
+    </view>
+  </view>
+
+  <view class="proto-section">
+    <view class="proto-card">
+      <view class="proto-card-title">显现模板</view>
+      <view class="proto-card-copy">当前保留模板化显现表达，不引入新的世界观内容。</view>
+    </view>
+  </view>
+
+  <user-bottom-nav activeKey="{{activeTab}}" bind:change="onBottomNavChange" />
+  <pilot-fx-overlay id="pilotFx" />
 </view>

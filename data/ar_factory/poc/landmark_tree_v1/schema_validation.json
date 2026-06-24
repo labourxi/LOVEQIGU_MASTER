@@ -1,0 +1,21 @@
+{
+  "validated_at": "2026-06-18T13:00:15+08:00",
+  "schema_version": "AR_FACTORY_RUNTIME_SCHEMA_V1.1",
+  "overall_pass": true,
+  "factory_package": {
+    "document": "factory_package.json",
+    "schema_id": "loveqigu.ar_factory.factory_package.v1",
+    "passed": true,
+    "missing_fields": [],
+    "missing_files": []
+  },
+  "runtime_package": {
+    "document": "runtime_package.json",
+    "schema_id": "loveqigu.ar.runtime.runtime_package.v1",
+    "runtime_version": "AR_FACTORY_RUNTIME_SCHEMA_V1.1",
+    "passed": true,
+    "missing_fields": [],
+    "forbidden_field_leaks": []
+  },
+  "result": "PASS"
+}

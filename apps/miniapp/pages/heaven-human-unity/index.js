@@ -1,4 +1,5 @@
 const heavenHumanUnityService = require('../../services/heaven-human-unity/heaven-human-unity-service');
+const safeInteraction = require('../../behaviors/safe-interaction');
 
 function buildPageData() {
   const overview = heavenHumanUnityService.getHeavenHumanUnityOverview();
@@ -19,6 +20,7 @@ function buildPageData() {
 }
 
 Page({
+  behaviors: [safeInteraction],
   data: buildPageData(),
 
   onLoad() {
@@ -31,8 +33,10 @@ Page({
 
   onOpenPage(event) {
     const { path } = event.currentTarget.dataset;
-    if (path) {
-      wx.navigateTo({ url: path });
+    if (!path) {
+      this.showFallbackToast('功能开发中');
+      return;
     }
+    this.safeNavigate(path);
   }
 });

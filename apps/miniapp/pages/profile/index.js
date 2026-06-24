@@ -1,62 +1,86 @@
-const prototypeRuntime = require('../../services/prototype/prototype-runtime-service');
-const userProgress = require('../../services/user-progress');
-const merchantEventService = require('../../services/merchant-event');
-
-function buildEventSummary() {
-  const overview = merchantEventService.getActivityOverview(merchantEventService.ACTIVITY_ID);
-  const progress = userProgress.readProgress();
-  const activity = progress.event.activities[merchantEventService.ACTIVITY_ID] || {};
-  return {
-    title: overview.activity.event_name,
-    status: overview.activity.status,
-    completedTaskCount: overview.stats.completedTaskCount,
-    ownedRelicCount: overview.stats.ownedRelicCount,
-    claimedCouponCount: overview.stats.claimedCouponCount,
-    enteredAt: activity.entered_at || '未进入',
-    latestCoupon: (activity.coupons || []).find((item) => item && item.status === 'CLAIMED') || null
-  };
-}
+const userFrontend = require('../../services/user-frontend.js');
+const userRuntime = require('../../services/user-runtime-adapter/index');
+const phase1PageGuard = require('../../behaviors/phase1-page-guard');
+const safeInteraction = require('../../behaviors/safe-interaction');
 
 function buildPageData() {
-  const base = prototypeRuntime.getProfileDashboard();
+  userRuntime.boot();
+  const adapter = userRuntime.getAdapter();
+  const snapshot = userFrontend.buildProfileSnapshot();
+  if (adapter) {
+    const profile = adapter.getProfileData(userRuntime.getUserId());
+    const mapped = userRuntime.mapProfileSnapshot(profile);
+    return {
+      activeTab: 'me',
+      snapshot: {
+        ...snapshot,
+        auth: {
+          ...snapshot.auth,
+          user: {
+            ...snapshot.auth.user,
+            nick_name: mapped.nickName
+          }
+        },
+        activity: {
+          ...snapshot.activity,
+          event_name: mapped.activityName,
+          park_name: mapped.parkName
+        },
+        stats: mapped.stats,
+        recentExplorations: mapped.recentExplorations
+      },
+      loginBanner: userFrontend.buildLoginBanner(),
+      bottomNav: userFrontend.buildBottomNav('me'),
+      runtimeMock: true
+    };
+  }
   return {
-    ...base,
-    eventSummary: buildEventSummary()
+    activeTab: 'me',
+    snapshot,
+    loginBanner: userFrontend.buildLoginBanner(),
+    bottomNav: userFrontend.buildBottomNav('me')
   };
 }
 
 Page({
+  behaviors: [phase1PageGuard, safeInteraction],
   data: buildPageData(),
 
   onLoad() {
-    this.refresh();
-  },
-
-  refresh() {
-    this.setData(buildPageData());
-  },
-
-  onOpenScenic(event) {
-    const { id } = event.currentTarget.dataset;
-    if (id) {
-      wx.navigateTo({ url: `/pages/scenic-detail/index?id=${id}` });
+    this.refreshData();
+    if (userFrontend.ensureReadyAsync) {
+      userFrontend.ensureReadyAsync().then(() => this.refreshData());
     }
   },
 
-  onOpenStarMap() {
-    wx.navigateTo({ url: '/pages/star-map/index' });
+  onShow() {
+    this.refreshData();
+    if (userFrontend.ensureReadyAsync) {
+      userFrontend.ensureReadyAsync().then(() => this.refreshData());
+    }
   },
 
-  onOpenMeridianMap() {
-    wx.navigateTo({ url: '/pages/meridian-map/index' });
+  refreshData() {
+    this.setData(buildPageData());
   },
 
-  onOpenRelicArchive() {
-    wx.navigateTo({ url: '/pages/relic-archive/index' });
+  onMockLogin() {
+    userFrontend.loginMock({ nick_name: 'AR游伴游客', role: 'explorer' });
+    this.refreshData();
   },
 
-  onOpenMerchantEvent() {
-    wx.navigateTo({ url: '/pages/merchant-event/index/index' });
-  }
+  onMockLogout() {
+    userFrontend.logoutMock();
+    this.refreshData();
+  },
+
+  onOpenProgress() {
+    this.safeNavigate('/pages/progress-center/index');
+  },
+
+  onOpenHome() {
+    this.safeNavigate('/pages/index/index');
+  },
+
+  onBottomNavChange() {}
 });
-

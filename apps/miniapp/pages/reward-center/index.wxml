@@ -18,4 +18,8 @@
       <view class="reward-type" wx:if="{{reward.unlocked}}">{{reward.reward_type_label}}</view>
     </view>
   </view>
+
+  <view class="proto-section">
+    <button class="proto-btn proto-btn--ghost" bindtap="onBackHome">返回首页</button>
+  </view>
 </view>

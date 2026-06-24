@@ -1,43 +1,53 @@
 /**
- * Unified chapter runtime registry — CH01–CH10
- * Aligns with automation/chapters/registry.yaml chapter order.
+ * Unified chapter runtime registry - lazy loads chapter bridges on demand.
+ * No chapter bridge is required at module load time.
  */
-const ch01Bridge = require('./ch01-runtime-bridge');
-const ch02Bridge = require('./ch02-runtime-bridge');
-const ch03Bridge = require('./ch03-runtime-bridge');
-const ch04Bridge = require('./ch04-runtime-bridge');
-const ch05Bridge = require('./ch05-runtime-bridge');
-const ch06Bridge = require('./ch06-runtime-bridge');
-const ch07Bridge = require('./ch07-runtime-bridge');
-const ch08Bridge = require('./ch08-runtime-bridge');
-const ch09Bridge = require('./ch09-runtime-bridge');
-const ch10Bridge = require('./ch10-runtime-bridge');
 
-const BRIDGES = [
-  ch01Bridge,
-  ch02Bridge,
-  ch03Bridge,
-  ch04Bridge,
-  ch05Bridge,
-  ch06Bridge,
-  ch07Bridge,
-  ch08Bridge,
-  ch09Bridge,
-  ch10Bridge
-];
+const CHAPTER_LOADERS = {
+  CH01: () => require('./ch01-runtime-bridge'),
+  CH02: () => require('./ch02-runtime-bridge'),
+  CH03: () => require('./ch03-runtime-bridge'),
+  CH04: () => require('./ch04-runtime-bridge'),
+  CH05: () => require('./ch05-runtime-bridge'),
+  CH06: () => require('./ch06-runtime-bridge'),
+  CH07: () => require('./ch07-runtime-bridge'),
+  CH08: () => require('./ch08-runtime-bridge'),
+  CH09: () => require('./ch09-runtime-bridge'),
+  CH10: () => require('./ch10-runtime-bridge')
+};
 
-const CHAPTER_IDS = BRIDGES.map((bridge) => bridge.CHAPTER_ID);
+const CHAPTER_IDS = Object.keys(CHAPTER_LOADERS);
+const bridgeCache = Object.create(null);
+
+function loadBridgeByCode(chapterCode) {
+  if (!chapterCode || !CHAPTER_LOADERS[chapterCode]) {
+    return null;
+  }
+  if (!bridgeCache[chapterCode]) {
+    const factory = CHAPTER_LOADERS[chapterCode];
+    bridgeCache[chapterCode] = factory();
+  }
+  return bridgeCache[chapterCode];
+}
+
+function loadChapter(chapterCode) {
+  return loadBridgeByCode(chapterCode);
+}
+
+function loadAllBridges() {
+  return CHAPTER_IDS.map((chapterCode) => loadBridgeByCode(chapterCode)).filter(Boolean);
+}
 
 function getRegisteredBridges() {
-  return BRIDGES.map((bridge) => ({ ...bridge }));
+  return loadAllBridges().map((bridge) => ({ ...bridge }));
 }
 
 function getAllChapters() {
-  return BRIDGES.map((bridge) => bridge.getStoryChapter());
+  return loadAllBridges().map((bridge) => bridge.getStoryChapter());
 }
 
 function getChapterById(id) {
-  const bridge = BRIDGES.find((item) => item.CHAPTER_ID === id);
+  const bridge = loadAllBridges().find((item) => item.CHAPTER_ID === id);
   return bridge ? bridge.getStoryChapter() : null;
 }
 
@@ -47,7 +57,7 @@ function getNodesByChapterId(chapterId) {
 }
 
 function getAllRelics() {
-  return BRIDGES.flatMap((bridge) => bridge.getRelics());
+  return loadAllBridges().flatMap((bridge) => bridge.getRelics());
 }
 
 function getRelicById(id) {
@@ -59,7 +69,7 @@ function getRelicsByChapterId(chapterId) {
 }
 
 function getAllRights() {
-  return BRIDGES.flatMap((bridge) => bridge.getRights());
+  return loadAllBridges().flatMap((bridge) => bridge.getRights());
 }
 
 function getRightById(id) {
@@ -71,7 +81,7 @@ function getRightsByChapterId(chapterId) {
 }
 
 function getAllArEvents() {
-  return BRIDGES.flatMap((bridge) => bridge.getArEvents());
+  return loadAllBridges().flatMap((bridge) => bridge.getArEvents());
 }
 
 function getArEventById(id) {
@@ -87,7 +97,7 @@ function getArEventsByChapterId(chapterId) {
 }
 
 function getChapterDigitalCollectibles() {
-  return BRIDGES.map((bridge) => bridge.getDigitalCollectible());
+  return loadAllBridges().map((bridge) => bridge.getDigitalCollectible());
 }
 
 function getDigitalCollectibleById(id) {
@@ -101,11 +111,12 @@ function getDigitalCollectiblesByChapterId(chapterId) {
 }
 
 function getAssetBoundary() {
-  return ch01Bridge.getAssetBoundary();
+  const bridge = loadBridgeByCode('CH01');
+  return bridge ? bridge.getAssetBoundary() : null;
 }
 
 function validateAllCrossRefs() {
-  const results = BRIDGES.map((bridge) => bridge.validateCrossRefs());
+  const results = loadAllBridges().map((bridge) => bridge.validateCrossRefs());
   const errors = results.flatMap((result) =>
     result.errors.map((error) => `${result.chapter_code}: ${error}`)
   );
@@ -120,7 +131,7 @@ function auditAgainstContent() {
   const expected = { nodes: 5, relics: 6, rights: 5, ar: 6 };
   const issues = [];
 
-  BRIDGES.forEach((bridge) => {
+  loadAllBridges().forEach((bridge) => {
     const chapter = bridge.getStoryChapter();
     const counts = {
       nodes: chapter.nodes.length,
@@ -143,6 +154,7 @@ function auditAgainstContent() {
 
 module.exports = {
   CHAPTER_IDS,
+  loadChapter,
   getRegisteredBridges,
   getAllChapters,
   getChapterById,

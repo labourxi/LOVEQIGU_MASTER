@@ -1,5 +1,6 @@
 const storyService = require('../../services/story/story-service');
 const storyFlowService = require('../../services/story/story-flow-service');
+const safeInteraction = require('../../behaviors/safe-interaction');
 
 const CHAPTER_STATUS_LABELS = {
   active: '进行中',
@@ -35,6 +36,7 @@ function buildPageData() {
 }
 
 Page({
+  behaviors: [safeInteraction],
   data: buildPageData(),
 
   onLoad() {
@@ -42,8 +44,6 @@ Page({
   },
 
   onOpenStoryFlow() {
-    wx.navigateTo({
-      url: '/pages/story-flow/index'
-    });
+    this.safeNavigate('/pages/story-flow/index');
   }
 });

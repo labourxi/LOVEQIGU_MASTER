@@ -1,0 +1,17 @@
+{
+  "source_root": "data\\ar_factory\\poc\\landmark_tree_v1",
+  "miniapp_runtime_root": "apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1",
+  "miniapp_asset_root": "apps\\miniapp\\xr_demo\\miniprogram\\assets\\ar_factory\\landmark_tree_v1",
+  "json_files": [
+    "subject_analysis.json",
+    "anchor.json",
+    "anchor_quality.json",
+    "factory_package.json",
+    "runtime_package.json"
+  ],
+  "image_files": [
+    "alignment_overlay.webp",
+    "position_guide.webp"
+  ],
+  "synced_at": "2026-06-18T05:10:05.182Z"
+}

@@ -1,4 +1,4 @@
-const ASSET_MANIFEST = require('../assets/star-ritual/asset-manifest.json');
+const ASSET_MANIFEST = require('../assets/star-ritual/asset-manifest.js');
 
 const STATES = {
   IDLE: 'idle',

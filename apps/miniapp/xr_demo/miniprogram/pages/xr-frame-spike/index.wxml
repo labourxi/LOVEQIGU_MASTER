@@ -1,0 +1,25 @@
+<view class="page">
+  <view class="card">
+    <view class="title">XR-Frame Bootstrap Spike</view>
+    <view class="copy">{{devtoolsMessage}}</view>
+    <view class="status">BOOT_STATE: {{bootState}}</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">Capability Check</view>
+    <view class="row"><text>XR_FRAME_EXISTS</text><text>{{xrFrameExists ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>XR_PAGE_READY</text><text>YES</text></view>
+    <view class="row"><text>CAMERA_READY</text><text>{{cameraReady ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>XR_SCENE_READY</text><text>{{xrSceneReady ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>XR_OBJECT_RENDER_READY</text><text>{{xrObjectRenderReady ? 'YES' : 'NO'}}</text></view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">Preview Surface</view>
+    <camera wx:if="{{cameraReady}}" class="camera" device-position="back"></camera>
+    <view wx:else class="placeholder">
+      <view class="placeholder-title">XR renderer unavailable</view>
+      <view class="placeholder-copy">This page is a bootstrap probe only. No XR scene is bound.</view>
+    </view>
+  </view>
+</view>

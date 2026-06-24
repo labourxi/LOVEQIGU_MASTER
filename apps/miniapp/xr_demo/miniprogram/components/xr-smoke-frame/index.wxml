@@ -1,0 +1,5 @@
+<xr-frame id="xr-frame">
+  <xr-scene id="xr-scene">
+    <xr-node id="xr-node"></xr-node>
+  </xr-scene>
+</xr-frame>

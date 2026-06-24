@@ -3,190 +3,110 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Coupon Center</title>
-  <link rel="stylesheet" href="../../shared/components/library.css" />
-  <link rel="stylesheet" href="../shared/platform-admin-ui.css" />
+  <title>卡券分析 · AR游伴平台后台</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
 </head>
 <body>
-  <div class="platform-shell">
-    <div id="topnav"></div>
-    <div class="platform-shell__body">
-      <div id="sidenav"></div>
-      <main class="platform-shell__main">
-        <div class="platform-shell__page">
-          <div id="breadcrumbs"></div>
-          <div id="header"></div>
-          <div id="state-switch"></div>
-          <div id="filter"></div>
-          <div id="content"></div>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div id="bo-breadcrumb"></div>
+        <div class="bo-page-header">
+          <h2>卡券分析</h2>
+          <p>全平台礼遇数据视角 · 定位高发卡商家与核销风险</p>
+        </div>
+
+        <div class="bo-coupon-analytics-tabs filter-bar">
+          <button class="btn filter-btn active" type="button">核销率排行</button>
+          <button class="btn filter-btn" type="button">领取量排行</button>
+          <button class="btn filter-btn" type="button">发放量排行</button>
+          <button class="btn filter-btn" type="button">转化率排行</button>
+          <button class="btn filter-btn" type="button">风险提示</button>
+        </div>
+
+        <div class="filter-bar" style="margin-bottom:16px;">
+          <span class="text-muted" style="font-size:13px;margin-right:8px;">筛选</span>
+          <button class="btn filter-btn active" type="button">全部景区</button>
+          <button class="btn filter-btn" type="button">爱企谷</button>
+          <button class="btn filter-btn" type="button">爱企谷湖畔</button>
+        </div>
+
+        <section class="card">
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>卡券名称</th><th>所属景区</th><th>所属活动</th><th>发卡商家</th>
+                  <th>发放</th><th>领取</th><th>核销</th><th>核销率</th><th>领取率</th><th>状态</th><th>风险</th><th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="coupon-analytics-body">
+                <tr data-coupon-id="coupon_001">
+                  <td>咖啡到店礼</td><td>爱企谷</td><td>初见寻宝节</td><td>爱企谷咖啡</td>
+                  <td>300</td><td>180</td><td>72</td><td>40%</td><td>60%</td>
+                  <td><span class="badge badge-success">已发布</span></td>
+                  <td><span class="badge badge-neutral">正常</span></td>
+                  <td class="table-actions">
+                    <a class="btn" href="?couponId=coupon_001">详情</a>
+                    <a class="btn btn-primary" href="../../park-admin/park_admin_merchants/index.html?asPlatform=1&parkId=park_001&merchantId=merchant_001">查看发卡商家</a>
+                  </td>
+                </tr>
+                <tr data-coupon-id="coupon_002">
+                  <td>书店阅读体验券</td><td>爱企谷</td><td>初见寻宝节</td><td>探索书屋</td>
+                  <td>120</td><td>86</td><td>12</td><td>14%</td><td>72%</td>
+                  <td><span class="badge badge-success">已发布</span></td>
+                  <td><span class="badge badge-warning">需关注</span></td>
+                  <td class="table-actions">
+                    <a class="btn" href="?couponId=coupon_002">详情</a>
+                    <a class="btn btn-primary" href="../../park-admin/park_admin_merchants/index.html?asPlatform=1&parkId=park_001">进入园区视图</a>
+                  </td>
+                </tr>
+                <tr data-coupon-id="coupon_003">
+                  <td>手作体验券</td><td>爱企谷</td><td>初见寻宝节</td><td>爱企谷手作馆</td>
+                  <td>90</td><td>64</td><td>24</td><td>38%</td><td>71%</td>
+                  <td><span class="badge badge-success">已发布</span></td>
+                  <td><span class="badge badge-neutral">正常</span></td>
+                  <td class="table-actions">
+                    <a class="btn" href="../../park-admin/park_admin_merchants/index.html?asPlatform=1&parkId=park_001">查看发卡商家</a>
+                  </td>
+                </tr>
+                <tr data-coupon-id="coupon_004">
+                  <td>茶饮礼遇券</td><td>爱企谷</td><td>初见寻宝节</td><td>在地茶舍</td>
+                  <td>80</td><td>24</td><td>0</td><td>0%</td><td>30%</td>
+                  <td><span class="badge badge-warning">待审查</span></td>
+                  <td><span class="badge badge-warning">需关注</span></td>
+                  <td class="table-actions">
+                    <a class="btn" href="../reviews/index.html">审查</a>
+                    <a class="btn" href="../../park-admin/park_admin_dashboard/index.html?asPlatform=1&parkId=park_001">进入园区视图</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <div class="bo-park-insight-block" style="margin-top:16px;">
+          <strong>分析说明</strong>
+          卡券归属景区 / 活动 / 商家。本页为平台全局分析入口，非一级资源管理表。定位商家请使用「查看发卡商家」或进入对应园区视图。
         </div>
       </main>
     </div>
   </div>
-
   <script src="../shared/mock-store.js"></script>
-  <script src="../../shared/components/index.js"></script>
-  <script src="../shared/platform-admin-ui.js"></script>
+  <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/platform-global-search.js"></script>
+  <script src="../shared/page-boot.js"></script>
   <script>
+    if (!PlatformAdminMock.requireAuth()) throw new Error("auth");
+    PlatformPageBoot.boot("coupons", [{ label: "平台运营" }, { label: "卡券分析" }]);
     (function () {
-      if (!PlatformAdminMock.requireAuth()) return;
-
-      const lib = window.AdminComponentLibrary;
-      const ui = window.PlatformAdminUI;
-      const pageSize = 2;
-      let state = 'loading';
-      let query = '';
-      let status = 'ALL';
-      let page = 1;
-      let rows = [];
-
-      const topnav = document.getElementById('topnav');
-      const sidenav = document.getElementById('sidenav');
-      const breadcrumbs = document.getElementById('breadcrumbs');
-      const header = document.getElementById('header');
-      const stateSwitch = document.getElementById('state-switch');
-      const filter = document.getElementById('filter');
-      const content = document.getElementById('content');
-
-      function normalizeRows(source) {
-        const rows = (source || []).slice();
-        if (rows.length < 4) {
-          rows.push(
-            { coupon_id: 'coupon_003', coupon_name: '爱企谷手作体验券', merchant_name: '爱企谷手作馆', coupon_type: 'GIFT', stock: 180, claim_count: 90, redeem_count: 46, status: 'APPROVED' },
-            { coupon_id: 'coupon_004', coupon_name: '爱企谷民宿折扣券', merchant_name: '爱企谷民宿', coupon_type: 'DISCOUNT', stock: 120, claim_count: 32, redeem_count: 18, status: 'PENDING' },
-            { coupon_id: 'coupon_005', coupon_name: '爱企谷花店赠券', merchant_name: '爱企谷花店', coupon_type: 'GIFT', stock: 60, claim_count: 45, redeem_count: 39, status: 'BLOCKED' }
-          );
-        }
-        return rows;
+      var id = new URLSearchParams(location.search).get("couponId");
+      if (id) {
+        var row = document.querySelector('[data-coupon-id="' + id + '"]');
+        if (row) row.style.background = "var(--notice-bg)";
       }
-
-      function renderShell() {
-        const shell = ui.shell('coupons', 'Platform Admin', 'Coupon Center');
-        topnav.innerHTML = shell.topnav;
-        sidenav.innerHTML = shell.sidenav;
-        breadcrumbs.innerHTML = ui.breadcrumbs([{ label: 'Platform Admin' }, { label: 'Coupon Center' }]);
-        header.innerHTML = ui.pageHeader('Coupon Center', '卡券库存、领取量与核销量统一查看。', [
-          { label: '审核中心', href: '../reviews/index.html' },
-          { label: '商家管理', href: '../merchants/index.html', variant: 'primary' }
-        ]);
-        stateSwitch.innerHTML = ui.stateSwitcher(state);
-        stateSwitch.querySelectorAll('[data-state]').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            state = btn.getAttribute('data-state');
-            renderShell();
-            renderFilter();
-            renderContent();
-          });
-        });
-      }
-
-      function renderFilter() {
-        filter.innerHTML = lib.renderFilter({
-          controls: [
-            { label: '搜索卡券', placeholder: '卡券名称 / 商家', value: query },
-            { label: '卡券状态', type: 'select', value: status, options: [
-              { value: 'ALL', label: '全部' },
-              { value: 'APPROVED', label: 'APPROVED' },
-              { value: 'PENDING', label: 'PENDING' },
-              { value: 'BLOCKED', label: 'BLOCKED' }
-            ] }
-          ],
-          actions: [
-            { label: '重置', variant: 'neutral', type: 'button' },
-            { label: '筛选', variant: 'primary', type: 'button' }
-          ]
-        });
-        const inputs = filter.querySelectorAll('.ad-input, .ad-select');
-        inputs[0].value = query;
-        inputs[1].value = status;
-        inputs[0].addEventListener('input', function (e) { query = e.target.value; page = 1; renderContent(); });
-        inputs[1].addEventListener('change', function (e) { status = e.target.value; page = 1; renderContent(); });
-        filter.querySelectorAll('.ad-btn').forEach(function (btn, index) {
-          btn.addEventListener('click', function () {
-            if (index === 0) {
-              query = '';
-              status = 'ALL';
-            }
-            page = 1;
-            renderFilter();
-            renderContent();
-          });
-        });
-      }
-
-      function filterRows() {
-        return rows.filter(function (item) {
-          const text = [item.coupon_name, item.merchant_name].join(' ').toLowerCase();
-          const matchedQuery = !query || text.indexOf(query.toLowerCase()) >= 0;
-          const matchedStatus = status === 'ALL' || item.status === status;
-          return matchedQuery && matchedStatus;
-        });
-      }
-
-      function renderSuccess() {
-        const filtered = filterRows();
-        const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
-        if (page > totalPages) page = totalPages;
-        const slice = filtered.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
-        if (!filtered.length) {
-          content.innerHTML = ui.stateBlock('empty', { title: '暂无卡券', description: '当前筛选条件下没有结果' });
-          return;
-        }
-
-        content.innerHTML = [
-          '<section class="ad-surface page-card">',
-          lib.renderTable({
-            columns: [
-              { key: 'coupon_name', label: '卡券名称' },
-              { key: 'merchant_name', label: '商家' },
-              { key: 'stock', label: '库存' },
-              { key: 'claim_count', label: '领取量' },
-              { key: 'redeem_count', label: '核销量' },
-              { key: 'status', label: '状态', render: function (row) { return { html: ui.badge(row.status) }; } }
-            ],
-            rows: slice
-          }),
-          '</section>',
-          '<div id="pagination"></div>'
-        ].join('');
-
-        const pagination = document.getElementById('pagination');
-        pagination.innerHTML = lib.renderPagination({ page: page, totalPages: totalPages });
-        const buttons = pagination.querySelectorAll('button');
-        if (buttons[0]) buttons[0].addEventListener('click', function () { if (page > 1) { page -= 1; renderSuccess(); } });
-        if (buttons[1]) buttons[1].addEventListener('click', function () { if (page < totalPages) { page += 1; renderSuccess(); } });
-      }
-
-      function renderContent() {
-        if (state === 'loading' || state === 'empty' || state === 'error') {
-          content.innerHTML = ui.stateBlock(state, {
-            title: state === 'loading' ? '卡券中心加载中' : state === 'empty' ? '卡券中心暂无数据' : '卡券中心加载失败',
-            description: '支持搜索、筛选和分页。'
-          });
-          return;
-        }
-        renderSuccess();
-      }
-
-      async function boot() {
-        renderShell();
-        renderFilter();
-        renderContent();
-        try {
-          rows = normalizeRows(await PlatformAdminMock.loadDataset('platform_coupons'));
-          state = 'success';
-          renderShell();
-          renderFilter();
-          renderContent();
-        } catch (_err) {
-          state = 'error';
-          renderShell();
-          renderFilter();
-          renderContent();
-        }
-      }
-
-      boot();
     })();
   </script>
 </body>

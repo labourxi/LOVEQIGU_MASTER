@@ -1,0 +1,5 @@
+{
+  "navigationBarTitleText": "Scenic Point XR",
+  "renderer": "xr-frame",
+  "usingComponents": {}
+}

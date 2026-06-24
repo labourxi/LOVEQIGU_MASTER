@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>美术需求单 · AR游伴内容生产线</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
+</head>
+<body>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div id="bo-breadcrumb"></div>
+        <div class="bo-page-header"><h2>美术需求单</h2><p>视觉资产需求 · 会话C / 豆包 / Gemini / 人工设计</p></div>
+        <div class="grid">
+          <div class="bo-art-request-card span-6">
+            <div class="bo-art-request-card__id">ART-2026-001</div>
+            <div class="bo-art-request-card__title">初见印记 · 信物视觉</div>
+            <div class="bo-content-binding-chip">爱企谷 · 初见寻宝节 · 入口广场</div>
+            <div><span class="badge badge-warning">待审查</span> · 建议工具：会话C</div>
+            <div class="table-actions" style="margin-top:12px">
+              <button class="btn" type="button">查看需求</button>
+              <button class="btn" type="button">复制 Prompt</button>
+              <a class="btn btn-primary" href="../reviews/index.html">提交审查</a>
+            </div>
+          </div>
+          <div class="bo-art-request-card span-6">
+            <div class="bo-art-request-card__id">ART-2026-002</div>
+            <div class="bo-art-request-card__title">咖啡角 · 探索点视觉</div>
+            <div class="bo-content-binding-chip">爱企谷 · 初见寻宝节 · 咖啡角</div>
+            <div><span class="badge badge-accent">生成中</span> · 建议工具：豆包</div>
+            <div class="table-actions" style="margin-top:12px">
+              <button class="btn" type="button">标记已生成</button>
+              <button class="btn" type="button">绑定资源</button>
+            </div>
+          </div>
+        </div>
+        <section class="card bo-content-object-table" style="margin-top:16px">
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>编号</th><th>标题</th><th>资产类型</th><th>景区</th><th>活动</th><th>探索点</th><th>信物</th>
+                  <th>状态</th><th>工具建议</th><th>提交时间</th><th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="art-tbody"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="../shared/mock-store.js"></script>
+  <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/page-boot.js"></script>
+  <script src="../shared/platform-global-search.js"></script>
+  <script src="../shared/content-production-boot.js"></script>
+  <script src="../shared/platform-content-boot.js"></script>
+  <script>
+    PlatformContentBoot.boot("art_requests", "美术需求单");
+    ContentProductionBoot.ensureAdapterScripts(function () {
+      var adapter = ContentProductionBoot.getAdapter();
+      var actor = ContentProductionBoot.getActor();
+      function render() {
+        document.getElementById("art-tbody").innerHTML = adapter.getArtRequests().map(function (a) {
+          return "<tr><td>" + a.id + "</td><td>" + a.title + "</td><td>" + a.assetType + "</td><td>" + a.parkName +
+            "</td><td>" + a.activityName + "</td><td>" + (a.pointName || "—") + "</td><td>" + (a.relicName || "—") +
+            "</td><td>" + ContentProductionBoot.statusBadge(a.status) + "</td><td>" + a.toolSuggestion +
+            "</td><td>" + (a.createdAt || "").slice(0, 16).replace("T", " ") +
+            '</td><td class="table-actions"><button class="btn" data-prompt="' + a.id + '">复制 Prompt</button>' +
+            '<button class="btn" data-mark="' + a.id + '">标记已生成</button>' +
+            '<button class="btn btn-primary" data-review="' + a.id + '">提交审查</button></td></tr>';
+        }).join("");
+        document.querySelectorAll("[data-prompt]").forEach(function (btn) {
+          btn.onclick = function () {
+            var art = adapter.getArtRequestDetail(btn.getAttribute("data-prompt"));
+            if (art && navigator.clipboard) navigator.clipboard.writeText(art.prompt || "");
+            ContentProductionBoot.flash("Prompt 已复制（Mock）：" + (art ? art.prompt : ""), true);
+          };
+        });
+        document.querySelectorAll("[data-mark]").forEach(function (btn) {
+          btn.onclick = function () {
+            var s = window.LQGAdapterSession;
+            var art = s.artRequests.find(function (x) { return x.id === btn.getAttribute("data-mark"); });
+            if (art) { art.status = "GENERATED"; art.updatedAt = new Date().toISOString(); }
+            ContentProductionBoot.flash("已标记为已生成（Mock）", true);
+            render();
+          };
+        });
+        document.querySelectorAll("[data-review]").forEach(function (btn) {
+          btn.onclick = function () {
+            var r = adapter.submitContentReview("art_request", btn.getAttribute("data-review"), {}, actor);
+            ContentProductionBoot.flash(r.message, r.ok);
+            render();
+          };
+        });
+      }
+      render();
+    });
+  </script>
+</body>
+</html>

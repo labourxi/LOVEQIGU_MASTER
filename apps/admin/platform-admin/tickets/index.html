@@ -39,10 +39,11 @@
   </div>
   <script src="../shared/mock-store.js"></script>
   <script src="../../shared/backoffice-shell.js"></script>
-  <script src="../shared/shell.js"></script>
+  <script src="../shared/platform-global-search.js"></script>
+  <script src="../shared/page-boot.js"></script>
   <script>
     if (!PlatformAdminMock.requireAuth()) throw new Error("auth");
-    PlatformAdminShell.bindShell("tickets", "工单中心");
+    PlatformPageBoot.boot("tickets", [{ label: "平台运营" }, { label: "工单中心" }]);
     var rows = [], filter = "ALL";
     function render() {
       var list = rows.filter(function (r) { return filter === "ALL" || r.status === filter; });

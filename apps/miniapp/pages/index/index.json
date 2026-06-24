@@ -1,11 +1,8 @@
 {
-  "navigationBarTitleText": "AR游伴",
+  "navigationBarTitleText": "AR娓镐即",
   "backgroundColor": "#f4f1eb",
   "usingComponents": {
-    "home-mode-switch": "/components/home-mode-switch/home-mode-switch",
-    "explore-home-panel": "/components/explore-home-panel/explore-home-panel",
-    "affinity-home-panel": "/components/affinity-home-panel/affinity-home-panel",
-    "campaign-mode-banner": "/components/campaign-mode-banner/campaign-mode-banner",
-    "campaign-home-panel": "/components/campaign-home-panel/campaign-home-panel"
+    "user-bottom-nav": "/components/user-bottom-nav/index",
+    "pilot-fx-overlay": "/components/pilot-fx-overlay/index"
   }
 }

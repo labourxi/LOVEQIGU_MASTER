@@ -1,0 +1,84 @@
+module.exports = {
+  "schema_id": "loveqigu.ar.runtime.runtime_package.v1",
+  "ar_entity": {
+    "ar_id": "landmark_ar_poc_v1",
+    "exploration_point_id": "ancient_tree_exploration_point",
+    "status": "draft",
+    "ar_type": "landmark_ar",
+    "reveal_type": "relic_reveal",
+    "runtime_version": "AR_FACTORY_RUNTIME_SCHEMA_V1.1",
+    "created_at": "2026-06-16T14:42:03+08:00",
+    "updated_at": "2026-06-16T14:42:03+08:00"
+  },
+  "ar_guidance": {
+    "standing_guide": {
+      "guide_uri": "data\\ar_factory\\poc\\landmark_ar_poc_v1\\position_guide.png",
+      "rule_params": {
+        "arrival_radius_m": 30
+      }
+    },
+    "scan_guide": {
+      "guide_uri": "data\\ar_factory\\poc\\landmark_ar_poc_v1\\position_guide.png",
+      "hint_text": "请将古树轮廓与参考轮廓对齐。"
+    },
+    "alignment_overlay": {
+      "overlay_uri": "data\\ar_factory\\poc\\landmark_ar_poc_v1\\alignment_overlay.png",
+      "contour_uri": "data\\ar_factory\\poc\\landmark_ar_poc_v1\\alignment_overlay.png",
+      "alignment_threshold": 0.75,
+      "hint_text": "请将古树轮廓与参考轮廓重合。",
+      "alignment_success_text": "对准成功，可以开始探索。"
+    }
+  },
+  "anchor": {
+    "anchor_type": "image_anchor",
+    "anchor_payload": {
+      "descriptor_uri": "data\\ar_factory\\poc\\landmark_ar_poc_v1\\anchor.json",
+      "detector": "heuristic_fallback",
+      "feature_count": 144,
+      "score": 0.449
+    }
+  },
+  "navigation_binding": {
+    "latitude": null,
+    "longitude": null,
+    "arrival_radius_m": 30,
+    "distance": null,
+    "eta": null,
+    "nearby_points_ref": []
+  },
+  "activity_binding": {
+    "activity_id": "loveqigu_first_event_case_v1",
+    "blessing_stamp": {
+      "stamp_id": "blessing_stamp_landmark_tree_v1",
+      "grant_on_completion": true
+    },
+    "activity_progress": {
+      "progress_key": "landmark_ar_poc_v1_progress",
+      "increment": 1
+    },
+    "reward_mapping": {
+      "reward_type": "blessing_stamp",
+      "reward_ref": "blessing_stamp_landmark_tree_v1"
+    },
+    "rights_center_route": "/pages/rights-center/index"
+  },
+  "interaction_script": "landmark_ar_poc_v1",
+  "reveal_assets": [
+    {
+      "asset_type": "alignment_overlay",
+      "asset_uri": "data\\ar_factory\\poc\\landmark_ar_poc_v1\\alignment_overlay.png"
+    },
+    {
+      "asset_type": "position_guide",
+      "asset_uri": "data\\ar_factory\\poc\\landmark_ar_poc_v1\\position_guide.png"
+    }
+  ],
+  "completion_event": "event.landmark_ar_poc_v1.completed",
+  "runtime_compat": "miniapp_ar_v1",
+  "published_at": null,
+  "diagnostic": {
+    "publish_state": "blocked",
+    "input_validation_passed": false,
+    "notes": "Runtime package generated for validation; publish step was not executed because the POC chain is not fully ready."
+  }
+};

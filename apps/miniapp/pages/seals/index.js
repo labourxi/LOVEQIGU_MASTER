@@ -1,4 +1,5 @@
 const synthesisService = require('../../services/synthesis/synthesis-service');
+const safeInteraction = require('../../behaviors/safe-interaction');
 
 function buildPageData() {
   const heaven = synthesisService.getHeavenSealProgress();
@@ -12,6 +13,7 @@ function buildPageData() {
 }
 
 Page({
+  behaviors: [safeInteraction],
   data: buildPageData(),
 
   onLoad() {
@@ -23,6 +25,17 @@ Page({
   },
 
   refreshData() {
-    this.setData(buildPageData());
+    try {
+      this.setData(buildPageData());
+    } catch (error) {
+      console.error('[seals.refreshData]', error);
+      this.showFallbackToast('功能开发中');
+    }
+  },
+
+  onBackHome() {
+    this.safeNavigate('/pages/index/index', {
+      fallbackTitle: '首页暂未开放'
+    });
   }
 });

@@ -1,6 +1,3 @@
-const fs = require('fs');
-const path = require('path');
-
 const {
   STORAGE_KEY,
   DEFAULT_PROGRESS,
@@ -11,8 +8,6 @@ const {
   normalizeProgress
 } = require('./user-progress-store');
 
-const ROOT = path.resolve(__dirname, '../../../..');
-const REPORT_PATH = path.join(__dirname, 'migration_report.json');
 const EVENT_ACTIVITY_ID = 'LOVEQIGU_FIRST_EVENT_CASE_V1';
 
 const LEGACY_KEYS = [
@@ -62,14 +57,6 @@ function ensureEventActivity(progress, activityId) {
     };
   }
   return progress.event.activities[activityId];
-}
-
-function writeReport(report) {
-  try {
-    fs.writeFileSync(REPORT_PATH, JSON.stringify(report, null, 2), 'utf-8');
-  } catch (err) {
-    // ignore report write failures
-  }
 }
 
 function migrateProgress() {
@@ -144,7 +131,6 @@ function migrateProgress() {
   };
 
   writeRawValue(STORAGE_KEY, normalized);
-  writeReport(report);
 
   return {
     progress: normalized,
@@ -154,6 +140,5 @@ function migrateProgress() {
 
 module.exports = {
   migrateProgress,
-  REPORT_PATH,
   LEGACY_KEYS
 };

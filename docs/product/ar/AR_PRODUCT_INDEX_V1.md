@@ -8,7 +8,7 @@ module: AR Product Index
 version: V1
 status: ACTIVE
 updated_at: 2026-06-16
-review_batch: AR_INTERACTION_ARCHITECTURE_V1.1_REVISION
+review_batch: AR_VIRAL_ENGINE_POSITIONING_V1_REGISTRATION
 ```
 
 ---
@@ -47,6 +47,18 @@ fixes:
   - FIX-05 Activity Completion Flow
   - FIX-06 Navigation → AR Flow
   - FIX-07 AC-6–AC-10
+```
+
+### 1.2 AR_VIRAL_ENGINE_POSITIONING_V1
+
+```yaml
+filename: AR_VIRAL_ENGINE_POSITIONING_V1.md
+path: docs/product/ar/AR_VIRAL_ENGINE_POSITIONING_V1.md
+type: Product Strategy
+status: FROZEN
+priority: P0
+module: Product Strategy
+description: 定义AR显现体验为AR游伴传播引擎（AR Viral Engine），明确传播飞轮与商业飞轮双体系。
 ```
 
 ---
@@ -88,6 +100,9 @@ AR_PRODUCT_INDEX_V1
 ├── AR_INTERACTION_ARCHITECTURE_V1.1  [FROZEN] ← CURRENT_ACTIVE_AR_ARCHITECTURE
 │   └── C 端 AR 交互架构（V1.1 · 已冻结）
 │       └── → AR Factory 技术栈
+│
+├── AR_VIRAL_ENGINE_POSITIONING_V1    [FROZEN · P0]
+│   └── AR 传播引擎定位 · 双飞轮 · Shareability Score
 │
 └── AR_INTERACTION_ARCHITECTURE_V1     [SUPERSEDED]
     └── 历史版本 · 只读参考 · 保留

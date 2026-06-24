@@ -1,0 +1,71 @@
+<view class="page">
+  <view class="hero">
+    <view class="title">XR Renderer MVP</view>
+    <view class="copy">This page maps the LandMark AR P0 runtime package into a live xr-frame scene and keeps the runtime schema unchanged.</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">Runtime Status</view>
+    <view class="row"><text>XR_PAGE_OPENED</text><text>{{xrPageOpened ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>XR_CAMERA_READY</text><text>{{xrCameraReady ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>XR_SCENE_READY</text><text>{{xrSceneReady ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>XR_RENDER_READY</text><text>{{xrRenderReady ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>RUNTIME_TO_XR_MAPPING_READY</text><text>{{runtimeToXrMappingReady ? 'YES' : 'NO'}}</text></view>
+    <view class="row"><text>XR_RENDER_MODE</text><text>{{xrRenderMode}}</text></view>
+    <view class="row"><text>XR_BLOCK_REASON</text><text>{{xrBlockReason || '-'}}</text></view>
+    <view class="row"><text>XR_CHECKED_AT</text><text>{{xrCheckedAt || '-'}}</text></view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">Runtime Package Mapping</view>
+    <view class="row"><text>RUNTIME_POC_ID</text><text>{{runtimePocId}}</text></view>
+    <view class="row"><text>RUNTIME_PACKAGE_ID</text><text>{{runtimePackageId || '-'}}</text></view>
+    <view class="row"><text>RUNTIME_AR_ID</text><text>{{runtimeArId || '-'}}</text></view>
+    <view class="row"><text>RUNTIME_EFFECT_ID</text><text>{{runtimeEffectId || '-'}}</text></view>
+    <view class="row"><text>RUNTIME_EFFECT_NAME</text><text>{{runtimeEffectName || '-'}}</text></view>
+    <view class="row"><text>RUNTIME_EFFECT_TYPE</text><text>{{runtimeEffectType || '-'}}</text></view>
+    <view class="row"><text>RUNTIME_REVEAL_TYPE</text><text>{{runtimeRevealType || '-'}}</text></view>
+    <view class="row"><text>RUNTIME_FLOW_VERSION</text><text>{{runtimeFlowVersion || '-'}}</text></view>
+    <view class="row"><text>RUNTIME_FLOW_STAGE_COUNT</text><text>{{runtimeFlowStageCount}}</text></view>
+    <view class="row"><text>RUNTIME_NAVIGATION_RADIUS_M</text><text>{{runtimeNavigationRadiusM || '-'}}</text></view>
+    <view class="row"><text>RUNTIME_OVERLAY_PATH</text><text>{{runtimeOverlayPath || '-'}}</text></view>
+    <view class="row"><text>RUNTIME_OVERLAY_HINT</text><text>{{runtimeOverlayHint || '-'}}</text></view>
+    <view class="row"><text>RUNTIME_OVERLAY_SUCCESS_TEXT</text><text>{{runtimeOverlaySuccessText || '-'}}</text></view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">XR Surface</view>
+    <view class="copy" style="margin-bottom: 16rpx;">The scene uses a local glTF asset and a live camera background. No schema changes are made to the runtime package.</view>
+    <view id="xr-runtime-surface-box" class="xr-surface-shell">
+      <xr-frame id="xr-runtime-frame">
+        <xr-scene id="xr-runtime-scene" bind:ready="handleSceneReady">
+          <xr-assets>
+            <xr-asset-load
+              type="gltf"
+              asset-id="xr-runtime-model"
+              src="models/test.gltf"
+              bind:load="handleAssetLoad"
+              bind:error="handleAssetError"
+            />
+          </xr-assets>
+
+          <xr-node id="xr-runtime-node" scale="1 1 1">
+            <xr-gltf id="xr-runtime-object" model="xr-runtime-model" scale="1 1 1" />
+          </xr-node>
+
+          <xr-camera background="ar" is-ar-camera />
+        </xr-scene>
+      </xr-frame>
+    </view>
+    <view class="xr-surface-note">If this page cannot confirm render readiness on device, the runtime package remains untouched and the mapper layer is the only integration surface.</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">Selector Diagnostics</view>
+    <view class="row"><text>SURFACE_BOX_QUERY_RESULT</text><text>{{surfaceBoxQueryResult || '-'}}</text></view>
+    <view class="row"><text>SCENE_QUERY_RESULT</text><text>{{sceneQueryResult || '-'}}</text></view>
+    <view class="row"><text>XR_NODE_QUERY_RESULT</text><text>{{runtimeNodeQueryResult || '-'}}</text></view>
+    <view class="row"><text>XR_OBJECT_QUERY_RESULT</text><text>{{runtimeObjectQueryResult || '-'}}</text></view>
+    <view class="row"><text>SELECTOR_DIAGNOSTICS_CHECKED_AT</text><text>{{selectorDiagnosticsCheckedAt || '-'}}</text></view>
+  </view>
+</view>

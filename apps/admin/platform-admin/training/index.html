@@ -3,252 +3,46 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Training Center</title>
-  <link rel="stylesheet" href="../../shared/components/library.css" />
-  <link rel="stylesheet" href="../shared/platform-admin-ui.css" />
+  <title>培训中心 · AR游伴平台后台</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
 </head>
 <body>
-  <div class="platform-shell">
-    <div id="topnav"></div>
-    <div class="platform-shell__body">
-      <div id="sidenav"></div>
-      <main class="platform-shell__main">
-        <div class="platform-shell__page">
-          <div id="breadcrumbs"></div>
-          <div id="header"></div>
-          <div id="state-switch"></div>
-          <div id="content"></div>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div id="bo-breadcrumb"></div>
+        <div class="bo-page-header"><h2>培训中心</h2><p>景区、商家、店员培训材料与完成状态</p></div>
+        <div class="grid">
+          <section class="card span-4">
+            <h3 class="card-title">商家培训</h3>
+            <p style="margin:0 0 8px;"><strong>商家首日操作</strong></p>
+            <p class="text-muted" style="font-size:13px;">扫码授权、工单提交、常见问题</p>
+            <p style="margin-top:8px;"><span class="badge badge-warning">待完成</span></p>
+          </section>
+          <section class="card span-4">
+            <h3 class="card-title">园区培训</h3>
+            <p style="margin:0 0 8px;"><strong>园区活动配置</strong></p>
+            <p class="text-muted" style="font-size:13px;">活动创建、审查检查、发布前确认</p>
+            <p style="margin-top:8px;"><span class="badge badge-success">已完成</span></p>
+          </section>
+          <section class="card span-4">
+            <h3 class="card-title">店员培训</h3>
+            <p style="margin:0 0 8px;"><strong>店员核销上手</strong></p>
+            <p class="text-muted" style="font-size:13px;">扫码核销、状态识别、异常处理</p>
+            <p style="margin-top:8px;"><span class="badge badge-warning">待完成</span></p>
+          </section>
         </div>
       </main>
     </div>
   </div>
-
   <script src="../shared/mock-store.js"></script>
-  <script src="../../shared/components/index.js"></script>
-  <script src="../shared/platform-admin-ui.js"></script>
+  <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/page-boot.js"></script>
   <script>
-    (function () {
-      if (!PlatformAdminMock.requireAuth()) return;
-
-      const lib = window.AdminComponentLibrary;
-      const ui = window.PlatformAdminUI;
-      let state = 'loading';
-      let activeTab = 'merchant';
-      let rows = [];
-      let modalOpen = false;
-      let modalTitle = '';
-      let modalBody = '';
-
-      const topnav = document.getElementById('topnav');
-      const sidenav = document.getElementById('sidenav');
-      const breadcrumbs = document.getElementById('breadcrumbs');
-      const header = document.getElementById('header');
-      const stateSwitch = document.getElementById('state-switch');
-      const content = document.getElementById('content');
-
-      function buildRows() {
-        return [
-          { id: 'train_merchant', title: '商家首日操作', owner: '商家负责人', status: 'TO_LEARN', duration: '30 分钟', notes: '扫码授权、工单提交、常见问题' },
-          { id: 'train_park', title: '园区活动配置', owner: '园区负责人', status: 'COMPLETED', duration: '30 分钟', notes: '活动创建、审核检查、发布前确认' },
-          { id: 'train_staff', title: '店员核销上手', owner: '店员', status: 'PENDING', duration: '15 分钟', notes: '扫码核销、状态识别、异常处理' }
-        ];
-      }
-
-      function renderShell() {
-        const shell = ui.shell('training', 'Platform Admin', 'Training Center');
-        topnav.innerHTML = shell.topnav;
-        sidenav.innerHTML = shell.sidenav;
-        breadcrumbs.innerHTML = ui.breadcrumbs([{ label: 'Platform Admin' }, { label: 'Training Center' }]);
-        header.innerHTML = ui.pageHeader('Training Center', '景区、商家、店员培训材料与考试结果。', [
-          { label: '返回 Dashboard', href: '../dashboard/index.html' },
-          { label: '工单中心', href: '../reviews/index.html', variant: 'primary' }
-        ]);
-        stateSwitch.innerHTML = ui.stateSwitcher(state);
-        stateSwitch.querySelectorAll('[data-state]').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            state = btn.getAttribute('data-state');
-            renderShell();
-            renderContent();
-          });
-        });
-      }
-
-      function renderTabBar() {
-        return [
-          '<section class="ad-surface page-card">',
-          '<div class="module-toolbar">',
-          ['merchant', 'park', 'staff'].map(function (item) {
-            const label = { merchant: '商家培训', park: '景区培训', staff: '店员培训' }[item];
-            return '<button class="ad-btn ' + (activeTab === item ? 'ad-btn--primary' : '') + '" data-tab="' + item + '">' + label + '</button>';
-          }).join(''),
-          '</div>',
-          '</section>'
-        ].join('');
-      }
-
-      function filteredRows() {
-        if (activeTab === 'merchant') return rows.filter(function (row) { return row.owner === '商家负责人'; });
-        if (activeTab === 'park') return rows.filter(function (row) { return row.owner === '园区负责人'; });
-        return rows.filter(function (row) { return row.owner === '店员'; });
-      }
-
-      async function updateStatus(id, nextStatus) {
-        rows = rows.map(function (row) {
-          if (row.id !== id) return row;
-          return Object.assign({}, row, { status: nextStatus });
-        });
-        await PlatformAdminMock.saveDataset('platform_training', rows);
-        modalOpen = true;
-        modalTitle = '培训状态已更新';
-        modalBody = '当前任务已更新为 ' + nextStatus + '。';
-        renderContent();
-      }
-
-      function rowBadge(status) {
-        if (status === 'COMPLETED') return ui.badge('APPROVED');
-        return ui.badge('PENDING');
-      }
-
-      function renderTrainingList() {
-        const items = filteredRows();
-        if (!items.length) {
-          return ui.stateBlock('empty', { title: '暂无培训内容', description: '当前培训分类为空' });
-        }
-        return items.map(function (row) {
-          const next = row.status === 'COMPLETED' ? 'TO_LEARN' : 'COMPLETED';
-          const label = row.status === 'COMPLETED' ? '标记待完成' : '标记培训完成';
-          return [
-            '<div class="dashboard-note">',
-            '<div class="dashboard-note__title">' + row.title + '</div>',
-            '<div class="dashboard-note__desc">对象：' + row.owner + ' · 状态：' + rowBadge(row.status) + ' · 时长：' + row.duration + '</div>',
-            '<div class="dashboard-note__desc">' + row.notes + '</div>',
-            '<div class="module-toolbar" style="margin-top:8px;">',
-            '<button class="ad-btn ad-btn--primary" data-toggle="' + row.id + '" data-next="' + next + '">' + label + '</button>',
-            '<button class="ad-btn" data-preview="' + row.id + '">查看详情</button>',
-            '</div>',
-            '</div>'
-          ].join('');
-        }).join('');
-      }
-
-      function openModal(row) {
-        modalOpen = true;
-        modalTitle = '培训详情';
-        modalBody = [
-          '<div class="detail-row"><div class="k">名称</div><div>' + row.title + '</div></div>',
-          '<div class="detail-row"><div class="k">对象</div><div>' + row.owner + '</div></div>',
-          '<div class="detail-row"><div class="k">状态</div><div>' + rowBadge(row.status) + '</div></div>',
-          '<div class="detail-row"><div class="k">时长</div><div>' + row.duration + '</div></div>',
-          '<div class="detail-row"><div class="k">内容</div><div>' + row.notes + '</div></div>'
-        ].join('');
-        renderContent();
-      }
-
-      function renderModal() {
-        if (!modalOpen) return '';
-        return lib.renderModal({
-          open: true,
-          title: modalTitle,
-          bodyHtml: modalBody,
-          actions: [
-            { label: '关闭' }
-          ]
-        });
-      }
-
-      function renderSuccess() {
-        const list = filteredRows();
-        content.innerHTML = [
-          renderTabBar(),
-          '<section class="page-two-col">',
-          '<article class="ad-surface page-card">',
-          '<div class="dashboard-trend__title"><h3 class="ad-page-header__title">培训任务</h3><span class="ad-badge ad-badge--accent">Mock</span></div>',
-          renderTrainingList(),
-          '</article>',
-          '<article class="ad-surface page-card">',
-          '<div class="dashboard-trend__title"><h3 class="ad-page-header__title">考试与操作</h3></div>',
-          ui.stateBlock('success', { title: '考试通过标准：80 分', description: '未通过可重新培训。' }),
-          '<div class="module-toolbar" style="margin-top:16px;">',
-          '<button class="ad-btn ad-btn--primary" type="button" id="complete-btn">标记培训完成</button>',
-          '<button class="ad-btn" type="button" id="reset-btn">重新培训</button>',
-          '</div>',
-          '</article>',
-          '</section>',
-          renderModal()
-        ].join('');
-
-        content.querySelectorAll('[data-tab]').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            activeTab = btn.getAttribute('data-tab');
-            modalOpen = false;
-            renderSuccess();
-          });
-        });
-        content.querySelectorAll('[data-toggle]').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            updateStatus(btn.getAttribute('data-toggle'), btn.getAttribute('data-next'));
-          });
-        });
-        content.querySelectorAll('[data-preview]').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            const row = list.find(function (item) { return item.id === btn.getAttribute('data-preview'); });
-            if (row) openModal(row);
-          });
-        });
-        const completeBtn = content.querySelector('#complete-btn');
-        const resetBtn = content.querySelector('#reset-btn');
-        if (completeBtn) {
-          completeBtn.addEventListener('click', function () {
-            modalOpen = true;
-            modalTitle = '培训完成';
-            modalBody = '当前分类下的培训可标记为完成。';
-            renderContent();
-          });
-        }
-        if (resetBtn) {
-          resetBtn.addEventListener('click', function () {
-            modalOpen = true;
-            modalTitle = '重新培训';
-            modalBody = '当前分类下的培训状态可回退到待完成。';
-            renderContent();
-          });
-        }
-        content.querySelectorAll('.ad-modal .ad-btn').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            modalOpen = false;
-            renderContent();
-          });
-        });
-      }
-
-      function renderContent() {
-        if (state === 'loading' || state === 'empty' || state === 'error') {
-          content.innerHTML = ui.stateBlock(state, {
-            title: state === 'loading' ? '培训中心加载中' : state === 'empty' ? '培训中心暂无数据' : '培训中心加载失败',
-            description: '培训资料与考试结果仅在 success 状态展示。'
-          });
-          return;
-        }
-        renderSuccess();
-      }
-
-      async function boot() {
-        renderShell();
-        renderContent();
-        try {
-          rows = buildRows();
-          state = 'success';
-          renderShell();
-          renderContent();
-        } catch (_err) {
-          state = 'error';
-          renderShell();
-          renderContent();
-        }
-      }
-
-      boot();
-    })();
+    if (!PlatformAdminMock.requireAuth()) throw new Error("auth");
+    PlatformPageBoot.boot("training", [{ label: "平台运营" }, { label: "培训中心" }]);
   </script>
 </body>
 </html>

@@ -1,0 +1,12 @@
+:host {
+  display: block;
+}
+
+.xr-simple-3d-shell {
+  display: block;
+  min-height: 360rpx;
+  background: #111111;
+  border: 1px solid #36453d;
+  border-radius: 16rpx;
+  overflow: hidden;
+}

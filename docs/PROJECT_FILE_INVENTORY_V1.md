@@ -1512,3 +1512,14 @@ Total files: 1203
 - No files were modified by the scan itself.
 
 `PROJECT_FILE_INVENTORY_V1_COMPLETE = YES`
+
+## Visual Production Docs Registration
+
+- docs/ui_implementation/VISUAL_PROMPT_PACK_LANDING_AND_EXPLORE_V1.md
+- docs/freeze_records/VISUAL_LANDING_PRODUCTION_V1_FREEZE_RECORD.md
+- docs/indexes/VISUAL_PRODUCTION_REVIEW_INDEX_TEMPLATE_V1.md
+- docs/ui_implementation/landing_page_final_v1.md
+- docs/ui_implementation/explore_home_final_v1.md
+- docs/ui_implementation/component_breakdown_v1.md
+- docs/ui_implementation/visual_tokens_v1.md
+- docs/ui_implementation/visual_acceptance_checklist_v1.md

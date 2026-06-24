@@ -3,30 +3,133 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Activity List</title>
-  <link rel="stylesheet" href="../../shared/components/library.css" />
-  <link rel="stylesheet" href="../shared/platform-admin-ui.css" />
+  <title>活动管理 · AR游伴平台后台</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
 </head>
 <body>
-  <div class="platform-shell">
-    <div id="topnav"></div>
-    <div class="platform-shell__body">
-      <div id="sidenav"></div>
-      <main class="platform-shell__main">
-        <div class="platform-shell__page">
-          <div id="breadcrumbs"></div>
-          <div id="header"></div>
-          <div id="state-switch"></div>
-          <div id="filter"></div>
-          <div id="content"></div>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div id="bo-breadcrumb"></div>
+        <div class="bo-page-header-row">
+          <div class="bo-page-header"><h2>活动管理</h2><p>按景区分组查看活动状态、检查与发布进度</p></div>
+          <a class="btn" href="create/index.html">创建活动</a>
+        </div>
+
+        <div class="bo-scenic-group" id="scenic-park_001">
+          <div class="bo-scenic-group__head">
+            <div>
+              <div class="bo-scenic-group__title">爱企谷</div>
+              <div class="bo-scenic-group__meta">华东 · 合作中 · 活动 5 · 商家 28</div>
+            </div>
+            <a class="btn" href="../../park-admin/park_admin_dashboard/index.html?asPlatform=1&parkId=park_001">进入园区视图</a>
+          </div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>活动名称</th><th>活动状态</th><th>平台检查</th><th>发布状态</th>
+                  <th>商家</th><th>探索点</th><th>卡券</th><th>更新</th><th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>爱企谷初见寻宝节</td>
+                  <td><span class="badge badge-success">进行中</span></td>
+                  <td><span class="badge badge-success">已通过</span></td>
+                  <td><span class="badge badge-success">已发布</span></td>
+                  <td>12</td><td>8</td><td>5</td><td>06-20</td>
+                  <td class="table-actions">
+                    <a class="btn" href="../../park-admin/park_admin_activity_detail/index.html?asPlatform=1&parkId=park_001&activityId=activity_001">查看详情</a>
+                    <a class="btn" href="../../park-admin/park_admin_dashboard/index.html?asPlatform=1&parkId=park_001">园区视图</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>爱企谷夏日探索</td>
+                  <td><span class="badge badge-neutral">草稿</span></td>
+                  <td><span class="badge badge-warning">待审查</span></td>
+                  <td><span class="badge badge-danger">已阻断</span></td>
+                  <td>3</td><td>4</td><td>2</td><td>06-18</td>
+                  <td class="table-actions">
+                    <a class="btn" href="../../park-admin/park_admin_activity_detail/index.html?asPlatform=1&parkId=park_001&activityId=activity_002&status=DRAFT&label=草稿">查看详情</a>
+                    <a class="btn btn-primary" href="../reviews/index.html">审查</a>
+                    <a class="btn" href="../publish/index.html">发布中心</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="bo-scenic-group" id="scenic-park_002">
+          <div class="bo-scenic-group__head">
+            <div>
+              <div class="bo-scenic-group__title">爱企谷湖畔景区</div>
+              <div class="bo-scenic-group__meta">华东 · 合作中 · 活动 2 · 商家 5</div>
+            </div>
+            <a class="btn" href="../../park-admin/park_admin_dashboard/index.html?asPlatform=1&parkId=park_002">进入园区视图</a>
+          </div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr><th>活动名称</th><th>活动状态</th><th>平台检查</th><th>发布状态</th><th>商家</th><th>探索点</th><th>卡券</th><th>操作</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>湖畔夜游节</td>
+                  <td><span class="badge badge-neutral">草稿</span></td>
+                  <td><span class="badge badge-success">已通过</span></td>
+                  <td><span class="badge badge-warning">待发布</span></td>
+                  <td>5</td><td>6</td><td>3</td>
+                  <td class="table-actions">
+                    <a class="btn" href="../../park-admin/park_admin_activity_detail/index.html?asPlatform=1&parkId=park_002&activityId=activity_003">查看详情</a>
+                    <a class="btn btn-primary" href="../publish/index.html">发布中心</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="bo-scenic-group" id="scenic-park_003">
+          <div class="bo-scenic-group__head">
+            <div>
+              <div class="bo-scenic-group__title">爱企谷森林景区</div>
+              <div class="bo-scenic-group__meta">华南 · 未启用 · 活动 1</div>
+            </div>
+            <a class="btn" href="../../park-admin/park_admin_dashboard/index.html?asPlatform=1&parkId=park_003">进入园区视图</a>
+          </div>
+          <div class="table-wrap">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>森林寻踪活动</td>
+                  <td><span class="badge badge-neutral">草稿</span></td>
+                  <td><span class="badge badge-warning">待审查</span></td>
+                  <td><span class="badge badge-neutral">未发布</span></td>
+                  <td class="table-actions"><a class="btn" href="../reviews/index.html">审查</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="bo-park-insight-block" style="margin-top:16px;">
+          <strong>状态说明</strong>
+          「活动状态」与「平台检查」「发布状态」分开展示。进行中活动不以发布检查为主操作；未上线活动进入审查与发布流程。
         </div>
       </main>
     </div>
   </div>
   <script src="../shared/mock-store.js"></script>
-  <script src="../../shared/components/index.js"></script>
-  <script src="../shared/platform-admin-ui.js"></script>
-  <script src="../shared/phase2-pages.js"></script>
-  <script>PlatformPhase2Pages.activityList();</script>
+  <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/platform-global-search.js"></script>
+  <script src="../shared/page-boot.js"></script>
+  <script>
+    if (!PlatformAdminMock.requireAuth()) throw new Error("auth");
+    PlatformPageBoot.boot("activities", [{ label: "平台运营" }, { label: "活动管理" }]);
+  </script>
 </body>
 </html>

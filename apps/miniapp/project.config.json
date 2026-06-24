@@ -1,8 +1,18 @@
 {
   "description": "AR游伴 WeChat Mini Program",
   "packOptions": {
-    "ignore": [],
-    "include": []
+    "ignore": [
+      {
+        "type": "regexp",
+        "value": ".*/effect_preview/preview_sheet\\.(png|webp)$"
+      }
+    ],
+    "include": [
+      {
+        "type": "folder",
+        "value": "shared"
+      }
+    ]
   },
   "setting": {
     "urlCheck": true,
@@ -30,7 +40,7 @@
     }
   },
   "compileType": "miniprogram",
-  "libVersion": "latest",
+  "libVersion": "3.15.2",
   "appid": "wx2077c10675bdca4f",
   "projectname": "AR游伴",
   "condition": {

@@ -1,0 +1,1539 @@
+/** Phase 1 user frontend — oriental exploration polish (extends prototype-v1) */
+
+
+
+.user-phase1-page {
+  padding-bottom: calc(120rpx + env(safe-area-inset-bottom));
+  background: #f4f1eb;
+  box-sizing: border-box;
+}
+
+
+
+/* —— 首页情绪引导 —— */
+
+.user-home-scroll {
+
+  margin: 0 -28rpx;
+
+  padding: 56rpx 40rpx 44rpx;
+
+  background: linear-gradient(165deg, #1f302b 0%, #263a34 45%, #2d4540 100%);
+
+  border-radius: 0 0 40rpx 40rpx;
+
+  position: relative;
+
+  overflow: hidden;
+
+}
+
+
+
+.user-home-scroll::before {
+
+  content: '';
+
+  position: absolute;
+
+  top: 24rpx;
+
+  right: 32rpx;
+
+  width: 120rpx;
+
+  height: 120rpx;
+
+  border-radius: 50%;
+
+  border: 1rpx solid rgba(244, 215, 166, 0.12);
+
+  opacity: 0.6;
+
+}
+
+
+
+.user-home-scroll::after {
+
+  content: '';
+
+  position: absolute;
+
+  bottom: 0;
+
+  left: 0;
+
+  right: 0;
+
+  height: 3rpx;
+
+  background: linear-gradient(90deg, transparent, rgba(232, 216, 180, 0.35), transparent);
+
+}
+
+
+
+.user-tagline {
+
+  font-size: 30rpx;
+
+  font-weight: 600;
+
+  letter-spacing: 10rpx;
+
+  color: #e8d8b4;
+
+  margin-bottom: 12rpx;
+
+}
+
+
+
+.user-verse {
+
+  margin-top: 16rpx;
+
+  font-size: 24rpx;
+
+  line-height: 1.8;
+
+  color: rgba(255, 255, 255, 0.65);
+
+  letter-spacing: 2rpx;
+
+}
+
+
+
+.user-hero-stats {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 20rpx;
+
+  margin-top: 28rpx;
+
+}
+
+
+
+.user-stat-pill {
+
+  flex: 1;
+
+  min-width: 160rpx;
+
+  padding: 14rpx 0;
+
+  text-align: center;
+
+  border-top: 1rpx solid rgba(255, 255, 255, 0.12);
+
+}
+
+
+
+.user-stat-value {
+
+  font-size: 34rpx;
+
+  font-weight: 800;
+
+  color: #f4d7a6;
+
+}
+
+
+
+.user-stat-label {
+
+  margin-top: 6rpx;
+
+  font-size: 20rpx;
+
+  color: rgba(255, 255, 255, 0.6);
+
+  letter-spacing: 2rpx;
+
+}
+
+
+
+.user-primary-cta {
+
+  margin-top: 32rpx;
+
+  width: 100%;
+
+  height: 84rpx;
+
+  line-height: 84rpx;
+
+  border-radius: 42rpx;
+
+  background: linear-gradient(180deg, #f0e2c4 0%, #e8d8b4 100%);
+
+  color: #263a34;
+
+  font-size: 30rpx;
+
+  font-weight: 700;
+
+  letter-spacing: 4rpx;
+
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.15);
+
+}
+
+
+
+.user-primary-cta::after {
+
+  border: 0;
+
+}
+
+
+
+.user-path-links {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 0;
+
+  border-radius: 20rpx;
+
+  overflow: hidden;
+
+  background: rgba(255, 255, 255, 0.55);
+
+  border: 1rpx solid rgba(38, 58, 52, 0.08);
+
+}
+
+
+
+.user-path-link {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 28rpx 24rpx;
+
+  border-bottom: 1rpx solid rgba(38, 58, 52, 0.06);
+
+}
+
+
+
+.user-path-link:last-child {
+
+  border-bottom: 0;
+
+}
+
+
+
+.user-path-link__title {
+
+  font-size: 28rpx;
+
+  font-weight: 700;
+
+  color: #263a34;
+
+}
+
+
+
+.user-path-link__copy {
+
+  margin-top: 6rpx;
+
+  font-size: 22rpx;
+
+  color: #6b7280;
+
+}
+
+
+
+.user-path-link__arrow {
+
+  font-size: 28rpx;
+
+  color: #b68a3d;
+
+  opacity: 0.7;
+
+}
+
+
+
+.user-featured-scroll {
+
+  padding: 28rpx;
+
+  border-radius: 20rpx;
+
+  background: linear-gradient(135deg, #faf8f4 0%, #f1ece2 100%);
+
+  border: 1rpx solid rgba(182, 138, 61, 0.18);
+
+}
+
+
+
+.user-featured-kicker {
+
+  font-size: 22rpx;
+
+  color: #7f4f24;
+
+  letter-spacing: 4rpx;
+
+  font-weight: 700;
+
+}
+
+
+
+.user-featured-title {
+
+  margin-top: 12rpx;
+
+  font-size: 34rpx;
+
+  font-weight: 800;
+
+  color: #263a34;
+
+}
+
+
+
+.user-featured-meta {
+
+  margin-top: 10rpx;
+
+  font-size: 24rpx;
+
+  color: #6b7280;
+
+}
+
+
+
+.user-echo-panel {
+
+  padding: 28rpx 32rpx;
+
+  border-radius: 20rpx;
+
+  background: transparent;
+
+  border-left: 4rpx solid #b68a3d;
+
+}
+
+
+
+.user-echo-kicker {
+
+  font-size: 22rpx;
+
+  color: #7f4f24;
+
+  font-weight: 700;
+
+  letter-spacing: 4rpx;
+
+}
+
+
+
+.user-echo-copy {
+
+  margin-top: 12rpx;
+
+  font-size: 28rpx;
+
+  color: #374151;
+
+  line-height: 1.75;
+
+}
+
+
+
+/* —— 探索地图 · 图谱 —— */
+
+.atlas-page {
+
+  background: linear-gradient(180deg, #ebe6dc 0%, #f4f1eb 280rpx);
+
+}
+
+
+
+.atlas-header {
+
+  margin: 0 -28rpx 36rpx;
+
+  padding: 48rpx 36rpx 40rpx;
+
+  background: linear-gradient(160deg, #1a2824 0%, #263a34 100%);
+
+  color: #fff;
+
+  border-radius: 0 0 36rpx 36rpx;
+
+}
+
+
+
+.atlas-header__kicker {
+
+  font-size: 22rpx;
+
+  letter-spacing: 6rpx;
+
+  color: rgba(255, 255, 255, 0.6);
+
+}
+
+
+
+.atlas-header__title {
+
+  margin-top: 12rpx;
+
+  font-size: 44rpx;
+
+  font-weight: 800;
+
+  line-height: 1.35;
+
+}
+
+
+
+.atlas-header__guide {
+
+  margin-top: 16rpx;
+
+  font-size: 26rpx;
+
+  line-height: 1.7;
+
+  color: rgba(255, 255, 255, 0.78);
+
+}
+
+
+
+.atlas-header__meta {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 16rpx;
+
+  margin-top: 24rpx;
+
+  font-size: 22rpx;
+
+  color: rgba(244, 215, 166, 0.85);
+
+  letter-spacing: 1rpx;
+
+}
+
+
+
+.atlas-header__meta text {
+
+  opacity: 0.9;
+
+}
+
+
+
+.atlas-canvas {
+
+  position: relative;
+
+  padding: 36rpx 24rpx 36rpx 48rpx;
+
+  margin-bottom: 32rpx;
+
+  border-radius: 24rpx;
+
+  background: linear-gradient(180deg, #faf8f4 0%, #f0ebe2 100%);
+
+  border: 1rpx solid rgba(38, 58, 52, 0.1);
+
+  box-shadow: inset 0 2rpx 0 rgba(255, 255, 255, 0.8);
+
+}
+
+
+
+.atlas-canvas__title {
+
+  margin-bottom: 28rpx;
+
+  font-size: 24rpx;
+
+  color: #7f4f24;
+
+  letter-spacing: 4rpx;
+
+  font-weight: 700;
+
+}
+
+
+
+.atlas-path__stem {
+
+  position: absolute;
+
+  left: 58rpx;
+
+  top: 80rpx;
+
+  bottom: 48rpx;
+
+  width: 2rpx;
+
+  background: linear-gradient(180deg, rgba(182, 138, 61, 0.15), rgba(75, 99, 92, 0.45), rgba(182, 138, 61, 0.15));
+
+}
+
+
+
+.atlas-node {
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 20rpx;
+
+  margin-bottom: 32rpx;
+
+  position: relative;
+
+  z-index: 1;
+
+}
+
+
+
+.atlas-node:last-child {
+
+  margin-bottom: 0;
+
+}
+
+
+
+.atlas-node__star {
+
+  flex: 0 0 28rpx;
+
+  width: 28rpx;
+
+  height: 28rpx;
+
+  margin-top: 6rpx;
+
+  border-radius: 50%;
+
+  background: #e5e7eb;
+
+  border: 2rpx solid #d1d5db;
+
+  box-shadow: 0 0 0 6rpx rgba(229, 231, 235, 0.5);
+
+}
+
+
+
+.atlas-node--lit .atlas-node__star {
+
+  background: radial-gradient(circle at 35% 35%, #f4d7a6, #b68a3d);
+
+  border-color: #b68a3d;
+
+  box-shadow: 0 0 12rpx rgba(182, 138, 61, 0.35), 0 0 0 6rpx rgba(244, 215, 166, 0.2);
+
+}
+
+
+
+.atlas-node--next .atlas-node__star {
+
+  background: #fff;
+
+  border: 3rpx solid #b68a3d;
+
+  box-shadow: 0 0 16rpx rgba(182, 138, 61, 0.25);
+
+}
+
+
+
+.atlas-node__body {
+
+  flex: 1;
+
+  padding-bottom: 4rpx;
+
+}
+
+
+
+.atlas-node__name {
+
+  font-size: 28rpx;
+
+  font-weight: 700;
+
+  color: #263a34;
+
+}
+
+
+
+.atlas-node--dim .atlas-node__name {
+
+  color: #9ca3af;
+
+}
+
+
+
+.atlas-node__hint {
+
+  margin-top: 6rpx;
+
+  font-size: 22rpx;
+
+  color: #6b7280;
+
+}
+
+
+
+.atlas-node--lit .atlas-node__hint {
+
+  color: #4b635c;
+
+}
+
+
+
+.atlas-next-banner {
+
+  margin-bottom: 28rpx;
+
+  padding: 24rpx 28rpx;
+
+  border-radius: 16rpx;
+
+  background: rgba(255, 253, 248, 0.95);
+
+  border: 1rpx solid rgba(182, 138, 61, 0.25);
+
+}
+
+
+
+.atlas-next-banner__label {
+
+  font-size: 20rpx;
+
+  color: #b68a3d;
+
+  letter-spacing: 4rpx;
+
+  font-weight: 700;
+
+}
+
+
+
+.atlas-next-banner__name {
+
+  margin-top: 8rpx;
+
+  font-size: 32rpx;
+
+  font-weight: 800;
+
+  color: #263a34;
+
+}
+
+
+
+.atlas-section-label {
+
+  margin-bottom: 20rpx;
+
+  font-size: 26rpx;
+
+  font-weight: 700;
+
+  color: #263a34;
+
+  letter-spacing: 2rpx;
+
+}
+
+
+
+.atlas-timeline__item {
+
+  display: flex;
+
+  align-items: stretch;
+
+  gap: 20rpx;
+
+  padding: 24rpx 0;
+
+  border-bottom: 1rpx solid rgba(38, 58, 52, 0.08);
+
+}
+
+
+
+.atlas-timeline__item:last-child {
+
+  border-bottom: 0;
+
+}
+
+
+
+.atlas-timeline__mark {
+
+  flex: 0 0 48rpx;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+}
+
+
+
+.atlas-timeline__dot {
+
+  width: 16rpx;
+
+  height: 16rpx;
+
+  border-radius: 50%;
+
+  background: #d1d5db;
+
+  margin-top: 8rpx;
+
+}
+
+
+
+.atlas-timeline__item--lit .atlas-timeline__dot {
+
+  background: #4b635c;
+
+  box-shadow: 0 0 8rpx rgba(75, 99, 92, 0.4);
+
+}
+
+
+
+.atlas-timeline__item--next .atlas-timeline__dot {
+
+  background: #b68a3d;
+
+  box-shadow: 0 0 10rpx rgba(182, 138, 61, 0.35);
+
+}
+
+
+
+.atlas-timeline__content {
+
+  flex: 1;
+
+  min-width: 0;
+
+}
+
+
+
+.atlas-timeline__head {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 12rpx;
+
+}
+
+
+
+.atlas-timeline__name {
+
+  font-size: 30rpx;
+
+  font-weight: 700;
+
+  color: #111827;
+
+}
+
+
+
+.atlas-timeline__item--dim .atlas-timeline__name {
+
+  color: #6b7280;
+
+}
+
+
+
+.atlas-timeline__badge {
+
+  flex-shrink: 0;
+
+  padding: 4rpx 14rpx;
+
+  border-radius: 999rpx;
+
+  font-size: 20rpx;
+
+  font-weight: 700;
+
+  background: #f3f4f6;
+
+  color: #6b7280;
+
+}
+
+
+
+.atlas-timeline__item--lit .atlas-timeline__badge {
+
+  background: #e8efe9;
+
+  color: #4b635c;
+
+}
+
+
+
+.atlas-timeline__item--next .atlas-timeline__badge {
+
+  background: #f1ece2;
+
+  color: #7f4f24;
+
+}
+
+
+
+.atlas-timeline__meta {
+
+  margin-top: 8rpx;
+
+  font-size: 22rpx;
+
+  color: #9ca3af;
+
+  line-height: 1.5;
+
+}
+
+
+
+.atlas-timeline__actions {
+
+  display: flex;
+
+  gap: 12rpx;
+
+  margin-top: 16rpx;
+
+}
+
+
+
+.atlas-timeline__actions .proto-btn {
+
+  flex: 1;
+
+  height: 64rpx;
+
+  line-height: 64rpx;
+
+  font-size: 24rpx;
+
+  padding: 0;
+
+}
+
+
+
+/* —— 权益中心 · 探索礼遇 —— */
+
+.rights-page {
+
+  background: linear-gradient(180deg, #ebe6dc 0%, #f4f1eb 240rpx);
+
+}
+
+
+
+.rights-hero {
+
+  margin: 0 -28rpx 32rpx;
+
+  padding: 44rpx 36rpx 36rpx;
+
+  background: linear-gradient(155deg, #1f302b, #263a34);
+
+  color: #fff;
+
+  border-radius: 0 0 32rpx 32rpx;
+
+}
+
+
+
+.rights-hero__title {
+
+  font-size: 42rpx;
+
+  font-weight: 800;
+
+}
+
+
+
+.rights-hero__copy {
+
+  margin-top: 12rpx;
+
+  font-size: 26rpx;
+
+  line-height: 1.7;
+
+  color: rgba(255, 255, 255, 0.78);
+
+}
+
+
+
+.rights-zone {
+
+  margin-bottom: 36rpx;
+
+}
+
+
+
+.rights-zone__head {
+
+  display: flex;
+
+  align-items: baseline;
+
+  justify-content: space-between;
+
+  margin-bottom: 16rpx;
+
+}
+
+
+
+.rights-zone__title {
+
+  font-size: 28rpx;
+
+  font-weight: 700;
+
+  color: #263a34;
+
+  letter-spacing: 2rpx;
+
+}
+
+
+
+.rights-zone__hint {
+
+  font-size: 22rpx;
+
+  color: #9ca3af;
+
+}
+
+
+
+.rights-gift-panel {
+
+  border-radius: 20rpx;
+
+  background: rgba(255, 255, 255, 0.65);
+
+  border: 1rpx solid rgba(38, 58, 52, 0.08);
+
+  overflow: hidden;
+
+}
+
+
+
+.rights-gift-row {
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 20rpx;
+
+  padding: 26rpx 24rpx;
+
+  border-bottom: 1rpx solid rgba(38, 58, 52, 0.06);
+
+}
+
+
+
+.rights-gift-row:last-child {
+
+  border-bottom: 0;
+
+}
+
+
+
+.rights-gift-row__seal {
+
+  flex: 0 0 52rpx;
+
+  width: 52rpx;
+
+  height: 52rpx;
+
+  border-radius: 50%;
+
+  background: linear-gradient(145deg, #e8efe9, #d4e0da);
+
+  border: 1rpx solid rgba(75, 99, 92, 0.2);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 22rpx;
+
+  color: #4b635c;
+
+  font-weight: 700;
+
+}
+
+
+
+.rights-gift-row__body {
+
+  flex: 1;
+
+  min-width: 0;
+
+}
+
+
+
+.rights-gift-row__title {
+
+  font-size: 28rpx;
+
+  font-weight: 700;
+
+  color: #111827;
+
+}
+
+
+
+.rights-gift-row__merchant {
+
+  margin-top: 6rpx;
+
+  font-size: 24rpx;
+
+  color: #4b635c;
+
+}
+
+
+
+.rights-gift-row__note {
+
+  margin-top: 8rpx;
+
+  font-size: 22rpx;
+
+  color: #9ca3af;
+
+  line-height: 1.5;
+
+}
+
+
+
+.rights-gift-row__status {
+
+  flex-shrink: 0;
+
+  padding: 6rpx 14rpx;
+
+  border-radius: 999rpx;
+
+  font-size: 20rpx;
+
+  font-weight: 700;
+
+  background: #f1ece2;
+
+  color: #7f4f24;
+
+}
+
+
+
+.rights-guide-panel {
+
+  padding: 28rpx;
+
+  border-radius: 20rpx;
+
+  background: transparent;
+
+  border: 1rpx dashed rgba(38, 58, 52, 0.15);
+
+}
+
+
+
+.rights-guide-panel__copy {
+
+  font-size: 26rpx;
+
+  color: #374151;
+
+  line-height: 1.75;
+
+}
+
+
+
+.rights-guide-steps {
+
+  margin-top: 20rpx;
+
+}
+
+
+
+.rights-guide-step {
+
+  display: flex;
+
+  gap: 16rpx;
+
+  margin-bottom: 16rpx;
+
+  font-size: 24rpx;
+
+  color: #6b7280;
+
+  line-height: 1.6;
+
+}
+
+
+
+.rights-guide-step__num {
+
+  flex: 0 0 36rpx;
+
+  color: #b68a3d;
+
+  font-weight: 700;
+
+}
+
+
+
+.rights-empty-hint {
+
+  padding: 32rpx 24rpx;
+
+  text-align: center;
+
+  font-size: 24rpx;
+
+  color: #9ca3af;
+
+  line-height: 1.6;
+
+}
+
+
+
+.rights-source {
+
+  display: inline-block;
+
+  margin-top: 8rpx;
+
+  padding: 4rpx 12rpx;
+
+  border-radius: 999rpx;
+
+  font-size: 20rpx;
+
+  background: #e8efe9;
+
+  color: #4b635c;
+
+}
+
+
+
+.rights-qr-placeholder {
+
+  margin-top: 12rpx;
+
+  padding: 20rpx;
+
+  border-radius: 12rpx;
+
+  border: 1rpx dashed #d1d5db;
+
+  text-align: center;
+
+  font-size: 22rpx;
+
+  color: #9ca3af;
+
+  background: #faf8f4;
+
+}
+
+
+
+/* —— 信物收藏册 —— */
+
+.relic-album-wrap {
+
+  margin-top: 8rpx;
+
+  padding: 28rpx 24rpx;
+
+  border-radius: 24rpx;
+
+  background: linear-gradient(180deg, #faf8f4 0%, #f4f1eb 100%);
+
+  border: 1rpx solid rgba(38, 58, 52, 0.08);
+
+  box-shadow: inset 4rpx 0 0 #e8d8b4;
+
+}
+
+
+
+.relic-album-spine {
+
+  font-size: 20rpx;
+
+  color: #7f4f24;
+
+  letter-spacing: 6rpx;
+
+  margin-bottom: 20rpx;
+
+  font-weight: 700;
+
+}
+
+
+
+.relic-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 14rpx;
+
+}
+
+
+
+.relic-grid-card {
+
+  padding: 22rpx 20rpx;
+
+  border-radius: 16rpx;
+
+  background: #fff;
+
+  border: 1rpx solid rgba(38, 58, 52, 0.08);
+
+  box-shadow: 0 4rpx 16rpx rgba(17, 24, 39, 0.04);
+
+}
+
+
+
+.relic-grid-card--owned {
+
+  background: linear-gradient(180deg, #fff 0%, #faf8f4 100%);
+
+  border-color: rgba(182, 138, 61, 0.2);
+
+}
+
+
+
+.relic-grid-card--pending {
+
+  background: transparent;
+
+  border: 1rpx dashed #d1d5db;
+
+  opacity: 0.65;
+
+}
+
+
+
+.relic-seal {
+
+  width: 64rpx;
+
+  height: 64rpx;
+
+  margin-bottom: 14rpx;
+
+  border-radius: 50%;
+
+  background: radial-gradient(circle at 30% 30%, #f4d7a6, #b68a3d);
+
+  opacity: 0.9;
+
+  box-shadow: 0 4rpx 12rpx rgba(182, 138, 61, 0.2);
+
+}
+
+
+
+.relic-seal--pending {
+
+  background: #e5e7eb;
+
+  opacity: 0.45;
+
+  box-shadow: none;
+
+}
+
+
+
+/* —— 探索点详情 · 卷轴叙事 —— */
+
+.scenic-scroll-flow {
+
+  padding: 32rpx 28rpx;
+
+  border-radius: 20rpx;
+
+  background: #fff;
+
+  border: 1rpx solid rgba(38, 58, 52, 0.06);
+
+  position: relative;
+
+}
+
+
+
+.scenic-scroll-flow::before {
+
+  content: '';
+
+  position: absolute;
+
+  top: 20rpx;
+
+  bottom: 20rpx;
+
+  left: 16rpx;
+
+  width: 3rpx;
+
+  background: linear-gradient(180deg, transparent, rgba(182, 138, 61, 0.3), transparent);
+
+}
+
+
+
+.scenic-flow-block {
+
+  padding-left: 28rpx;
+
+  margin-bottom: 36rpx;
+
+}
+
+
+
+.scenic-flow-block:last-child {
+
+  margin-bottom: 0;
+
+}
+
+
+
+.scenic-flow-kicker {
+
+  font-size: 22rpx;
+
+  color: #7f4f24;
+
+  letter-spacing: 4rpx;
+
+  font-weight: 700;
+
+}
+
+
+
+.scenic-flow-copy {
+
+  margin-top: 12rpx;
+
+  font-size: 28rpx;
+
+  color: #374151;
+
+  line-height: 1.75;
+
+}
+
+
+
+.scenic-relic-chip {
+
+  display: inline-block;
+
+  margin-top: 14rpx;
+
+  padding: 8rpx 16rpx;
+
+  border-radius: 8rpx;
+
+  background: #f1ece2;
+
+  color: #263a34;
+
+  font-size: 22rpx;
+
+}
+
+
+
+.scenic-story-panel {
+  padding: 28rpx;
+  border-radius: 16rpx;
+  background: #fff;
+  border: 1rpx solid rgba(38, 58, 52, 0.06);
+}
+
+.pilot-scene-banner {
+  margin: 0 0 20rpx;
+  padding: 24rpx 28rpx;
+  border-radius: 16rpx;
+  background: linear-gradient(135deg, rgba(38, 58, 52, 0.92) 0%, rgba(55, 74, 68, 0.88) 100%);
+  border: 1rpx solid rgba(182, 138, 61, 0.25);
+  box-shadow: 0 12rpx 32rpx rgba(17, 24, 39, 0.08);
+}
+
+.pilot-scene-banner--overlay {
+  position: relative;
+  z-index: 12;
+  pointer-events: auto;
+}
+
+.pilot-scene-banner__kicker {
+  font-size: 22rpx;
+  color: rgba(244, 241, 235, 0.72);
+  letter-spacing: 2rpx;
+}
+
+.pilot-scene-banner__copy {
+  margin-top: 8rpx;
+  font-size: 28rpx;
+  line-height: 1.6;
+  color: #f4f1eb;
+}
+
+.pilot-commercial-banner {
+  margin-bottom: 24rpx;
+  padding: 32rpx 28rpx;
+  border-radius: 16rpx;
+  background: linear-gradient(135deg, #263a34 0%, #3d524b 100%);
+  border: 1rpx solid rgba(182, 138, 61, 0.35);
+  box-shadow: 0 16rpx 40rpx rgba(38, 58, 52, 0.18);
+}
+
+.pilot-commercial-banner__title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #f4f1eb;
+  line-height: 1.5;
+}
+
+.pilot-commercial-banner__copy {
+  margin-top: 10rpx;
+  font-size: 26rpx;
+  color: rgba(244, 241, 235, 0.78);
+  line-height: 1.6;
+}

@@ -1,3 +1,9 @@
 {
-  "navigationBarTitleText": "动效模板"
+  "navigationBarTitleText": "显现仪式页",
+  "backgroundColor": "#f4f1eb",
+  "usingComponents": {
+    "star-activation-ritual": "/components/star-activation-ritual/index",
+    "user-bottom-nav": "/components/user-bottom-nav/index",
+    "pilot-fx-overlay": "/components/pilot-fx-overlay/index"
+  }
 }

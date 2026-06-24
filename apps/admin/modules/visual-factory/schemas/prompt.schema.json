@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Prompt",
+  "type": "object",
+  "required": ["title", "target_model", "objective", "style_notes", "prompt_text"],
+  "properties": {
+    "title": { "type": "string" },
+    "target_model": { "type": "string" },
+    "objective": { "type": "string" },
+    "style_notes": { "type": "string" },
+    "prompt_text": { "type": "string" },
+    "markdown": { "type": "string" }
+  },
+  "additionalProperties": true
+}

@@ -26,10 +26,10 @@
   </div>
   <script src="../shared/mock-store.js"></script>
   <script src="../../shared/backoffice-shell.js"></script>
-  <script src="../shared/shell.js"></script>
+  <script src="../shared/page-boot.js"></script>
   <script>
     if (!PlatformAdminMock.requireAuth()) throw new Error("auth");
-    PlatformAdminShell.bindShell("settings", "系统设置");
+    PlatformPageBoot.boot("settings", [{ label: "平台运营" }, { label: "系统设置" }]);
   </script>
 </body>
 </html>

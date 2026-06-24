@@ -1,48 +1,72 @@
-<view class="page mvp-page">
-  <view class="page-title">{{title}}</view>
-  <view class="page-desc">{{previewOnly}}</view>
-
-  <view class="check-row">
-    <view class="check-chip" wx:for="{{checks}}" wx:key="*this">{{item}}</view>
+<view class="xr-page-fixed ar-entry-page">
+  <view class="xr-host-layer xr-host-layer--ar-entry">
+    <ar-marker-entry id="arMarkerHost" bind:uistate="onMarkerUiState" />
   </view>
 
-  <view class="entry-panel">
-    <view class="entry-label">{{modeLabel}}</view>
-    <view class="entry-copy">{{modeCopy}}</view>
-    <button class="entry-button" bindtap="onContinue">{{actionLabel}}</button>
-  </view>
+  <view class="ui-overlay-layer ar-entry-ui">
+    <view class="ar-entry-topbar">
+      <button class="proto-btn proto-btn--ghost ar-entry-back" bindtap="onReturnHome">返回</button>
+    </view>
+    <view wx:if="{{pilotSceneActive}}" class="pilot-scene-banner pilot-scene-banner--overlay">
+      <view class="pilot-scene-banner__kicker">显现探索</view>
+      <view class="pilot-scene-banner__copy">{{pilotSceneHint}}</view>
+    </view>
+    <view class="ar-entry-marker-ui ui-overlay-layer--absolute ar-entry-marker-ui--host">
+      <view class="ar-entry-title">AR 入口</view>
+      <view class="ar-entry-copy">
+        上传识别图后进入稳定的 2D Marker 识别流程。
+      </view>
+      <button class="ar-entry-btn" bindtap="onUploadMarkerImage">上传识别图</button>
+      <view class="ar-entry-row"><text>RUN_STATE</text><text>{{markerUi.markerRunState}}</text></view>
+      <view class="ar-entry-row"><text>MODEL_VISIBLE</text><text>{{markerUi.modelVisible ? 'YES' : 'NO'}}</text></view>
+      <view class="ar-entry-row"><text>MODEL_FOLLOWS_MARKER</text><text>{{markerUi.modelFollowsMarker ? 'YES' : 'NO'}}</text></view>
+    </view>
 
-  <view class="ritual-panel" wx:if="{{showStarRitualPreview}}">
-    <view class="ritual-panel__head">
-      <view class="ritual-panel__title">ART-02 星图点亮预览</view>
-      <view class="ritual-panel__state">{{ritualPreviewState}}</view>
+    <view class="proto-hero">
+      <view class="proto-kicker">显现流程</view>
+      <view class="proto-title">AR 显现</view>
+      <view class="proto-subtitle">{{detail ? detail.point_name : '请先选择探索点'}}</view>
     </view>
-    <view class="ritual-panel__copy">{{ritualPreview.copy}}</view>
-    <view class="ritual-panel__meta">
-      <view class="ritual-panel__tag">{{ritualPreview.assetMode}}</view>
-      <view class="ritual-panel__tag">时间轴 {{ritualPreview.timelineCount}}</view>
-    </view>
-    <view class="ritual-panel__actions">
-      <button class="ritual-button ritual-button--primary" bindtap="onStartStarRitualPreview">启动预览</button>
-      <button class="ritual-button" bindtap="onResetStarRitualPreview">重置</button>
-    </view>
-    <star-activation-ritual
-      id="starRitualPreview"
-      visible="{{ritualPreview.visible}}"
-      autoplay="{{ritualPreview.autoplay}}"
-      title="{{ritualPreview.title}}"
-      subtitle="{{ritualPreview.subtitle}}"
-      demoLabel="{{ritualPreview.demoLabel}}"
-      targetIndex="{{ritualPreview.targetIndex}}"
-      bindcomplete="onStarRitualComplete"
-    />
-  </view>
 
-  <view class="list">
-    <view class="ar-card" wx:for="{{entries}}" wx:key="code">
-      <view class="card-title">{{item.name}}</view>
-      <view class="card-copy">{{item.desc}}</view>
-      <button class="preview-button" data-code="{{item.code}}" bindtap="onPreview">棰勮</button>
+    <view class="proto-section ar-entry-xr-spacer"></view>
+
+    <view class="proto-section" wx:if="{{runtimePocActive}}">
+      <view class="proto-card ar-scan-card">
+        <view class="proto-card-title">识别引导层</view>
+        <view class="ar-scan-viewport">
+          <image class="ar-scan-overlay" src="{{overlayPath}}" mode="aspectFit" />
+        </view>
+        <view class="proto-card-copy">{{overlayHint}}</view>
+        <view class="proto-card-meta" wx:if="{{runtimeFlowStages.length}}">
+          Flow：{{runtimeFlowStages[0].stage}} → {{runtimeFlowStages[1].stage}} → {{runtimeFlowStages[2].stage}}
+        </view>
+      </view>
     </view>
+
+    <view class="proto-section">
+      <view class="proto-card">
+        <view class="proto-card-title">显现提示</view>
+        <view class="proto-card-copy">{{scanHint}}</view>
+        <view class="proto-card-meta">状态：{{scanState}}</view>
+        <view class="proto-card-meta" wx:if="{{bridgeMode}}">模式：{{bridgeMode === 'FALLBACK' ? '备用显现' : 'AR 显现'}}</view>
+        <view class="proto-card-copy" wx:if="{{revelationMessage}}">{{revelationMessage}}</view>
+        <button class="proto-btn proto-btn--primary" bindtap="onPrimaryAction" disabled="{{primaryDisabled}}">{{primaryLabel}}</button>
+        <button wx:if="{{showSecondary}}" class="proto-btn proto-btn--ghost" bindtap="onSecondaryAction">{{secondaryLabel}}</button>
+      </view>
+    </view>
+
+    <view class="proto-section">
+      <view class="proto-card">
+        <view class="proto-row">
+          <view class="proto-card-title">活动进度</view>
+          <view class="proto-badge">{{overview.stats.completionRate}}%</view>
+        </view>
+        <view class="proto-card-meta">任务 {{overview.stats.completedTaskCount}} / {{overview.stats.taskCount}}</view>
+        <view class="proto-card-copy">信物为故事进度资产，完成显现后收录至信物库。</view>
+      </view>
+    </view>
+
+    <user-bottom-nav activeKey="{{activeTab}}" bind:change="onBottomNavChange" />
+    <pilot-fx-overlay id="pilotFx" />
   </view>
 </view>

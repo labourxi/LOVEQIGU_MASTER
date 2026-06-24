@@ -1,0 +1,7 @@
+module.exports = {
+  "score": 0.662,
+  "subject_confidence": 0.41,
+  "anchor_score": 0.665,
+  "template_confidence": 0.735,
+  "recommendation": "manual_review_required"
+};

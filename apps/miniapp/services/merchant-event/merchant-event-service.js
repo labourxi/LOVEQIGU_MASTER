@@ -1,13 +1,37 @@
-const activitySeed = require('../../../../data/merchant_event/activity.seed.json');
-const explorationPointsSeed = require('../../../../data/merchant_event/exploration_points.seed.json');
-const tasksSeed = require('../../../../data/merchant_event/tasks.seed.json');
-const relicsSeed = require('../../../../data/merchant_event/relics.seed.json');
-const merchantsSeed = require('../../../../data/merchant_event/merchants.seed.json');
-const couponTemplatesSeed = require('../../../../data/merchant_event/coupon_templates.seed.json');
-const bindingsSeed = require('../../../../data/merchant_event/bindings.seed.json');
-const progressStore = require('../user-progress');
+let progressStore;
+
+function ensureDeps() {
+  if (!progressStore) {
+    progressStore = require('../user-progress');
+  }
+}
 
 const ACTIVITY_ID = 'LOVEQIGU_FIRST_EVENT_CASE_V1';
+
+const EMPTY_SEED_BUNDLE = {
+  activitySeed: {},
+  explorationPointsSeed: [],
+  tasksSeed: [],
+  relicsSeed: [],
+  merchantsSeed: [],
+  couponTemplatesSeed: [],
+  bindingsSeed: {
+    activity_to_exploration_points: [],
+    activity_to_tasks: [],
+    activity_to_relics: [],
+    activity_to_merchants: [],
+    activity_to_coupon_templates: [],
+    exploration_point_task_bindings: [],
+    task_relic_bindings: [],
+    merchant_coupon_bindings: []
+  }
+};
+
+const seedState = {
+  loaded: false,
+  loading: null,
+  bundle: null
+};
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -21,9 +45,52 @@ function asObject(value) {
   return value && typeof value === 'object' && !Array.isArray(value) ? value : {};
 }
 
-function merchantMap() {
+function loadSeedBundleSync() {
+  return {
+    activitySeed: require('../../data/merchant_event/activity.seed.js'),
+    explorationPointsSeed: require('../../data/merchant_event/exploration_points.seed.js'),
+    tasksSeed: require('../../data/merchant_event/tasks.seed.js'),
+    relicsSeed: require('../../data/merchant_event/relics.seed.js'),
+    merchantsSeed: require('../../data/merchant_event/merchants.seed.js'),
+    couponTemplatesSeed: require('../../data/merchant_event/coupon_templates.seed.js'),
+    bindingsSeed: require('../../data/merchant_event/bindings.seed.js')
+  };
+}
+
+function readSeedBundle() {
+  return seedState.loaded && seedState.bundle ? seedState.bundle : EMPTY_SEED_BUNDLE;
+}
+
+function markSeedBundleLoaded(bundle) {
+  seedState.bundle = bundle || EMPTY_SEED_BUNDLE;
+  seedState.loaded = true;
+  return seedState.bundle;
+}
+
+function ensureReadyAsync() {
+  if (seedState.loaded && seedState.bundle) {
+    return Promise.resolve(seedState.bundle);
+  }
+  if (seedState.loading) {
+    return seedState.loading;
+  }
+
+  seedState.loading = new Promise((resolve) => {
+    setTimeout(() => {
+      try {
+        resolve(markSeedBundleLoaded(loadSeedBundleSync()));
+      } catch (error) {
+        resolve(markSeedBundleLoaded(EMPTY_SEED_BUNDLE));
+      }
+    }, 0);
+  });
+
+  return seedState.loading;
+}
+
+function merchantMap(seed = readSeedBundle()) {
   const map = {};
-  asArray(merchantsSeed).forEach((merchant) => {
+  asArray(seed.merchantsSeed).forEach((merchant) => {
     if (merchant && merchant.merchant_id) {
       map[merchant.merchant_id] = merchant;
     }
@@ -31,9 +98,9 @@ function merchantMap() {
   return map;
 }
 
-function couponMap() {
+function couponMap(seed = readSeedBundle()) {
   const map = {};
-  asArray(couponTemplatesSeed).forEach((coupon) => {
+  asArray(seed.couponTemplatesSeed).forEach((coupon) => {
     if (coupon && coupon.coupon_id) {
       map[coupon.coupon_id] = coupon;
     }
@@ -41,9 +108,9 @@ function couponMap() {
   return map;
 }
 
-function taskMap() {
+function taskMap(seed = readSeedBundle()) {
   const map = {};
-  asArray(tasksSeed).forEach((task) => {
+  asArray(seed.tasksSeed).forEach((task) => {
     if (task && task.task_id) {
       map[task.task_id] = task;
     }
@@ -51,9 +118,9 @@ function taskMap() {
   return map;
 }
 
-function relicMap() {
+function relicMap(seed = readSeedBundle()) {
   const map = {};
-  asArray(relicsSeed).forEach((relic) => {
+  asArray(seed.relicsSeed).forEach((relic) => {
     if (relic && relic.relic_id) {
       map[relic.relic_id] = relic;
     }
@@ -61,37 +128,38 @@ function relicMap() {
   return map;
 }
 
-function bindings() {
-  return asObject(bindingsSeed);
+function bindings(seed = readSeedBundle()) {
+  return asObject(seed.bindingsSeed);
 }
 
-function findTaskByPointId(pointId) {
-  const binding = asArray(bindings().exploration_point_task_bindings).find(
+function findTaskByPointId(pointId, seed = readSeedBundle()) {
+  const binding = asArray(bindings(seed).exploration_point_task_bindings).find(
     (item) => item && item.point_id === pointId
   );
   return binding ? binding.task_id : null;
 }
 
-function findPointByTaskId(taskId) {
-  const binding = asArray(bindings().exploration_point_task_bindings).find(
+function findPointByTaskId(taskId, seed = readSeedBundle()) {
+  const binding = asArray(bindings(seed).exploration_point_task_bindings).find(
     (item) => item && item.task_id === taskId
   );
   return binding ? binding.point_id : null;
 }
 
-function findRelicByTaskId(taskId) {
-  const binding = asArray(bindings().task_relic_bindings).find((item) => item && item.task_id === taskId);
+function findRelicByTaskId(taskId, seed = readSeedBundle()) {
+  const binding = asArray(bindings(seed).task_relic_bindings).find((item) => item && item.task_id === taskId);
   return binding ? binding.relic_id : null;
 }
 
-function findCouponByMerchantId(merchantId) {
-  const binding = asArray(bindings().merchant_coupon_bindings).find(
+function findCouponByMerchantId(merchantId, seed = readSeedBundle()) {
+  const binding = asArray(bindings(seed).merchant_coupon_bindings).find(
     (item) => item && item.merchant_id === merchantId
   );
   return binding ? binding.coupon_id : null;
 }
 
 function getProgress() {
+  ensureDeps();
   return progressStore.readProgress();
 }
 
@@ -101,27 +169,28 @@ function getActivityProgress(activityId = ACTIVITY_ID) {
 }
 
 function getActivityData() {
-  return clone(activitySeed);
+  return clone(readSeedBundle().activitySeed);
 }
 
 function getActivityOverview(activityId = ACTIVITY_ID) {
-  const activity = getActivityData();
+  const seed = readSeedBundle();
+  const activity = clone(seed.activitySeed);
   const userProgress = getProgress();
   const activityProgress = getActivityProgress(activityId);
-  const merchantIndex = merchantMap();
-  const taskIndex = taskMap();
-  const relicIndex = relicMap();
-  const couponIndex = couponMap();
+  const merchantIndex = merchantMap(seed);
+  const taskIndex = taskMap(seed);
+  const relicIndex = relicMap(seed);
+  const couponIndex = couponMap(seed);
   const completedTasks = new Set(asArray(activityProgress.completed_task_ids));
   const grantedRelics = new Set(asArray(activityProgress.granted_relic_ids));
   const claimedCoupons = new Set(asArray(activityProgress.claimed_coupons));
 
-  const points = asArray(explorationPointsSeed).map((point) => {
-    const taskId = point.task_id || findTaskByPointId(point.point_id);
+  const points = asArray(seed.explorationPointsSeed).map((point) => {
+    const taskId = point.task_id || findTaskByPointId(point.point_id, seed);
     const task = taskId ? taskIndex[taskId] : null;
-    const relicId = taskId ? findRelicByTaskId(taskId) : null;
+    const relicId = taskId ? findRelicByTaskId(taskId, seed) : null;
     const merchant = point.merchant_id ? merchantIndex[point.merchant_id] : null;
-    const couponId = merchant ? findCouponByMerchantId(merchant.merchant_id) : null;
+    const couponId = merchant ? findCouponByMerchantId(merchant.merchant_id, seed) : null;
     const taskDone = taskId ? completedTasks.has(taskId) : false;
     const relicDone = relicId ? grantedRelics.has(relicId) : false;
     const couponClaimed = couponId ? claimedCoupons.has(couponId) : false;
@@ -146,10 +215,10 @@ function getActivityOverview(activityId = ACTIVITY_ID) {
     };
   });
 
-  const tasks = asArray(tasksSeed).map((task) => {
-    const relicId = findRelicByTaskId(task.task_id);
+  const tasks = asArray(seed.tasksSeed).map((task) => {
+    const relicId = findRelicByTaskId(task.task_id, seed);
     const completed = completedTasks.has(task.task_id);
-    const linkedPointId = findPointByTaskId(task.task_id);
+    const linkedPointId = findPointByTaskId(task.task_id, seed);
     return {
       task_id: task.task_id,
       task_name: task.task_name,
@@ -161,7 +230,7 @@ function getActivityOverview(activityId = ACTIVITY_ID) {
     };
   });
 
-  const relics = asArray(relicsSeed).map((relic) => ({
+  const relics = asArray(seed.relicsSeed).map((relic) => ({
     relic_id: relic.relic_id,
     relic_name: relic.relic_name,
     rarity: relic.rarity,
@@ -169,16 +238,16 @@ function getActivityOverview(activityId = ACTIVITY_ID) {
     status: grantedRelics.has(relic.relic_id) ? 'OWNED' : 'LOCKED'
   }));
 
-  const coupons = asArray(couponTemplatesSeed).map((coupon) => {
+  const coupons = asArray(seed.couponTemplatesSeed).map((coupon) => {
     const merchant = coupon.merchant_id ? merchantIndex[coupon.merchant_id] : null;
-    const relatedPoint = asArray(bindings().exploration_point_task_bindings).find((item) => {
+    const relatedPoint = asArray(bindings(seed).exploration_point_task_bindings).find((item) => {
       const point = item && item.point_id;
       if (!point) return false;
-      const pointRecord = asArray(explorationPointsSeed).find((p) => p && p.point_id === point);
+      const pointRecord = asArray(seed.explorationPointsSeed).find((p) => p && p.point_id === point);
       return pointRecord && pointRecord.merchant_id === coupon.merchant_id;
     });
     const taskId = relatedPoint ? relatedPoint.task_id : null;
-    const relicId = taskId ? findRelicByTaskId(taskId) : null;
+    const relicId = taskId ? findRelicByTaskId(taskId, seed) : null;
     const taskDone = taskId ? completedTasks.has(taskId) : false;
     const relicDone = relicId ? grantedRelics.has(relicId) : false;
     const claimed = claimedCoupons.has(coupon.coupon_id);
@@ -252,11 +321,13 @@ function getPointDetail(pointId, activityId = ACTIVITY_ID) {
 }
 
 function enterActivity(activityId = ACTIVITY_ID) {
+  ensureDeps();
   progressStore.enterActivity(activityId);
   return getActivityOverview(activityId);
 }
 
 function completeTask(activityId, taskId) {
+  ensureDeps();
   progressStore.completeTask(activityId, taskId);
   const relicId = findRelicByTaskId(taskId);
   if (relicId) {
@@ -266,11 +337,13 @@ function completeTask(activityId, taskId) {
 }
 
 function grantEventRelic(activityId, relicId) {
+  ensureDeps();
   progressStore.grantEventRelic(activityId, relicId);
   return getActivityOverview(activityId);
 }
 
 function claimCoupon(activityId, couponId) {
+  ensureDeps();
   const coupon = couponMap()[couponId];
   if (!coupon) {
     return getActivityOverview(activityId);
@@ -286,6 +359,8 @@ function claimCoupon(activityId, couponId) {
 
 module.exports = {
   ACTIVITY_ID,
+  ensureReadyAsync,
+  readSeedBundle,
   getActivityData,
   getActivityOverview,
   getPointDetail,

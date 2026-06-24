@@ -1,5 +1,8 @@
 const meridianMapService = require('../../services/meridian-map/meridian-map-service');
 const culturalCopyService = require('../../services/cultural/cultural-copy-service');
+const userRuntime = require('../../services/user-runtime-adapter/index');
+const phase1PageGuard = require('../../behaviors/phase1-page-guard');
+const safeInteraction = require('../../behaviors/safe-interaction');
 
 const EMPTY_CELEBRATION = {
   visible: false,
@@ -12,13 +15,24 @@ const EMPTY_CELEBRATION = {
 
 function buildOverviewData(focusPointId) {
   const overview = meridianMapService.getMeridianOverview();
+  userRuntime.boot();
+  const adapter = userRuntime.getAdapter();
+  let progressPercent = overview.progressPercent;
+  let litDisplay = overview.litDisplay;
+  if (adapter) {
+    const runtimeProgress = adapter.getMeridianProgress(userRuntime.getUserId(), userRuntime.getActivityId());
+    if (runtimeProgress.litCount > 0) {
+      progressPercent = Math.max(progressPercent, runtimeProgress.progressPercent);
+      litDisplay = `${runtimeProgress.litCount}/${runtimeProgress.totalRelics || overview.litDisplay}`;
+    }
+  }
   return {
     view: 'overview',
     title: overview.title,
     subtitle: overview.subtitle,
-    litDisplay: overview.litDisplay,
+    litDisplay,
     completedDisplay: overview.completedDisplay,
-    progressPercent: overview.progressPercent,
+    progressPercent,
     regularMeridians: overview.regularMeridians,
     extraordinaryVessels: overview.extraordinaryVessels,
     meridianDetail: null,
@@ -54,6 +68,7 @@ function buildMeridianView(meridianId, focusPointId) {
 }
 
 Page({
+  behaviors: [phase1PageGuard, safeInteraction],
   data: {
     ...buildOverviewData(),
     celebration: { ...EMPTY_CELEBRATION }
@@ -122,6 +137,7 @@ Page({
   onOpenMeridian(event) {
     const { id } = event.currentTarget.dataset;
     if (!id) {
+      this.showFallbackToast('功能开发中');
       return;
     }
     this.setData(buildMeridianView(id, ''));

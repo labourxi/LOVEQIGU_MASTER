@@ -1,8 +1,8 @@
 {
   "schema": "loveqigu.runtime_registry.v1",
   "version": "1.0.0",
-  "updated_at": "2026-06-16T12:00:00Z",
-  "batch": "DOCUMENT_RECOVERY_BATCH_V1",
+  "updated_at": "2026-06-18T12:00:00Z",
+  "batch": "CULTURAL_ARCHETYPE_VISUAL_BIBLE_V1_FREEZE",
   "documents": [
     {
       "document_id": "AR_INTERACTION_ARCHITECTURE_V1.1",
@@ -151,6 +151,23 @@
       "current_active_visual_system": true
     },
     {
+      "document_id": "ADMIN_BLESSING_UI_GUIDELINE_V1",
+      "id": "ADMIN_BLESSING_UI_GUIDELINE_V1",
+      "path": "docs/admin/visual/ADMIN_BLESSING_UI_GUIDELINE_V1.md",
+      "module": "Admin",
+      "category": "ADMIN_VISUAL_SYSTEM",
+      "type": "Visual Guideline",
+      "version": "V1",
+      "status": "superseded",
+      "lifecycle": "superseded",
+      "owner": "Product / Operations",
+      "active": false,
+      "superseded_date": "2026-06-16",
+      "updated_at": "2026-06-16",
+      "superseded_by": "ACTIVITY_BLESSING_VISUAL_GUIDELINE_V1",
+      "admin_visual_successor": "ADMIN_OPERATION_VISUAL_SYSTEM_V1"
+    },
+    {
       "document_id": "ADMIN_UI_COMPONENT_LIBRARY_V1",
       "id": "ADMIN_UI_COMPONENT_LIBRARY_V1",
       "path": "docs/admin/design_system/ADMIN_UI_COMPONENT_LIBRARY_V1.md",
@@ -268,6 +285,47 @@
       "active": true,
       "updated_at": "2026-06-07",
       "current_active_dashboard": true
+    },
+    {
+      "document_id": "CHINESE_CULTURAL_ARCHETYPE_LIBRARY_V1",
+      "id": "CHINESE_CULTURAL_ARCHETYPE_LIBRARY_V1",
+      "path": "docs/product/ar_factory/archetype/CHINESE_CULTURAL_ARCHETYPE_LIBRARY_V1.md",
+      "module": "AR Factory",
+      "category": "CULTURAL_ARCHETYPE_LIBRARY",
+      "type": "Cultural Archetype Library",
+      "version": "V1",
+      "status": "frozen",
+      "lifecycle": "approved",
+      "owner": "ART / PRODUCT",
+      "active": true,
+      "priority": "P0",
+      "freeze_date": "2026-06-18",
+      "updated_at": "2026-06-18",
+      "review_status": "APPROVED",
+      "viral_priority_applied": true,
+      "factory_mapping_defined": true,
+      "engine_id": "CULTURAL_ARCHETYPE_ENGINE",
+      "ready_for_cultural_archetype_engine": true
+    },
+    {
+      "document_id": "CULTURAL_ARCHETYPE_VISUAL_BIBLE_V1",
+      "id": "CULTURAL_ARCHETYPE_VISUAL_BIBLE_V1",
+      "path": "docs/art/cultural_archetype/CULTURAL_ARCHETYPE_VISUAL_BIBLE_V1.md",
+      "module": "ART",
+      "category": "VISUAL_BIBLE",
+      "type": "Visual Bible",
+      "version": "V1",
+      "status": "frozen",
+      "lifecycle": "approved",
+      "owner": "ART",
+      "active": true,
+      "priority": "P0",
+      "freeze_date": "2026-06-18",
+      "updated_at": "2026-06-18",
+      "visual_language_defined": true,
+      "factory_standard_defined": true,
+      "cross_vendor_consistency_defined": true,
+      "ready_for_archetype_image_generation": true
     }
   ],
   "indexes": [
@@ -278,13 +336,26 @@
       "current_active_autogen_pipeline_status": "frozen",
       "current_active_runtime_schema": "AR_FACTORY_RUNTIME_SCHEMA_V1.1",
       "current_active_runtime_schema_status": "frozen",
-      "freeze_date": "2026-06-16"
+      "current_active_cultural_archetype_library": "CHINESE_CULTURAL_ARCHETYPE_LIBRARY_V1",
+      "current_active_cultural_archetype_library_status": "frozen",
+      "current_active_cultural_archetype_visual_bible": "CULTURAL_ARCHETYPE_VISUAL_BIBLE_V1",
+      "current_active_cultural_archetype_visual_bible_status": "frozen",
+      "freeze_date": "2026-06-18"
+    },
+    {
+      "id": "ART_INDEX_V1",
+      "path": "docs/art/ART_INDEX_V1.md",
+      "current_active_cultural_archetype_visual_bible": "CULTURAL_ARCHETYPE_VISUAL_BIBLE_V1",
+      "current_active_cultural_archetype_visual_bible_status": "frozen",
+      "freeze_date": "2026-06-18"
     },
     {
       "id": "ADMIN_INDEX_V1",
       "path": "docs/admin/ADMIN_INDEX_V1.md",
       "current_active_dashboard": "ADMIN_OPERATION_DASHBOARD_SPEC_V1.1",
       "current_active_dashboard_status": "review",
+      "current_active_admin_visual_system": "ADMIN_OPERATION_VISUAL_SYSTEM_V1",
+      "current_active_admin_visual_system_status": "frozen",
       "current_active_visual_system": "ADMIN_OPERATION_VISUAL_SYSTEM_V1",
       "current_active_visual_system_status": "frozen",
       "current_active_component_library": "ADMIN_UI_COMPONENT_LIBRARY_V1",

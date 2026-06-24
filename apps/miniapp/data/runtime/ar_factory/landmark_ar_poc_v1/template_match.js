@@ -1,0 +1,7 @@
+module.exports = {
+  "template_id": "LANDMARK_RELIC_REVEAL",
+  "template_confidence": 0.735,
+  "match_reason": "landmark tree case mapped to reveal template",
+  "reveal_type": "relic_reveal",
+  "status": "matched"
+};

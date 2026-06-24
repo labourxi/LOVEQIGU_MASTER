@@ -1,0 +1,68 @@
+{
+  "id": "landmark_tree_v1",
+  "name": "爱企谷古树",
+  "ar_type": "landmark_ar",
+  "subject_type": "tree",
+  "anchor_file": "anchor.json",
+  "position_guide": "position_guide.png",
+  "alignment_overlay": "alignment_overlay.png",
+  "status": "draft",
+  "schema_id": "loveqigu.ar_factory.factory_package.v1",
+  "draft_id": "landmark_tree_v1_draft",
+  "exploration_point_id": "ancient_tree_exploration_point",
+  "pipeline_version": "LANDMARK_AR_AUTOGEN_PIPELINE_V1.1",
+  "review_status": "draft",
+  "template_ref": "LANDMARK_RELIC_REVEAL",
+  "template_confidence": 0.765,
+  "classifier_result": {
+    "subject": "ancient_tree",
+    "scene_type": "landmark_ar",
+    "confidence": 0.99,
+    "analysis_mode": "opencv_color_texture_consistency"
+  },
+  "anchor_set": {
+    "reference_images": [
+      "data/ar_factory/poc/landmark_tree_v1/tree_full.jpg",
+      "data/ar_factory/poc/landmark_tree_v1/tree_near.jpg",
+      "data/ar_factory/poc/landmark_tree_v1/tree_far.jpg",
+      "data/ar_factory/poc/landmark_tree_v1/tree_left45.jpg",
+      "data/ar_factory/poc/landmark_tree_v1/tree_right45.jpg",
+      "data/ar_factory/poc/landmark_tree_v1/tree_trunk.jpg",
+      "data/ar_factory/poc/landmark_tree_v1/position_a.jpg",
+      "data/ar_factory/poc/landmark_tree_v1/position_b.jpg"
+    ],
+    "descriptor_uri": "data/ar_factory/poc/landmark_tree_v1/anchor.json",
+    "feature_count": 93235,
+    "distribution_score": 0.7529,
+    "score": 0.6148,
+    "detector": "opencv_orb_akaze_real_image",
+    "reference_image": "tree_trunk.jpg"
+  },
+  "ar_guidance_draft": {
+    "standing_guide_uri": "data/ar_factory/poc/landmark_tree_v1/position_guide.png",
+    "scan_guide_uri": "data/ar_factory/poc/landmark_tree_v1/position_guide.png",
+    "alignment_overlay_uri": "data/ar_factory/poc/landmark_tree_v1/alignment_overlay.png"
+  },
+  "interaction_script": "landmark_tree_v1",
+  "reveal_assets": [
+    {
+      "asset_type": "alignment_overlay",
+      "asset_uri": "data/ar_factory/poc/landmark_tree_v1/alignment_overlay.png"
+    },
+    {
+      "asset_type": "position_guide",
+      "asset_uri": "data/ar_factory/poc/landmark_tree_v1/position_guide.png"
+    }
+  ],
+  "completion_event": "event.landmark_tree_v1.completed",
+  "created_at": "2026-06-18T13:00:15+08:00",
+  "source_poc": "LANDMARK_AR_REAL_IMAGE_POC_STAGE1",
+  "diagnostic": {
+    "real_image_input": true,
+    "input_images": 8,
+    "anchor_score_min_publish": 0.65,
+    "anchor_score": 0.6148,
+    "publish_ready": false,
+    "notes": "Real-image POC factory package; publish blocked until review approval and anchor score gate."
+  }
+}

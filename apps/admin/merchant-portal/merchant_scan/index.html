@@ -15,23 +15,29 @@
         <div id="bo-breadcrumb"></div>
         <div class="bo-page-header">
           <h2>扫码核销</h2>
-          <p>扫描游客卡券码完成核销 · Mock 演示</p>
+          <p id="scan-subtitle">扫描游客礼遇码完成到店核销，也可手动输入礼遇码</p>
         </div>
-        <div class="scan-panel">
-          <div class="scan-box">
+
+        <div class="scan-panel scan-panel--hero">
+          <div class="scan-box scan-box--primary">
+            <div class="bo-ritual-label">礼遇码核销</div>
             <div class="icon">📷</div>
-            <p style="margin:0 0 16px;color:var(--text-secondary);">将卡券码对准扫描区域<br/>或手动输入核销码</p>
-            <input class="input input-lg" id="code-input" type="text" placeholder="输入核销码，如 LQG-CAFE-1001" style="width:100%;margin-bottom:12px;" />
-            <button class="btn btn-primary btn-lg" id="scan-btn" type="button" style="width:100%;">确认核销</button>
+            <p style="margin:0 0 16px;color:var(--text-secondary);text-align:center;">将礼遇码对准扫描区域<br/>或手动输入礼遇码</p>
+            <input class="input input-lg" id="code-input" type="text" placeholder="输入礼遇码，如 LQG-CAFE-1001" style="width:100%;margin-bottom:12px;" />
+            <button class="bo-primary-action" id="scan-btn" type="button">确认核销</button>
           </div>
           <div id="scan-result" class="scan-result hidden"></div>
-          <p class="text-muted" style="font-size:13px;">演示码：LQG-CAFE-1001 · LQG-CAFE-1002 · LQG-CAFE-1003（已核销）</p>
+          <div class="bo-help-block" style="margin-top:16px;">
+            <h4>可测试核销码</h4>
+            <p id="sample-codes-hint">加载中…</p>
+          </div>
         </div>
-        <section class="card" style="margin-top:32px;">
-          <h3 class="card-title">最近核销</h3>
-          <div class="table-wrap">
+
+        <section class="card">
+          <h3 class="card-title">最近礼遇核销</h3>
+          <div class="table-wrap bo-record-list">
             <table class="table">
-              <thead><tr><th>核销码</th><th>卡券</th><th>状态</th><th>时间</th></tr></thead>
+              <thead><tr><th>礼遇码</th><th>在地礼遇</th><th>状态</th><th>时间</th></tr></thead>
               <tbody id="recent-body"></tbody>
             </table>
           </div>
@@ -39,66 +45,66 @@
       </main>
     </div>
   </div>
-  <script src="../shared/redemption-store.js"></script>
   <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/merchant-adapter-boot.js"></script>
+  <script src="../shared/status-labels.js"></script>
   <script src="../shared/page-boot.js"></script>
   <script>
     MerchantPageBoot.boot("scan", [{ label: "商家工作台" }, { label: "扫码核销" }]);
 
-    function badge(s) { return BackofficeShell.statusBadge(s); }
-
-    async function renderRecent() {
-      var rows = await MerchantRedemptionMock.loadRecords();
-      var recent = rows.filter(function (r) { return r.merchant_name === "爱企谷咖啡"; }).slice(0, 5);
-      document.getElementById("recent-body").innerHTML = recent.map(function (r) {
-        return "<tr><td>" + r.coupon_code + "</td><td>" + r.coupon_name + "</td><td>" + badge(r.status) + "</td><td>" + (r.redeem_time || r.claim_time) + "</td></tr>";
-      }).join("");
+    function renderRecent(adapter, ctx) {
+      var rows = adapter.getMerchantRedemptions(ctx.merchantId, { roleKey: ctx.roleKey, staffId: ctx.staffId })
+        .filter(function (r) { return r.claimStatus === "USED"; })
+        .slice(0, 5);
+      document.getElementById("recent-body").innerHTML = rows.length ? rows.map(function (r) {
+        return "<tr><td>" + r.claimCode + "</td><td>" + r.couponName + "</td><td>" +
+          MerchantAdapterBoot.redemptionStatusBadge("VERIFIED") + "</td><td>" + (r.redeemedAt || r.claimedAt) + "</td></tr>";
+      }).join("") : "<tr><td colspan=\"4\"><div class=\"empty-state\"><h4>暂无核销记录</h4></div></td></tr>";
     }
 
-    document.getElementById("scan-btn").addEventListener("click", async function () {
-      var code = document.getElementById("code-input").value.trim().toUpperCase();
-      var result = document.getElementById("scan-result");
-      if (!code) {
-        result.className = "scan-result";
-        result.style.background = "var(--warning-bg)";
-        result.style.border = "1px solid #eed0a9";
-        result.innerHTML = "<strong>请输入核销码</strong>";
-        result.classList.remove("hidden");
-        return;
-      }
-      var rows = await MerchantRedemptionMock.loadRecords();
-      var match = rows.find(function (r) { return r.coupon_code.toUpperCase() === code; });
-      if (!match) {
-        result.className = "scan-result";
-        result.style.background = "var(--danger-bg)";
-        result.style.border = "1px solid #e9b8ad";
-        result.innerHTML = "<strong>核销失败</strong><p>未找到该核销码</p>";
-        result.classList.remove("hidden");
-        return;
-      }
-      if (match.status === "VERIFIED") {
-        result.className = "scan-result";
-        result.style.background = "var(--warning-bg)";
-        result.innerHTML = "<strong>该卡券已核销</strong><p>" + match.coupon_name + "</p>";
-        result.classList.remove("hidden");
-        return;
-      }
-      if (match.status === "EXPIRED") {
-        result.className = "scan-result";
-        result.style.background = "var(--danger-bg)";
-        result.innerHTML = "<strong>卡券已过期</strong>";
-        result.classList.remove("hidden");
-        return;
-      }
-      await MerchantRedemptionMock.updateStatus(match.redemption_id, "VERIFIED");
-      result.className = "scan-result success";
-      result.innerHTML = "<strong>核销成功</strong><p>" + match.coupon_name + "</p><p class=\"text-muted\">" + code + "</p>";
-      result.classList.remove("hidden");
-      document.getElementById("code-input").value = "";
-      renderRecent();
-    });
+    MerchantAdapterBoot.ensureAdapterScripts(function () {
+      var adapter = MerchantAdapterBoot.getAdapter();
+      var ctx = MerchantAdapterBoot.getMerchantContext();
+      var scanCtx = adapter.getMerchantScanContext(ctx.merchantId, ctx.staffId);
+      document.getElementById("scan-subtitle").textContent =
+        (scanCtx.merchant ? scanCtx.merchant.name : "门店") + " · 待核销 " + scanCtx.pendingCount + " 张";
+      document.getElementById("sample-codes-hint").innerHTML = scanCtx.sampleCodes.map(function (s) {
+        return '<button type="button" class="btn" data-code="' + s.code + '" style="margin:4px 4px 4px 0;">' + s.code + "（" + s.hint + "）</button>";
+      }).join("");
 
-    renderRecent();
+      document.querySelectorAll("[data-code]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          document.getElementById("code-input").value = btn.getAttribute("data-code");
+        });
+      });
+
+      renderRecent(adapter, ctx);
+
+      document.getElementById("scan-btn").addEventListener("click", function () {
+        var code = document.getElementById("code-input").value.trim();
+        var result = adapter.verifyCouponClaim(code, ctx.merchantId, ctx.staffId);
+        var box = document.getElementById("scan-result");
+        if (result.ok) {
+          box.className = "scan-result success";
+          box.innerHTML =
+            "<strong>核销成功</strong>" +
+            "<p>卡券：" + (result.coupon ? result.coupon.name : "—") + "</p>" +
+            "<p>用户：" + result.claim.userMask + "</p>" +
+            "<p>核销时间：" + result.redeemedAt + "</p>" +
+            "<p>核销员：" + result.staffName + "</p>";
+        } else {
+          box.className = "scan-result";
+          box.style.background = "var(--warning-bg)";
+          box.style.border = "1px solid #eed0a9";
+          box.innerHTML = "<strong>不可核销</strong><p>原因：" + result.message + "</p>";
+        }
+        box.classList.remove("hidden");
+        if (result.ok) {
+          document.getElementById("code-input").value = "";
+          renderRecent(adapter, ctx);
+        }
+      });
+    });
   </script>
 </body>
 </html>

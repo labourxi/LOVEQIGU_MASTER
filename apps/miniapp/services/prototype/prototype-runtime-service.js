@@ -3,10 +3,10 @@
  * Does not mutate Content Layer JSON or Canon.
  */
 
-const storyService = require('../story/story-service');
-const relicService = require('../relic/relic-service');
-const rightsService = require('../rights/rights-service');
-const dcService = require('../digital-collectible/digital-collectible-service');
+let storyService;
+let relicService;
+let rightsService;
+let dcService;
 
 const brand = require('../../config/brand.v1');
 
@@ -155,23 +155,42 @@ const MERIDIAN_DEFS = [
   { id: 'gan', name: '足厥阴肝经', points: 20 }
 ];
 
+function ensureDeps() {
+  if (!storyService) {
+    storyService = require('../story/story-service');
+  }
+  if (!relicService) {
+    relicService = require('../relic/relic-service');
+  }
+  if (!rightsService) {
+    rightsService = require('../rights/rights-service');
+  }
+  if (!dcService) {
+    dcService = require('../digital-collectible/digital-collectible-service');
+  }
+}
+
 function countExplorationPoints() {
+  ensureDeps();
   return storyService.getAllChapters().reduce((sum, chapter) => {
     return sum + storyService.getNodesByChapterId(chapter.id).length;
   }, 0);
 }
 
 function countRecordedRelics() {
+  ensureDeps();
   return relicService.getAllRelics().filter((r) => r.status === 'recorded' || r.status === 'active').length;
 }
 
 function deriveLitCount(total, cap, seed) {
+  ensureDeps();
   const relicTotal = relicService.getAllRelics().length;
   const ratio = Math.min(0.72, (relicTotal / 60) * 0.35 + seed * 0.08);
   return Math.min(cap, Math.max(0, Math.round(total * ratio)));
 }
 
 function buildStarMap() {
+  ensureDeps();
   const totalStars = QUADRANT_DEFS.reduce((s, q) => s + q.starCounts.reduce((a, b) => a + b, 0), 0);
   let litBudget = deriveLitCount(totalStars, totalStars, 0.2);
   const quadrants = QUADRANT_DEFS.map((quad, qi) => {
@@ -204,6 +223,7 @@ function buildStarMap() {
 }
 
 function buildMeridianMap() {
+  ensureDeps();
   const totalPoints = MERIDIAN_DEFS.reduce((s, m) => s + m.points, 0);
   let litBudget = deriveLitCount(totalPoints, totalPoints, 0.15);
   const meridians = MERIDIAN_DEFS.map((meridian, index) => {
@@ -237,6 +257,7 @@ function buildMeridianMap() {
 }
 
 function getHomeDashboard() {
+  ensureDeps();
   const relicCount = relicService.getAllRelics().length;
   const explorationPoints = countExplorationPoints();
   const chapters = storyService.getAllChapters();
@@ -276,6 +297,7 @@ function getScenicList() {
 }
 
 function getScenicDetail(id) {
+  ensureDeps();
   const scenic = getScenicById(id);
   if (!scenic) {
     return null;
@@ -300,6 +322,7 @@ function getScenicDetail(id) {
 }
 
 function getRelicLibrary() {
+  ensureDeps();
   const relics = relicService.getAllRelics();
   const scenicGroups = [
     {
@@ -344,6 +367,7 @@ function getRelicLibrary() {
 }
 
 function getProfileDashboard() {
+  ensureDeps();
   const relicCount = relicService.getAllRelics().length;
   const rightsCount = rightsService.getAllRights().length;
   const exploredScenics = SCENIC_AREAS.filter((s) => s.nearby || s.id === 'scenic_aiqiugu');

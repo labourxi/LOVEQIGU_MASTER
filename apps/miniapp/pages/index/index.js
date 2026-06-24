@@ -1,74 +1,238 @@
-const homePolicy = require('../../services/home/home-policy-service');
-const homeShell = require('../../services/home/home-shell-service');
-const brand = require('../../config/brand.v1');
+const merchantEventService = require('../../services/merchant-event');
+const userFrontend = require('../../services/user-frontend.js');
+const userRuntime = require('../../services/user-runtime-adapter/index');
+const phase1PageGuard = require('../../behaviors/phase1-page-guard');
+const safeInteraction = require('../../behaviors/safe-interaction');
+const pilotScene = require('../../behaviors/pilot-scene');
+const pilotSceneFlow = require('../../services/pilot/pilot-scene-flow');
+
+function emptyHomeState() {
+  return {
+    activeTab: 'home',
+    auth: { logged_in: false },
+    journey: {
+      progressSummary: {
+        completionRate: 0,
+        ownedRelicCount: 0,
+        claimedCouponCount: 0
+      },
+      latestRelic: null
+    },
+    loginBanner: {
+      subtitle: '使用 Mock Runtime 登录后即可进入主链路。',
+      actionLabel: '微信登录',
+      actionType: 'login'
+    },
+    eventSummary: {
+      title: '当前景区'
+    },
+    recommendedPoint: null
+  };
+}
+
+function buildPageData() {
+  userRuntime.boot();
+  const adapter = userRuntime.getAdapter();
+  const journey = userFrontend.buildJourneySummary();
+  const loginBanner = userFrontend.buildLoginBanner();
+
+  if (adapter) {
+    const home = adapter.getHomeData(userRuntime.getUserId(), userRuntime.getActivityId());
+    const summary = userRuntime.mapHomeSummary(home);
+    return {
+      loading: false,
+      activeTab: 'home',
+      auth: journey.auth,
+      journey,
+      loginBanner,
+      eventSummary: {
+        title: summary && summary.title ? summary.title : '当前景区',
+        description: summary && summary.parkName ? summary.parkName : ''
+      },
+      recommendedPoint: summary ? summary.recommendedPoint : null,
+      bottomNav: journey.nav,
+      runtimeMock: true
+    };
+  }
+
+  const overview = merchantEventService.getActivityOverview(merchantEventService.ACTIVITY_ID);
+  const recommendedPoint =
+    overview.points.find((item) => item && item.task_status !== 'COMPLETED' && item.task_status !== 'DONE') ||
+    overview.points[0] ||
+    null;
+
+  return {
+    loading: false,
+    activeTab: 'home',
+    auth: journey.auth,
+    journey,
+    loginBanner,
+    eventSummary: {
+      title: overview.activity.event_name,
+      description: overview.activity.description || ''
+    },
+    recommendedPoint,
+    bottomNav: journey.nav
+  };
+}
 
 Page({
+  behaviors: [phase1PageGuard, safeInteraction, pilotScene],
+
   data: {
-    activeMode: homePolicy.MODES.EXPLORE,
-    showCampaignTab: false,
-    policy: homePolicy.DEFAULT_POLICY,
-    explore: {},
-    affinity: {},
-    campaign: {}
+    loading: true,
+    xrLaunching: false,
+    xrLaunchMessage: '',
+    ...emptyHomeState()
   },
 
-  onLoad(options) {
-    this.bootstrap(options || {});
+  onLoad() {
+    this.refresh();
+    if (merchantEventService.ensureReadyAsync) {
+      merchantEventService.ensureReadyAsync().then(() => this.refresh());
+    }
+    if (userFrontend.ensureReadyAsync) {
+      userFrontend.ensureReadyAsync().then(() => this.refresh());
+    }
   },
 
   onShow() {
-    this.refreshShell();
+    this.refresh();
+    if (merchantEventService.ensureReadyAsync) {
+      merchantEventService.ensureReadyAsync().then(() => this.refresh());
+    }
+    if (userFrontend.ensureReadyAsync) {
+      userFrontend.ensureReadyAsync().then(() => this.refresh());
+    }
   },
 
-  bootstrap(options) {
-    const policy = homePolicy.getPolicy();
-    const activeMode = homePolicy.resolveActiveMode(policy, options);
-    const shell = homeShell.buildShellData(policy);
-
-    this.setData({
-      policy,
-      activeMode,
-      showCampaignTab: homePolicy.isCampaignTabVisible(policy),
-      explore: shell.explore,
-      affinity: shell.affinity,
-      campaign: shell.campaign
-    });
-
-    homePolicy.persistLastMode(activeMode);
-    this.syncNavigationTitle(activeMode);
+  refresh() {
+    try {
+      this.setData(buildPageData());
+    } catch (error) {
+      console.error('[index.refresh]', error);
+      this.setData({
+        loading: false,
+        xrLaunching: false,
+        xrLaunchMessage: '',
+        ...emptyHomeState()
+      });
+      this.showFallbackToast('功能开发中');
+    }
   },
 
-  refreshShell() {
-    const shell = homeShell.buildShellData(this.data.policy);
-    this.setData({
-      explore: shell.explore,
-      affinity: shell.affinity,
-      campaign: shell.campaign
-    });
-  },
-
-  syncNavigationTitle(mode) {
-    const title = mode === homePolicy.MODES.AFFINITY ? '权益' : mode === homePolicy.MODES.CAMPAIGN ? '活动' : '探索';
-    wx.setNavigationBarTitle({ title: `${brand.productName} · ${title}` });
-  },
-
-  onModeChange(event) {
-    const { mode } = event.detail;
-    if (!mode || mode === this.data.activeMode) {
+  onEnterScenic() {
+    if (this.data.xrLaunching) {
       return;
     }
+    this.safeTap(async () => {
+      this.setData({
+        xrLaunching: true,
+        xrLaunchMessage: '正在进入景区…'
+      });
 
-    this.setData({ activeMode: mode });
-    homePolicy.persistLastMode(mode);
-    this.syncNavigationTitle(mode);
+      try {
+        const entry = require('../../services/ar/ar-entry-controller.js');
+        entry.trigger({ source: 'index_enter_scenic' });
+
+        await this.runPilotStageEffect(pilotSceneFlow.STAGES.ENTER);
+
+        const point = this.data.recommendedPoint;
+        const pointId = userRuntime.resolvePointId(
+          point && point.point_id ? point.point_id : 'ep_001'
+        );
+        const url = pilotSceneFlow.appendPilotQuery(
+          `/pages/explore-map/index?focusPointId=${encodeURIComponent(pointId)}`,
+          pilotSceneFlow.STAGES.EXPLORE
+        );
+
+        this.setData({
+          xrLaunching: false,
+          xrLaunchMessage: ''
+        });
+        this.safeNavigate(url, {
+          fallbackTitle: '探索地图暂未开放'
+        });
+      } catch (error) {
+        console.error('[index.onEnterScenic]', error);
+        this.setData({
+          xrLaunching: false,
+          xrLaunchMessage: ''
+        });
+        this.showFallbackToast('功能开发中');
+      }
+    }, { fallbackTitle: '功能开发中' });
   },
 
-  onNavigate(event) {
-    const path = event.detail.path || event.currentTarget.dataset.path;
-    if (!path) {
+  onARButtonTap() {
+    this.onEnterScenic();
+  },
+
+  onMockLogin() {
+    const loginBanner = this.data.loginBanner || {};
+    if (loginBanner.actionType === 'logout') {
+      userFrontend.logoutMock();
+      this.refresh();
       return;
     }
+    userFrontend.loginMock({ nick_name: 'AR游伴游客', role: 'explorer' });
+    this.refresh();
+  },
 
-    wx.navigateTo({ url: path });
-  }
+  onOpenExploreMap() {
+    this.safeNavigate('/pages/explore-map/index', {
+      fallbackTitle: '探索地图暂未开放'
+    });
+  },
+
+  onOpenRelicArchive() {
+    this.safeNavigate('/pages/relic-archive/index', {
+      fallbackTitle: '信物页暂未开放'
+    });
+  },
+
+  onOpenRightsCenter() {
+    this.safeNavigate('/pages/rights-center/index', {
+      fallbackTitle: '权益中心暂未开放'
+    });
+  },
+
+  onOpenProfile() {
+    this.safeNavigate('/pages/profile/index', {
+      fallbackTitle: '个人页暂未开放'
+    });
+  },
+
+  onOpenSeals() {
+    this.safeNavigate('/pages/seals/index', {
+      fallbackTitle: '印鉴页暂未开放'
+    });
+  },
+
+  onOpenRewardCenter() {
+    this.safeNavigate('/pages/reward-center/index', {
+      fallbackTitle: '祝福收藏册暂未开放'
+    });
+  },
+
+  onOpenPointDetail(event) {
+    const pointId = event && event.currentTarget && event.currentTarget.dataset
+      ? event.currentTarget.dataset.pointId
+      : '';
+    if (!pointId) {
+      this.showFallbackToast('功能开发中');
+      return;
+    }
+    this.safeNavigate(`/pages/merchant-event/detail/index?pointId=${encodeURIComponent(pointId)}`, {
+      fallbackTitle: '详情页暂未开放'
+    });
+  },
+
+  onOpenActivity() {
+    this.safeNavigate('/pages/merchant-event/index/index', {
+      fallbackTitle: '活动页暂未开放'
+    });
+  },
+
+  onBottomNavChange() {}
 });

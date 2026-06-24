@@ -14,28 +14,27 @@
       <main class="bo-content">
         <div id="bo-breadcrumb"></div>
         <div class="bo-page-header-row">
-          <div class="bo-page-header"><h2>核销记录</h2><p>卡券领取与核销明细（Mock · localStorage）</p></div>
+          <div class="bo-page-header"><h2>礼遇核销记录</h2><p id="list-scope-hint">记录游客到店使用探索礼遇的明细</p></div>
           <a class="btn btn-primary btn-lg" href="../merchant_scan/index.html">扫码核销</a>
         </div>
-        <div id="list-banner" class="alert alert-success hidden"></div>
+        <div class="bo-section-side-note">以下为探索礼遇的领取与到店核销记录。</div>
         <div class="grid">
           <section class="card metric"><div class="metric-label">待核销</div><div class="metric-value" id="m-pending">0</div></section>
           <section class="card metric"><div class="metric-label">已核销</div><div class="metric-value" id="m-verified">0</div></section>
-          <section class="card metric"><div class="metric-label">核销失败</div><div class="metric-value" id="m-failed">0</div></section>
+          <section class="card metric"><div class="metric-label">无效</div><div class="metric-value" id="m-failed">0</div></section>
           <section class="card metric"><div class="metric-label">已过期</div><div class="metric-value" id="m-expired">0</div></section>
         </div>
         <section class="card" style="margin-top:16px;">
           <div class="filter-bar" style="border:none;padding:0 0 16px;background:none;">
-            <input class="input" id="search-input" type="search" placeholder="搜索卡券名 / 核销码 / 用户" />
+            <input class="input" id="search-input" type="search" placeholder="搜索礼遇名 / 礼遇码 / 用户" />
             <button class="btn filter-btn active" data-filter="ALL">全部</button>
-            <button class="btn filter-btn" data-filter="PENDING">待核销</button>
             <button class="btn filter-btn" data-filter="VERIFIED">已核销</button>
-            <button class="btn filter-btn" data-filter="FAILED">失败</button>
+            <button class="btn filter-btn" data-filter="PENDING">未使用</button>
             <button class="btn filter-btn" data-filter="EXPIRED">已过期</button>
           </div>
-          <div class="table-wrap">
-            <table class="table">
-              <thead><tr><th>卡券</th><th>核销码</th><th>用户</th><th>领取时间</th><th>核销时间</th><th>状态</th><th>操作</th></tr></thead>
+          <div class="table-wrap table-wrap--redemptions">
+            <table class="table table--redemptions">
+              <thead><tr><th>卡券</th><th>核销码</th><th>用户</th><th>领取</th><th>核销</th><th>状态</th><th>核销员</th><th>操作</th></tr></thead>
               <tbody id="list-body"></tbody>
             </table>
           </div>
@@ -48,26 +47,39 @@
       </main>
     </div>
   </div>
-  <script src="../shared/redemption-store.js"></script>
   <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/merchant-adapter-boot.js"></script>
+  <script src="../shared/status-labels.js"></script>
   <script src="../shared/page-boot.js"></script>
   <script>
     MerchantPageBoot.boot("redemptions", [{ label: "商家工作台" }, { label: "核销记录" }]);
-    var PAGE = 5, all = [], filtered = [], page = 1, statusFilter = "ALL", search = "";
+    var PAGE = 5, all = [], filtered = [], page = 1, statusFilter = "ALL", search = "", ctx = {}, adapter = null;
+
+    function formatShortTime(iso) {
+      if (!iso || iso === "—") return "—";
+      var m = String(iso).match(/(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})/);
+      if (m) return m[2] + "-" + m[3] + " " + m[4] + ":" + m[5];
+      return iso.length > 14 ? iso.slice(0, 14) : iso;
+    }
 
     function apply() {
       filtered = all.filter(function (r) {
         if (statusFilter !== "ALL" && r.status !== statusFilter) return false;
         if (!search) return true;
         var q = search.toLowerCase();
-        return (r.coupon_name + r.coupon_code + r.user_id).toLowerCase().indexOf(q) >= 0;
+        return (r.couponName + r.claimCode + r.userId).toLowerCase().indexOf(q) >= 0;
       });
       page = 1;
     }
 
     function metrics() {
       var c = { PENDING: 0, VERIFIED: 0, FAILED: 0, EXPIRED: 0 };
-      all.forEach(function (r) { if (c[r.status] !== undefined) c[r.status]++; });
+      all.forEach(function (r) {
+        if (r.status === "PENDING") c.PENDING++;
+        else if (r.status === "VERIFIED") c.VERIFIED++;
+        else if (r.status === "EXPIRED") c.EXPIRED++;
+        else if (r.status === "INVALID" || r.status === "FAILED") c.FAILED++;
+      });
       document.getElementById("m-pending").textContent = c.PENDING;
       document.getElementById("m-verified").textContent = c.VERIFIED;
       document.getElementById("m-failed").textContent = c.FAILED;
@@ -79,35 +91,49 @@
       if (page > total) page = total;
       var slice = filtered.slice((page - 1) * PAGE, page * PAGE);
       document.getElementById("list-body").innerHTML = slice.length ? slice.map(function (r) {
-        var act = '<a class="btn" href="../merchant_redemption_detail/index.html?id=' + encodeURIComponent(r.redemption_id) + '">详情</a>';
-        if (r.status === "PENDING") act += ' <a class="btn btn-success" href="../merchant_scan/index.html">去核销</a>';
-        return "<tr><td>" + r.coupon_name + "</td><td>" + r.coupon_code + "</td><td>" + r.user_id + "</td><td>" + r.claim_time + "</td><td>" + (r.redeem_time || "—") + "</td><td>" + BackofficeShell.statusBadge(r.status) + "</td><td class=\"table-actions\">" + act + "</td></tr>";
-      }).join("") : "<tr><td colspan=\"7\"><div class=\"empty-state\"><h4>暂无记录</h4></div></td></tr>";
+        var act = '<a class="btn" href="../merchant_redemption_detail/index.html?id=' + encodeURIComponent(r.claimId) + '">详情</a>';
+        if (r.status === "PENDING") act += '<a class="btn btn-success" href="../merchant_scan/index.html">去核销</a>';
+        return "<tr>" +
+          '<td class="col-coupon">' + r.couponName + "</td>" +
+          '<td class="col-code">' + r.claimCode + "</td>" +
+          '<td class="col-user">' + r.userMask + "</td>" +
+          '<td class="col-time">' + formatShortTime(r.claimedAt) + "</td>" +
+          '<td class="col-time">' + formatShortTime(r.redeemedAt) + "</td>" +
+          '<td class="col-status">' + MerchantAdapterBoot.redemptionStatusBadge(r.status) + "</td>" +
+          '<td>' + (r.operator || "—") + "</td>" +
+          '<td class="col-actions"><div class="table-actions table-actions--stack">' + act + "</div></td></tr>";
+      }).join("") : "<tr><td colspan=\"8\"><div class=\"empty-state\"><h4>暂无记录</h4></div></td></tr>";
       document.getElementById("page-info").textContent = "第 " + page + " / " + total + " 页 · 共 " + filtered.length + " 条";
       document.getElementById("prev-page").disabled = page <= 1;
       document.getElementById("next-page").disabled = page >= total;
     }
 
-    async function refresh() {
-      all = await MerchantRedemptionMock.loadRecords();
+    function refresh() {
+      all = adapter.getMerchantRedemptions(ctx.merchantId, { roleKey: ctx.roleKey, staffId: ctx.staffId });
       apply();
       metrics();
       render();
     }
 
-    document.querySelectorAll(".filter-btn").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        statusFilter = btn.getAttribute("data-filter");
-        document.querySelectorAll(".filter-btn").forEach(function (b) { b.classList.remove("active"); });
-        btn.classList.add("active");
-        apply();
-        render();
+    MerchantAdapterBoot.ensureAdapterScripts(function () {
+      adapter = MerchantAdapterBoot.getAdapter();
+      ctx = MerchantAdapterBoot.getMerchantContext();
+      if (ctx.roleKey === "merchant_staff") {
+        document.getElementById("list-scope-hint").textContent = "仅显示本人核销记录";
+      }
+      document.querySelectorAll(".filter-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          statusFilter = btn.getAttribute("data-filter");
+          document.querySelectorAll(".filter-btn").forEach(function (b) { b.classList.remove("active"); });
+          btn.classList.add("active");
+          refresh();
+        });
       });
+      document.getElementById("search-input").addEventListener("input", function (e) { search = e.target.value.trim(); apply(); render(); });
+      document.getElementById("prev-page").onclick = function () { if (page > 1) { page--; render(); } };
+      document.getElementById("next-page").onclick = function () { var t = Math.ceil(filtered.length / PAGE); if (page < t) { page++; render(); } };
+      refresh();
     });
-    document.getElementById("search-input").addEventListener("input", function (e) { search = e.target.value.trim(); apply(); render(); });
-    document.getElementById("prev-page").onclick = function () { if (page > 1) { page--; render(); } };
-    document.getElementById("next-page").onclick = function () { var t = Math.ceil(filtered.length / PAGE); if (page < t) { page++; render(); } };
-    refresh();
   </script>
 </body>
 </html>

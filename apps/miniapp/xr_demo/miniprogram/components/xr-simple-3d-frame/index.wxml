@@ -1,0 +1,11 @@
+<xr-frame id="xr-simple-3d-surface-box" class="xr-simple-3d-shell">
+  <xr-scene id="xr-simple-3d-scene">
+    <xr-assets>
+      <xr-asset-load type="gltf" asset-id="simple-3d-model" src="models/test.gltf" />
+    </xr-assets>
+    <xr-node id="xr-simple-3d-node">
+      <xr-gltf id="xr-simple-3d-object" model="simple-3d-model" />
+    </xr-node>
+    <xr-camera background="ar" is-ar-camera />
+  </xr-scene>
+</xr-frame>

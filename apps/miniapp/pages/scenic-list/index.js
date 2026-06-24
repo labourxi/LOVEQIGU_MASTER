@@ -1,4 +1,5 @@
 const prototypeRuntime = require('../../services/prototype/prototype-runtime-service');
+const safeInteraction = require('../../behaviors/safe-interaction');
 
 function buildPageData() {
   const list = prototypeRuntime.getScenicList();
@@ -10,6 +11,7 @@ function buildPageData() {
 }
 
 Page({
+  behaviors: [safeInteraction],
   data: buildPageData(),
 
   onLoad() {
@@ -19,8 +21,9 @@ Page({
   onOpenDetail(event) {
     const { id } = event.currentTarget.dataset;
     if (!id) {
+      this.showFallbackToast('功能开发中');
       return;
     }
-    wx.navigateTo({ url: `/pages/scenic-detail/index?id=${id}` });
+    this.safeNavigate(`/pages/scenic-detail/index?id=${id}`);
   }
 });

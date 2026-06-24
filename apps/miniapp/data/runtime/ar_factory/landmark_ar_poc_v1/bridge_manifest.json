@@ -1,0 +1,52 @@
+{
+  "source_root": "data\\ar_factory\\poc\\landmark_ar_poc_v1",
+  "miniapp_runtime_root": "apps\\miniapp\\data\\runtime\\ar_factory\\landmark_ar_poc_v1",
+  "miniapp_asset_root": "apps\\miniapp\\assets\\ar_factory\\landmark_ar_poc_v1",
+  "json_files": [
+    {
+      "source": "data\\ar_factory\\poc\\landmark_ar_poc_v1\\upload_manifest.json",
+      "json": "apps\\miniapp\\data\\runtime\\ar_factory\\landmark_ar_poc_v1\\upload_manifest.json",
+      "js": "apps\\miniapp\\data\\runtime\\ar_factory\\landmark_ar_poc_v1\\upload_manifest.js"
+    },
+    {
+      "source": "data\\ar_factory\\poc\\landmark_ar_poc_v1\\subject_analysis.json",
+      "json": "apps\\miniapp\\data\\runtime\\ar_factory\\landmark_ar_poc_v1\\subject_analysis.json",
+      "js": "apps\\miniapp\\data\\runtime\\ar_factory\\landmark_ar_poc_v1\\subject_analysis.js"
+    },
+    {
+      "source": "data\\ar_factory\\poc\\landmark_ar_poc_v1\\anchor.json",
+      "json": "apps\\miniapp\\data\\runtime\\ar_factory\\landmark_ar_poc_v1\\anchor.json",
+      "js": "apps\\miniapp\\data\\runtime\\ar_factory\\landmark_ar_poc_v1\\anchor.js"
+    },
+    {
+      "source": "data\\ar_factory\\poc\\landmark_ar_poc_v1\\anchor_quality.json",
+      "json": "apps\\miniapp\\data\\runtime\\ar_factory\\landmark_ar_poc_v1\\anchor_quality.json",
+      "js": "apps\\miniapp\\data\\runtime\\ar_factory\\landmark_ar_poc_v1\\anchor_quality.js"
+    },
+    {
+      "source": "data\\ar_factory\\poc\\landmark_ar_poc_v1\\template_match.json",
+      "json": "apps\\miniapp\\data\\runtime\\ar_factory\\landmark_ar_poc_v1\\template_match.json",
+      "js": "apps\\miniapp\\data\\runtime\\ar_factory\\landmark_ar_poc_v1\\template_match.js"
+    },
+    {
+      "source": "data\\ar_factory\\poc\\landmark_ar_poc_v1\\factory_package.json",
+      "json": "apps\\miniapp\\data\\runtime\\ar_factory\\landmark_ar_poc_v1\\factory_package.json",
+      "js": "apps\\miniapp\\data\\runtime\\ar_factory\\landmark_ar_poc_v1\\factory_package.js"
+    },
+    {
+      "source": "data\\ar_factory\\poc\\landmark_ar_poc_v1\\runtime_package.json",
+      "json": "apps\\miniapp\\data\\runtime\\ar_factory\\landmark_ar_poc_v1\\runtime_package.json",
+      "js": "apps\\miniapp\\data\\runtime\\ar_factory\\landmark_ar_poc_v1\\runtime_package.js"
+    }
+  ],
+  "image_files": [
+    {
+      "source": "data\\ar_factory\\poc\\landmark_ar_poc_v1\\position_guide.png",
+      "dest": "apps\\miniapp\\assets\\ar_factory\\landmark_ar_poc_v1\\position_guide.png"
+    },
+    {
+      "source": "data\\ar_factory\\poc\\landmark_ar_poc_v1\\alignment_overlay.png",
+      "dest": "apps\\miniapp\\assets\\ar_factory\\landmark_ar_poc_v1\\alignment_overlay.png"
+    }
+  ]
+}

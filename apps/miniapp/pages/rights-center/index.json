@@ -1,4 +1,7 @@
 {
   "navigationBarTitleText": "权益中心",
-  "backgroundColor": "#f4f1eb"
+  "backgroundColor": "#f4f1eb",
+  "usingComponents": {
+    "user-bottom-nav": "/components/user-bottom-nav/index"
+  }
 }

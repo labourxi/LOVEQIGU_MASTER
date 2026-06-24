@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>信物管理 · AR游伴内容生产线</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
+</head>
+<body>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div id="bo-breadcrumb"></div>
+        <div class="bo-page-header"><h2>信物管理</h2><p>故事进度资产 · 绑定探索点与章节节点</p></div>
+        <div class="bo-content-warning">
+          <strong>资产边界</strong> 信物是故事进度资产，不等同数字藏品；数字藏品为传播资产，二者不可混用。
+        </div>
+        <section class="card bo-content-object-table">
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>信物名称</th><th>景区</th><th>活动</th><th>探索点</th><th>章节</th><th>等级</th>
+                  <th>显现</th><th>文案</th><th>AR</th><th>美术</th><th>审查</th><th>发布</th><th>Runtime</th><th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="relics-tbody"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script src="../shared/mock-store.js"></script>
+  <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/page-boot.js"></script>
+  <script src="../shared/platform-global-search.js"></script>
+  <script src="../shared/content-production-boot.js"></script>
+  <script src="../shared/platform-content-boot.js"></script>
+  <script>
+    PlatformContentBoot.boot("relics", "信物管理");
+    ContentProductionBoot.ensureAdapterScripts(function () {
+      var adapter = ContentProductionBoot.getAdapter();
+      var actor = ContentProductionBoot.getActor();
+      function render() {
+        document.getElementById("relics-tbody").innerHTML = adapter.getRelics().map(function (r) {
+          return "<tr><td>" + r.name + "</td><td>" + r.parkName + "</td><td>" + r.activityName + "</td><td>" + r.pointName +
+            "</td><td>" + r.chapter + "</td><td>" + r.level + "</td><td>" + ContentProductionBoot.statusBadge(r.appearStatus) +
+            "</td><td>" + ContentProductionBoot.statusBadge(r.copyStatus) + "</td><td>" + ContentProductionBoot.statusBadge(r.arStatus) +
+            "</td><td>" + ContentProductionBoot.statusBadge(r.artStatus) + "</td><td>" + ContentProductionBoot.statusBadge(r.reviewStatus, "review") +
+            "</td><td>" + ContentProductionBoot.statusBadge(r.publishStatus, "publish") + "</td><td>" + ContentProductionBoot.statusBadge(r.runtimeStatus, "runtime") +
+            '</td><td class="table-actions"><button class="btn" data-review="' + r.id + '">提交审查</button>' +
+            '<a class="btn" href="../reviews/index.html">审查中心</a>' +
+            '<a class="btn btn-primary" href="../publish/index.html?publishId=publish_relic_001">发布状态</a></td></tr>';
+        }).join("");
+        document.querySelectorAll("[data-review]").forEach(function (btn) {
+          btn.onclick = function () {
+            var r = adapter.submitContentReview("relic", btn.getAttribute("data-review"), {}, actor);
+            ContentProductionBoot.flash(r.message, r.ok);
+            render();
+          };
+        });
+      }
+      render();
+    });
+  </script>
+</body>
+</html>

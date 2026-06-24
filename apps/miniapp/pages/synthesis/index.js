@@ -1,5 +1,6 @@
 const synthesisService = require('../../services/synthesis/synthesis-service');
 const firstLightService = require('../../services/immersion/first-light-service');
+const safeInteraction = require('../../behaviors/safe-interaction');
 
 const EMPTY_CELEBRATION = {
   visible: false,
@@ -23,6 +24,7 @@ function buildPageData() {
 }
 
 Page({
+  behaviors: [safeInteraction],
   data: {
     ...buildPageData(),
     celebration: { ...EMPTY_CELEBRATION },
@@ -44,6 +46,7 @@ Page({
   onSynthesize(event) {
     const { id } = event.currentTarget.dataset;
     if (!id) {
+      this.showFallbackToast('功能开发中');
       return;
     }
     const recipe = synthesisService.getAvailableSyntheses().find((item) => item.id === id);
@@ -98,10 +101,10 @@ Page({
   },
 
   onOpenSeals() {
-    wx.navigateTo({ url: '/pages/seals/index' });
+    this.safeNavigate('/pages/seals/index');
   },
 
   onOpenRewards() {
-    wx.navigateTo({ url: '/pages/reward-center/index' });
+    this.safeNavigate('/pages/reward-center/index');
   }
 });

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AR游伴 · 商业路演</title>
+<style>
+:root {
+  --ink: #263a34;
+  --paper: #f4f1eb;
+  --gold: #b68a3d;
+  --gray: #6b7280;
+  --line: #c9b896;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: #1a2421; font-family: "Microsoft YaHei", "PingFang SC", sans-serif; color: var(--ink); }
+.deck { height: 100vh; overflow: hidden; position: relative; }
+.slide { display: none; height: 100vh; padding: 32px 48px; }
+.slide.active { display: flex; align-items: center; justify-content: center; }
+.slide--cover, .slide--closing { background: var(--ink); color: var(--paper); }
+.slide--cover .slide__frame, .slide--closing .slide__frame,
+.slide:not(.slide--cover):not(.slide--closing) .slide__frame {
+  width: min(1100px, 96vw); height: min(620px, 88vh); position: relative;
+  border-top: 4px solid var(--gold); padding: 40px 48px 56px;
+}
+.slide:not(.slide--cover):not(.slide--closing) .slide__frame { background: var(--paper); box-shadow: 0 24px 80px rgba(0,0,0,.35); }
+.slide--cover .slide__frame, .slide--closing .slide__frame { background: transparent; box-shadow: none; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.slide__stars { position: absolute; top: 20px; right: 28px; display: flex; gap: 10px; align-items: center; }
+.slide__stars span { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); display: block; }
+.slide__stars::before { content: ""; width: 28px; height: 1px; background: var(--line); order: 2; }
+.slide__stars span:nth-child(2) { order: 3; }
+.slide__stars span:nth-child(3) { order: 4; }
+.slide__num { position: absolute; top: 18px; left: 28px; font-size: 12px; color: var(--gray); letter-spacing: .12em; }
+.slide--cover .slide__num, .slide--closing .slide__num { color: var(--line); }
+.slide__brand { font-size: clamp(42px, 6vw, 64px); font-weight: 600; letter-spacing: .08em; }
+.slide__slogan { font-size: clamp(24px, 3vw, 36px); color: var(--gold); margin-top: 16px; }
+.slide__tag, .slide__meta { color: var(--line); margin-top: 20px; font-size: 16px; }
+.slide__title { font-size: clamp(26px, 3.2vw, 34px); font-weight: 600; padding-bottom: 12px; border-bottom: 3px solid var(--gold); display: inline-block; margin-bottom: 28px; }
+.slide__body p { font-size: 17px; line-height: 1.75; color: var(--ink); margin-bottom: 8px; }
+.slide__footnote, .slide__note { font-size: 13px; color: var(--gray); margin-top: 16px; }
+.slide__cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 8px; }
+.card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
+.card h3 { font-size: 16px; margin-bottom: 8px; color: var(--ink); }
+.card p { font-size: 14px; color: var(--gray); line-height: 1.6; }
+.slide__steps { display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+.step { flex: 1; min-width: 120px; text-align: center; position: relative; }
+.step__dot { width: 14px; height: 14px; border-radius: 50%; background: var(--gold); margin: 0 auto 10px; }
+.step h3 { font-size: 15px; margin-bottom: 6px; }
+.step p { font-size: 13px; color: var(--gray); }
+.slide__table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 14px; }
+.slide__table th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; }
+.slide__table td { padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.slide__table tr:nth-child(even) td { background: rgba(255,255,255,.6); }
+.slide__table td.hi { color: var(--gold); font-weight: 600; }
+.pilot-map { margin-top: 20px; text-align: center; }
+.pilot-map__center { display: inline-block; background: var(--ink); color: var(--paper); padding: 14px 36px; border-radius: 8px; margin-bottom: 28px; }
+.pilot-map__nodes { display: flex; justify-content: space-around; gap: 16px; }
+.pilot-map__nodes div { background: #fff; border: 1px solid var(--gold); border-radius: 10px; padding: 16px; font-size: 14px; line-height: 1.5; min-width: 120px; }
+.funding { display: grid; grid-template-columns: 1fr 1.2fr; gap: 32px; margin-top: 12px; }
+.funding__box { background: #fff; border: 1px solid var(--gold); border-radius: 12px; padding: 24px; font-size: 16px; line-height: 2; }
+.funding__bars { list-style: none; font-size: 15px; line-height: 2.2; }
+.funding__bars b { display: inline-block; width: 42px; color: var(--gold); }
+.slide__contact { margin-top: 32px; font-size: 16px; line-height: 2; color: var(--line); }
+.slide__conclusion { position: absolute; right: 48px; bottom: 36px; left: 48px; text-align: right; font-size: 12px; color: var(--gray); }
+.slide--cover .slide__conclusion, .slide--closing .slide__conclusion { color: var(--line); }
+.slide__brandmark { position: absolute; left: 48px; bottom: 36px; font-size: 11px; color: var(--gray); letter-spacing: .06em; }
+.slide--cover .slide__brandmark, .slide--closing .slide__brandmark { color: rgba(255,255,255,.35); }
+.nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; z-index: 99; }
+.nav button { background: rgba(38,58,52,.85); color: var(--paper); border: 1px solid var(--line); padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 13px; }
+.nav button:hover { background: var(--gold); color: var(--ink); }
+.hint { position: fixed; top: 12px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,.45); font-size: 12px; z-index: 99; }
+@media print { .nav, .hint { display: none; } .slide { display: flex !important; page-break-after: always; height: auto; min-height: 100vh; } }
+</style>
+</head>
+<body>
+<div class="hint">← → 或空格切换幻灯片 · 共 25 页</div>
+<main class="deck">
+<section class="slide slide--cover" data-index="1">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">01</div>
+<h1 class="slide__brand">AR游伴</h1>
+<p class="slide__slogan">看见即是找回</p>
+<p class="slide__tag">空间信物记忆系统 · 文旅数字化基础设施</p>
+<p class="slide__meta">LOVEQIGU / ARYOUBAN · 2026</p>
+<p class="slide__conclusion">结论 · AR游伴不是 AR 展示工具，而是让真实空间留下可被记住的探索痕迹。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--content" data-index="2">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">02</div>
+<h2 class="slide__title">文旅体验的三重断裂</h2>
+<div class="slide__body">
+<p>游客：打卡一次性，离开即失联</p>
+<p>景区：导览静态页，现场无记忆层</p>
+<p>商家：核销断链，难以承接探索行为</p>
+<p></p>
+<p>游客 ──╳── 景区 ──╳── 商家</p>
+<p>→ 数据孤岛 · 无记忆 · 无关系 · 无复访</p>
+</div>
+<p class="slide__conclusion">结论 · 游客走完一圈，景区和商家却拿不到可持续的关系资产。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--content" data-index="3">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">03</div>
+<h2 class="slide__title">数字化做了「上线」，没做成「在场」</h2>
+<div class="slide__body">
+<p>传统路径：小程序 → 图文介绍 → 优惠券 → 结束</p>
+<p></p>
+<p>AR游伴补全：空间触发 · 仪式引导 · 信物记忆</p>
+</div>
+<p class="slide__conclusion">结论 · 缺口不在内容多少，而在空间现场是否产生可被记录的关系。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--content" data-index="4">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">04</div>
+<h2 class="slide__title">万亿文旅市场，正在从「导览」走向「在场操作系统」</h2>
+<div class="slide__body">
+<p>TAM · 中国文旅消费（万亿级）</p>
+<p>SAM · 景区/文博/城市文化点位数字化</p>
+<p>SOM · 空间信物 + XR 运营基础设施</p>
+<p>→ AR游伴切入点</p>
+</div>
+<p class="slide__footnote">市场规模分层为路演框架，需以最新公开报告核验。</p>
+<p class="slide__conclusion">结论 · 切入文旅场域数字化中「缺失的空间记忆层」。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--cards" data-index="5">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">05</div>
+<h2 class="slide__title">三个确定性趋势叠加</h2>
+<div class="slide__cards">
+<div class="card"><h3>政策推动</h3><p>文化数字化</p></div>
+<div class="card"><h3>线下复苏</h3><p>体验经济</p></div>
+<div class="card"><h3>微信生态</h3><p>小程序渗透</p></div>
+</div>
+<p class="slide__conclusion">结论 · 政策、消费与超级 App 生态为空间运营系统打开窗口期。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--content" data-index="6">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">06</div>
+<h2 class="slide__title">AR游伴 = 现实空间的信物记忆操作系统</h2>
+<div class="slide__body">
+<p>空间操作系统层：触发 · 仪式 · 信物 · 关系</p>
+<p>XR 感知层 | Event Bus | 运营回流层</p>
+</div>
+<p class="slide__conclusion">结论 · 把现实空间变成可记录、可运营、可复访的体验结构。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--cards" data-index="7">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">07</div>
+<h2 class="slide__title">XR 体验 × 信物系统 × 运营 CRM</h2>
+<div class="slide__cards">
+<div class="card"><h3>XR 层</h3><p>识别·显现·备用</p></div>
+<div class="card"><h3>信物层</h3><p>故事进度资产</p></div>
+<div class="card"><h3>运营层</h3><p>景区·商家·权益</p></div>
+</div>
+<p class="slide__note">信物 ≠ 数字藏品</p>
+<p class="slide__conclusion">结论 · 现场体验、记忆资产与商业运营的一体化结构。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--steps" data-index="8">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">08</div>
+<h2 class="slide__title">信物：用户与空间发生关系的记录</h2>
+<div class="slide__steps">
+<div class="step"><div class="step__dot"></div><h3>空间触发</h3><p>XR入口</p></div>
+<div class="step"><div class="step__dot"></div><h3>仪式引导</h3><p>探索状态</p></div>
+<div class="step"><div class="step__dot"></div><h3>信物显现</h3><p>收藏册</p></div>
+<div class="step"><div class="step__dot"></div><h3>意义沉淀</h3><p>今日回响</p></div>
+</div>
+<p class="slide__note">信物 = 故事进度资产 · 藏品 = 传播资产</p>
+<p class="slide__conclusion">结论 · 可被记住、可被运营、可被回看的空间关系凭证。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--steps" data-index="9">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">09</div>
+<h2 class="slide__title">进入 → 探索 → 发现 → 获得信物 → 完成</h2>
+<div class="slide__steps">
+<div class="step"><div class="step__dot"></div><h3>进入景区</h3><p>xr_start_v1</p></div>
+<div class="step"><div class="step__dot"></div><h3>探索地图</h3><p>space_trail_v1</p></div>
+<div class="step"><div class="step__dot"></div><h3>发现印记</h3><p>AR显现</p></div>
+<div class="step"><div class="step__dot"></div><h3>显现信物</h3><p>relic_emerge_v1</p></div>
+<div class="step"><div class="step__dot"></div><h3>完成回响</h3><p>权益/复访</p></div>
+</div>
+<p class="slide__conclusion">结论 · 获得可被记住的探索体验，而非积分数字。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--content" data-index="10">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">10</div>
+<h2 class="slide__title">游客感知：克制、东方、在场</h2>
+<div class="slide__body">
+<p>视觉：星图·经络·宣纸·淡金</p>
+<p>交互：探索地图·权益中心·个人印记</p>
+<p>语言：探索/显现/回响/礼遇</p>
+<p>边界：无等级·无抽卡·无战力</p>
+</div>
+<p class="slide__conclusion">结论 · 东方空间美学建立文旅信任感与高级感。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--content" data-index="11">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">11</div>
+<h2 class="slide__title">事件驱动的 XR 运行时，UI 与 XR 解耦</h2>
+<div class="slide__body">
+<p>UI 层：首页·探索地图·AR入口·信物册·权益中心</p>
+<p>Event Bus：XR_USER_TRIGGER · RELIC_CREATED</p>
+<p>XR Runtime + World Engine</p>
+</div>
+<p class="slide__conclusion">结论 · 可复用、可降级、可运营的空间运行时。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--content" data-index="12">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">12</div>
+<h2 class="slide__title">真机 XR 优先，备用显现保障交付</h2>
+<div class="slide__body">
+<p>用户触发 → AR显现 → 成功 → 信物流程</p>
+<p>不支持时 → 备用显现 → 同一闭环</p>
+</div>
+<p class="slide__conclusion">结论 · 景区现场不可控，体验闭环不能断裂。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--content" data-index="13">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">13</div>
+<h2 class="slide__title">B2B2C：景区付费，商家增值，用户免费探索</h2>
+<div class="slide__body">
+<p>① 景区 SaaS  ② 内容生产  ③ 商家活动</p>
+<p>④ 运营模块  ⑤ 城市复制授权</p>
+<p>用户端免费探索</p>
+</div>
+<p class="slide__conclusion">结论 · 收入来自空间运营基础设施。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--pilot" data-index="14">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">14</div>
+<h2 class="slide__title">最小可验证单元：1 景区 3 点位</h2>
+<div class="pilot-map"><div class="pilot-map__center">爱企谷</div><div class="pilot-map__nodes"><div>点位A<br>入口仪式</div><div>点位B<br>核心信物</div><div>点位C<br>商家礼遇</div></div></div>
+<p class="slide__note">验证：完成率·信物率·权益率·复访率·传播素材</p>
+<p class="slide__conclusion">结论 · 跑通进入到信物到权益的完整商业闭环。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--cards" data-index="15">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">15</div>
+<h2 class="slide__title">90 天试点节奏</h2>
+<div class="slide__cards">
+<div class="card"><h3>0–30天</h3><p>勘测·标定·信物</p></div>
+<div class="card"><h3>31–60天</h3><p>上线·试运行</p></div>
+<div class="card"><h3>61–90天</h3><p>复盘·复制</p></div>
+</div>
+<p class="slide__conclusion">结论 · 可复制的景区交付模板与数据基线。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--table" data-index="16">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">16</div>
+<h2 class="slide__title">每一次探索，都是可运营的关系数据</h2>
+<table class="slide__table"><thead><tr>
+<th>行为</th>
+<th>输出</th>
+<th>运营</th>
+</tr></thead><tbody>
+<tr>
+<td>进入/探索点</td>
+<td>路径图谱</td>
+<td>路径优化</td>
+</tr>
+<tr>
+<td>AR显现</td>
+<td>成功率</td>
+<td>设备策略</td>
+</tr>
+<tr>
+<td>信物获得</td>
+<td>信物档案</td>
+<td>内容迭代</td>
+</tr>
+<tr>
+<td>权益领取</td>
+<td>礼遇转化</td>
+<td>商家协同</td>
+</tr>
+</tbody></table>
+<p class="slide__conclusion">结论 · 信物是用户资产，行为链是景区 CRM。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--cards" data-index="17">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">17</div>
+<h2 class="slide__title">平台 · 景区 · 商家</h2>
+<div class="slide__cards">
+<div class="card"><h3>平台</h3><p>审查·发布</p></div>
+<div class="card"><h3>景区</h3><p>进度·信物</p></div>
+<div class="card"><h3>商家</h3><p>核销·礼遇</p></div>
+</div>
+<p class="slide__conclusion">结论 · 驱动复购与转化的运营语言。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--content" data-index="18">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">18</div>
+<h2 class="slide__title">四维壁垒</h2>
+<div class="slide__body">
+<p>空间操作系统定位</p>
+<p>世界观一致性 · 工程可交付 · 商业闭环 · 非游戏化</p>
+</div>
+<p class="slide__conclusion">结论 · 景区可长期运营的空间记忆基础设施。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--table" data-index="19">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">19</div>
+<h2 class="slide__title">AR游伴 vs 传统方案</h2>
+<table class="slide__table"><thead><tr>
+<th>维度</th>
+<th>导览小程序</th>
+<th>AR外包</th>
+<th>AR游伴</th>
+</tr></thead><tbody>
+<tr>
+<td>空间触发</td>
+<td>弱</td>
+<td>中</td>
+<td class="hi">强</td>
+</tr>
+<tr>
+<td>信物记忆</td>
+<td>无</td>
+<td>无</td>
+<td class="hi">核心</td>
+</tr>
+<tr>
+<td>运营后台</td>
+<td>弱</td>
+<td>无</td>
+<td class="hi">完整</td>
+</tr>
+<tr>
+<td>商业闭环</td>
+<td>券-only</td>
+<td>项目制</td>
+<td class="hi">SaaS+运营</td>
+</tr>
+</tbody></table>
+<p class="slide__conclusion">结论 · 更完整的景区空间运营系统。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--steps" data-index="20">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">20</div>
+<h2 class="slide__title">从单景区到城市文化网络</h2>
+<div class="slide__steps">
+<div class="step"><div class="step__dot"></div><h3>P1</h3><p>1景区3点位</p></div>
+<div class="step"><div class="step__dot"></div><h3>P2</h3><p>1城市N景区</p></div>
+<div class="step"><div class="step__dot"></div><h3>P3</h3><p>城际信物图谱</p></div>
+</div>
+<p class="slide__conclusion">结论 · 复制 OS 与内容工厂，非一次性项目。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--content" data-index="21">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">21</div>
+<h2 class="slide__title">传播飞轮 × 商业飞轮</h2>
+<div class="slide__body">
+<p>传播：显现→分享→新客→信物</p>
+<p>商业：探索→信物→权益→转化→复购</p>
+<p>交汇：空间信物系统</p>
+</div>
+<p class="slide__conclusion">结论 · 传播带来新客，商业带来复购。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--table" data-index="22">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">22</div>
+<h2 class="slide__title">四方共赢</h2>
+<table class="slide__table"><thead><tr>
+<th>角色</th>
+<th>价值</th>
+</tr></thead><tbody>
+<tr>
+<td>游客</td>
+<td>被记住的探索体验</td>
+</tr>
+<tr>
+<td>景区</td>
+<td>可运营现场+数据</td>
+</tr>
+<tr>
+<td>商家</td>
+<td>精准到店+转化</td>
+</tr>
+<tr>
+<td>平台</td>
+<td>标准化复制</td>
+</tr>
+</tbody></table>
+<p class="slide__conclusion">结论 · 游客记忆·景区关系·商家客流·平台规模。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--funding" data-index="23">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">23</div>
+<h2 class="slide__title">融资轮次与用途</h2>
+<div class="funding"><div class="funding__box"><p>轮次：种子轮/Pre-A</p><p>金额：[ ] 万元</p><p>估值：[ ] 万元</p></div><ul class="funding__bars"><li><b>40%</b> 产品与技术</li><li><b>30%</b> 景区试点</li><li><b>20%</b> 内容与运营</li><li><b>10%</b> 合规基建</li></ul></div>
+<p class="slide__conclusion">结论 · 推进到可复制的城市级空间网络。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--steps" data-index="24">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">24</div>
+<h2 class="slide__title">18 个月路线图</h2>
+<div class="slide__steps">
+<div class="step"><div class="step__dot"></div><h3>Q1</h3><p>单景区试点</p></div>
+<div class="step"><div class="step__dot"></div><h3>Q2</h3><p>3景区复制</p></div>
+<div class="step"><div class="step__dot"></div><h3>Q3</h3><p>城市签约</p></div>
+<div class="step"><div class="step__dot"></div><h3>Q4</h3><p>SaaS化</p></div>
+</div>
+<p class="slide__conclusion">结论 · 可交付、可验收、可复盘。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+<section class="slide slide--closing" data-index="25">
+<div class="slide__frame">
+<div class="slide__stars"><span></span><span></span><span></span></div>
+<div class="slide__num">25</div>
+<h1 class="slide__brand">看见即是找回</h1>
+<p class="slide__slogan">让真实世界留下可被记住的探索痕迹</p>
+<div class="slide__contact"><p>联系人：[姓名]</p><p>邮箱：[email]</p><p>微信：[二维码]</p></div>
+<p class="slide__conclusion">结论 · 寻找认同空间记忆长期价值的同行者。</p>
+<div class="slide__brandmark">AR游伴 · ARYOUBAN</div>
+</div></section>
+</main>
+<nav class="nav">
+  <button type="button" id="prev">上一页</button>
+  <button type="button" id="next">下一页</button>
+</nav>
+<script>
+let cur = 0;
+const slides = document.querySelectorAll('.slide');
+function show(i) {
+  cur = Math.max(0, Math.min(i, slides.length - 1));
+  slides.forEach((s, j) => s.classList.toggle('active', j === cur));
+}
+document.getElementById('prev').onclick = () => show(cur - 1);
+document.getElementById('next').onclick = () => show(cur + 1);
+document.onkeydown = (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') show(cur + 1);
+  if (e.key === 'ArrowLeft') show(cur - 1);
+};
+show(0);
+</script>
+</body>
+</html>

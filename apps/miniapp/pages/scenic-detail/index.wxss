@@ -1,4 +1,5 @@
 @import '../../styles/prototype-v1.wxss';
+@import '../../styles/user-phase1.wxss';
 
 .action-row {
   display: flex;

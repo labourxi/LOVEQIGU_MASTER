@@ -1,0 +1,11 @@
+{
+  "pages": [
+    "pages/ar/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "AR Youban MVP-1",
+    "navigationBarBackgroundColor": "#0f1d1a",
+    "navigationBarTextStyle": "white"
+  }
+}
+

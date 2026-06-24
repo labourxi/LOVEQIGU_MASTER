@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>活动列表 · AR游伴园区管理</title>
+  <title>活动数据 · AR游伴园区后台</title>
   <link rel="stylesheet" href="../../shared/backoffice.css" />
 </head>
 <body>
@@ -14,25 +14,102 @@
       <main class="bo-content">
         <div id="bo-breadcrumb"></div>
         <div class="bo-page-header-row">
-          <div class="bo-page-header"><h2>活动列表</h2><p>园区 AR 活动配置（Mock）</p></div>
+          <div class="bo-page-header"><h2>活动数据</h2><p>活动效果看板与轻量管理</p></div>
           <a class="btn btn-primary" href="../park_admin_activity_new/index.html">创建活动</a>
         </div>
-        <section class="card">
-          <div class="table-wrap">
-            <table class="table">
-              <thead><tr><th>活动名称</th><th>审核状态</th><th>发布检查</th><th>提交时间</th><th>操作</th></tr></thead>
-              <tbody>
-                <tr><td>爱企谷初见寻宝节</td><td><span class="badge badge-warning">待审核</span></td><td><span class="badge badge-danger">已阻断</span></td><td>2026-06-15</td><td class="table-actions"><a class="btn" href="../park_admin_activity_detail/index.html">详情</a><a class="btn" href="../park_admin_activity_publish_check/index.html">发布检查</a></td></tr>
-                <tr><td>爱企谷夏日探索</td><td><span class="badge badge-success">已通过</span></td><td><span class="badge badge-success">就绪</span></td><td>2026-06-10</td><td class="table-actions"><a class="btn" href="../park_admin_activity_detail/index.html">详情</a></td></tr>
-              </tbody>
-            </table>
+
+        <div class="tab-bar" id="activity-tabs">
+          <button class="tab-btn active" data-tab="board" type="button">数据看板</button>
+          <button class="tab-btn" data-tab="manage" type="button">活动管理</button>
+        </div>
+
+        <div data-tab-panel="board">
+          <div class="bo-park-summary">
+            <div class="bo-park-summary__title">活动总览</div>
+            <div class="bo-park-summary__copy">进行中 1 个 · 待审核 1 个 · 本周参与 1,240 人 · 发券 312 · 核销 118</div>
           </div>
-        </section>
+
+          <section class="card" style="margin-bottom:16px;" id="activity-board-cards">
+            <h3 class="card-title">活动效果卡片</h3>
+            <div id="activity-cards-container"></div>
+          </section>
+
+          <div class="bo-park-insight-block">
+            <strong>活动优化建议</strong>
+            「爱企谷初见寻宝节」领取转化良好，建议优化探索点终点与商家到店路径说明，提升核销率。
+          </div>
+
+          <section class="card" style="margin-top:16px;" id="activity-merchants-board">
+            <h3 class="card-title">参与商家明细</h3>
+            <p class="text-muted" style="margin:0 0 14px;font-size:13px;">展示本活动中参与商家的礼遇配置与核销表现。</p>
+            <div id="activities-merchant-panel"></div>
+          </section>
+        </div>
+
+        <div class="hidden" data-tab-panel="manage">
+          <section class="card">
+            <h3 class="card-title">活动列表</h3>
+            <div class="table-wrap">
+              <table class="table">
+                <thead><tr><th>活动名称</th><th>状态</th><th>审核</th><th>发布检查</th><th>关联商家</th><th>探索点</th><th>卡券</th><th>更新时间</th><th>操作</th></tr></thead>
+                <tbody id="activity-manage-tbody"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
       </main>
     </div>
   </div>
   <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/park-adapter-boot.js"></script>
+  <script src="../shared/status-labels.js"></script>
+  <script src="../shared/park-activity-merchants.js"></script>
   <script src="../shared/page-boot.js"></script>
-  <script>ParkPageBoot.boot("activities", [{ label: "园区管理" }, { label: "活动列表" }]);</script>
+  <script>
+    ParkPageBoot.boot("activities", [{ label: "园区管理" }, { label: "活动数据" }]);
+    BackofficeShell.bindTabs("#activity-tabs");
+
+    ParkAdapterBoot.ensureAdapterScripts(function () {
+      var ctx = ParkAdapterBoot.getParkContext();
+      var adapter = ParkAdapterBoot.getAdapter();
+      var activities = adapter.getParkActivities(ctx.parkId);
+
+      function renderActions(actions) {
+        return actions.map(function (a) {
+          return '<a class="btn' + (a.primary ? " btn-primary" : "") + '" href="' + a.href + '">' + a.label + "</a>";
+        }).join(" ");
+      }
+
+      function formatDate(iso) {
+        return (iso || "").slice(0, 10);
+      }
+
+      var cardsHtml = activities.map(function (a) {
+        var actions = adapter.getActivityActions(a);
+        return '<div class="bo-park-activity-card">' +
+          '<div class="bo-park-activity-card__head">' +
+          '<span class="bo-park-activity-card__title">' + a.name + "</span>" +
+          ParkAdapterBoot.statusBadge(a.status, "activity") +
+          "</div>" +
+          '<div class="bo-park-activity-card__meta">探索点 ' + a.explorationPointCount +
+          " · 商家 " + a.merchantCount + " · 卡券 " + (a.couponCount || 0) + "</div>" +
+          '<p style="margin-top:10px;">' + renderActions(actions) + "</p></div>";
+      }).join("");
+      document.getElementById("activity-cards-container").innerHTML = cardsHtml;
+
+      var tbody = document.getElementById("activity-manage-tbody");
+      tbody.innerHTML = activities.map(function (a) {
+        var actions = adapter.getActivityActions(a);
+        return "<tr><td>" + a.name + "</td><td>" + ParkAdapterBoot.statusBadge(a.status, "activity") +
+          "</td><td>" + ParkAdapterBoot.statusBadge(a.reviewStatus, "review") +
+          "</td><td>" + ParkAdapterBoot.statusBadge(a.publishCheckStatus, "publish") +
+          "</td><td>" + a.merchantCount + "</td><td>" + a.explorationPointCount +
+          "</td><td>" + (a.couponCount || 0) + "</td><td>" + formatDate(a.updatedAt) +
+          '</td><td class="table-actions">' + renderActions(actions) + "</td></tr>";
+      }).join("");
+
+      ParkActivityMerchants.mountPanel("#activities-merchant-panel", { activityId: "activity_001", page: 1 });
+    });
+  </script>
 </body>
 </html>

@@ -1,86 +1,111 @@
-const rightsService = require('../../services/rights/rights-service');
-const campaignService = require('../../services/campaign/campaign-service');
-const userProgress = require('../../services/user-progress');
+const userProgress = require('../../services/user-progress/index');
 const merchantEventService = require('../../services/merchant-event');
+const userFrontend = require('../../services/user-frontend.js');
+const userRuntime = require('../../services/user-runtime-adapter/index');
+const phase1PageGuard = require('../../behaviors/phase1-page-guard');
+const safeInteraction = require('../../behaviors/safe-interaction');
 
-const RIGHT_STATUS_LABELS = {
-  placeholder: '待开放',
-  available: '可领取',
-  claimed: '已领取',
-  redeemed: '已核销'
+const USAGE_GUIDE = {
+  intro: '探索礼遇是你在景区内完成探索后获得的在地商家优惠，请在线下门店使用。',
+  steps: [
+    '完成探索点打卡，解锁对应礼遇领取资格',
+    '在权益中心查看已获得的礼遇',
+    '到店后向商家出示核销码，完成使用'
+  ]
 };
 
-function mapBenefits() {
-  return rightsService.getAllRights().map((right) => ({
-    name: right.name,
-    desc: right.redemption ? right.redemption.copy : '权益流程占位文案。',
-    state: RIGHT_STATUS_LABELS[right.status] || right.status
-  }));
+function mapRecommendRights(overview) {
+  return (overview.coupons || [])
+    .filter((item) => item && item.status !== 'CLAIMED')
+    .map((item) => ({
+      id: item.coupon_id || item.coupon_name,
+      title: item.coupon_name,
+      merchant: item.merchant_name || '在地商家',
+      note: item.status === 'LOCKED' ? '完成对应探索点后解锁' : '探索后可领取',
+      status: item.status === 'LOCKED' ? '待解锁' : '可领取'
+    }));
 }
 
-function mapEventSummary() {
-  const overview = merchantEventService.getActivityOverview(merchantEventService.ACTIVITY_ID);
-  return {
-    title: overview.activity.event_name,
-    description: overview.activity.description,
-    activityStatus: overview.activity.status,
-    completedTaskCount: overview.stats.completedTaskCount,
-    ownedRelicCount: overview.stats.ownedRelicCount,
-    claimedCouponCount: overview.stats.claimedCouponCount,
-    entered: overview.entered,
-    coupons: overview.coupons.filter((item) => item.status !== 'LOCKED')
-  };
-}
-
-function mapClaimedCoupons(progress) {
+function mapActiveRights(progress) {
   const activity = progress.event.activities[merchantEventService.ACTIVITY_ID] || {};
   return (activity.coupons || [])
     .filter((item) => item && item.status === 'CLAIMED')
     .map((item) => ({
-      coupon_name: item.coupon_name,
-      merchant_name: item.merchant_name || '',
-      status: item.status,
-      claimed_at: item.claimed_at || ''
+      id: item.coupon_name,
+      title: item.coupon_name,
+      merchant: item.merchant_name || '在地商家',
+      note: item.claimed_at ? `领取于 ${item.claimed_at}` : '已收入你的探索礼遇',
+      status: '可使用',
+      source: '探索礼遇',
+      showQr: true
     }));
 }
 
 function buildPageData() {
+  userRuntime.boot();
+  const adapter = userRuntime.getAdapter();
+  const journey = userFrontend.buildJourneySummary();
+  if (adapter) {
+    const rights = adapter.getRightsCenter(userRuntime.getUserId(), userRuntime.getActivityId());
+    const mapped = userRuntime.mapRightsForPage(rights);
+    const home = adapter.getHomeData(userRuntime.getUserId(), userRuntime.getActivityId());
+    return {
+      activeTab: 'rights',
+      title: '权益中心',
+      eventSummary: {
+        title: home.currentActivity ? home.currentActivity.name : '权益中心',
+        description: home.currentPark ? home.currentPark.name : ''
+      },
+      activeRights: mapped.activeRights,
+      recommendRights: mapped.recommendRights,
+      usageGuide: USAGE_GUIDE,
+      bottomNav: journey.nav,
+      runtimeMock: true
+    };
+  }
   const progress = userProgress.readProgress();
+  const overview = merchantEventService.getActivityOverview(merchantEventService.ACTIVITY_ID);
   return {
+    activeTab: 'rights',
     title: '权益中心',
-    benefits: mapBenefits(),
-    campaignCount: campaignService.getAllCampaigns().length,
-    primaryLabel: '查看活动进度',
-    redemption: {
-      title: '权益预览',
-      copy: '权益数据已接入统一用户进度中心，首场活动的卡券状态会随领取动作刷新。'
+    eventSummary: {
+      title: overview.activity.event_name,
+      description: overview.activity.description
     },
-    eventSummary: mapEventSummary(),
-    claimedCoupons: mapClaimedCoupons(progress)
+    activeRights: mapActiveRights(progress),
+    recommendRights: mapRecommendRights(overview),
+    usageGuide: USAGE_GUIDE,
+    bottomNav: journey.nav
   };
 }
 
 Page({
+  behaviors: [phase1PageGuard, safeInteraction],
   data: buildPageData(),
 
   onLoad() {
     this.refresh();
+    if (merchantEventService.ensureReadyAsync) {
+      merchantEventService.ensureReadyAsync().then(() => this.refresh());
+    }
+    if (userFrontend.ensureReadyAsync) {
+      userFrontend.ensureReadyAsync().then(() => this.refresh());
+    }
+  },
+
+  onShow() {
+    this.refresh();
+    if (merchantEventService.ensureReadyAsync) {
+      merchantEventService.ensureReadyAsync().then(() => this.refresh());
+    }
+    if (userFrontend.ensureReadyAsync) {
+      userFrontend.ensureReadyAsync().then(() => this.refresh());
+    }
   },
 
   refresh() {
     this.setData(buildPageData());
   },
 
-  onOpenCampaignClosure() {
-    wx.navigateTo({
-      url: '/pages/campaign-closure/index'
-    });
-  },
-
-  onOpenMerchantEvent() {
-    wx.navigateTo({
-      url: '/pages/merchant-event/index/index'
-    });
-  }
+  onBottomNavChange() {}
 });
-

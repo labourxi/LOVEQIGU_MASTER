@@ -1,0 +1,48 @@
+<view class="page">
+  <view class="card">
+    <view class="title">AR Youban MVP-1</view>
+    <view class="copy">XR -> EventBus -> Trigger Layer -> WorldEngine -> UI Mock</view>
+  </view>
+
+  <view class="card">
+    <view class="row">
+      <text class="label">AR STATE</text>
+      <text class="value">{{arState}}</text>
+    </view>
+    <view class="row">
+      <text class="label">RUNNING</text>
+      <text class="value">{{running ? 'YES' : 'NO'}}</text>
+    </view>
+    <view class="row">
+      <text class="label">WORLD READY</text>
+      <text class="value">{{worldReady ? 'YES' : 'NO'}}</text>
+    </view>
+    <view class="row">
+      <text class="label">PIPELINE</text>
+      <text class="value">{{eventSchemaSummary}}</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">EVENT LOG</view>
+    <block wx:for="{{eventLogs}}" wx:key="index">
+      <view class="log-item">{{item}}</view>
+    </block>
+  </view>
+
+  <view class="card">
+    <view class="section-title">STAR SYSTEM</view>
+    <view class="copy">{{starSummary}}</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">MERIDIAN SYSTEM</view>
+    <view class="copy">{{meridianSummary}}</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">ARTIFACT</view>
+    <view class="copy">{{artifactSummary}}</view>
+  </view>
+</view>
+

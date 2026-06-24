@@ -1,0 +1,432 @@
+{
+  "allMediaCount": 12,
+  "allMediaTop": [
+    {
+      "path": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\xr_demo\\miniprogram\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\preview_sheet.png",
+      "kb": 114.71,
+      "ext": "png"
+    },
+    {
+      "path": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\xr_demo\\miniprogram\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_imprint_overlay.png",
+      "kb": 105.88,
+      "ext": "png"
+    },
+    {
+      "path": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\images\\home-hero.jpg",
+      "kb": 98.04,
+      "ext": "jpg"
+    },
+    {
+      "path": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\xr_demo\\miniprogram\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_head_reveal.png",
+      "kb": 95.46,
+      "ext": "png"
+    },
+    {
+      "path": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\xr_demo\\miniprogram\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_energy_flow.png",
+      "kb": 80.27,
+      "ext": "png"
+    },
+    {
+      "path": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\xr_demo\\miniprogram\\assets\\ar_factory\\landmark_tree_v1\\alignment_overlay.png",
+      "kb": 71.61,
+      "ext": "png"
+    },
+    {
+      "path": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\xr_demo\\miniprogram\\assets\\ar_factory\\landmark_tree_v1_p0a\\alignment_overlay.png",
+      "kb": 71.61,
+      "ext": "png"
+    },
+    {
+      "path": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\xr_demo\\miniprogram\\assets\\ar_factory\\landmark_tree_v1\\position_guide.png",
+      "kb": 45.81,
+      "ext": "png"
+    },
+    {
+      "path": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\xr_demo\\miniprogram\\assets\\ar_factory\\landmark_tree_v1_p0a\\position_guide.png",
+      "kb": 45.81,
+      "ext": "png"
+    },
+    {
+      "path": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\xr_demo\\miniprogram\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\azure_dragon_seal.png",
+      "kb": 19,
+      "ext": "png"
+    },
+    {
+      "path": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_ar_poc_v1\\alignment_overlay.png",
+      "kb": 10.74,
+      "ext": "png"
+    },
+    {
+      "path": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_ar_poc_v1\\position_guide.png",
+      "kb": 6.61,
+      "ext": "png"
+    }
+  ],
+  "largeMedia": [],
+  "crossRootRefs": [],
+  "base64All": [],
+  "base64Over200": [],
+  "missingManifestAssets": [
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\asset-manifest.js",
+      "line": 29,
+      "uri": "/assets/star-ritual/textures/paper_bg.webp",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\textures\\paper_bg.webp"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\asset-manifest.js",
+      "line": 33,
+      "uri": "/assets/star-ritual/textures/star_glow.webp",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\textures\\star_glow.webp"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\asset-manifest.js",
+      "line": 37,
+      "uri": "/assets/star-ritual/textures/seal.webp",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\textures\\seal.webp"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\asset-manifest.js",
+      "line": 43,
+      "uri": "/assets/star-ritual/audio/ignition.mp3",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\audio\\ignition.mp3"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\asset-manifest.js",
+      "line": 47,
+      "uri": "/assets/star-ritual/audio/flow.mp3",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\audio\\flow.mp3"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\asset-manifest.js",
+      "line": 51,
+      "uri": "/assets/star-ritual/audio/completion.mp3",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\audio\\completion.mp3"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\asset-manifest.json",
+      "line": 29,
+      "uri": "/assets/star-ritual/textures/paper_bg.webp",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\textures\\paper_bg.webp"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\asset-manifest.json",
+      "line": 33,
+      "uri": "/assets/star-ritual/textures/star_glow.webp",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\textures\\star_glow.webp"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\asset-manifest.json",
+      "line": 37,
+      "uri": "/assets/star-ritual/textures/seal.webp",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\textures\\seal.webp"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\asset-manifest.json",
+      "line": 43,
+      "uri": "/assets/star-ritual/audio/ignition.mp3",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\audio\\ignition.mp3"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\asset-manifest.json",
+      "line": 47,
+      "uri": "/assets/star-ritual/audio/flow.mp3",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\audio\\flow.mp3"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\asset-manifest.json",
+      "line": 51,
+      "uri": "/assets/star-ritual/audio/completion.mp3",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\star-ritual\\audio\\completion.mp3"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\bridge_manifest.json",
+      "line": 19,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_imprint_overlay.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\bridge_manifest.json",
+      "line": 20,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_energy_flow.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_energy_flow.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\bridge_manifest.json",
+      "line": 21,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_head_reveal.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_head_reveal.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\bridge_manifest.json",
+      "line": 22,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/azure_dragon_seal.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\azure_dragon_seal.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\bridge_manifest.json",
+      "line": 23,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/preview_sheet.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\preview_sheet.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\effect_package.js",
+      "line": 36,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_imprint_overlay.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\effect_package.js",
+      "line": 40,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_energy_flow.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_energy_flow.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\effect_package.js",
+      "line": 44,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_head_reveal.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_head_reveal.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\effect_package.js",
+      "line": 48,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/azure_dragon_seal.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\azure_dragon_seal.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\effect_package.js",
+      "line": 52,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/preview_sheet.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\preview_sheet.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\effect_package.js",
+      "line": 55,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/preview_sheet.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\preview_sheet.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\effect_package.json",
+      "line": 36,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_imprint_overlay.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\effect_package.json",
+      "line": 40,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_energy_flow.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_energy_flow.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\effect_package.json",
+      "line": 44,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_head_reveal.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_head_reveal.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\effect_package.json",
+      "line": 48,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/azure_dragon_seal.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\azure_dragon_seal.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\effect_package.json",
+      "line": 52,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/preview_sheet.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\preview_sheet.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\effect_package.json",
+      "line": 55,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/preview_sheet.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\preview_sheet.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\preview_assets.js",
+      "line": 13,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_imprint_overlay.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\preview_assets.js",
+      "line": 17,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_energy_flow.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_energy_flow.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\preview_assets.js",
+      "line": 21,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_head_reveal.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_head_reveal.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\preview_assets.js",
+      "line": 25,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/azure_dragon_seal.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\azure_dragon_seal.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\preview_assets.js",
+      "line": 29,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/preview_sheet.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\preview_sheet.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\preview_assets.json",
+      "line": 13,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_imprint_overlay.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\preview_assets.json",
+      "line": 17,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_energy_flow.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_energy_flow.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\preview_assets.json",
+      "line": 21,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_head_reveal.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_head_reveal.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\preview_assets.json",
+      "line": 25,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/azure_dragon_seal.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\azure_dragon_seal.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\preview_assets.json",
+      "line": 29,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/preview_sheet.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\preview_sheet.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\runtime_package.js",
+      "line": 23,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_imprint_overlay.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\runtime_package.js",
+      "line": 24,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_energy_flow.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_energy_flow.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\runtime_package.js",
+      "line": 25,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_head_reveal.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_head_reveal.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\runtime_package.js",
+      "line": 26,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/azure_dragon_seal.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\azure_dragon_seal.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\runtime_package.js",
+      "line": 28,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_imprint_overlay.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\runtime_package.js",
+      "line": 48,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_imprint_overlay.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\runtime_package.js",
+      "line": 152,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_imprint_overlay.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\runtime_package.js",
+      "line": 156,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_energy_flow.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_energy_flow.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\runtime_package.js",
+      "line": 160,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_head_reveal.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_head_reveal.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\runtime_package.js",
+      "line": 164,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/azure_dragon_seal.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\azure_dragon_seal.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\runtime_package.json",
+      "line": 23,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_imprint_overlay.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\runtime_package.json",
+      "line": 24,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_energy_flow.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_energy_flow.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\runtime_package.json",
+      "line": 25,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_head_reveal.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_head_reveal.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\runtime_package.json",
+      "line": 26,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/azure_dragon_seal.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\azure_dragon_seal.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\runtime_package.json",
+      "line": 28,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_imprint_overlay.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\runtime_package.json",
+      "line": 48,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_imprint_overlay.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\runtime_package.json",
+      "line": 152,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_imprint_overlay.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\runtime_package.json",
+      "line": 156,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_energy_flow.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_energy_flow.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\runtime_package.json",
+      "line": 160,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_head_reveal.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\dragon_head_reveal.png"
+    },
+    {
+      "file": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1_p0a\\runtime_package.json",
+      "line": 164,
+      "uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/azure_dragon_seal.png",
+      "expected": "D:\\LOVEQIGU_MASTER\\apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1_p0a\\effect_preview\\azure_dragon_seal.png"
+    }
+  ],
+  "summary": {
+    "largeMediaCount": 0,
+    "crossRootRefCount": 0,
+    "base64Total": 0,
+    "base64Over200Count": 0,
+    "missingManifestCount": 59
+  }
+}

@@ -15,50 +15,104 @@
         <div id="bo-breadcrumb"></div>
         <div class="bo-page-header-row">
           <div class="bo-page-header">
-            <h2>爱企谷咖啡 · 今日概览</h2>
-            <p>2026年6月20日 · 轻量工作台</p>
+            <h2 id="dash-title">今日概览</h2>
+            <p id="dash-subtitle">加载中…</p>
           </div>
-          <a class="btn btn-primary btn-lg" href="../merchant_scan/index.html">扫码核销</a>
+          <a class="bo-primary-action" href="../merchant_scan/index.html">扫码核销</a>
         </div>
-        <div class="grid">
-          <section class="card metric"><div class="metric-label">今日领取</div><div class="metric-value">65</div></section>
-          <section class="card metric"><div class="metric-label">今日核销</div><div class="metric-value">18</div></section>
-          <section class="card metric"><div class="metric-label">待核销</div><div class="metric-value">4</div><div class="metric-sub"><a href="../merchant_redemptions/index.html">查看列表</a></div></section>
-          <section class="card metric"><div class="metric-label">核销率</div><div class="metric-value">38%</div></section>
+
+        <div class="bo-page-summary">
+          <div class="bo-page-summary__title">今日礼遇摘要</div>
+          <div class="bo-page-summary__copy" id="dash-summary">—</div>
+        </div>
+
+        <div class="bo-metric-grid">
+          <div class="bo-metric-card"><div class="bo-metric-card__label">今日领取</div><div class="bo-metric-card__value" id="m-today-claimed">—</div></div>
+          <div class="bo-metric-card"><div class="bo-metric-card__label">今日到店核销</div><div class="bo-metric-card__value" id="m-today-redeemed">—</div></div>
+          <div class="bo-metric-card"><div class="bo-metric-card__label">累计领取</div><div class="bo-metric-card__value" id="m-total-claimed">—</div></div>
+          <div class="bo-metric-card"><div class="bo-metric-card__label">累计到店核销</div><div class="bo-metric-card__value" id="m-total-redeemed">—</div></div>
+        </div>
+
+        <div class="grid" style="margin-bottom:16px;">
+          <section class="card metric bo-metric-card--highlight span-4">
+            <div class="metric-label">核销率</div>
+            <div class="metric-value" id="m-rate">—</div>
+            <div class="metric-sub" id="m-rate-sub">—</div>
+          </section>
           <section class="card span-8">
-            <h3 class="card-title">近 7 日核销趋势</h3>
-            <div class="chart-placeholder">图表占位 · 领取 / 核销</div>
+            <h3 class="card-title">待处理事项</h3>
+            <div class="alert alert-info" id="pending-alert">—</div>
           </section>
-          <section class="card span-4">
-            <h3 class="card-title">快捷操作</h3>
-            <div class="toolbar" style="flex-direction:column;align-items:stretch;">
-              <a class="btn btn-primary btn-lg" href="../merchant_scan/index.html">扫码核销</a>
-              <a class="btn" href="../merchant_redemptions/index.html">核销记录</a>
-              <a class="btn" href="../merchant_tickets/index.html">提交工单</a>
-            </div>
-          </section>
+        </div>
+
+        <div class="grid">
           <section class="card span-6">
-            <h3 class="card-title">卡券概览</h3>
-            <div class="table-wrap">
+            <h3 class="card-title">最近礼遇核销</h3>
+            <div class="bo-record-list table-wrap">
               <table class="table">
-                <thead><tr><th>卡券</th><th>状态</th><th>领取</th><th>核销</th></tr></thead>
-                <tbody>
-                  <tr><td><a href="../merchant_coupons/index.html">爱企谷初见到店礼</a></td><td><span class="badge badge-success">已发布</span></td><td>65</td><td>38</td></tr>
-                </tbody>
+                <thead><tr><th>时间</th><th>在地礼遇</th><th>状态</th></tr></thead>
+                <tbody id="recent-body"></tbody>
               </table>
             </div>
+            <p style="margin-top:12px;"><a href="../merchant_redemptions/index.html">查看全部礼遇核销记录 →</a></p>
           </section>
           <section class="card span-6">
-            <h3 class="card-title">提醒</h3>
-            <div class="alert alert-warning">账单待付款 · 2026-06 服务费 299 元</div>
-            <p class="text-muted">工单：卡券领取数异常 · <span class="badge badge-warning">待处理</span></p>
+            <h3 class="card-title">当前在地礼遇</h3>
+            <div id="coupon-cards"></div>
+            <p style="margin-top:12px;"><a href="../merchant_coupons/index.html">管理全部在地礼遇 →</a></p>
+          </section>
+          <section class="card span-12">
+            <h3 class="card-title">快捷入口</h3>
+            <div class="bo-quick-actions">
+              <a class="btn" href="../merchant_coupons/index.html">在地礼遇</a>
+              <a class="btn" href="../merchant_redemptions/index.html">礼遇核销记录</a>
+              <a class="btn" href="../merchant_finance/index.html">协作账单</a>
+              <a class="btn" href="../merchant_ticket_new/index.html">提交工单</a>
+            </div>
           </section>
         </div>
       </main>
     </div>
   </div>
   <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/merchant-adapter-boot.js"></script>
+  <script src="../shared/status-labels.js"></script>
   <script src="../shared/page-boot.js"></script>
-  <script>MerchantPageBoot.boot("dashboard", [{ label: "商家工作台" }, { label: "今日概览" }]);</script>
+  <script>
+    MerchantPageBoot.boot("dashboard", [{ label: "商家工作台" }, { label: "今日概览" }]);
+
+    function shortTime(iso) {
+      if (!iso) return "—";
+      var m = String(iso).match(/(\d{2}):(\d{2})/);
+      return m ? m[1] + ":" + m[2] : iso;
+    }
+
+    MerchantAdapterBoot.ensureAdapterScripts(function () {
+      var adapter = MerchantAdapterBoot.getAdapter();
+      var ctx = MerchantAdapterBoot.getMerchantContext();
+      var d = adapter.getMerchantDashboard(ctx.merchantId);
+      document.getElementById("dash-title").textContent = (d.merchant ? d.merchant.name : "门店") + " · 今日概览";
+      document.getElementById("dash-subtitle").textContent = "爱企谷初见寻宝节 · " + new Date().toLocaleDateString("zh-CN");
+      document.getElementById("dash-summary").textContent =
+        "今日领取 " + d.todayClaimed + " 张 · 到店核销 " + d.todayRedeemed + " 张 · 待核销 " + d.pendingRedemption + " 张 · 核销率 " + d.redemptionRate + "%";
+      document.getElementById("m-today-claimed").textContent = d.todayClaimed;
+      document.getElementById("m-today-redeemed").textContent = d.todayRedeemed;
+      document.getElementById("m-total-claimed").textContent = d.totalClaimed;
+      document.getElementById("m-total-redeemed").textContent = d.totalRedeemed;
+      document.getElementById("m-rate").textContent = d.redemptionRate + "%";
+      document.getElementById("m-rate-sub").textContent = "累计 " + d.totalRedeemed + " / " + d.totalClaimed;
+      document.getElementById("pending-alert").innerHTML =
+        "待核销 " + d.pendingRedemption + " 张 · <a href=\"../merchant_redemptions/index.html\">查看礼遇核销记录</a>";
+      document.getElementById("recent-body").innerHTML = d.recentRedemptions.length ? d.recentRedemptions.map(function (r) {
+        return "<tr><td>" + shortTime(r.redeemedAt) + "</td><td>" + r.couponName + "</td><td>" +
+          MerchantAdapterBoot.redemptionStatusBadge("VERIFIED") + "</td></tr>";
+      }).join("") : "<tr><td colspan=\"3\">暂无记录</td></tr>";
+      document.getElementById("coupon-cards").innerHTML = d.coupons.map(function (c) {
+        return '<div class="bo-list-card"><div class="bo-list-card__head"><span class="bo-list-card__title"><span class="bo-gift-tag">探索礼遇</span>' +
+          c.name + '</span><span class="badge badge-success">' + c.statusLabel + '</span></div><div class="bo-list-card__meta">已领 ' +
+          c.claimedCount + " · 核销 " + c.redeemedCount + " · 核销率 " + c.redemptionRateLabel + "</div></div>";
+      }).join("");
+    });
+  </script>
 </body>
 </html>

@@ -3,151 +3,93 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>park_admin_tickets</title>
-  <style>
-    :root {
-      --bg: #f7f1e8;
-      --panel: #fffaf1;
-      --text: #2b2118;
-      --muted: #6f5d4d;
-      --line: #d8c6b0;
-      --accent: #8b5d3b;
-      --good: #2c7a4b;
-      --warn: #b26b1b;
-      --bad: #a4412b;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: linear-gradient(180deg, #f7f1e8 0%, #efe5d7 100%);
-      color: var(--text);
-      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
-    }
-    a { color: inherit; text-decoration: none; }
-    .page { max-width: 1360px; margin: 0 auto; padding: 20px; }
-    .topbar {
-      display: flex; justify-content: space-between; align-items: center;
-      gap: 16px; margin-bottom: 16px;
-    }
-    .brand h1 { margin: 0; font-size: 28px; }
-    .brand p { margin: 4px 0 0; color: var(--muted); }
-    .breadcrumbs { display: flex; gap: 8px; color: var(--muted); font-size: 13px; margin-bottom: 14px; }
-    .layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 16px; }
-    .sidebar, .panel {
-      background: rgba(255,255,255,0.84);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(85, 58, 25, 0.05);
-    }
-    .sidebar { padding: 16px; position: sticky; top: 16px; align-self: start; }
-    .sidebar h3 { margin: 0 0 12px; font-size: 16px; }
-    .nav-stack { display: grid; gap: 8px; }
-    .nav-link {
-      display: block; padding: 9px 12px; border-radius: 12px;
-      border: 1px solid transparent; background: rgba(255,255,255,0.7);
-    }
-    .nav-link.active {
-      border-color: #d0b897; background: #f2e5d4; color: var(--accent); font-weight: 700;
-    }
-    .panel { padding: 18px; }
-    .hero { margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
-    .hero h2 { margin: 0 0 6px; font-size: 24px; }
-    .hero p { margin: 0; color: var(--muted); }
-    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 18px; }
-    .button {
-      border: 1px solid var(--line); background: #fff; border-radius: 999px;
-      padding: 8px 12px; cursor: pointer; font-size: 13px;
-    }
-    .button.primary { background: #f2e5d4; color: var(--accent); border-color: #d7c0a8; }
-    .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 14px; }
-    .card { background: rgba(255,255,255,0.9); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
-    .metric { grid-column: span 3; min-height: 108px; }
-    .span-4 { grid-column: span 4; }
-    .span-6 { grid-column: span 6; }
-    .span-8 { grid-column: span 8; }
-    .span-12 { grid-column: span 12; }
-    .metric .label { color: var(--muted); font-size: 13px; }
-    .metric .value { font-size: 30px; font-weight: 700; margin-top: 8px; }
-    .badge {
-      display: inline-block; padding: 4px 8px; border-radius: 999px;
-      font-size: 12px; border: 1px solid transparent;
-    }
-    .badge--neutral { background: #f3eadf; color: #6a5848; border-color: #dfcfbc; }
-    .badge--good { background: #e3f1e9; color: var(--good); border-color: #bdd9c9; }
-    .badge--warn { background: #fbefde; color: var(--warn); border-color: #eed0a9; }
-    .badge--bad { background: #f6e0db; color: var(--bad); border-color: #e9b8ad; }
-    .badge--accent { background: #f2e5d4; color: var(--accent); border-color: #d8c0aa; }
-    .table { width: 100%; border-collapse: collapse; font-size: 14px; }
-    .table th, .table td {
-      border-bottom: 1px solid rgba(216,198,176,0.7);
-      padding: 10px 8px; text-align: left; vertical-align: top;
-    }
-    .table th {
-      color: var(--muted); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase;
-    }
-    .chart {
-      height: 180px; border-radius: 12px; border: 1px dashed var(--line);
-      background:
-        linear-gradient(90deg, rgba(139,93,59,0.05) 1px, transparent 1px) 0 0 / 16px 16px,
-        linear-gradient(180deg, rgba(139,93,59,0.05) 1px, transparent 1px) 0 0 / 16px 16px,
-        linear-gradient(180deg, rgba(255,255,255,0.92), rgba(242,229,213,0.72));
-    }
-    .empty, .loading {
-      border: 1px dashed var(--line); border-radius: 12px; padding: 16px;
-      color: var(--muted); background: rgba(255,255,255,0.55);
-    }
-    .split { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 14px; }
-    .hidden { display: none !important; }
-    .footer { margin-top: 18px; color: var(--muted); font-size: 12px; }
-    @media (max-width: 1080px) { .layout { grid-template-columns: 1fr; } .sidebar { position: static; } }
-    @media (max-width: 900px) { .metric, .span-4, .span-6, .span-8, .span-12, .split { grid-column: span 12; grid-template-columns: 1fr; } .topbar { flex-direction: column; align-items: flex-start; } }
-  </style>
+  <title>工单 · AR游伴园区后台</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
 </head>
 <body>
-  <div class="page">
-    <div class="topbar">
-      <div class="brand">
-        <h1>park_admin_tickets</h1>
-        <p>park_admin_tickets</p>
-      </div>
-      <div class="toolbar">
-        <a class="button" href="../index.html">返回</a>
-        <button class="button" onclick="history.back()">浏览器返回</button>
-      </div>
-    </div>
-    <div class="breadcrumbs"><a href="../index.html">总览</a><span>/</span><span>park_admin_tickets</span></div>
-    <div class="layout">
-      <aside class="sidebar">
-        <h3>园区端导航</h3>
-        <div class="nav-stack"><a class="nav-link " href="../park_admin_dashboard/index.html">park_admin_dashboard</a><a class="nav-link " href="../park_admin_merchants/index.html">park_admin_merchants</a><a class="nav-link " href="../park_admin_activities/index.html">park_admin_activities</a><a class="nav-link " href="../park_admin_activity_detail/index.html">park_admin_activity_detail</a><a class="nav-link " href="../park_admin_activity_new/index.html">park_admin_activity_new</a><a class="nav-link " href="../park_admin_activity_publish_check/index.html">park_admin_activity_publish_check</a><a class="nav-link " href="../park_admin_tickets/index.html">park_admin_tickets</a></div>
-      </aside>
-      <main class="panel">
-    <section class="hero"><h2>park_admin_tickets</h2><p>查看商家工单、回复工单、跟进工单、提交平台工单、关联商家 / 活动。</p></section>
-    <section class="card">
-      <table class="table">
-        <tr><th>工单</th><th>类型</th><th>标题</th><th>状态</th></tr>
-        <tr><td>ticket_001</td><td><span class="badge badge--accent">COUPON_ISSUE</span></td><td>卡券领取数异常</td><td><span class="badge badge--warn">OPEN</span></td></tr>
-      </table>
-      <div class="toolbar" style="margin-top:14px;">
-        <a class="button primary" href="../park_admin_activity_publish_check/index.html">发布前检查</a>
-        <a class="button" href="../park_admin_activity_new/index.html">创建活动草稿</a>
-      </div>
-    </section>
-    </main>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div id="bo-breadcrumb"></div>
+        <div class="bo-page-header-row">
+          <div class="bo-page-header"><h2>工单</h2><p>活动协作、商家协同问题可在此联系平台</p></div>
+          <button class="btn btn-primary" type="button" id="new-ticket-btn">新建工单</button>
+        </div>
+
+        <div class="bo-section-side-note">工单用于园区与平台之间的合作支持，不是内部审批流程。提交后平台将尽快回复。</div>
+
+        <section class="card">
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th>标题</th><th>类型</th><th>关联活动</th><th>状态</th><th>提交时间</th><th>平台回复</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>活动发布审核进度咨询</td>
+                  <td><span class="badge badge-accent">活动问题</span></td>
+                  <td>爱企谷初见寻宝节</td>
+                  <td><span class="badge badge-warning">待处理</span></td>
+                  <td>2026-06-15 09:30</td>
+                  <td><span class="badge badge-accent">已回复</span></td>
+                </tr>
+                <tr>
+                  <td>商家核销数据异常</td>
+                  <td><span class="badge badge-accent">商家协同</span></td>
+                  <td>爱企谷初见寻宝节</td>
+                  <td><span class="badge badge-warning">待处理</span></td>
+                  <td>2026-06-14 16:20</td>
+                  <td><span class="badge badge-neutral">待回复</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="card" style="margin-top:16px;">
+          <h3 class="card-title">工单相关操作记录</h3>
+          <div class="bo-audit-log" id="ticket-operation-logs"></div>
+        </section>
+
+        <div class="bo-park-suggestion" style="margin-top:16px;">
+          <strong>常见问题</strong>
+          活动发布、商家协同、数据核对等问题均可提交工单。紧急事项请备注活动名称与商家名称。更多说明请查看<a href="../park_admin_help/index.html">帮助中心</a>。
+        </div>
+      </main>
     </div>
   </div>
+  <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/status-labels.js"></script>
+  <script src="../shared/park-operation-log.js"></script>
+  <script src="../shared/page-boot.js"></script>
   <script>
-    function toggleState(group, active) {
-      document.querySelectorAll('[data-group="' + group + '"]').forEach((node) => {
-        node.classList.toggle('hidden', node.getAttribute('data-state') !== active);
-      });
-      document.querySelectorAll('[data-state-group="' + group + '"] .button').forEach((btn) => {
-        btn.classList.remove('primary');
-        if (btn.getAttribute('data-state-action') === active) btn.classList.add('primary');
-      });
+    ParkPageBoot.boot("tickets", [{ label: "园区管理" }, { label: "工单" }]);
+
+    ParkOperationLog.ensureSeed();
+    ParkOperationLog.renderTimeline(
+      document.getElementById("ticket-operation-logs"),
+      ParkOperationLog.getLogs({ actionTypes: ["提交工单咨询"], limit: 5 })
+    );
+
+    var params = new URLSearchParams(window.location.search);
+    if (params.get("action") === "assist") {
+      document.querySelector(".bo-section-side-note").textContent +=
+        " 您可从活动详情进入「申请平台协助」，请说明活动名称与需协助事项。";
     }
-    document.querySelectorAll('[data-state-action]').forEach((button) => {
-      button.addEventListener('click', () => toggleState(button.getAttribute('data-state-group'), button.getAttribute('data-state-action')));
+
+    document.getElementById("new-ticket-btn").addEventListener("click", function () {
+      ParkOperationLog.appendLog({
+        actionType: "提交工单咨询",
+        beforeStatus: "进行中",
+        afterStatus: "进行中",
+        summary: "新建工单：活动协作咨询（Mock 占位）。",
+        sourcePage: "park_admin_tickets"
+      });
+      ParkOperationLog.renderTimeline(
+        document.getElementById("ticket-operation-logs"),
+        ParkOperationLog.getLogs({ actionTypes: ["提交工单咨询"], limit: 5 })
+      );
+      alert("Mock：工单已提交，操作日志已记录。");
     });
   </script>
 </body>

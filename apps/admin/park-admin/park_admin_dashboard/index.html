@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>运营总览 · AR游伴园区管理</title>
+  <title>数据总览 · AR游伴园区后台</title>
   <link rel="stylesheet" href="../../shared/backoffice.css" />
 </head>
 <body>
@@ -14,32 +14,72 @@
       <main class="bo-content">
         <div id="bo-breadcrumb"></div>
         <div class="bo-page-header-row">
-          <div class="bo-page-header"><h2>爱企谷 · 运营总览</h2><p>园区活动与商家协同（Mock）</p></div>
-          <a class="btn btn-primary" href="../park_admin_activity_new/index.html">创建活动</a>
+          <div class="bo-page-header">
+            <h2>爱企谷 · 数据总览</h2>
+            <p>当前活动：爱企谷初见寻宝节 · 本周合作摘要</p>
+          </div>
+          <div class="toolbar">
+            <a class="btn btn-primary" href="../park_admin_activities/index.html">查看活动数据</a>
+            <a class="btn" href="../park_admin_merchants/index.html">查看商家表现</a>
+          </div>
         </div>
+
+        <div class="bo-park-summary">
+          <div class="bo-park-summary__title">本周协作摘要</div>
+          <div class="bo-park-summary__copy">入驻商家 8 家 · 进行中活动 1 个 · 用户参与 1,240 人 · 卡券发放 312 张 · 核销 118 张 · 核销率 38%</div>
+        </div>
+
+        <div class="bo-park-kpi-grid">
+          <div class="bo-metric-card"><div class="bo-metric-card__label">入驻商家</div><div class="bo-metric-card__value">8</div></div>
+          <div class="bo-metric-card"><div class="bo-metric-card__label">活动数量</div><div class="bo-metric-card__value">2</div></div>
+          <div class="bo-metric-card"><div class="bo-metric-card__label">探索点</div><div class="bo-metric-card__value">12</div></div>
+          <div class="bo-metric-card"><div class="bo-metric-card__label">用户参与</div><div class="bo-metric-card__value">1,240</div></div>
+          <div class="bo-metric-card"><div class="bo-metric-card__label">卡券发放</div><div class="bo-metric-card__value">312</div></div>
+          <div class="bo-metric-card bo-metric-card--highlight"><div class="bo-metric-card__label">卡券核销</div><div class="bo-metric-card__value">118</div><div class="bo-metric-card__sub">核销率 38%</div></div>
+        </div>
+
         <div class="grid">
-          <section class="card metric"><div class="metric-label">进行中活动</div><div class="metric-value">1</div></section>
-          <section class="card metric"><div class="metric-label">入驻商家</div><div class="metric-value">8</div></section>
-          <section class="card metric"><div class="metric-label">待发布检查</div><div class="metric-value">1</div></section>
-          <section class="card metric"><div class="metric-label">待处理工单</div><div class="metric-value">2</div></section>
           <section class="card span-8">
-            <h3 class="card-title">活动状态</h3>
-            <div class="table-wrap">
-              <table class="table">
-                <thead><tr><th>活动</th><th>审核</th><th>发布检查</th><th>操作</th></tr></thead>
-                <tbody>
-                  <tr><td>爱企谷初见寻宝节</td><td><span class="badge badge-warning">待审核</span></td><td><span class="badge badge-danger">已阻断</span></td><td><a class="btn" href="../park_admin_activities/index.html">查看</a></td></tr>
-                  <tr><td>爱企谷夏日探索</td><td><span class="badge badge-success">已通过</span></td><td><span class="badge badge-success">就绪</span></td><td><a class="btn" href="../park_admin_activity_publish_check/index.html">发布检查</a></td></tr>
-                </tbody>
-              </table>
+            <h3 class="card-title">当前活动效果</h3>
+            <div class="bo-park-activity-card">
+              <div class="bo-park-activity-card__head">
+                <span class="bo-park-activity-card__title">爱企谷初见寻宝节</span>
+                <span class="badge badge-success">进行中</span>
+              </div>
+              <div class="bo-park-activity-card__meta">参与 860 人 · 发券 312 · 核销 118 · 关联商家 5 家 · 探索点 8 个</div>
+            </div>
+            <div class="bo-park-insight-block">
+              <strong>优化建议</strong>
+              领取量较高但到店核销偏低，建议加强探索点与商家到店引导联动。
             </div>
           </section>
           <section class="card span-4">
+            <h3 class="card-title">待处理事项</h3>
+            <div class="alert alert-warning">发布检查待处理 · 爱企谷初见寻宝节</div>
+            <div class="alert alert-info">待处理工单 2 条 · <a href="../park_admin_tickets/index.html">查看工单</a></div>
+            <p class="text-muted" style="margin-top:12px;"><a href="../park_admin_activity_publish_check/index.html">前往发布检查 →</a></p>
+          </section>
+          <section class="card span-6">
+            <h3 class="card-title">商家表现摘要</h3>
+            <div class="bo-park-ranking">
+              <div class="bo-park-ranking__item">
+                <div><div class="bo-park-ranking__name">爱企谷咖啡</div><div class="bo-park-ranking__meta">领取 312 · 核销 118</div></div>
+                <span class="badge badge-success">表现较好</span>
+              </div>
+              <div class="bo-park-ranking__item">
+                <div><div class="bo-park-ranking__name">探索书屋</div><div class="bo-park-ranking__meta">领取 86 · 核销 12</div></div>
+                <span class="badge badge-warning">需关注</span>
+              </div>
+            </div>
+            <p style="margin-top:12px;"><a href="../park_admin_merchants/index.html">查看全部商家数据 →</a></p>
+          </section>
+          <section class="card span-6">
             <h3 class="card-title">快捷入口</h3>
-            <div class="toolbar" style="flex-direction:column;align-items:stretch;">
-              <a class="btn btn-primary" href="../park_admin_activity_new/index.html">创建活动</a>
-              <a class="btn" href="../park_admin_merchants/index.html">商家管理</a>
-              <a class="btn" href="../park_admin_tickets/index.html">工单</a>
+            <div class="bo-quick-actions">
+              <a class="btn" href="../park_admin_activities/index.html">活动数据</a>
+              <a class="btn" href="../park_admin_merchants/index.html">商家数据</a>
+              <a class="btn" href="../park_admin_activity_new/index.html">创建活动</a>
+              <a class="btn" href="../park_admin_tickets/index.html">提交工单</a>
             </div>
           </section>
         </div>
@@ -47,7 +87,9 @@
     </div>
   </div>
   <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/status-labels.js"></script>
+  <script src="../shared/platform-park-view.js"></script>
   <script src="../shared/page-boot.js"></script>
-  <script>ParkPageBoot.boot("dashboard", [{ label: "园区管理" }, { label: "运营总览" }]);</script>
+  <script>ParkPageBoot.boot("dashboard", [{ label: "园区管理" }, { label: "数据总览" }]);</script>
 </body>
 </html>

@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "ar-marker-xr-scene": "/components/ar-marker-xr-scene/index"
+  }
+}

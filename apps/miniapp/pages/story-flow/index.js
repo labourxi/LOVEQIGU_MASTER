@@ -1,4 +1,5 @@
 const storyFlowService = require('../../services/story/story-flow-service');
+const safeInteraction = require('../../behaviors/safe-interaction');
 
 function mapFlows() {
   return storyFlowService.getAllStoryFlows().map((flow) => ({
@@ -24,6 +25,7 @@ function buildPageData() {
 }
 
 Page({
+  behaviors: [safeInteraction],
   data: buildPageData(),
 
   onLoad() {
@@ -32,9 +34,10 @@ Page({
 
   onNavigate(event) {
     const { path } = event.currentTarget.dataset;
-
-    wx.navigateTo({
-      url: path
-    });
+    if (!path) {
+      this.showFallbackToast('功能开发中');
+      return;
+    }
+    this.safeNavigate(path);
   }
 });

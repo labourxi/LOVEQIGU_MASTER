@@ -3,150 +3,284 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>park_admin_activity_publish_check</title>
-  <style>
-    :root {
-      --bg: #f7f1e8;
-      --panel: #fffaf1;
-      --text: #2b2118;
-      --muted: #6f5d4d;
-      --line: #d8c6b0;
-      --accent: #8b5d3b;
-      --good: #2c7a4b;
-      --warn: #b26b1b;
-      --bad: #a4412b;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: linear-gradient(180deg, #f7f1e8 0%, #efe5d7 100%);
-      color: var(--text);
-      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
-    }
-    a { color: inherit; text-decoration: none; }
-    .page { max-width: 1360px; margin: 0 auto; padding: 20px; }
-    .topbar {
-      display: flex; justify-content: space-between; align-items: center;
-      gap: 16px; margin-bottom: 16px;
-    }
-    .brand h1 { margin: 0; font-size: 28px; }
-    .brand p { margin: 4px 0 0; color: var(--muted); }
-    .breadcrumbs { display: flex; gap: 8px; color: var(--muted); font-size: 13px; margin-bottom: 14px; }
-    .layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 16px; }
-    .sidebar, .panel {
-      background: rgba(255,255,255,0.84);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(85, 58, 25, 0.05);
-    }
-    .sidebar { padding: 16px; position: sticky; top: 16px; align-self: start; }
-    .sidebar h3 { margin: 0 0 12px; font-size: 16px; }
-    .nav-stack { display: grid; gap: 8px; }
-    .nav-link {
-      display: block; padding: 9px 12px; border-radius: 12px;
-      border: 1px solid transparent; background: rgba(255,255,255,0.7);
-    }
-    .nav-link.active {
-      border-color: #d0b897; background: #f2e5d4; color: var(--accent); font-weight: 700;
-    }
-    .panel { padding: 18px; }
-    .hero { margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
-    .hero h2 { margin: 0 0 6px; font-size: 24px; }
-    .hero p { margin: 0; color: var(--muted); }
-    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 18px; }
-    .button {
-      border: 1px solid var(--line); background: #fff; border-radius: 999px;
-      padding: 8px 12px; cursor: pointer; font-size: 13px;
-    }
-    .button.primary { background: #f2e5d4; color: var(--accent); border-color: #d7c0a8; }
-    .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 14px; }
-    .card { background: rgba(255,255,255,0.9); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
-    .metric { grid-column: span 3; min-height: 108px; }
-    .span-4 { grid-column: span 4; }
-    .span-6 { grid-column: span 6; }
-    .span-8 { grid-column: span 8; }
-    .span-12 { grid-column: span 12; }
-    .metric .label { color: var(--muted); font-size: 13px; }
-    .metric .value { font-size: 30px; font-weight: 700; margin-top: 8px; }
-    .badge {
-      display: inline-block; padding: 4px 8px; border-radius: 999px;
-      font-size: 12px; border: 1px solid transparent;
-    }
-    .badge--neutral { background: #f3eadf; color: #6a5848; border-color: #dfcfbc; }
-    .badge--good { background: #e3f1e9; color: var(--good); border-color: #bdd9c9; }
-    .badge--warn { background: #fbefde; color: var(--warn); border-color: #eed0a9; }
-    .badge--bad { background: #f6e0db; color: var(--bad); border-color: #e9b8ad; }
-    .badge--accent { background: #f2e5d4; color: var(--accent); border-color: #d8c0aa; }
-    .table { width: 100%; border-collapse: collapse; font-size: 14px; }
-    .table th, .table td {
-      border-bottom: 1px solid rgba(216,198,176,0.7);
-      padding: 10px 8px; text-align: left; vertical-align: top;
-    }
-    .table th {
-      color: var(--muted); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase;
-    }
-    .chart {
-      height: 180px; border-radius: 12px; border: 1px dashed var(--line);
-      background:
-        linear-gradient(90deg, rgba(139,93,59,0.05) 1px, transparent 1px) 0 0 / 16px 16px,
-        linear-gradient(180deg, rgba(139,93,59,0.05) 1px, transparent 1px) 0 0 / 16px 16px,
-        linear-gradient(180deg, rgba(255,255,255,0.92), rgba(242,229,213,0.72));
-    }
-    .empty, .loading {
-      border: 1px dashed var(--line); border-radius: 12px; padding: 16px;
-      color: var(--muted); background: rgba(255,255,255,0.55);
-    }
-    .split { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 14px; }
-    .hidden { display: none !important; }
-    .footer { margin-top: 18px; color: var(--muted); font-size: 12px; }
-    @media (max-width: 1080px) { .layout { grid-template-columns: 1fr; } .sidebar { position: static; } }
-    @media (max-width: 900px) { .metric, .span-4, .span-6, .span-8, .span-12, .split { grid-column: span 12; grid-template-columns: 1fr; } .topbar { flex-direction: column; align-items: flex-start; } }
-  </style>
+  <title>发布检查 · AR游伴园区后台</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
 </head>
 <body>
-  <div class="page">
-    <div class="topbar">
-      <div class="brand">
-        <h1>park_admin_activity_publish_check</h1>
-        <p>park_admin_activity_publish_check</p>
-      </div>
-      <div class="toolbar">
-        <a class="button" href="../index.html">返回</a>
-        <button class="button" onclick="history.back()">浏览器返回</button>
-      </div>
-    </div>
-    <div class="breadcrumbs"><a href="../index.html">总览</a><span>/</span><span>park_admin_activity_publish_check</span></div>
-    <div class="layout">
-      <aside class="sidebar">
-        <h3>园区端导航</h3>
-        <div class="nav-stack"><a class="nav-link " href="../park_admin_dashboard/index.html">park_admin_dashboard</a><a class="nav-link " href="../park_admin_merchants/index.html">park_admin_merchants</a><a class="nav-link " href="../park_admin_activities/index.html">park_admin_activities</a><a class="nav-link " href="../park_admin_activity_detail/index.html">park_admin_activity_detail</a><a class="nav-link " href="../park_admin_activity_new/index.html">park_admin_activity_new</a><a class="nav-link " href="../park_admin_activity_publish_check/index.html">park_admin_activity_publish_check</a><a class="nav-link " href="../park_admin_tickets/index.html">park_admin_tickets</a></div>
-      </aside>
-      <main class="panel">
-    <section class="hero"><h2>park_admin_activity_publish_check</h2><p>发布前检查、状态展示、Mock 检查结果。</p></section>
-    <div class="toolbar">
-      <a class="button primary" href="../park_admin_activity_detail/index.html">返回活动详情</a>
-      <button class="button" onclick="history.back()">浏览器返回</button>
-    </div>
-    <div class="grid">
-      <section class="card span-6"><h4>检查结论</h4><p>发布状态：<span class="badge badge--warn">PENDING</span></p><p>检查结果：<span class="badge badge--warn">BLOCKED</span></p></section>
-      <section class="card span-6"><h4>活动信息</h4><p><strong>爱企谷首场探索活动</strong></p><p>时间：2026-06-20T00:00:00+08:00 ~ 2026-06-30T23:59:59+08:00</p><p class="muted">??????????????????????????</p></section>
-      <section class="card span-12"><h4>发布前检查项</h4><table class="table"><tr><th>检查项</th><th>结果</th></tr><tr><td>???????</td><td><span class="badge badge--good">PASS</span></td></tr><tr><td>???????</td><td><span class="badge badge--good">PASS</span></td></tr><tr><td>???????</td><td><span class="badge badge--good">PASS</span></td></tr><tr><td>???????</td><td><span class="badge badge--good">PASS</span></td></tr><tr><td>??????????</td><td><span class="badge badge--warn">BLOCKED</span></td></tr></table></section>
-    </div>
-    </main>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div id="bo-breadcrumb"></div>
+        <div class="bo-page-header-row">
+          <div class="bo-page-header">
+            <h2 id="page-title">发布检查</h2>
+            <p id="page-subtitle">加载中…</p>
+          </div>
+          <a class="btn" href="../park_admin_activity_detail/index.html" id="back-detail-link">返回活动详情</a>
+        </div>
+
+        <div class="bo-park-insight-block hidden" id="history-mode-banner">
+          <strong>历史检查记录</strong>
+          本页展示活动上线前的平台协同审查结论，仅供追溯。进行中活动的运营协作请使用活动详情中的「运营建议」与「申请平台协助」。
+        </div>
+
+        <section class="card hidden" id="active-redirect-notice" style="margin-bottom:16px;">
+          <h3 class="card-title">当前活动已上线</h3>
+          <p style="margin:0 0 12px;font-size:14px;color:var(--text-secondary);">「发布检查」仅用于活动上线前的平台协同审查。当前活动处于进行中，请返回活动详情查看运营建议与活动数据。</p>
+          <div class="toolbar">
+            <a class="btn btn-primary" href="../park_admin_activity_detail/index.html" id="active-detail-link">返回活动详情</a>
+            <a class="btn" href="#" id="history-link">查看历史检查结论</a>
+          </div>
+        </section>
+
+        <div id="review-content">
+          <section class="card" style="margin-bottom:16px;">
+            <div class="bo-review-detail-card">
+              <div class="bo-review-detail-card__head">
+                <h3 class="card-title" style="margin:0;border:0;padding:0;">检查结论</h3>
+                <div class="bo-review-detail-card__status" id="review-status-badges"></div>
+              </div>
+
+              <div class="bo-review-detail-card__body" id="review-detail-body">
+                <div class="bo-review-reason hidden" id="block-reason-block">
+                  <strong>阻断原因</strong>
+                  <span id="block-reason-text"></span>
+                </div>
+                <div class="bo-review-advice hidden" id="advice-block">
+                  <strong>平台优化意见</strong>
+                  <span id="advice-text"></span>
+                </div>
+                <div class="bo-review-reason hidden" id="supplement-block" style="background:rgba(201,169,107,0.06);border-left-color:var(--accent-gold,#c9a96b);">
+                  <strong>需要补充</strong>
+                  <div id="supplement-text"></div>
+                </div>
+                <div class="bo-review-next-step hidden" id="next-step-block">
+                  <strong>下一步建议</strong>
+                  <span id="next-step-text"></span>
+                </div>
+                <div class="bo-review-detail-card__reply hidden" id="review-reply-block">
+                  <strong>平台回复：</strong><span id="review-reviewer">平台内容运营组</span><br />
+                  <strong>回复时间：</strong><span id="review-time">—</span>
+                </div>
+              </div>
+
+              <div class="bo-review-detail-card__actions">
+                <button class="btn" type="button" id="toggle-review-detail">收起详情</button>
+                <a class="btn btn-primary" href="../park_admin_tickets/index.html">提交工单咨询</a>
+                <a class="btn" href="../park_admin_activity_detail/index.html" id="detail-action-link">返回活动详情</a>
+              </div>
+            </div>
+          </section>
+
+          <div class="grid" style="margin-bottom:16px;">
+            <section class="card span-12">
+              <h3 class="card-title">活动信息</h3>
+              <p style="margin:0 0 8px;"><strong id="activity-name">—</strong></p>
+              <p class="text-muted" style="margin:0;" id="activity-period">—</p>
+            </section>
+          </div>
+
+          <section class="card">
+            <h3 class="card-title">发布前检查项</h3>
+            <div class="table-wrap">
+              <table class="table">
+                <thead><tr><th>检查项</th><th>结果</th><th>说明</th></tr></thead>
+                <tbody id="check-items-body"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="card" style="margin-top:16px;" id="audit-submission-section">
+            <h3 class="card-title">审核与提交记录</h3>
+            <div class="bo-audit-timeline" id="audit-submission-logs"></div>
+          </section>
+
+          <div class="bo-declaration-card bo-submit-guard hidden" id="declaration-section" style="margin-top:16px;">
+            <h3 class="bo-declaration-card__title">提交前确认</h3>
+            <label class="bo-declaration-check">
+              <input type="checkbox" id="decl-1" />
+              <span>我已核对活动名称、活动时间、关联商家、关联探索点及礼遇说明，确认信息真实、完整、可用于平台发布检查。</span>
+            </label>
+            <label class="bo-declaration-check">
+              <input type="checkbox" id="decl-2" />
+              <span>我知悉本次提交将进入平台发布检查流程，平台将根据内容完整性、商家协作条件、礼遇配置和游客体验路径进行审核；未通过检查前，活动不会正式上线。</span>
+            </label>
+            <label class="bo-declaration-check">
+              <input type="checkbox" id="decl-3" />
+              <span>我确认本活动为园区侧真实协作意向，并愿意配合平台根据检查意见补充说明、修改内容或协调商家完成承接准备。</span>
+            </label>
+            <p class="bo-declaration-text">本声明用于明确园区侧提交责任与平台审核边界。平台审核通过不代表替代园区侧对活动信息真实性、商家协作落实情况和线下承接安排的确认责任。</p>
+          </div>
+
+          <div class="bo-park-insight-block" style="margin-top:16px;" id="collab-tip">
+            <strong>协作提示</strong>
+            如对阻断原因或平台意见有疑问，可先查看上方检查结论详情，再通过工单联系平台。也可在<a href="../park_admin_help/index.html">帮助中心</a>下载发布检查说明。
+          </div>
+
+          <div class="toolbar bo-submit-guard" style="margin-top:16px;" id="submit-toolbar">
+            <button class="btn btn-primary" type="button" id="submit-review-btn" disabled>提交发布检查</button>
+            <a class="btn" href="../park_admin_tickets/index.html">提交工单咨询</a>
+          </div>
+        </div>
+      </main>
     </div>
   </div>
+  <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/park-adapter-boot.js"></script>
+  <script src="../shared/status-labels.js"></script>
+  <script src="../shared/park-activity-status.js"></script>
+  <script src="../shared/page-boot.js"></script>
   <script>
-    function toggleState(group, active) {
-      document.querySelectorAll('[data-group="' + group + '"]').forEach((node) => {
-        node.classList.toggle('hidden', node.getAttribute('data-state') !== active);
-      });
-      document.querySelectorAll('[data-state-group="' + group + '"] .button').forEach((btn) => {
-        btn.classList.remove('primary');
-        if (btn.getAttribute('data-state-action') === active) btn.classList.add('primary');
-      });
-    }
-    document.querySelectorAll('[data-state-action]').forEach((button) => {
-      button.addEventListener('click', () => toggleState(button.getAttribute('data-state-group'), button.getAttribute('data-state-action')));
+    ParkPageBoot.boot("publish_check", [{ label: "园区管理" }, { label: "发布检查" }]);
+
+    ParkAdapterBoot.ensureAdapterScripts(function () {
+      var params = new URLSearchParams(window.location.search);
+      var mode = params.get("mode") || "review";
+      var isHistory = mode === "history";
+      var activityId = params.get("activityId") || "activity_002";
+      var ctx = ParkAdapterBoot.getParkContext();
+      var adapter = ParkAdapterBoot.getAdapter();
+      var check = adapter.getParkActivityPublishCheck(activityId);
+      var activity = check.activity;
+
+      var detailBase = "../park_admin_activity_detail/index.html?activityId=" + activityId;
+      document.getElementById("back-detail-link").href = detailBase;
+      document.getElementById("detail-action-link").href = detailBase;
+      document.getElementById("active-detail-link").href = detailBase;
+      document.getElementById("history-link").href = "?activityId=" + activityId + "&mode=history";
+      document.getElementById("page-subtitle").textContent = activity.name + " · 发布前协同检查";
+
+      if (isHistory) {
+        document.getElementById("page-title").textContent = "平台上线检查记录";
+        document.getElementById("page-subtitle").textContent = activity.name + " · 历史检查结论（上线前）";
+        document.getElementById("history-mode-banner").classList.remove("hidden");
+        document.getElementById("declaration-section").classList.add("hidden");
+        document.getElementById("submit-toolbar").classList.add("hidden");
+        document.getElementById("collab-tip").classList.add("hidden");
+      } else if (adapter.isActiveActivity(activity)) {
+        document.getElementById("review-content").classList.add("hidden");
+        document.getElementById("active-redirect-notice").classList.remove("hidden");
+        return;
+      } else if (check.canSubmit) {
+        document.getElementById("declaration-section").classList.remove("hidden");
+      }
+
+      document.getElementById("activity-name").textContent = activity.name;
+      document.getElementById("activity-period").textContent = activity.startDate + " ~ " + activity.endDate;
+
+      var statusBadges = document.getElementById("review-status-badges");
+      statusBadges.innerHTML =
+        '<span class="bo-review-detail-card__status-label">当前状态</span>' +
+        ParkAdapterBoot.statusBadge(activity.reviewStatus, "review");
+
+      function showText(id, text) {
+        var block = document.getElementById(id);
+        if (!text) { block.classList.add("hidden"); return; }
+        block.classList.remove("hidden");
+        var target = block.querySelector("span, div:last-child") || block;
+        if (target.tagName === "SPAN" || target.tagName === "DIV") target.textContent = text;
+      }
+
+      showText("block-reason-block", check.blockReason);
+      document.getElementById("block-reason-text").textContent = check.blockReason || "";
+      showText("advice-block", check.platformOpinion);
+      document.getElementById("advice-text").textContent = check.platformOpinion || "";
+      if (check.needSupplement) {
+        document.getElementById("supplement-block").classList.remove("hidden");
+        document.getElementById("supplement-text").textContent = check.needSupplement;
+      }
+      showText("next-step-block", check.nextStepSuggestion);
+      document.getElementById("next-step-text").textContent = check.nextStepSuggestion || "";
+
+      if (check.reviewRecord && check.reviewRecord.reviewedAt) {
+        document.getElementById("review-reply-block").classList.remove("hidden");
+        document.getElementById("review-time").textContent = check.reviewRecord.reviewedAt.replace("T", " ").replace("+08:00", "");
+      }
+
+      function checkRow(label, ok, desc) {
+        return "<tr><td>" + label + "</td><td>" +
+          (ok ? '<span class="badge badge-success">通过</span>' : '<span class="badge badge-warning">待补充</span>') +
+          "</td><td>" + desc + "</td></tr>";
+      }
+
+      document.getElementById("check-items-body").innerHTML =
+        checkRow("活动基础信息", !!(activity.name && activity.startDate), "名称、时间已填写") +
+        checkRow("关联商家", check.merchantStatusOk, check.merchantStatus) +
+        checkRow("礼遇配置", check.benefitStatusOk, check.benefitStatus) +
+        checkRow("探索点关联", check.explorationStatusOk, check.explorationStatus) +
+        checkRow("活动说明完整性", check.descriptionStatusOk, check.descriptionStatus) +
+        "<tr><td>发布风险提示</td><td>" +
+        (activity.reviewStatus === "BLOCKED" ? '<span class="badge badge-danger">已阻断</span>' :
+          activity.reviewStatus === "PENDING_REVIEW" ? '<span class="badge badge-warning">待审查</span>' :
+          '<span class="badge badge-success">正常</span>') +
+        "</td><td>" + (check.riskHints[0] || "—") + "</td></tr>";
+
+      var logs = adapter.getParkOperationLogs(ctx.parkId, { activityId: activityId, limit: 8 });
+      ParkAdapterBoot.renderOperationTimeline(document.getElementById("audit-submission-logs"), logs);
+
+      var body = document.getElementById("review-detail-body");
+      var toggleBtn = document.getElementById("toggle-review-detail");
+      if (body && toggleBtn) {
+        toggleBtn.addEventListener("click", function () {
+          var hidden = body.classList.toggle("hidden");
+          toggleBtn.textContent = hidden ? "查看详情" : "收起详情";
+        });
+      }
+
+      if (!isHistory && check.canSubmit) {
+        var decls = [document.getElementById("decl-1"), document.getElementById("decl-2"), document.getElementById("decl-3")];
+        var submitBtn = document.getElementById("submit-review-btn");
+
+        function allDeclared() {
+          return decls.every(function (d) { return d && d.checked; });
+        }
+        function updateSubmitBtn() {
+          submitBtn.disabled = !allDeclared();
+        }
+        decls.forEach(function (d) {
+          if (d) d.addEventListener("change", updateSubmitBtn);
+        });
+
+        submitBtn.addEventListener("click", function () {
+          if (!allDeclared()) return;
+          var result = adapter.submitParkActivityReview(activityId, { declarationAccepted: true }, {
+            actorId: ctx.actorId,
+            actorRole: ctx.actorRole
+          });
+          if (!result.ok) {
+            alert(result.message);
+            return;
+          }
+          submitBtn.textContent = "已提交发布检查";
+          submitBtn.disabled = true;
+          var refreshed = adapter.getParkActivityPublishCheck(activityId);
+          statusBadges.innerHTML =
+            '<span class="bo-review-detail-card__status-label">当前状态</span>' +
+            ParkAdapterBoot.statusBadge(refreshed.activity.reviewStatus, "review");
+          showText("block-reason-block", refreshed.blockReason);
+          document.getElementById("block-reason-text").textContent = refreshed.blockReason || "";
+          showText("advice-block", refreshed.platformOpinion);
+          document.getElementById("advice-text").textContent = refreshed.platformOpinion || "";
+          if (refreshed.needSupplement) {
+            document.getElementById("supplement-block").classList.remove("hidden");
+            document.getElementById("supplement-text").textContent = refreshed.needSupplement;
+          }
+          ParkAdapterBoot.renderOperationTimeline(
+            document.getElementById("audit-submission-logs"),
+            adapter.getParkOperationLogs(ctx.parkId, { activityId: activityId, limit: 8 })
+          );
+          alert(result.message);
+        });
+      } else {
+        document.getElementById("submit-toolbar").classList.add("hidden");
+      }
+
+      if (!sessionStorage.getItem("park_view_check_" + activityId)) {
+        adapter.getParkOperationLogs(ctx.parkId, { activityId: activityId });
+        sessionStorage.setItem("park_view_check_" + activityId, "1");
+      }
     });
   </script>
 </body>

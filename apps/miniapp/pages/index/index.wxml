@@ -1,34 +1,120 @@
-<view class="page home-shell">
-  <view class="home-shell-header">
-    <home-mode-switch
-      activeMode="{{activeMode}}"
-      showCampaignTab="{{showCampaignTab}}"
-      bind:change="onModeChange"
-    />
+<view class="proto-page user-phase1-page">
+  <view wx:if="{{loading}}" class="home-skeleton">
+    <view class="home-skeleton__block home-skeleton__hero"></view>
+    <view class="home-skeleton__row">
+      <view class="home-skeleton__pill"></view>
+      <view class="home-skeleton__pill"></view>
+      <view class="home-skeleton__pill"></view>
+    </view>
+    <view class="home-skeleton__block home-skeleton__cta"></view>
+    <view class="home-skeleton__block home-skeleton__panel"></view>
+    <view class="home-skeleton__block home-skeleton__panel"></view>
   </view>
 
-  <campaign-mode-banner campaign="{{campaign}}" />
+  <block wx:else>
+    <view class="user-home-scroll">
+      <view class="proto-kicker">AR游伴</view>
+      <view class="user-tagline">看见即是找回</view>
+      <view class="proto-subtitle">{{eventSummary.title || '当前景区'}}</view>
+      <view class="user-verse">
+        <view>每一处探索，都是与这片土地的一次重逢。</view>
+        <view>信物记录故事，礼遇延续温度。</view>
+      </view>
+      <view class="user-hero-stats">
+        <view class="user-stat-pill">
+          <view class="user-stat-value">{{journey.progressSummary.completionRate}}%</view>
+          <view class="user-stat-label">探索进度</view>
+        </view>
+        <view class="user-stat-pill">
+          <view class="user-stat-value">{{journey.progressSummary.ownedRelicCount}}</view>
+          <view class="user-stat-label">信物</view>
+        </view>
+        <view class="user-stat-pill">
+          <view class="user-stat-value">{{journey.progressSummary.claimedCouponCount}}</view>
+          <view class="user-stat-label">礼遇</view>
+        </view>
+      </view>
+      <button class="user-primary-cta" bindtap="onOpenExploreMap">开始探索</button>
+      <button
+        class="proto-btn proto-btn--ghost home-ar-cta"
+        loading="{{xrLaunching}}"
+        disabled="{{xrLaunching}}"
+        bindtap="onEnterScenic"
+      >{{xrLaunching ? '进入中…' : '进入景区'}}</button>
+    </view>
 
-  <view class="policy-debug" wx:if="{{false}}">
-    <text>home_policy: {{policy.home_policy}}</text>
-    <text>default_mode: {{policy.default_mode}}</text>
-    <text>forced_mode: {{policy.forced_mode}}</text>
-    <text>experiment_group: {{policy.experiment_group}}</text>
+    <view class="login-panel" wx:if="{{!auth.logged_in}}">
+      <view class="panel-title">微信登录</view>
+      <view class="panel-copy">{{loginBanner.subtitle}}</view>
+      <button class="primary-button" bindtap="onMockLogin">{{loginBanner.actionLabel}}</button>
+    </view>
+
+    <view class="proto-section" wx:if="{{recommendedPoint}}">
+      <view class="user-featured-scroll">
+        <view class="user-featured-kicker">今日推荐</view>
+        <view class="user-featured-title">{{recommendedPoint.point_name}}</view>
+        <view class="user-featured-meta">{{recommendedPoint.merchant_name}} · 可获得 {{recommendedPoint.relic_name}}</view>
+        <button class="proto-btn proto-btn--primary" style="margin-top: 20rpx;" data-point-id="{{recommendedPoint.point_id}}" bindtap="onOpenPointDetail">前往探索点</button>
+      </view>
+    </view>
+
+    <view class="proto-section">
+      <view class="proto-section-title" style="margin-bottom: 16rpx;">探索路径</view>
+      <view class="user-path-links">
+        <view class="user-path-link" bindtap="onOpenExploreMap">
+          <view>
+            <view class="user-path-link__title">探索地图</view>
+            <view class="user-path-link__copy">星点图谱 · 印记路径</view>
+          </view>
+          <view class="user-path-link__arrow">›</view>
+        </view>
+        <view class="user-path-link" bindtap="onOpenRelicArchive">
+          <view>
+            <view class="user-path-link__title">我的信物</view>
+            <view class="user-path-link__copy">收藏册 · 已显现的印记</view>
+          </view>
+          <view class="user-path-link__arrow">›</view>
+        </view>
+        <view class="user-path-link" bindtap="onOpenRightsCenter">
+          <view>
+            <view class="user-path-link__title">权益中心</view>
+            <view class="user-path-link__copy">探索后获得的地在礼遇</view>
+          </view>
+          <view class="user-path-link__arrow">›</view>
+        </view>
+        <view class="user-path-link" bindtap="onOpenActivity">
+          <view>
+            <view class="user-path-link__title">活动页</view>
+            <view class="user-path-link__copy">景区活动 · 探索任务</view>
+          </view>
+          <view class="user-path-link__arrow">›</view>
+        </view>
+        <view class="user-path-link" bindtap="onOpenProfile">
+          <view>
+            <view class="user-path-link__title">个人中心</view>
+            <view class="user-path-link__copy">旅程记录 · 探索印记</view>
+          </view>
+          <view class="user-path-link__arrow">›</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="proto-section">
+      <view class="user-echo-panel">
+        <view class="user-echo-kicker">今日回响</view>
+        <view class="user-echo-copy">{{journey.latestRelic ? journey.latestRelic.story_snippet : '完成探索后，回响将在此轻轻显现。'}}</view>
+      </view>
+    </view>
+  </block>
+
+  <view wx:if="{{xrLaunching}}" class="home-xr-launch-overlay">
+    <view class="home-xr-launch-card">
+      <view class="home-xr-launch-spinner"></view>
+      <view class="home-xr-launch-copy">{{xrLaunchMessage || '正在进入景区…'}}</view>
+    </view>
   </view>
 
-  <view class="home-shell-body home-shell-body--explore" wx:if="{{activeMode === 'explore'}}">
-    <explore-home-panel panel="{{explore}}" bind:navigate="onNavigate" />
-  </view>
+  <pilot-fx-overlay id="pilotFx" />
 
-  <view class="home-shell-body home-shell-body--affinity" wx:elif="{{activeMode === 'affinity'}}">
-    <affinity-home-panel panel="{{affinity}}" bind:navigate="onNavigate" />
-  </view>
-
-  <view class="home-shell-body home-shell-body--campaign" wx:elif="{{activeMode === 'campaign'}}">
-    <campaign-home-panel panel="{{campaign}}" />
-  </view>
-
-  <view class="home-shell-footer">
-    <view class="footer-note">双模式首页 · 探索与权益切换</view>
-  </view>
+  <user-bottom-nav activeKey="{{activeTab}}" bind:change="onBottomNavChange" />
 </view>

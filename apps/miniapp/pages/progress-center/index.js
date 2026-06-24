@@ -1,24 +1,17 @@
-const userProgress = require('../../services/user-progress');
+const userProgress = require('../../services/user-progress/index');
 const merchantEventService = require('../../services/merchant-event');
-
-function uniqueMerchants(points) {
-  const seen = new Set();
-  return points.filter((point) => {
-    if (!point || !point.merchant_id || seen.has(point.merchant_id)) {
-      return false;
-    }
-    seen.add(point.merchant_id);
-    return true;
-  });
-}
+const userFrontend = require('../../services/user-frontend.js');
+const safeInteraction = require('../../behaviors/safe-interaction');
 
 function buildPageData() {
   const progress = userProgress.readProgress();
   const overview = merchantEventService.getActivityOverview(merchantEventService.ACTIVITY_ID);
   const activityProgress = progress.event.activities[merchantEventService.ACTIVITY_ID] || {};
+  const journey = userFrontend.buildJourneySummary();
   const completionRate = overview.stats.completionRate;
 
   return {
+    activeTab: 'progress',
     activity: overview.activity,
     completionRate,
     isComplete: overview.isComplete,
@@ -38,19 +31,33 @@ function buildPageData() {
     tasks: overview.tasks,
     relics: overview.relics,
     coupons: overview.coupons,
-    merchantHighlights: uniqueMerchants(overview.points)
+    merchantHighlights: overview.points,
+    bottomNav: journey.nav
   };
 }
 
 Page({
+  behaviors: [safeInteraction],
   data: buildPageData(),
 
   onLoad() {
     this.refresh();
+    if (merchantEventService.ensureReadyAsync) {
+      merchantEventService.ensureReadyAsync().then(() => this.refresh());
+    }
+    if (userFrontend.ensureReadyAsync) {
+      userFrontend.ensureReadyAsync().then(() => this.refresh());
+    }
   },
 
   onShow() {
     this.refresh();
+    if (merchantEventService.ensureReadyAsync) {
+      merchantEventService.ensureReadyAsync().then(() => this.refresh());
+    }
+    if (userFrontend.ensureReadyAsync) {
+      userFrontend.ensureReadyAsync().then(() => this.refresh());
+    }
   },
 
   refresh() {
@@ -58,17 +65,24 @@ Page({
   },
 
   onOpenEvent() {
-    wx.navigateTo({ url: '/pages/merchant-event/index/index' });
+    this.safeNavigate('/pages/merchant-event/index/index', {
+      fallbackTitle: '活动页暂未开放'
+    });
   },
 
   onOpenExploration() {
-    wx.navigateTo({ url: '/pages/merchant-event/exploration/index' });
+    this.safeNavigate('/pages/explore-map/index', {
+      fallbackTitle: '探索地图暂未开放'
+    });
   },
 
   onOpenCompletion() {
     if (!this.data.isComplete) {
+      this.showFallbackToast('活动尚未完成');
       return;
     }
-    wx.navigateTo({ url: '/pages/event-complete/index' });
-  }
+    this.safeNavigate('/pages/event-complete/index');
+  },
+
+  onBottomNavChange() {}
 });

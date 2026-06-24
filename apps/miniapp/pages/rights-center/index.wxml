@@ -1,57 +1,62 @@
-<view class="page mvp-page">
-  <view class="page-title">{{title}}</view>
-  <view class="page-desc">权益中心支持查看已领取卡券，并接入首场活动的运行进度。</view>
-
-  <view class="redemption-panel">
-    <view class="panel-title">{{redemption.title}}</view>
-    <view class="panel-copy">{{redemption.copy}}</view>
-    <button class="panel-button" bindtap="onOpenMerchantEvent">{{primaryLabel}}</button>
+<view class="proto-page user-phase1-page rights-page">
+  <view class="rights-hero">
+    <view class="rights-hero__title">探索礼遇</view>
+    <view class="rights-hero__copy">完成探索后，在地商家为你留下一份温和的礼遇。这不是商城货架，而是旅程的延续。</view>
   </view>
 
-  <view class="rule-row">
-    <view class="rule-chip">活动 {{campaignCount}} 项</view>
-    <view class="rule-chip">我的卡券 {{claimedCoupons.length}} 张</view>
-  </view>
-
-  <view class="list">
-    <view class="benefit-card">
-      <view class="card-head">
-        <view class="card-title">{{eventSummary.title}}</view>
-        <view class="card-status">{{eventSummary.activityStatus}}</view>
-      </view>
-      <view class="card-copy">{{eventSummary.description}}</view>
-      <view class="rule-row" style="margin-top: 20rpx;">
-        <view class="rule-chip">已完成任务 {{eventSummary.completedTaskCount}} 个</view>
-        <view class="rule-chip">已获信物 {{eventSummary.ownedRelicCount}} 件</view>
-        <view class="rule-chip">已领卡券 {{eventSummary.claimedCouponCount}} 张</view>
-      </view>
+  <view class="rights-zone">
+    <view class="rights-zone__head">
+      <view class="rights-zone__title">当前可用</view>
+      <view class="rights-zone__hint">{{activeRights.length}} 项</view>
     </view>
-
-    <view class="benefit-card" wx:if="{{claimedCoupons.length}}">
-      <view class="card-head">
-        <view class="card-title">我的卡券</view>
-        <view class="card-status">已领取</view>
+    <view class="rights-gift-panel">
+      <view class="rights-gift-row" wx:for="{{activeRights}}" wx:key="id">
+        <view class="rights-gift-row__seal">礼</view>
+        <view class="rights-gift-row__body">
+          <view class="rights-gift-row__title">{{item.title}}</view>
+          <view class="rights-gift-row__merchant">{{item.merchant}}</view>
+          <view class="rights-gift-row__note">{{item.note}}</view>
+          <view class="rights-source">{{item.source}}</view>
+          <view class="rights-qr-placeholder" wx:if="{{item.showQr}}">到店出示 · 核销码占位</view>
+        </view>
+        <view class="rights-gift-row__status">{{item.status}}</view>
       </view>
-      <view class="card-copy" wx:for="{{claimedCoupons}}" wx:key="coupon_name">
-        {{item.coupon_name}} ｜ {{item.merchant_name}} ｜ {{item.claimed_at}}
-      </view>
-    </view>
-
-    <view class="benefit-card" wx:else>
-      <view class="card-head">
-        <view class="card-title">我的卡券</view>
-        <view class="card-status">空状态</view>
-      </view>
-      <view class="card-copy">尚未领取首场活动卡券，可前往活动页完成任务后领取。</view>
-    </view>
-
-    <view class="benefit-card" wx:for="{{benefits}}" wx:key="name">
-      <view class="card-head">
-        <view class="card-title">{{item.name}}</view>
-        <view class="card-status">{{item.state}}</view>
-      </view>
-      <view class="card-copy">{{item.desc}}</view>
+      <view class="rights-empty-hint" wx:if="{{!activeRights.length}}">完成探索任务后，礼遇将在此显现</view>
     </view>
   </view>
+
+  <view class="rights-zone">
+    <view class="rights-zone__head">
+      <view class="rights-zone__title">推荐领取</view>
+      <view class="rights-zone__hint">来自 {{eventSummary.title}}</view>
+    </view>
+    <view class="rights-gift-panel">
+      <view class="rights-gift-row" wx:for="{{recommendRights}}" wx:key="id">
+        <view class="rights-gift-row__seal">荐</view>
+        <view class="rights-gift-row__body">
+          <view class="rights-gift-row__title">{{item.title}}</view>
+          <view class="rights-gift-row__merchant">{{item.merchant}}</view>
+          <view class="rights-gift-row__note">{{item.note}}</view>
+          <view class="rights-source">来自探索</view>
+        </view>
+        <view class="rights-gift-row__status">{{item.status}}</view>
+      </view>
+      <view class="rights-empty-hint" wx:if="{{!recommendRights.length}}">继续探索，解锁更多在地礼遇</view>
+    </view>
+  </view>
+
+  <view class="rights-zone">
+    <view class="rights-zone__title" style="margin-bottom: 16rpx;">使用方式</view>
+    <view class="rights-guide-panel">
+      <view class="rights-guide-panel__copy">{{usageGuide.intro}}</view>
+      <view class="rights-guide-steps">
+        <view class="rights-guide-step" wx:for="{{usageGuide.steps}}" wx:for-index="idx" wx:key="idx">
+          <view class="rights-guide-step__num">{{idx + 1}}</view>
+          <view>{{item}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <user-bottom-nav activeKey="{{activeTab}}" bind:change="onBottomNavChange" />
 </view>
-

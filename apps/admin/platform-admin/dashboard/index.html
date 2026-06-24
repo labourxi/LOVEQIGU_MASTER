@@ -3,248 +3,117 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>平台后台 Dashboard</title>
-  <link rel="stylesheet" href="../../shared/components/library.css" />
-  <link rel="stylesheet" href="../shared/platform-admin-ui.css" />
-  <style>
-    .dashboard-trend {
-      display: grid;
-      gap: 16px;
-    }
-    .dashboard-trend__title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .dashboard-note-list {
-      display: grid;
-      gap: 12px;
-    }
-    .dashboard-note {
-      display: grid;
-      gap: 4px;
-      padding: 12px 14px;
-      border: 1px solid var(--ad-border);
-      border-radius: 12px;
-      background: #faf9f7;
-    }
-    .dashboard-note__title {
-      font-weight: 700;
-      color: var(--ad-text-primary);
-    }
-    .dashboard-note__desc {
-      font-size: 13px;
-      color: var(--ad-text-secondary);
-    }
-    .dashboard-metrics {
-      margin-bottom: 16px;
-    }
-  </style>
+  <title>平台总览 · AR游伴平台后台</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
 </head>
 <body>
-  <div class="platform-shell">
-    <div id="topnav"></div>
-    <div class="platform-shell__body">
-      <div id="sidenav"></div>
-      <main class="platform-shell__main">
-        <div class="platform-shell__page">
-          <div id="breadcrumbs"></div>
-          <div id="header"></div>
-          <div id="state-switch"></div>
-          <div id="content"></div>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div id="bo-breadcrumb"></div>
+        <div class="bo-page-header-row">
+          <div class="bo-page-header">
+            <h2>平台总览</h2>
+            <p>本周运营摘要 · 审查 / 发布 / 工单闭环</p>
+          </div>
+          <div class="toolbar">
+            <a class="btn btn-primary" href="../reviews/index.html">审查中心</a>
+            <a class="btn btn-primary" href="../publish/index.html">发布中心</a>
+            <a class="btn" href="../parks/index.html">景区管理</a>
+            <a class="btn" href="../coupons/index.html">卡券分析</a>
+            <a class="btn" href="../tickets/index.html">工单处理</a>
+          </div>
+        </div>
+
+        <div class="bo-platform-summary">
+          <div class="bo-platform-summary__title">本周运营摘要</div>
+          <div class="bo-platform-summary__copy" id="platform-summary-copy">加载中…</div>
+        </div>
+
+        <div class="bo-platform-kpi-grid" id="platform-kpi-grid">
+          <div class="bo-metric-card"><div class="bo-metric-card__label">景区</div><div class="bo-metric-card__value" id="kpi-parks">—</div></div>
+          <div class="bo-metric-card"><div class="bo-metric-card__label">商家</div><div class="bo-metric-card__value" id="kpi-merchants">—</div></div>
+          <div class="bo-metric-card"><div class="bo-metric-card__label">活动</div><div class="bo-metric-card__value" id="kpi-activities">—</div></div>
+          <div class="bo-metric-card"><div class="bo-metric-card__label">卡券</div><div class="bo-metric-card__value" id="kpi-coupons">—</div></div>
+          <div class="bo-metric-card"><div class="bo-metric-card__label">用户参与</div><div class="bo-metric-card__value" id="kpi-participants">—</div></div>
+          <div class="bo-metric-card bo-metric-card--highlight"><div class="bo-metric-card__label">待审查</div><div class="bo-metric-card__value" id="kpi-pending-review">—</div></div>
+          <div class="bo-metric-card bo-metric-card--highlight"><div class="bo-metric-card__label">待发布</div><div class="bo-metric-card__value" id="kpi-pending-publish">—</div></div>
+          <div class="bo-metric-card bo-metric-card--risk"><div class="bo-metric-card__label">待处理工单</div><div class="bo-metric-card__value" id="kpi-tickets">—</div></div>
+        </div>
+
+        <div class="grid">
+          <section class="card span-6">
+            <h3 class="card-title">待处理事项</h3>
+            <div class="bo-review-queue" id="pending-items"></div>
+          </section>
+          <section class="card span-6">
+            <h3 class="card-title">发布队列摘要</h3>
+            <div class="bo-publish-queue" id="publish-summary"></div>
+          </section>
+          <section class="card span-12">
+            <h3 class="card-title">风险与异常提醒</h3>
+            <div id="risk-notices"></div>
+          </section>
+          <section class="card span-12" id="content-production">
+            <h3 class="card-title">内容生产 · AR 生产线</h3>
+            <p class="text-muted" style="margin:0 0 12px;font-size:13px;">探索点 / 信物 / 祝福 / AR / 美术资源生产与审查发布闭环。</p>
+            <div class="bo-quick-actions">
+              <a class="btn btn-primary" href="../platform_content_dashboard/index.html">生产总览</a>
+              <a class="btn" href="../platform_exploration_points/index.html">探索点管理</a>
+              <a class="btn" href="../platform_relics/index.html">信物管理</a>
+              <a class="btn" href="../platform_blessing_content/index.html">祝福内容</a>
+              <a class="btn" href="../platform_ar_content/index.html">AR 内容</a>
+              <a class="btn" href="../platform_art_requests/index.html">美术需求单</a>
+              <a class="btn" href="../platform_generation_tasks/index.html">生成任务</a>
+            </div>
+          </section>
         </div>
       </main>
     </div>
   </div>
-
   <script src="../shared/mock-store.js"></script>
-  <script src="../../shared/components/index.js"></script>
-  <script src="../shared/platform-admin-ui.js"></script>
+  <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/platform-adapter-boot.js"></script>
+  <script src="../shared/platform-global-search.js"></script>
+  <script src="../shared/page-boot.js"></script>
   <script>
-    (function () {
-      if (!PlatformAdminMock.requireAuth()) return;
+    if (!PlatformAdminMock.requireAuth()) throw new Error("auth");
+    PlatformPageBoot.boot("dashboard", [{ label: "平台运营" }, { label: "平台总览" }]);
 
-      const lib = window.AdminComponentLibrary;
-      const ui = window.PlatformAdminUI;
-      const stateButtons = ['loading', 'empty', 'success', 'error'];
-      let state = 'loading';
-      let summary = null;
-      let parks = [];
-      let merchants = [];
-      let activities = [];
-      let coupons = [];
-      let tickets = [];
+    PlatformAdapterBoot.ensureAdapterScripts(function () {
+      var dash = PlatformAdapterBoot.getAdapter().getPlatformDashboard();
+      document.getElementById("platform-summary-copy").textContent =
+        "合作景区 " + dash.parkCount + " 个 · 入驻商家 " + dash.merchantCount +
+        " 家 · 活动 " + dash.activityCount + " 个 · 待审查 " + dash.pendingReview +
+        " 条 · 待发布 " + dash.pendingPublish + " 条 · 已阻断 " + dash.blockedCount +
+        " 条 · 待处理工单 " + dash.pendingTickets + " 条";
+      document.getElementById("kpi-parks").textContent = dash.parkCount;
+      document.getElementById("kpi-merchants").textContent = dash.merchantCount;
+      document.getElementById("kpi-activities").textContent = dash.activityCount;
+      document.getElementById("kpi-coupons").textContent = dash.couponCount;
+      document.getElementById("kpi-participants").textContent = dash.participantCount.toLocaleString();
+      document.getElementById("kpi-pending-review").textContent = dash.pendingReview;
+      document.getElementById("kpi-pending-publish").textContent = dash.pendingPublish;
+      document.getElementById("kpi-tickets").textContent = dash.pendingTickets;
 
-      const topnav = document.getElementById('topnav');
-      const sidenav = document.getElementById('sidenav');
-      const breadcrumbs = document.getElementById('breadcrumbs');
-      const header = document.getElementById('header');
-      const stateSwitch = document.getElementById('state-switch');
-      const content = document.getElementById('content');
+      document.getElementById("pending-items").innerHTML = dash.pendingItems.map(function (item) {
+        return '<div class="bo-review-queue__item"><div><strong>' + item.title +
+          '</strong><br /><span class="text-muted" style="font-size:12px;">' + item.meta +
+          '</span></div><a class="btn btn-primary" href="' + item.href + '">处理</a></div>';
+      }).join("") || '<p class="text-muted">暂无待处理事项</p>';
 
-      function statusTone(status) {
-        if (['APPROVED', 'ACTIVE', 'PUBLISHED', 'READY'].indexOf(status) >= 0) return 'success';
-        if (['PENDING', 'PENDING_REVIEW', 'BLOCKED'].indexOf(status) >= 0) return 'warning';
-        if (['REJECTED', 'FAILED'].indexOf(status) >= 0) return 'danger';
-        return 'neutral';
-      }
+      document.getElementById("publish-summary").innerHTML = dash.publishQueueSummary.map(function (p) {
+        return '<div class="bo-publish-queue__item"><div><strong>' + p.targetName +
+          '</strong><br />' + PlatformAdapterBoot.statusBadge(p.publishCheckStatus, "publish") +
+          '</div><a class="btn" href="../publish/index.html?publishId=' + p.id + '">查看</a></div>';
+      }).join("") || '<p class="text-muted">暂无发布队列</p>';
 
-      function renderShell() {
-        const shell = ui.shell('dashboard', 'Platform Admin', 'Desktop-first mock operations console');
-        topnav.innerHTML = shell.topnav;
-        sidenav.innerHTML = shell.sidenav;
-        breadcrumbs.innerHTML = ui.breadcrumbs([{ label: 'Platform Admin' }, { label: 'Dashboard' }]);
-        header.innerHTML = ui.pageHeader('Dashboard', '景区、商家、活动与审核一屏总览。', [
-          { label: '审核中心', href: '../reviews/index.html', variant: 'primary' },
-          { label: '活动管理', href: '../activities/index.html' }
-        ]);
-        stateSwitch.innerHTML = ui.stateSwitcher(state);
-        stateSwitch.querySelectorAll('[data-state]').forEach(function (btn) {
-          btn.classList.toggle('is-active', btn.getAttribute('data-state') === state);
-          btn.addEventListener('click', function () {
-            state = btn.getAttribute('data-state');
-            renderShell();
-            renderContent();
-          });
-        });
-      }
-
-      function buildTrendRows() {
-        return [
-          { day: '一', value: 16 },
-          { day: '二', value: 24 },
-          { day: '三', value: 20 },
-          { day: '四', value: 28 },
-          { day: '五', value: 34 },
-          { day: '六', value: 31 },
-          { day: '日', value: 39 }
-        ];
-      }
-
-      function buildTodoRows() {
-        const reviewRows = (activities || []).slice(0, 2).map(function (item) {
-          return {
-            type: '活动审核',
-            name: item.activity_name,
-            status: item.review_status,
-            time: item.submitted_at
-          };
-        });
-        const ticketRows = (tickets || []).slice(0, 2).map(function (item) {
-          return {
-            type: '工单处理',
-            name: item.title,
-            status: item.status,
-            time: item.created_at
-          };
-        });
-        return reviewRows.concat(ticketRows);
-      }
-
-      function renderDashboard() {
-        const totalParks = parks.length;
-        const totalMerchants = merchants.length;
-        const totalActivities = activities.length;
-        const totalCoupons = coupons.length;
-        const pendingCount = summary && summary.pending_review_count !== undefined
-          ? summary.pending_review_count
-          : (activities || []).filter(function (item) { return item.review_status === 'PENDING'; }).length;
-        const ticketCount = tickets.length;
-        const kpis = [
-          { label: '景区总数', value: totalParks, subtext: 'Scenic Management' },
-          { label: '商家总数', value: totalMerchants, subtext: 'Merchant Management' },
-          { label: '活动总数', value: totalActivities, subtext: 'Event Management' },
-          { label: '卡券总数', value: totalCoupons, subtext: 'Coupon Center' },
-          { label: '待审核数量', value: pendingCount, subtext: 'Review Center' },
-          { label: '工单数量', value: ticketCount, subtext: 'Ticket Center' }
-        ];
-
-        const trend = buildTrendRows();
-        const todoRows = buildTodoRows();
-
-        content.innerHTML = [
-          '<section class="dashboard-metrics page-kpi-grid">',
-          kpis.map(function (item) { return lib.renderKpiCard(item); }).join(''),
-          '</section>',
-          '<section class="page-two-col">',
-          '<article class="ad-surface page-card dashboard-trend">',
-          '<div class="dashboard-trend__title">',
-          '<h3 class="ad-page-header__title">近 7 日趋势图（Mock）</h3>',
-          '<span class="ad-badge ad-badge--accent">Responsive ready</span>',
-          '</div>',
-          '<div class="trend-bars">',
-          trend.map(function (item) {
-            return '<div class="trend-bar"><div class="trend-bar__track"><div class="trend-bar__fill" style="height:' + (item.value * 3) + 'px"></div></div><div class="trend-bar__label">周' + item.day + '<br />' + item.value + '</div></div>';
-          }).join(''),
-          '</div>',
-          '</article>',
-          '<article class="ad-surface page-card">',
-          '<div class="dashboard-trend__title"><h3 class="ad-page-header__title">待审核与待处理</h3><span class="ad-badge ad-badge--warning">Mock</span></div>',
-          lib.renderTable({
-            columns: [
-              { key: 'type', label: '类型' },
-              { key: 'name', label: '名称' },
-              { key: 'status', label: '状态', render: function (row) { return { html: ui.badge(row.status) }; } },
-              { key: 'time', label: '提交时间' },
-              { key: 'action', label: '操作', render: function () { return { html: '<div class="table-actions"><a class="ad-btn" href="../reviews/index.html">查看</a><a class="ad-btn ad-btn--primary" href="../publish/index.html">处理</a></div>' }; } }
-            ],
-            rows: todoRows
-          }),
-          '<div style="margin-top:12px;">' + lib.renderPagination({ page: 1, totalPages: Math.max(1, Math.ceil(todoRows.length / 2)) }) + '</div>',
-          '</article>',
-          '</section>',
-          '<section class="ad-surface page-card">',
-          '<div class="dashboard-trend__title"><h3 class="ad-page-header__title">运营提示</h3></div>',
-          '<div class="dashboard-note-list">',
-          '<div class="dashboard-note"><div class="dashboard-note__title">审核优先</div><div class="dashboard-note__desc">当前有 ' + pendingCount + ' 条待审核内容，建议先处理发布前检查。</div></div>',
-          '<div class="dashboard-note"><div class="dashboard-note__title">活动联动</div><div class="dashboard-note__desc">活动数与卡券数联动显示，可直接跳转到活动管理和卡券中心。</div></div>',
-          '</div>',
-          '</section>'
-        ].join('');
-      }
-
-      function renderContent() {
-        if (state === 'loading' || state === 'empty' || state === 'error') {
-          content.innerHTML = ui.stateBlock(state, {
-            title: state === 'loading' ? '仪表盘加载中' : state === 'empty' ? '仪表盘暂无数据' : '仪表盘加载失败',
-            description: state === 'loading' ? '正在读取平台 mock 数据' : '可切换到 success 查看完整页面'
-          });
-          return;
-        }
-        renderDashboard();
-      }
-
-      async function boot() {
-        renderShell();
-        renderContent();
-        try {
-          const datasets = await Promise.all([
-            PlatformAdminMock.loadDataset('platform_parks'),
-            PlatformAdminMock.loadDataset('platform_merchants'),
-            PlatformAdminMock.loadDataset('platform_activity_review'),
-            PlatformAdminMock.loadDataset('platform_coupons'),
-            PlatformAdminMock.loadDataset('platform_tickets')
-          ]);
-          parks = datasets[0] || [];
-          merchants = datasets[1] || [];
-          activities = datasets[2] || [];
-          coupons = datasets[3] || [];
-          tickets = datasets[4] || [];
-          summary = (await PlatformAdminMock.loadDataset('platform_dashboard_summary'))[0] || {};
-          state = 'success';
-          renderShell();
-          renderContent();
-        } catch (_err) {
-          state = 'error';
-          renderShell();
-          renderContent();
-        }
-      }
-
-      boot();
-    })();
+      document.getElementById("risk-notices").innerHTML = dash.risks.map(function (r) {
+        return '<div class="bo-risk-notice"><strong>风险提醒</strong> ' + r + "</div>";
+      }).join("");
+    });
   </script>
 </body>
 </html>

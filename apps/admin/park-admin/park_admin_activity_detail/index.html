@@ -3,162 +3,153 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>park_admin_activity_detail</title>
-  <style>
-    :root {
-      --bg: #f7f1e8;
-      --panel: #fffaf1;
-      --text: #2b2118;
-      --muted: #6f5d4d;
-      --line: #d8c6b0;
-      --accent: #8b5d3b;
-      --good: #2c7a4b;
-      --warn: #b26b1b;
-      --bad: #a4412b;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: linear-gradient(180deg, #f7f1e8 0%, #efe5d7 100%);
-      color: var(--text);
-      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
-    }
-    a { color: inherit; text-decoration: none; }
-    .page { max-width: 1360px; margin: 0 auto; padding: 20px; }
-    .topbar {
-      display: flex; justify-content: space-between; align-items: center;
-      gap: 16px; margin-bottom: 16px;
-    }
-    .brand h1 { margin: 0; font-size: 28px; }
-    .brand p { margin: 4px 0 0; color: var(--muted); }
-    .breadcrumbs { display: flex; gap: 8px; color: var(--muted); font-size: 13px; margin-bottom: 14px; }
-    .layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 16px; }
-    .sidebar, .panel {
-      background: rgba(255,255,255,0.84);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(85, 58, 25, 0.05);
-    }
-    .sidebar { padding: 16px; position: sticky; top: 16px; align-self: start; }
-    .sidebar h3 { margin: 0 0 12px; font-size: 16px; }
-    .nav-stack { display: grid; gap: 8px; }
-    .nav-link {
-      display: block; padding: 9px 12px; border-radius: 12px;
-      border: 1px solid transparent; background: rgba(255,255,255,0.7);
-    }
-    .nav-link.active {
-      border-color: #d0b897; background: #f2e5d4; color: var(--accent); font-weight: 700;
-    }
-    .panel { padding: 18px; }
-    .hero { margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
-    .hero h2 { margin: 0 0 6px; font-size: 24px; }
-    .hero p { margin: 0; color: var(--muted); }
-    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 18px; }
-    .button {
-      border: 1px solid var(--line); background: #fff; border-radius: 999px;
-      padding: 8px 12px; cursor: pointer; font-size: 13px;
-    }
-    .button.primary { background: #f2e5d4; color: var(--accent); border-color: #d7c0a8; }
-    .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 14px; }
-    .card { background: rgba(255,255,255,0.9); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
-    .metric { grid-column: span 3; min-height: 108px; }
-    .span-4 { grid-column: span 4; }
-    .span-6 { grid-column: span 6; }
-    .span-8 { grid-column: span 8; }
-    .span-12 { grid-column: span 12; }
-    .metric .label { color: var(--muted); font-size: 13px; }
-    .metric .value { font-size: 30px; font-weight: 700; margin-top: 8px; }
-    .badge {
-      display: inline-block; padding: 4px 8px; border-radius: 999px;
-      font-size: 12px; border: 1px solid transparent;
-    }
-    .badge--neutral { background: #f3eadf; color: #6a5848; border-color: #dfcfbc; }
-    .badge--good { background: #e3f1e9; color: var(--good); border-color: #bdd9c9; }
-    .badge--warn { background: #fbefde; color: var(--warn); border-color: #eed0a9; }
-    .badge--bad { background: #f6e0db; color: var(--bad); border-color: #e9b8ad; }
-    .badge--accent { background: #f2e5d4; color: var(--accent); border-color: #d8c0aa; }
-    .table { width: 100%; border-collapse: collapse; font-size: 14px; }
-    .table th, .table td {
-      border-bottom: 1px solid rgba(216,198,176,0.7);
-      padding: 10px 8px; text-align: left; vertical-align: top;
-    }
-    .table th {
-      color: var(--muted); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase;
-    }
-    .chart {
-      height: 180px; border-radius: 12px; border: 1px dashed var(--line);
-      background:
-        linear-gradient(90deg, rgba(139,93,59,0.05) 1px, transparent 1px) 0 0 / 16px 16px,
-        linear-gradient(180deg, rgba(139,93,59,0.05) 1px, transparent 1px) 0 0 / 16px 16px,
-        linear-gradient(180deg, rgba(255,255,255,0.92), rgba(242,229,213,0.72));
-    }
-    .empty, .loading {
-      border: 1px dashed var(--line); border-radius: 12px; padding: 16px;
-      color: var(--muted); background: rgba(255,255,255,0.55);
-    }
-    .split { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 14px; }
-    .hidden { display: none !important; }
-    .footer { margin-top: 18px; color: var(--muted); font-size: 12px; }
-    @media (max-width: 1080px) { .layout { grid-template-columns: 1fr; } .sidebar { position: static; } }
-    @media (max-width: 900px) { .metric, .span-4, .span-6, .span-8, .span-12, .split { grid-column: span 12; grid-template-columns: 1fr; } .topbar { flex-direction: column; align-items: flex-start; } }
-  </style>
+  <title>活动详情 · AR游伴园区后台</title>
+  <link rel="stylesheet" href="../../shared/backoffice.css" />
 </head>
 <body>
-  <div class="page">
-    <div class="topbar">
-      <div class="brand">
-        <h1>park_admin_activity_detail</h1>
-        <p>park_admin_activity_detail</p>
-      </div>
-      <div class="toolbar">
-        <a class="button" href="../index.html">返回</a>
-        <button class="button" onclick="history.back()">浏览器返回</button>
-      </div>
-    </div>
-    <div class="breadcrumbs"><a href="../index.html">总览</a><span>/</span><span>park_admin_activity_detail</span></div>
-    <div class="layout">
-      <aside class="sidebar">
-        <h3>园区端导航</h3>
-        <div class="nav-stack"><a class="nav-link " href="../park_admin_dashboard/index.html">park_admin_dashboard</a><a class="nav-link " href="../park_admin_merchants/index.html">park_admin_merchants</a><a class="nav-link " href="../park_admin_activities/index.html">park_admin_activities</a><a class="nav-link " href="../park_admin_activity_detail/index.html">park_admin_activity_detail</a><a class="nav-link " href="../park_admin_activity_new/index.html">park_admin_activity_new</a><a class="nav-link " href="../park_admin_activity_publish_check/index.html">park_admin_activity_publish_check</a><a class="nav-link " href="../park_admin_tickets/index.html">park_admin_tickets</a></div>
-      </aside>
-      <main class="panel">
-    <section class="hero"><h2>park_admin_activity_detail</h2><p>活动详情、参与商家、绑定卡券、活动时间与状态。</p></section>
-    <div class="toolbar">
-      <a class="button primary" href="../park_admin_activities/index.html">返回活动列表</a>
-      <a class="button" href="../park_admin_activity_new/index.html">新建活动</a>
-      <a class="button" href="../park_admin_activity_publish_check/index.html">发布前检查</a>
-      <button class="button" onclick="history.back()">浏览器返回</button>
-    </div>
-    <div class="grid">
-      <section class="card span-6"><h4>活动信息</h4><p><strong>爱企谷首场探索活动</strong></p><p>状态：<span class="badge badge--neutral">DRAFT</span></p><p>时间：2026-06-20T00:00:00+08:00 ~ 2026-06-30T23:59:59+08:00</p><p class="muted">??????????????????????????</p></section>
-      <section class="card span-6"><h4>参与商家</h4><p>爱企谷咖啡</p><p class="muted">张三 · 13800000000</p><p><span class="badge badge--accent">1 merchant</span></p></section>
-      <section class="card span-6"><h4>绑定卡券</h4><p>爱企谷到店核销券</p><p class="muted">100 / 65 / 38</p></section>
-      <section class="card span-6"><h4>优化建议</h4><p><strong>领取高、核销低</strong></p><p class="muted">建议优化到店引导</p></section>
-      <section class="card span-12">
-        <h4>发布状态展示</h4>
-        <div class="toolbar">
-          <span class="badge badge--warn">PENDING</span>
-          <span class="badge badge--warn">BLOCKED</span>
-          <span class="badge badge--good">APPROVED</span>
-          <span class="badge badge--good">RELEASED</span>
+  <div class="bo-app">
+    <div id="bo-topnav"></div>
+    <div class="bo-body">
+      <div id="bo-sidebar"></div>
+      <main class="bo-content">
+        <div id="bo-breadcrumb"></div>
+        <div class="bo-page-header-row">
+          <div class="bo-page-header">
+            <h2 id="activity-title">爱企谷初见寻宝节</h2>
+            <p id="activity-period">2026-06-20 ~ 2026-06-30 · 探索活动协作</p>
+          </div>
+          <span class="badge badge-success" id="activity-status-badge">进行中</span>
         </div>
-      </section>
-    </div>
-    </main>
+
+        <div class="bo-park-kpi-grid" style="grid-template-columns:repeat(4,minmax(0,1fr));" id="activity-kpi-active">
+          <div class="bo-metric-card"><div class="bo-metric-card__label">用户参与</div><div class="bo-metric-card__value">860</div></div>
+          <div class="bo-metric-card"><div class="bo-metric-card__label">卡券发放</div><div class="bo-metric-card__value">312</div></div>
+          <div class="bo-metric-card"><div class="bo-metric-card__label">卡券核销</div><div class="bo-metric-card__value">118</div></div>
+          <div class="bo-metric-card bo-metric-card--highlight"><div class="bo-metric-card__label">核销率</div><div class="bo-metric-card__value">38%</div></div>
+        </div>
+
+        <div class="grid">
+          <section class="card span-6">
+            <h3 class="card-title">活动信息</h3>
+            <div class="bo-detail-row"><div class="k">活动名称</div><div id="activity-name-info">爱企谷初见寻宝节</div></div>
+            <div class="bo-detail-row"><div class="k">活动时间</div><div>2026-06-20 ~ 2026-06-30</div></div>
+            <div class="bo-detail-row"><div class="k">活动状态</div><div><span class="badge badge-success" id="activity-status-info">进行中</span></div></div>
+            <div class="bo-detail-row"><div class="k">关联探索点</div><div>8 个</div></div>
+          </section>
+          <section class="card span-6">
+            <h3 class="card-title">绑定礼遇</h3>
+            <p style="margin:0;">爱企谷初见到店礼 等 5 组</p>
+            <p class="text-muted" style="margin:8px 0 0;">发放 920 · 领取 312 · 核销 118 · 详见下方参与商家明细</p>
+          </section>
+          <section class="card span-6" id="suggestion-card">
+            <h3 class="card-title">运营建议</h3>
+            <div class="bo-park-suggestion">
+              <strong>领取高、核销偏低</strong>
+              建议优化探索终点与商家到店引导，提升协作转化。此为上线后运营协作提醒，非发布检查结论。
+            </div>
+          </section>
+          <section class="card span-12 hidden" id="publish-status-card">
+            <h3 class="card-title">发布状态</h3>
+            <div class="toolbar" id="publish-status-badges"></div>
+          </section>
+          <section class="card span-12" id="merchant-detail-section">
+            <h3 class="card-title">参与商家明细</h3>
+            <p class="text-muted" style="margin:0 0 14px;font-size:13px;">展示本活动中参与商家的礼遇配置与核销表现。</p>
+            <div id="activity-merchant-panel"></div>
+          </section>
+          <section class="card span-12" id="review-history-card">
+            <h3 class="card-title">平台上线检查记录</h3>
+            <p class="text-muted" style="margin:0 0 10px;font-size:13px;">上线前平台协同审查记录，与进行中运营建议分开管理。</p>
+            <div class="bo-review-history">
+              <div class="bo-audit-log-item">
+                <div class="bo-log-meta">2026-06-19 14:05｜园区负责人｜提交平台审核｜草稿 → 待平台审核</div>
+                <div class="bo-log-summary">已确认提交声明，活动进入平台发布检查流程。</div>
+              </div>
+              <div class="bo-audit-log-item">
+                <div class="bo-log-meta">2026-06-20 15:30｜平台内容运营组｜平台检查返回｜待平台审核 → 已阻断</div>
+                <div class="bo-log-summary">礼遇配置审核未完成；活动经平台特批后已上线，历史阻断记录保留备查。</div>
+              </div>
+            </div>
+            <p style="margin-top:12px;"><a class="btn" href="../park_admin_activity_publish_check/index.html?mode=history" id="history-check-link">查看历史检查结论</a></p>
+          </section>
+          <section class="card span-12">
+            <h3 class="card-title">最近操作记录</h3>
+            <div class="bo-audit-log" id="activity-recent-logs"></div>
+          </section>
+        </div>
+
+        <div class="bo-activity-actions" id="activity-actions"></div>
+      </main>
     </div>
   </div>
+  <script src="../../shared/backoffice-shell.js"></script>
+  <script src="../shared/park-adapter-boot.js"></script>
+  <script src="../shared/status-labels.js"></script>
+  <script src="../shared/park-activity-status.js"></script>
+  <script src="../shared/park-activity-merchants.js"></script>
+  <script src="../shared/platform-park-view.js"></script>
+  <script src="../shared/page-boot.js"></script>
   <script>
-    function toggleState(group, active) {
-      document.querySelectorAll('[data-group="' + group + '"]').forEach((node) => {
-        node.classList.toggle('hidden', node.getAttribute('data-state') !== active);
-      });
-      document.querySelectorAll('[data-state-group="' + group + '"] .button').forEach((btn) => {
-        btn.classList.remove('primary');
-        if (btn.getAttribute('data-state-action') === active) btn.classList.add('primary');
-      });
-    }
-    document.querySelectorAll('[data-state-action]').forEach((button) => {
-      button.addEventListener('click', () => toggleState(button.getAttribute('data-state-group'), button.getAttribute('data-state-action')));
+    ParkPageBoot.boot("activities", [{ label: "园区管理" }, { label: "活动数据", href: "../park_admin_activities/index.html" }, { label: "活动详情" }]);
+
+    ParkAdapterBoot.ensureAdapterScripts(function () {
+      var params = new URLSearchParams(window.location.search);
+      var activityId = params.get("activityId") || "activity_001";
+      var adapter = ParkAdapterBoot.getAdapter();
+      var detail = adapter.getParkActivityDetail(activityId);
+      if (!detail) return;
+
+      document.getElementById("activity-title").textContent = detail.name;
+      document.getElementById("activity-period").textContent = detail.startDate + " ~ " + detail.endDate + " · 探索活动协作";
+      document.getElementById("activity-name-info").textContent = detail.name;
+      var statusBadgeEl = document.getElementById("activity-status-badge");
+      statusBadgeEl.className = adapter.statusBadgeClass(detail.status);
+      statusBadgeEl.textContent = detail.statusLabel;
+      var statusInfoEl = document.getElementById("activity-status-info");
+      statusInfoEl.className = adapter.statusBadgeClass(detail.status);
+      statusInfoEl.textContent = detail.statusLabel;
+
+      var isActive = adapter.isActiveActivity(detail);
+      var isPreLaunch = !isActive;
+
+      if (isPreLaunch) {
+        document.getElementById("activity-kpi-active").classList.add("hidden");
+        document.getElementById("suggestion-card").querySelector(".card-title").textContent = "优化建议";
+        document.getElementById("publish-status-card").classList.remove("hidden");
+        document.getElementById("publish-status-badges").innerHTML =
+          ParkAdapterBoot.statusBadge(detail.reviewStatus, "review") +
+          ParkAdapterBoot.statusBadge(detail.publishCheckStatus, "publish");
+        if (detail.latestReview && detail.latestReview.blockReason) {
+          document.getElementById("suggestion-card").querySelector(".bo-park-suggestion").innerHTML =
+            "<strong>平台优化意见</strong>" + detail.latestReview.optimizationSuggestion;
+        }
+      } else {
+        document.getElementById("review-history-card").classList.remove("hidden");
+      }
+
+      document.getElementById("history-check-link").href =
+        "../park_admin_activity_publish_check/index.html?activityId=" + activityId + "&mode=history";
+
+      var actions = document.getElementById("activity-actions");
+      actions.innerHTML = detail.actions.map(function (a) {
+        return '<a class="btn' + (a.primary ? " btn-primary" : "") + '" href="' + a.href + '">' + a.label + "</a>";
+      }).join("");
+
+      ParkAdapterBoot.renderOperationTimeline(
+        document.getElementById("activity-recent-logs"),
+        detail.operationLogs
+      );
+
+      if (detail.latestReview && isPreLaunch) {
+        var historyCard = document.getElementById("review-history-card");
+        historyCard.classList.remove("hidden");
+        historyCard.querySelector(".bo-review-history").innerHTML =
+          '<div class="bo-audit-log-item"><div class="bo-log-meta">' +
+          (detail.latestReview.createdAt || "").replace("T", " ") + "｜提交发布检查</div>" +
+          '<div class="bo-log-summary">' + (detail.latestReview.reviewConclusion || "—") + "</div></div>";
+      }
+
+      ParkActivityMerchants.mountPanel("#activity-merchant-panel", { activityId: activityId, page: 1 });
     });
   </script>
 </body>
