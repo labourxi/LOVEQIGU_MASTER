@@ -1,0 +1,291 @@
+@import url('../../system/visual/visual_tokens.css');
+
+/* ── Landing V0.3.1 · World Gate Scene ── */
+
+body[data-page="landing"] {
+  background: var(--color-bg-deep);
+}
+
+.world-layer__sky {
+  background:
+    radial-gradient(ellipse 90% 55% at 50% 18%, rgba(48, 88, 148, 0.55) 0%, transparent 62%),
+    linear-gradient(180deg, #0e2448 0%, var(--color-bg-blue) 38%, var(--color-bg-deep) 100%);
+}
+
+.world-layer__galaxy {
+  position: absolute;
+  inset: 0;
+  opacity: 0.72;
+  background:
+    radial-gradient(ellipse 120% 40% at 50% 8%, rgba(168, 198, 255, 0.14) 0%, transparent 58%),
+    conic-gradient(from 200deg at 50% 22%, transparent 0deg, rgba(120, 168, 228, 0.08) 40deg, transparent 80deg);
+  mask-image: linear-gradient(180deg, black 0%, black 45%, transparent 78%);
+}
+
+.world-layer__mountains {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 18%;
+  height: 28%;
+  opacity: 0.55;
+  background:
+    radial-gradient(ellipse 38% 100% at 12% 100%, rgba(28, 48, 78, 0.85) 0%, transparent 70%),
+    radial-gradient(ellipse 42% 90% at 88% 100%, rgba(32, 52, 82, 0.8) 0%, transparent 68%),
+    radial-gradient(ellipse 55% 80% at 50% 100%, rgba(22, 42, 72, 0.75) 0%, transparent 72%);
+  filter: blur(2px);
+}
+
+.world-layer__mist--east {
+  opacity: 0.55;
+  background:
+    radial-gradient(ellipse 60% 45% at 18% 68%, rgba(148, 188, 228, 0.22) 0%, transparent 58%),
+    radial-gradient(ellipse 50% 40% at 82% 62%, rgba(128, 168, 218, 0.18) 0%, transparent 55%);
+}
+
+.world-layer__star-tracks {
+  position: absolute;
+  inset: 0;
+  opacity: 0.45;
+  background:
+    linear-gradient(118deg, transparent 42%, rgba(210, 228, 255, 0.12) 49%, transparent 56%),
+    linear-gradient(128deg, transparent 58%, rgba(212, 188, 132, 0.08) 61%, transparent 64%);
+  mask-image: radial-gradient(ellipse 70% 50% at 50% 30%, black 0%, transparent 72%);
+}
+
+.world-layer__stars {
+  opacity: 0.92;
+  will-change: transform, opacity;
+  animation: star-drift 52s ease-in-out infinite alternate;
+  background-image:
+    radial-gradient(1.2px 1.2px at 14% 18%, var(--glow-star) 50%, transparent 51%),
+    radial-gradient(1px 1px at 84% 14%, var(--star-dot) 50%, transparent 51%),
+    radial-gradient(1.4px 1.4px at 46% 8%, var(--star-dot-gold) 50%, transparent 51%),
+    radial-gradient(1px 1px at 66% 36%, var(--star-dot) 50%, transparent 51%),
+    radial-gradient(1px 1px at 22% 52%, var(--star-dot) 50%, transparent 51%),
+    radial-gradient(1.2px 1.2px at 88% 58%, var(--glow-star) 50%, transparent 51%),
+    radial-gradient(0.8px 0.8px at 38% 28%, var(--star-dot-gold) 50%, transparent 51%),
+    radial-gradient(0.9px 0.9px at 58% 22%, var(--star-dot) 50%, transparent 51%);
+}
+
+.world-layer__gate-glow {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  width: min(72vw, 300px);
+  height: min(72vw, 300px);
+  margin-left: calc(min(72vw, 300px) / -2);
+  margin-top: calc(min(72vw, 300px) / -2);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 48%, var(--glow-gate) 0%, rgba(120, 168, 228, 0.18) 38%, transparent 68%),
+    radial-gradient(circle at 50% 50%, var(--color-gold-soft) 0%, transparent 42%);
+  filter: blur(8px);
+  opacity: 0.88;
+  will-change: transform, opacity;
+  animation: gate-breath var(--duration-breath) var(--ease-breath) infinite;
+}
+
+.world-layer__radial-pulse {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  width: min(96vw, 420px);
+  height: min(96vw, 420px);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(168, 198, 255, 0.2) 0%, rgba(120, 168, 228, 0.1) 38%, transparent 68%);
+  will-change: transform, opacity;
+  animation: radial-pulse 9s var(--ease-breath) infinite;
+}
+
+.world-layer__noise-fog {
+  position: absolute;
+  inset: -8%;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size: 240px 240px;
+  animation: noise-fog-drift 36s ease-in-out infinite alternate;
+}
+
+.world-layer__steps {
+  position: absolute;
+  left: 50%;
+  bottom: 14%;
+  width: min(52vw, 220px);
+  height: 22%;
+  transform: translateX(-50%);
+  background:
+    linear-gradient(180deg, transparent 0%, rgba(148, 178, 228, 0.08) 18%, rgba(148, 178, 228, 0.14) 100%);
+  clip-path: polygon(38% 0%, 62% 0%, 78% 100%, 22% 100%);
+  opacity: 0.62;
+}
+
+.world-layer__steps::before,
+.world-layer__steps::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold-soft), transparent);
+  opacity: 0.45;
+}
+
+.world-layer__steps::before {
+  bottom: 38%;
+  width: 68%;
+}
+
+.world-layer__steps::after {
+  bottom: 68%;
+  width: 48%;
+}
+
+.world-layer__path {
+  bottom: 14%;
+  height: 24%;
+  width: 2px;
+  margin-left: -1px;
+  background: linear-gradient(180deg, transparent, var(--color-gold-soft), rgba(168, 198, 255, 0.35), transparent);
+  opacity: 0.62;
+  box-shadow: 0 0 18px var(--glow-gate);
+}
+
+.world-layer__horizon {
+  height: 32%;
+  background: linear-gradient(180deg, transparent 0%, var(--horizon-mid) 50%, rgba(18, 36, 68, 0.72) 100%);
+}
+
+.revelation-core {
+  width: min(68vw, 280px);
+  height: min(68vw, 280px);
+  filter: drop-shadow(0 0 32px var(--glow-gate));
+}
+
+.revelation-core__field {
+  background:
+    radial-gradient(circle at 50% 44%, var(--color-gold-soft) 0%, transparent 42%),
+    radial-gradient(circle at 50% 50%, var(--glow-gate) 0%, transparent 72%);
+  will-change: transform, opacity;
+  animation: center-field-breath calc(var(--duration-breath) * 1.15) var(--ease-breath) infinite;
+}
+
+.revelation-core__light {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32%;
+  height: 32%;
+  margin: -16% 0 0 -16%;
+  border-radius: 50%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(248, 232, 192, 0.95) 0%, var(--color-gold-bright) 28%, var(--glow-gate) 52%, transparent 72%);
+  box-shadow: 0 0 40px var(--color-gold-soft), 0 0 72px rgba(120, 168, 228, 0.22);
+  will-change: transform, opacity;
+  animation: center-light-breath var(--duration-breath) var(--ease-breath) infinite;
+}
+
+.revelation-core__ring {
+  border-color: var(--color-gold-bright);
+  box-shadow:
+    0 0 48px var(--color-gold-soft),
+    0 0 80px rgba(120, 168, 228, 0.18),
+    inset 0 0 28px var(--color-gold-soft);
+}
+
+.revelation-core__threshold {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  background: var(--color-gold-bright);
+  box-shadow: 0 0 20px var(--color-gold-bright), 0 0 40px var(--glow-gate);
+}
+
+.perception-anchor {
+  bottom: 22%;
+  transform: translateX(-50%) scale(0.36);
+  opacity: var(--anchor-opacity);
+  filter: blur(0.8px);
+}
+
+.perception-anchor__figure {
+  width: 22px;
+  height: 46px;
+  background: linear-gradient(180deg, rgba(210, 228, 248, 0.78) 0%, var(--anchor-silhouette-end) 100%);
+  box-shadow: 0 0 14px rgba(168, 198, 238, 0.35);
+}
+
+.perception-anchor__figure::before {
+  width: 11px;
+  height: 11px;
+  background: rgba(220, 232, 248, 0.72);
+}
+
+.cta-layer__trigger {
+  color: var(--color-text-main);
+  border-color: var(--color-gold-bright);
+  background: rgba(18, 40, 72, 0.42);
+  box-shadow: 0 0 24px rgba(120, 168, 228, 0.12);
+}
+
+@keyframes gate-breath {
+  0%, 100% { opacity: 0.72; transform: scale(0.94); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+
+@keyframes center-light-breath {
+  0%, 100% { opacity: 0.58; transform: scale(0.86); }
+  50% { opacity: 1; transform: scale(1.14); }
+}
+
+@keyframes center-field-breath {
+  0%, 100% { opacity: 0.72; transform: scale(0.94); }
+  50% { opacity: 0.96; transform: scale(1.05); }
+}
+
+@keyframes radial-pulse {
+  0%, 100% { opacity: 0.38; transform: translate(-50%, -50%) scale(0.9); }
+  50% { opacity: 0.82; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+@keyframes star-drift {
+  0% { transform: translate(0, 0); }
+  33% { transform: translate(1.4%, -0.9%); }
+  66% { transform: translate(-0.8%, 0.6%); }
+  100% { transform: translate(0.5%, -0.3%); }
+}
+
+@keyframes noise-fog-drift {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.035; }
+  50% { transform: translate(-1.5%, 1.2%) scale(1.03); opacity: 0.055; }
+  100% { transform: translate(1.2%, -0.8%) scale(1.01); opacity: 0.04; }
+}
+
+@media (max-width: 390px) {
+  .landing {
+    padding-top: 12vh;
+  }
+
+  .revelation-core {
+    width: min(74vw, 260px);
+    height: min(74vw, 260px);
+  }
+
+  .world-layer__gate-glow {
+    width: min(78vw, 280px);
+    height: min(78vw, 280px);
+    margin-left: calc(min(78vw, 280px) / -2);
+    margin-top: calc(min(78vw, 280px) / -2);
+  }
+
+  .perception-anchor {
+    bottom: 20%;
+    transform: translateX(-50%) scale(0.34);
+  }
+}

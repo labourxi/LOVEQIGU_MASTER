@@ -1,0 +1,70 @@
+@import url('../../system/visual/visual_tokens.css');
+
+/* ── Explore V0.3.1 · City Fragment Stream ── */
+
+body[data-page="explore"]::before {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(48, 88, 148, 0.35) 0%, transparent 58%),
+    linear-gradient(180deg, #0e2448 0%, var(--color-bg-blue) 40%, var(--color-bg-deep) 100%);
+}
+
+body[data-page="explore"]::after {
+  background:
+    radial-gradient(ellipse 75% 45% at 50% 0%, var(--color-mist) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 40% at 20% 60%, rgba(72, 108, 168, 0.28) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 35% at 80% 45%, rgba(88, 128, 188, 0.22) 0%, transparent 48%);
+  opacity: 0.78;
+}
+
+.explore-atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 30% at 50% 100%, rgba(212, 188, 132, 0.06) 0%, transparent 55%);
+}
+
+.top-bar__location {
+  color: var(--color-text-main);
+  text-shadow: 0 0 16px rgba(120, 168, 228, 0.18);
+}
+
+.stream-item {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.stream-item.is-appended {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity var(--duration-slow) ease, transform var(--duration-slow) ease;
+}
+
+.stream-item .bg::after {
+  background: linear-gradient(
+    180deg,
+    rgba(12, 24, 48, 0.05) 0%,
+    rgba(12, 24, 48, 0.38) 52%,
+    rgba(8, 16, 36, 0.82) 100%
+  );
+}
+
+body[data-world-atmosphere="active"] .stream-item .bg::after {
+  background: linear-gradient(
+    180deg,
+    rgba(212, 188, 132, 0.06) 0%,
+    rgba(12, 24, 48, 0.32) 50%,
+    rgba(8, 16, 36, 0.78) 100%
+  );
+}
+
+.stream-item::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--radius-card);
+  pointer-events: none;
+  box-shadow: inset 0 0 24px rgba(120, 168, 228, 0.08);
+  z-index: 2;
+}
