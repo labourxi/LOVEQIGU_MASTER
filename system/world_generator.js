@@ -11,8 +11,18 @@ import {
   CONTENT_EMOTION,
   CONTENT_VISUAL
 } from './world_engine/content_model.js';
-import { buildNpcFromEvent, getDialogueLine } from './npc/world_npc_system.js';
+import { buildNpcFromEvent, getDialogueLine, applyNpcValueInfluence } from './npc/world_npc_system.js';
 import { createEconomyArtifact, getRarityLabel } from './economy/artifact_economy.js';
+import { attachValueModel } from './economy/artifact_value_system.js';
+import {
+  market_price_simulation,
+  upgradeArtifact as marketUpgrade
+} from './economy/artifact_market_engine.js';
+import {
+  initEconomyFlow,
+  processEconomyFlow,
+  applyLocationHeatToRarity
+} from './economy/world_economy_flow.js';
 import { createFeedbackState, processUserAction } from './feedback/world_feedback_loop.js';
 
 const SEEDS_URL = new URL('./content_seed.json', import.meta.url);
@@ -103,11 +113,26 @@ export function enrichWorldEvent(worldEvent) {
   if (!worldEvent) return null;
 
   const interactiveNpc = buildNpcFromEvent(worldEvent);
-  const economyArtifact = createEconomyArtifact(worldEvent);
+  let economyArtifact = createEconomyArtifact(worldEvent);
   const feedback = createFeedbackState(worldEvent);
+  const economyFlow = initEconomyFlow(worldEvent);
 
   if (economyArtifact) {
     economyArtifact.rarity_label = getRarityLabel(economyArtifact.rarity);
+    const npcMod = interactiveNpc ? interactiveNpc.value_modifier : 1;
+    economyArtifact = attachValueModel(economyArtifact, worldEvent, npcMod);
+    economyArtifact = applyLocationHeatToRarity(economyArtifact, economyFlow);
+    economyArtifact = applyNpcValueInfluence(economyArtifact, interactiveNpc);
+    economyArtifact.market = market_price_simulation(economyArtifact, economyFlow);
+    economyArtifact.rarity_label = economyArtifact.value_model
+      ? economyArtifact.value_model.rarity_label
+      : economyArtifact.rarity_label;
+  }
+
+  if (interactiveNpc && economyArtifact) {
+    interactiveNpc.dialogue_state = buildNpcFromEvent(
+      Object.assign({}, worldEvent, { artifact: economyArtifact })
+    ).dialogue_state;
   }
 
   const enriched = Object.assign({}, worldEvent, {
@@ -118,7 +143,8 @@ export function enrichWorldEvent(worldEvent) {
     interactive: {
       npc: interactiveNpc,
       economyArtifact: economyArtifact,
-      feedback: feedback
+      feedback: feedback,
+      economy: economyFlow
     }
   });
 
@@ -140,16 +166,38 @@ export function processInteractiveAction(user_action, worldEvent) {
     npc: npc
   });
 
+  let artifact = worldEvent.artifact;
+  const economyResult = processEconomyFlow(user_action, {
+    flow: worldEvent.interactive && worldEvent.interactive.economy,
+    worldEvent: worldEvent,
+    npc: npc,
+    artifact: artifact
+  });
+
+  if (economyResult.artifact) {
+    artifact = economyResult.artifact;
+    if (worldEvent.interactive && worldEvent.interactive.economy) {
+      economyResult.artifact.market = market_price_simulation(
+        economyResult.artifact,
+        economyResult.flow
+      );
+    }
+  }
+
   const updated = Object.assign({}, worldEvent, {
+    artifact: artifact,
     interactive: Object.assign({}, worldEvent.interactive || {}, {
       npc: npc,
-      feedback: result.feedbackState
+      feedback: result.feedbackState,
+      economy: economyResult.flow,
+      economyArtifact: artifact
     })
   });
 
   return {
     worldEvent: updated,
-    world_delta: result.world_delta
+    world_delta: result.world_delta,
+    economy_delta: economyResult.economy_delta
   };
 }
 
@@ -167,8 +215,12 @@ export function worldEventToStreamContent(worldEvent, worldState) {
     ? getDialogueLine(worldEvent.interactive.npc, worldEvent.interactive.npc.current_state || 'greet')
     : (worldEvent.npc.greeting || worldEvent.npc.name);
 
-  const artifactHint = worldEvent.artifact && worldEvent.artifact.rarity_label
-    ? '信物已生成 · ' + worldEvent.artifact.rarity_label
+  const artifactHint = worldEvent.artifact
+    ? [
+        worldEvent.artifact.rarity_label || '普通',
+        worldEvent.artifact.value ? '价值 ' + worldEvent.artifact.value : null,
+        worldEvent.artifact.market ? '市价 ' + worldEvent.artifact.market.market_price : null
+      ].filter(Boolean).join(' · ')
     : '信物已生成';
 
   const items = [

@@ -1,7 +1,33 @@
 /**
- * WORLD_FEEDBACK_LOOP — V0.5.1 user action → world_delta
- * Updates world_state, npc_state, artifact_spawn_rate
+ * WORLD_FEEDBACK_LOOP — V0.7 final stabilization
+ *
+ * No switch-case. No direct mutation outside commit().
+ * All handlers are pure functions returning { worldChanges, stateChanges }.
+ * All events route through processEvent() only.
  */
+
+import normalizeEvent from './core/event_normalizer.js';
+import { validateEvent } from './core/event_validator.js';
+import { createEventContext } from './core/event_context.js';
+import { commit } from './core/world_commit_layer.js';
+import { worldGovernor } from './core/world_governor.js';
+import { worldStabilizer } from './core/world_stabilizer.js';
+import { worldEntropyController } from './core/world_entropy_controller.js';
+import { worldCompactionEngine } from './core/world_compaction_engine.js';
+
+/* ── handler registry ── */
+
+const handlers = {};
+
+export function registerHandler(eventType, fn) {
+  handlers[eventType] = fn;
+}
+
+function getHandler(eventType) {
+  return handlers[eventType] || null;
+}
+
+/* ── public entry: create initial state ── */
 
 export function createFeedbackState(worldEvent) {
   const seedHash = (worldEvent && worldEvent.meta && worldEvent.meta.seedHash) || 0;
@@ -16,14 +42,62 @@ export function createFeedbackState(worldEvent) {
   };
 }
 
+/* ── main pipeline entry ── */
+
 /**
- * Process user_action and return updated feedback + world_delta.
- * @param {{ type: string, [key: string]: unknown }} user_action
- * @param {{ feedbackState: object, worldEvent: object, npc: object|null }} context
+ * Process raw event through the full pipeline:
+ *   normalize → validate → route → execute → commit
+ *
+ * Returns { world_delta, feedbackState }.
+ */
+export function processEvent(event, baseContext) {
+
+  const context = createEventContext(baseContext);
+
+  const normalized = normalizeEvent(event);
+
+  if (!validateEvent(normalized)) {
+    context.world_delta.messages = context.world_delta.messages || [];
+    context.world_delta.messages.push('Unknown event ignored');
+    return context;
+  }
+
+  const handler = getHandler(normalized.type);
+
+  if (!handler) {
+    context.world_delta.messages = context.world_delta.messages || [];
+    context.world_delta.messages.push('No handler found');
+    return context;
+  }
+
+  const result = handler(normalized, context);
+
+  const committed = commit(result, context);
+
+  return worldCompactionEngine(
+    worldEntropyController(
+      worldStabilizer(
+        worldGovernor(committed)
+      )
+    )
+  );
+}
+
+/* ── backward-compatible wrapper ── */
+
+/**
+ * processUserAction — same signature as V0.5.1+.
+ * Returns { feedbackState, world_delta }.
  */
 export function processUserAction(user_action, context) {
-  const feedbackState = Object.assign({}, context.feedbackState || createFeedbackState(context.worldEvent));
-  const world_delta = {
+  const feedbackState = Object.assign(
+    {},
+    context && context.feedbackState
+      ? context.feedbackState
+      : createFeedbackState(context ? context.worldEvent : null)
+  );
+
+  const deltaBase = {
     world_state_shift: null,
     npc_state_shift: null,
     artifact_spawn_rate_delta: 0,
@@ -31,99 +105,121 @@ export function processUserAction(user_action, context) {
     messages: []
   };
 
-  if (!user_action || !user_action.type) {
-    return { feedbackState: feedbackState, world_delta: world_delta };
-  }
+  const result = processEvent(user_action, {
+    world_delta: deltaBase,
+    feedbackState: feedbackState
+  });
 
-  switch (user_action.type) {
-    case 'npc_dialogue_advance':
-      applyNpcDialogueAction(user_action, feedbackState, world_delta);
-      break;
-    case 'npc_dialogue_set':
-      applyNpcDialogueSet(user_action, feedbackState, world_delta);
-      break;
-    case 'artifact_acquire':
-      applyArtifactAcquire(user_action, feedbackState, world_delta);
-      break;
-    case 'artifact_upgrade':
-      applyArtifactUpgrade(user_action, feedbackState, world_delta);
-      break;
-    case 'artifact_combine':
-      applyArtifactCombine(user_action, feedbackState, world_delta);
-      break;
-    case 'card_interact':
-      applyCardInteract(user_action, feedbackState, world_delta);
-      break;
-    default:
-      world_delta.messages.push('世界收到了你的回响。');
-      feedbackState.interaction_count += 1;
-  }
-
-  feedbackState.resonance += world_delta.resonance_delta;
-  return { feedbackState: feedbackState, world_delta: world_delta };
+  return {
+    feedbackState: result.feedbackState,
+    world_delta: result.world_delta
+  };
 }
 
-function applyNpcDialogueAction(action, feedbackState, world_delta) {
-  const to = action.to || 'story';
-  feedbackState.npc_state = to;
-  world_delta.npc_state_shift = to;
-  feedbackState.interaction_count += 1;
-  world_delta.resonance_delta = 1;
-  world_delta.messages.push('NPC 回应了你的脚步。');
+/* ── pure handlers (one per event type, fully isolated) ── */
+
+function handleNpcDialogueAdvance(normalized, context) {
+  const to = normalized.payload.to || 'story';
+
+  const worldChanges = {
+    npc_state_shift: to,
+    resonance_delta: 1,
+    messages: ['NPC 回应了你的脚步。']
+  };
+
+  const stateChanges = {
+    npc_state: to,
+    interaction_count: (context.feedbackState.interaction_count || 0) + 1
+  };
 
   if (to === 'hint') {
-    feedbackState.artifact_spawn_rate = clampRate(feedbackState.artifact_spawn_rate + 0.08);
-    world_delta.artifact_spawn_rate_delta = 0.08;
+    worldChanges.artifact_spawn_rate_delta = 0.08;
   }
 
   if (to === 'reward') {
-    feedbackState.artifact_spawn_rate = clampRate(feedbackState.artifact_spawn_rate + 0.15);
-    world_delta.artifact_spawn_rate_delta = 0.15;
-    world_delta.world_state_shift = 'revelation_near';
-    world_delta.messages.push('信物显现概率提升。');
+    worldChanges.artifact_spawn_rate_delta = 0.15;
+    worldChanges.world_state_shift = 'revelation_near';
+    worldChanges.messages.push('信物显现概率提升。');
   }
+
+  return { worldChanges: worldChanges, stateChanges: stateChanges };
 }
 
-function applyNpcDialogueSet(action, feedbackState, world_delta) {
-  feedbackState.npc_state = action.state || feedbackState.npc_state;
-  world_delta.npc_state_shift = feedbackState.npc_state;
-  feedbackState.interaction_count += 1;
+function handleNpcDialogueSet(normalized, context) {
+  const npcState = normalized.payload.state || 'idle';
+
+  return {
+    worldChanges: {
+      npc_state_shift: npcState
+    },
+    stateChanges: {
+      npc_state: npcState,
+      interaction_count: (context.feedbackState.interaction_count || 0) + 1
+    }
+  };
 }
 
-function applyArtifactAcquire(action, feedbackState, world_delta) {
-  feedbackState.artifact_spawn_rate = clampRate(feedbackState.artifact_spawn_rate - 0.12);
-  world_delta.artifact_spawn_rate_delta = -0.12;
-  world_delta.world_state_shift = 'resonance_up';
-  world_delta.resonance_delta = 2;
-  feedbackState.interaction_count += 1;
-  world_delta.messages.push('信物已纳入你的世界。');
+function handleArtifactAcquire(normalized, context) {
+  return {
+    worldChanges: {
+      world_state_shift: 'resonance_up',
+      artifact_spawn_rate_delta: -0.12,
+      resonance_delta: 2,
+      messages: ['信物已纳入你的世界。']
+    },
+    stateChanges: {
+      interaction_count: (context.feedbackState.interaction_count || 0) + 1
+    }
+  };
 }
 
-function applyArtifactUpgrade(action, feedbackState, world_delta) {
-  world_delta.world_state_shift = 'artifact_refined';
-  world_delta.resonance_delta = 3;
-  feedbackState.interaction_count += 1;
-  world_delta.messages.push('信物品阶提升，世界回响加深。');
+function handleArtifactUpgrade() {
+  return {
+    worldChanges: {
+      world_state_shift: 'artifact_refined',
+      resonance_delta: 3,
+      messages: ['信物品阶提升，世界回响加深。']
+    },
+    stateChanges: {
+      interaction_count: 0
+    }
+  };
 }
 
-function applyArtifactCombine(action, feedbackState, world_delta) {
-  world_delta.world_state_shift = 'artifact_fused';
-  world_delta.resonance_delta = 5;
-  feedbackState.artifact_spawn_rate = clampRate(feedbackState.artifact_spawn_rate + 0.05);
-  world_delta.artifact_spawn_rate_delta = 0.05;
-  feedbackState.interaction_count += 1;
-  world_delta.messages.push('两道信物合真，世界为之轻颤。');
+function handleArtifactCombine() {
+  return {
+    worldChanges: {
+      world_state_shift: 'artifact_fused',
+      artifact_spawn_rate_delta: 0.05,
+      resonance_delta: 5,
+      messages: ['两道信物合真，世界为之轻颤。']
+    },
+    stateChanges: {
+      interaction_count: 0
+    }
+  };
 }
 
-function applyCardInteract(action, feedbackState, world_delta) {
-  feedbackState.npc_state = 'engaged';
-  world_delta.npc_state_shift = 'engaged';
-  feedbackState.artifact_spawn_rate = clampRate(feedbackState.artifact_spawn_rate + 0.05);
-  world_delta.artifact_spawn_rate_delta = 0.05;
-  world_delta.resonance_delta = 1;
-  feedbackState.interaction_count += 1;
+function handleCardInteract() {
+  return {
+    worldChanges: {
+      npc_state_shift: 'engaged',
+      artifact_spawn_rate_delta: 0.05,
+      resonance_delta: 1,
+      messages: []
+    },
+    stateChanges: {
+      npc_state: 'engaged',
+      interaction_count: 0
+    }
+  };
 }
 
-function clampRate(value) {
-  return Math.max(0.1, Math.min(1, value));
-}
+/* ── register handlers on import ── */
+
+registerHandler('npc_dialogue_advance', handleNpcDialogueAdvance);
+registerHandler('npc_dialogue_set', handleNpcDialogueSet);
+registerHandler('artifact_acquire', handleArtifactAcquire);
+registerHandler('artifact_upgrade', handleArtifactUpgrade);
+registerHandler('artifact_combine', handleArtifactCombine);
+registerHandler('card_interact', handleCardInteract);

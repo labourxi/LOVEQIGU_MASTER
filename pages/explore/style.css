@@ -143,3 +143,70 @@ body[data-world-atmosphere="active"] .stream-item .bg::after {
 .interaction-hook__btn--artifact {
   border-color: var(--color-gold-bright);
 }
+
+.interaction-hook__title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.interaction-hook__title-row .interaction-hook__name {
+  margin-bottom: 0;
+}
+
+.interaction-hook__badge {
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 188, 132, 0.45);
+  color: var(--color-gold-bright);
+}
+
+.interaction-hook__badge--rare {
+  background: rgba(212, 188, 132, 0.12);
+}
+
+.interaction-hook__rare-hint {
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: var(--color-gold-bright);
+  margin-bottom: 8px;
+  opacity: 0.9;
+}
+
+.interaction-hook__value-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.interaction-hook__value,
+.interaction-hook__market {
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  color: var(--color-text-main);
+}
+
+.interaction-hook__market {
+  color: rgba(148, 198, 240, 0.95);
+}
+
+.interaction-hook__upgrade-hint {
+  font-size: 0.7rem;
+  color: rgba(212, 188, 132, 0.85);
+  margin-bottom: 8px;
+}
+
+.interaction-hook__btn-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.interaction-hook__btn--upgrade {
+  border-color: rgba(148, 198, 240, 0.5);
+}
