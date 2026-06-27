@@ -1,0 +1,290 @@
+/**
+ * WORLD ATMOSPHERE — 世界视觉母体系统
+ *
+ * 所有页面必须继承本系统。
+ * 禁止页面独立风格 — 所有视觉变体仅通过 data-page 属性区分。
+ *
+ * ─────────────────────────────────────────────────────────
+ * 四大子系统
+ * ─────────────────────────────────────────────────────────
+ *
+ * 1. light system（光层级）
+ *    - 环境光（ambient）：页面基底光色
+ *    - 聚焦光（focus）：交互点的高光
+ *    - 显现光（reveal）：信物显现时的金色光
+ *
+ * 2. fog system（雾层级）
+ *    - 远雾（deep）：空间最深处
+ *    - 中雾（mid）：空间中部
+ *    - 近雾（near）：空间最近层
+ *
+ * 3. depth system（空间深度）
+ *    - 背景层（z-0）：星 + 天
+ *    - 雾层（z-1）：雾
+ *    - 世界层（z-2）：光路 + 粒子
+ *    - 内容层（z-3）：可交互内容
+ *    - 前景层（z-4）：覆盖/弹窗
+ *
+ * 4. material system（材质规则）
+ *    - 无纯色填充（任何表面必须有梯度/雾/光）
+ *    - 无硬边（border-radius 仅用于自然遮蔽）
+ *    - 无反射材质（非科技感）
+ *
+ * ─────────────────────────────────────────────────────────
+ * 合规引用
+ * ─────────────────────────────────────────────────────────
+ *
+ * - visual_tokens.css (CSS 变量基底)
+ * - visual_language_v1.js (LIGHT / MIST / STAR 哲学)
+ */
+
+/* ════════════════════════════════════════════════════════════
+   1. LIGHT SYSTEM — 光层级
+   ════════════════════════════════════════════════════════════ */
+
+/* 环境光 — 页面整体光色 */
+.world-ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 40%,
+    var(--world-ambient-glow, rgba(60, 100, 160, 0.06)) 0%,
+    transparent 70%
+  );
+}
+
+/* 聚焦光 — 可交互点的光晕（由节点触发） */
+.world-focus-glow {
+  position: fixed;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    circle,
+    var(--light-gold-soft, rgba(212, 188, 132, 0.12)) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.world-focus-glow.active {
+  opacity: 1;
+}
+
+/* 显现光 — 信物显现时的金色光 */
+.world-reveal-light {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 50% 40% at 50% 50%,
+    var(--light-gold-core, rgba(232, 208, 152, 0.08)) 0%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.world-reveal-light.active {
+  opacity: 1;
+}
+
+/* 光呼吸（全局呼吸节律 — 所有光同步） */
+@keyframes world-breath {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   2. FOG SYSTEM — 雾层级
+   ════════════════════════════════════════════════════════════ */
+
+.world-fog {
+  position: fixed;
+  inset: -12%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* 远雾 — 背景最深处 */
+.world-fog__deep {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 65%, var(--world-mist, rgba(72, 108, 168, 0.35)) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 40% at 20% 40%, var(--world-mist-deep, rgba(48, 78, 128, 0.28)) 0%, transparent 48%),
+    radial-gradient(ellipse 50% 35% at 80% 35%, var(--world-mist-accent, rgba(88, 128, 188, 0.25)) 0%, transparent 46%);
+  filter: blur(32px);
+  opacity: 0.7;
+}
+
+/* 中雾 — 空间中部 */
+.world-fog__mid {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 35% at 50% 45%, rgba(72, 108, 168, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 25% at 30% 55%, rgba(48, 78, 128, 0.06) 0%, transparent 45%);
+  filter: blur(18px);
+  opacity: 0.5;
+}
+
+/* 近雾 — 空间最近层（地平线） */
+.world-fog__near {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 30%;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    var(--horizon-mid, rgba(18, 36, 68, 0.3)) 40%,
+    var(--horizon-bottom, rgba(12, 28, 52, 0.7)) 100%
+  );
+  filter: blur(4px);
+}
+
+/* ════════════════════════════════════════════════════════════
+   3. DEPTH SYSTEM — 空间深度层级
+   ════════════════════════════════════════════════════════════ */
+
+.world-depth {
+  /* z-index 层规则 */
+  /* 星、天 → z-0 */
+  /* 雾 → z-1 (world-fog) */
+  /* 光路 + 粒子 → z-2 (world-light-path, world-particles) */
+  /* 内容 → z-3 (world-content) */
+  /* 前景 → z-4 (world-overlay) */
+}
+
+/* 星层 — z-0 */
+.world-stars {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1px 1px at 14% 20%, var(--star-dot, rgba(210, 228, 255, 0.48)) 50%, transparent 51%),
+    radial-gradient(1px 1px at 84% 16%, var(--star-dot) 50%, transparent 51%),
+    radial-gradient(1.2px 1.2px at 46% 10%, var(--star-dot-gold, rgba(212, 188, 132, 0.38)) 50%, transparent 51%),
+    radial-gradient(1px 1px at 66% 40%, var(--star-dot) 50%, transparent 51%),
+    radial-gradient(1px 1px at 20% 56%, var(--star-dot) 50%, transparent 51%),
+    radial-gradient(1px 1px at 88% 64%, var(--star-dot) 50%, transparent 51%);
+  opacity: 0.5;
+}
+
+/* 光路 — z-2 */
+.world-light-path {
+  position: fixed;
+  left: 50%;
+  bottom: 12%;
+  z-index: 2;
+  width: 1px;
+  height: 24%;
+  margin-left: -0.5px;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    var(--light-gold-soft, rgba(212, 188, 132, 0.25)) 30%,
+    var(--light-gold-edge, rgba(232, 208, 152, 0.38)) 55%,
+    transparent 100%
+  );
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* 粒子 Canvas — z-2 */
+.world-particles {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* 内容层 — z-3 */
+.world-content {
+  position: relative;
+  z-index: 3;
+}
+
+/* ════════════════════════════════════════════════════════════
+   4. MATERIAL SYSTEM — 材质规则
+   ════════════════════════════════════════════════════════════ */
+
+/* 无纯色填充 — 表面始终有梯度 */
+@define-mixin surface-glass {
+  background: linear-gradient(145deg,
+    rgba(18, 32, 58, 0.25) 0%,
+    rgba(12, 24, 48, 0.2) 100%
+  );
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+/* 无硬边 */
+@define-mixin edge-soft {
+  border: none;
+  outline: 1px solid rgba(198, 210, 240, 0.06);
+  outline-offset: -1px;
+}
+
+/* 自然光边缘（非描边） */
+@define-mixin edge-light {
+  box-shadow: 0 0 0 1px rgba(212, 188, 132, 0.08) inset;
+}
+
+/* ════════════════════════════════════════════════════════════
+   全局页面基座 — 所有页面继承
+   ════════════════════════════════════════════════════════════ */
+
+body {
+  background: var(--world-bg-start, #0c1e3d);
+  color: var(--text-title, rgba(228, 236, 248, 0.92));
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* 背景渐变（所有页面共享） */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    var(--world-bg-start, #0c1e3d) 0%,
+    var(--world-bg-end, #152952) 48%,
+    var(--world-bg-deep, #0f2244) 100%
+  );
+}
+
+/* 继承雾效（所有页面共享） */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -10%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 72% 44% at 50% 0%, var(--world-mist, rgba(72, 108, 168, 0.38)) 0%, transparent 52%),
+    radial-gradient(ellipse 52% 38% at 22% 58%, var(--world-mist-deep, rgba(48, 78, 128, 0.28)) 0%, transparent 48%),
+    radial-gradient(ellipse 48% 34% at 78% 42%, var(--world-mist-accent, rgba(88, 128, 188, 0.24)) 0%, transparent 46%);
+  filter: blur(24px);
+  opacity: 0.68;
+}
+
+/* 页面标识 */
+[data-page] {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}

@@ -5,6 +5,7 @@ const { bindPilotRuntime } = require('../../services/ar/ar-pilot-runtime.js');
 const persistence = require('../../services/ar/ar-persistence-store.js');
 const spatialStore = require('../../services/ar/ar-spatial-store.js');
 const cloud = require('../../services/ar/ar-cloud-sync.js');
+const xrStability = require('../../services/ar/xr-stability-layer.js');
 
 const XR_STATE = Object.freeze({
   IDLE: 'IDLE',
@@ -20,6 +21,7 @@ function createRuntimeBuilder(options = {}) {
   const steps = [];
   let running = false;
   const context = options.context || null;
+  const pageCtx = options.pageCtx || null;
   let scheduled = false;
   let spatialRelicRenderBound = false;
   let worldLifecycleBound = false;
@@ -37,6 +39,7 @@ function createRuntimeBuilder(options = {}) {
     worldEngine: null,
     cameraStarter: null
   };
+  let xrStabilityResult = null;
 
   function emitStateChange(previous, next, detail = {}) {
     bus.emit('XR_STATE_CHANGE', {
@@ -488,13 +491,111 @@ function createRuntimeBuilder(options = {}) {
     return getXRState();
   }
 
+  /**
+   * 带稳定性加固的 XR 启动入口。
+   * 使用 xrStability.executeXRInit 包装，含重试（800ms/1500ms/2500ms）
+   * / 超时（6s）/ 设备检测 / fallback UI。
+   *
+   * @param {object} payload
+   * @returns {Promise<{status: string, mode: string, reason: string}>}
+   */
+  function startXRPipelineStable(payload) {
+    payload = payload || {};
+
+    function buildPipelineFn() {
+      return new Promise(function (resolve, reject) {
+        bindXRPipeline();
+        resetXRReadiness();
+        setXRState(XR_STATE.INIT, {
+          source: payload && payload.source ? payload.source : 'entry_button'
+        });
+        scheduleXRFailure();
+
+        yieldToFrame().then(function () {
+          startXRRenderPipeline({
+            loadStarScene: function () {
+              if (xrContext.worldEngine && typeof xrContext.worldEngine.start === 'function') {
+                return Promise.resolve().then(function () { return xrContext.worldEngine.start(); });
+              }
+              return null;
+            },
+            loadMeridianScene: function () {
+              if (typeof xrContext.cameraStarter === 'function') {
+                return Promise.resolve().then(function () { return xrContext.cameraStarter(payload); });
+              }
+              return null;
+            },
+            renderInWorldSpace: function (position, relic) {
+              return XR_SAFE_RENDER(function () {
+                bus.emit('XR_RENDER_WORLD_SPACE', {
+                  position: position || (relic && relic.position) || null,
+                  relic: relic || null
+                });
+                return true;
+              }, relic);
+            }
+          }).then(function (res) {
+            if (!xrUserTriggerEmitted) {
+              xrUserTriggerEmitted = true;
+              bus.emit('XR_USER_TRIGGER', {
+                source: 'pipeline',
+                readiness: Object.assign({}, xrReadyFlags)
+              });
+            }
+            resolve(res);
+          }).catch(function (err) {
+            reject(err);
+          });
+        });
+      });
+    }
+
+    return xrStability.executeXRInit({
+      pipeline: buildPipelineFn,
+      pageCtx: pageCtx,
+      onAttempt: function (attempt, maxRetry) {
+        bus.emit('XR_STATE_CHANGE', {
+          previous: xrState,
+          state: XR_STATE.INIT,
+          detail: {
+            attempt: attempt,
+            maxRetry: maxRetry,
+            source: payload && payload.source ? payload.source : 'entry_button'
+          }
+        });
+      }
+    }).then(function (result) {
+      xrStabilityResult = result;
+      xrStability.broadcastXRResult(bus, result);
+
+      if (result.status === 'success') {
+        setXRState(XR_STATE.RUNNING, {
+          mode: result.mode,
+          reason: result.reason
+        });
+      } else {
+        if (xrState !== XR_STATE.FAILED && xrState !== XR_STATE.RUNNING) {
+          clearXRReadyTimeout();
+          setXRState(XR_STATE.FAILED, {
+            reason: result.reason || 'stability_fallback',
+            mode: result.mode,
+            stabilityResult: result
+          });
+        }
+      }
+
+      return result;
+    });
+  }
+
   function getXRState() {
     return {
       state: xrState,
       readiness: {
         ...xrReadyFlags
       },
-      contextBound: xrContextBound
+      contextBound: xrContextBound,
+      stability: xrStabilityResult
     };
   }
 
@@ -532,11 +633,14 @@ function createRuntimeBuilder(options = {}) {
     bindXRContext,
     SAFE_RUNTIME_GUARD: safeRuntimeGuard,
     startXRPipeline,
+    startXRPipelineStable,
     XR_START_PIPELINE: startXRPipeline,
     XR_STATE,
     getXRState,
     startXRRenderPipeline,
-    scheduler
+    scheduler,
+    getXRErrorLog: xrStability.getXRErrorLog,
+    clearXRErrorLog: xrStability.clearXRErrorLog
   };
 
   return api;

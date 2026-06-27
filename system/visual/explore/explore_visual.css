@@ -1,0 +1,310 @@
+/**
+ * EXPLORE VISUAL — 探索页视觉系统
+ *
+ * 设计要求：
+ *   ✔ scene_map 可视化
+ *   ✔ 节点卡片化展示
+ *   ✔ 空间层级（远/中/近）
+ *   ✔ 可点击节点必须"发光"
+ *
+ * 视觉引用：
+ *   - visual_tokens.css (CSS 变量基底)
+ *   - visual_language_v1.js (LIGHT / MIST / REVELATION)
+ *   - motion/motion_visual.css (reveal / glow-pulse / fade)
+ *
+ * 节点状态映射：
+ *   LOCKED    → 灰阶不可点
+ *   ACTIVE    → 发光可点击
+ *   COLLECTED → 已收集点亮
+ */
+
+/* ─── Explore 背景 ─── */
+body[data-page="explore"] {
+  background: var(--world-bg-start, #0c1e3d);
+  color: var(--text-title, rgba(228,236,248,0.92));
+  font-family: var(--font-sans, "PingFang SC", sans-serif);
+  min-height: 100vh;
+}
+
+/* ─── 世界雾效层 ─── */
+.explore-world-mist {
+  position: fixed;
+  inset: -10%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 72% 44% at 50% 0%, var(--world-mist, rgba(72,108,168,0.42)) 0%, transparent 52%),
+    radial-gradient(ellipse 52% 38% at 22% 58%, var(--world-mist-deep, rgba(48,78,128,0.38)) 0%, transparent 48%),
+    radial-gradient(ellipse 48% 34% at 78% 42%, var(--world-mist-accent, rgba(88,128,188,0.32)) 0%, transparent 46%);
+  filter: blur(22px);
+  opacity: 0.72;
+}
+
+/* ══════════════════════════════════════════════
+   Header
+   ══════════════════════════════════════════════ */
+
+.explore-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 10px;
+  padding-top: calc(18px + env(safe-area-inset-top, 0));
+}
+
+.explore-header__back {
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: 0.78rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: var(--text-whisper, rgba(148,168,198,0.68));
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.explore-header__back:hover {
+  color: var(--text-subtitle, rgba(168,184,210,0.72));
+}
+
+.explore-header__title {
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: 0.88rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  color: var(--text-title, rgba(228,236,248,0.92));
+}
+
+.explore-header__progress {
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: 0.78rem;
+  color: var(--light-gold-soft, rgba(212,188,132,0.55));
+  letter-spacing: 0.06em;
+}
+
+/* ══════════════════════════════════════════════
+   进度条
+   ══════════════════════════════════════════════ */
+
+.explore-progress-track {
+  position: relative;
+  z-index: 2;
+  height: 2px;
+  margin: 0 20px;
+  background: var(--glass-stroke, rgba(198,210,240,0.08));
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.explore-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg,
+    var(--light-gold-edge, rgba(232,208,152,0.42)) 0%,
+    var(--light-gold-core, rgba(232,208,152,0.62)) 50%,
+    var(--light-gold, rgba(212,188,132,0.82)) 100%
+  );
+  border-radius: 1px;
+  transition: width 0.6s var(--ease-breath, cubic-bezier(0.45,0.05,0.55,0.95));
+  box-shadow: 0 0 8px var(--light-gold-soft, rgba(212,188,132,0.28));
+}
+
+/* ══════════════════════════════════════════════
+   导语区
+   ══════════════════════════════════════════════ */
+
+.explore-intro {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 28px 20px 20px;
+}
+
+.explore-intro__text {
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: 0.76rem;
+  font-weight: 300;
+  letter-spacing: 0.16em;
+  color: var(--text-whisper, rgba(148,168,198,0.55));
+}
+
+/* ══════════════════════════════════════════════
+   场景节点网格
+   ══════════════════════════════════════════════ */
+
+.explore-nodes {
+  position: relative;
+  z-index: 1;
+  padding: 4px 16px 32px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ─── 节点卡片（基础样式） ─── */
+.node-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  border-radius: var(--radius-card, 22px);
+  border: 1px solid var(--glass-stroke, rgba(198,210,240,0.1));
+  background: var(--glass-surface, rgba(18,32,58,0.52));
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.55s var(--ease-breath, cubic-bezier(0.45,0.05,0.55,0.95));
+  cursor: default;
+}
+
+.node-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--glass-highlight, rgba(228,236,248,0.04)) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.55s ease;
+}
+
+/* ─── LOCKED 状态：灰阶不可点 ─── */
+.node-card.state-locked {
+  filter: grayscale(0.7);
+  opacity: 0.5;
+  cursor: default;
+  border-color: rgba(198, 210, 240, 0.06);
+}
+
+.node-card.state-locked:hover::before {
+  opacity: 0;
+}
+
+/* ─── ACTIVE 状态：发光可点击 ─── */
+.node-card.state-active {
+  cursor: pointer;
+  border-color: var(--light-gold-edge, rgba(232,208,152,0.32));
+  box-shadow:
+    0 4px 24px var(--shadow-deep, rgba(8,16,32,0.32)),
+    0 0 12px var(--light-gold-soft, rgba(212,188,132,0.15));
+  animation: motion-glow-pulse 2.5s ease-in-out infinite;
+}
+
+.node-card.state-active:hover {
+  transform: translateY(-2px);
+  border-color: var(--light-gold, rgba(212,188,132,0.52));
+  box-shadow:
+    0 6px 32px var(--shadow-deep, rgba(8,16,32,0.32)),
+    0 0 24px var(--light-gold-soft, rgba(212,188,132,0.28)),
+    0 0 0 var(--revelation-glow-outer, rgba(120,168,228,0.08));
+}
+
+.node-card.state-active:hover::before {
+  opacity: 1;
+}
+
+.node-card.state-active:active {
+  transform: translateY(0);
+}
+
+/* ─── COLLECTED 状态：已收集点亮 ─── */
+.node-card.state-collected {
+  border-color: rgba(100, 180, 100, 0.25);
+  opacity: 0.85;
+  cursor: default;
+  background: rgba(18, 32, 58, 0.35);
+}
+
+.node-card.state-collected .node-card__icon {
+  color: rgba(100, 180, 100, 0.6);
+}
+
+.node-card.state-collected .node-card__badge {
+  background: rgba(100, 180, 100, 0.15);
+  color: rgba(160, 216, 160, 0.7);
+  border-color: rgba(100, 180, 100, 0.2);
+}
+
+/* ══════════════════════════════════════════════
+   节点卡片内部组件
+   ══════════════════════════════════════════════ */
+
+.node-card__icon {
+  flex-shrink: 0;
+  font-size: 22px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--glass-stroke, rgba(198,210,240,0.08));
+}
+
+.node-card__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.node-card__name {
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: 0.88rem;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: var(--text-title, rgba(228,236,248,0.92));
+  margin-bottom: 3px;
+}
+
+.node-card__type {
+  font-size: 0.68rem;
+  color: var(--text-whisper, rgba(148,168,198,0.55));
+  letter-spacing: 0.06em;
+}
+
+.node-card__badge {
+  flex-shrink: 0;
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--glass-stroke, rgba(198,210,240,0.1));
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-whisper, rgba(148,168,198,0.5));
+}
+
+.node-card.state-active .node-card__badge {
+  color: var(--light-gold, rgba(212,188,132,0.6));
+  border-color: var(--light-gold-edge, rgba(232,208,152,0.25));
+  background: rgba(212, 188, 132, 0.06);
+}
+
+/* ─── 空间层级（远/中/近） ─── */
+.node-card.depth-distant {
+  transform: scale(0.94);
+  opacity: 0.7;
+}
+
+.node-card.depth-mid {
+  transform: scale(0.98);
+  opacity: 0.85;
+}
+
+.node-card.depth-close {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* ─── 入场动画（stagger） ─── */
+.node-card {
+  opacity: 0;
+  animation: motion-reveal-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.node-card:nth-child(1) { animation-delay: 100ms; }
+.node-card:nth-child(2) { animation-delay: 150ms; }
+.node-card:nth-child(3) { animation-delay: 200ms; }
+.node-card:nth-child(4) { animation-delay: 250ms; }
+.node-card:nth-child(5) { animation-delay: 300ms; }
+.node-card:nth-child(6) { animation-delay: 350ms; }
+.node-card:nth-child(7) { animation-delay: 400ms; }

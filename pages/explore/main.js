@@ -1,4 +1,14 @@
-import { bootstrap } from '../../bootstrap.js';
+/**
+ * EXPLORE MAIN — 探索流页面
+ *
+ * SYSTEM_CONVERGENCE_V1:
+ *   - bootstrap() is the single world init entry, called from index.html
+ *   - No direct initState / setWorldState / recordEvent / generateWorld here
+ *   - Only accesses bootstrap result via getBootstrapResult()
+ *   - Purely render + interaction binding
+ */
+
+import { bootstrap, getBootstrapResult } from '../../bootstrap.js';
 import { getWorldState } from '../../system/world_engine/state_machine.js';
 import { getWorldMemory } from '../../system/world_engine/world_memory.js';
 import { world_generator } from '../../system/world_engine/world_generator.js';
@@ -12,11 +22,14 @@ import {
   processInteractiveAction
 } from '../../system/world_generator.js';
 import { renderStream } from '../../render/stream_renderer.js';
-import { enterExplore } from '../../system/world_engine/world_runtime.js';
 import { bindExploreCardMotion } from '../../system/visual/motion.js';
 import { initExploreInteractionHooks } from './interaction_hooks.js';
 
-bootstrap();
+// Bootstrap as early as possible
+bootstrap({ type: 'explore_enter' });
+
+// Retrieve cached bootstrap result (world is already generated)
+const bootstrapResult = getBootstrapResult();
 
 let activeWorldEvent = getGeneratedWorldEvent();
 
@@ -63,13 +76,10 @@ if (container) {
   }, true);
 }
 
-enterExplore({ type: 'enter', data: 'landing_click' });
 pushWorldStream();
 bindInteractionHooks();
 
 function handleContentAction(contentData) {
-  enterExplore(contentData);
-
   if (activeWorldEvent) {
     const result = processInteractiveAction({
       type: 'card_interact',

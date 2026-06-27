@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>AR游伴 — 欢迎</title>
+
+  <!-- 世界视觉母体 + Landing空间 -->
+  <link rel="stylesheet" href="../../system/visual/world_atmosphere/world_atmosphere.css" />
+  <link rel="stylesheet" href="../../system/visual/motion/motion_visual.css" />
+  <link rel="stylesheet" href="../../system/visual/pages/landing_spatial.css" />
+</head>
+<body data-page="landing">
+  <!-- 世界母体（继承 world_atmosphere） -->
+  <!-- body::before = background, body::after = 雾 -->
+
+  <!-- 空间内容 -->
+  <div class="landing-space">
+    <div class="landing-space__icon">◇</div>
+    <h1 class="landing-space__title">AR 游伴</h1>
+    <p class="landing-space__subtitle">爱企谷 · 数字探索</p>
+
+    <div class="landing-space__description">
+      <p>漫步爱企谷 7 个真实场景</p>
+      <p>收集 7 枚独有数字印记</p>
+      <p>探索属于你的文化旅程</p>
+    </div>
+
+    <div class="landing-space__scene-lights">
+      <div class="landing-space__light-dot">🚪</div>
+      <div class="landing-space__light-dot">🌳</div>
+      <div class="landing-space__light-dot">🏘️</div>
+      <div class="landing-space__light-dot">☕</div>
+      <div class="landing-space__light-dot">📖</div>
+      <div class="landing-space__light-dot">🛠️</div>
+      <div class="landing-space__light-dot">🏛️</div>
+    </div>
+
+    <div class="landing-space__entry">
+      <button id="login-btn" class="landing-space__entry-trigger" onclick="handleLogin()">
+        <span class="landing-space__spinner"></span>
+        微信登录 · 开始探索
+      </button>
+    </div>
+
+    <div id="error-msg" class="landing-space__error"></div>
+  </div>
+
+  <div class="landing-space__footer">LOVEQIGU · AIQIGU V1</div>
+
+  <script src="landing.js"></script>
+</body>
+</html>

@@ -1,7 +1,20 @@
-import { bootstrap } from '../../bootstrap.js';
-import { getGeneratedWorldEvent } from '../../system/world_memory.js';
+/**
+ * LANDING MAIN — 世界入口页面
+ *
+ * SYSTEM_CONVERGENCE_V1:
+ *   - bootstrap() is the single world init entry, called from index.html
+ *   - No direct initState / setWorldState / recordEvent / generateWorld here
+ *   - Only accesses bootstrap result via getBootstrapResult()
+ *   - Pure UI visual drift only
+ */
 
-bootstrap();
+import { bootstrap, getBootstrapResult } from '../../bootstrap.js';
+
+// Bootstrap as early as possible
+bootstrap({ type: 'landing_enter' });
+
+// After bootstrap, retrieve cached result for UI rendering
+const bootstrapResult = getBootstrapResult();
 
 const starTracks = document.querySelector('.world-layer__star-tracks');
 
@@ -18,33 +31,6 @@ function bindLandingVisualDrift() {
   requestAnimationFrame(bindLandingVisualDrift);
 }
 
-function applyGeneratedWorld() {
-  const worldEvent = getGeneratedWorldEvent();
-  if (!worldEvent) return;
-
-  const params = new URLSearchParams(window.location.search);
-  const isAr = params.get('entry') === 'ar-event';
-  const whisper = document.querySelector('.subtitle-layer__whisper');
-  const primary = document.querySelector('.subtitle-layer__primary');
-
-  if (whisper && worldEvent.npc) {
-    const greet = worldEvent.npc.dialogue_state
-      ? worldEvent.npc.dialogue_state.greet
-      : worldEvent.npc.greeting;
-    whisper.textContent = worldEvent.npc.name + '：' + greet;
-  }
-
-  if (primary && worldEvent.story) {
-    primary.textContent = worldEvent.location + ' · ' + worldEvent.story.title;
-  }
-
-  if (isAr && worldEvent.artifact) {
-    document.body.setAttribute('data-ar-artifact', worldEvent.artifact.id);
-    document.body.setAttribute('data-ar-npc', worldEvent.npc.id);
-  }
-}
-
 if (document.body && document.body.getAttribute('data-page') === 'landing') {
-  applyGeneratedWorld();
   requestAnimationFrame(bindLandingVisualDrift);
 }

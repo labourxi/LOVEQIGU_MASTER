@@ -1,0 +1,302 @@
+/**
+ * RELIC SPATIAL — 信物空间视觉系统
+ *
+ * 信物不是卡片，不是弹窗，是"空间中的显现"。
+ *
+ * 三态 — 空间中的三种光状态：
+ *
+ * STATE 1 — LOCKED
+ *   - 暗
+ *   - 半透明
+ *   - 无光
+ *   - 空间感受：遮蔽的存在
+ *
+ * STATE 2 — ACTIVE
+ *   - 微光
+ *   - 呼吸动画
+ *   - 可点击
+ *   - 空间感受：正在从雾中浮现
+ *
+ * STATE 3 — COLLECTED
+ *   - 完整显现
+ *   - 光环
+ *   - 稳定存在
+ *   - 空间感受：已被重新连接
+ *
+ * 禁止：
+ *   ❌ 卡片 UI（no relic-card, no popup-card）
+ *   ❌ 按钮（no btn-primary, no btn-close）
+ *   ❌ 弹窗（no overlay + card pattern）
+ *   ❌ 游戏化收集元素
+ *
+ * 合规引用：
+ *   - relic_visual_system_v1.js (RELIC_LIGHT / RELIC_FLOWS)
+ *   - visual_language_v1.js (LIGHT / REVELATION)
+ *   - world_atmosphere.css (inherit)
+ */
+
+/* ══════════════════════════════════════════════
+   信物显现 — 从雾中浮现的空间存在
+   ══════════════════════════════════════════════ */
+
+.relic-manifestation {
+  position: relative;
+  display: inline-block;
+  max-width: 320px;
+}
+
+/* ─── LOCKED — 暗 / 半透明 / 无光 ─── */
+.relic-manifestation.state-locked {
+  opacity: 0.2;
+  filter: grayscale(0.9) blur(1px);
+}
+
+.relic-manifestation.state-locked .relic-manifestation__name {
+  color: rgba(228, 236, 248, 0.2);
+  text-shadow: none;
+}
+
+.relic-manifestation.state-locked .relic-manifestation__light-ring {
+  opacity: 0;
+}
+
+/* ─── ACTIVE — 微光 / 呼吸 / 可交互 ─── */
+.relic-manifestation.state-active {
+  opacity: 1;
+}
+
+/* 信物的"光晕" — 不是背景，是空间中的光场 */
+.relic-manifestation.state-active .relic-manifestation__light-ring {
+  opacity: 0.6;
+  animation: relic-light-respire 2.5s ease-in-out infinite;
+}
+
+.relic-manifestation.state-active .relic-manifestation__name {
+  color: var(--light-gold, rgba(212, 188, 132, 0.78));
+  text-shadow: 0 0 32px var(--light-gold-soft, rgba(212, 188, 132, 0.2));
+}
+
+/* ─── COLLECTED — 完整显现 / 光环 / 稳定 ─── */
+.relic-manifestation.state-collected {
+  opacity: 1;
+}
+
+.relic-manifestation.state-collected .relic-manifestation__light-ring {
+  opacity: 0.4;
+  border-color: rgba(160, 216, 160, 0.3);
+  box-shadow: 0 0 32px rgba(160, 216, 160, 0.08), 0 0 0 1px rgba(160, 216, 160, 0.15) inset;
+  animation: none;
+}
+
+.relic-manifestation.state-collected .relic-manifestation__name {
+  color: rgba(160, 216, 160, 0.6);
+  text-shadow: 0 0 20px rgba(100, 180, 100, 0.1);
+}
+
+/* ══════════════════════════════════════════════
+   光晕 — 信物的空间存在标志
+   ══════════════════════════════════════════════ */
+
+.relic-manifestation__light-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  margin: -50px 0 0 -50px;
+  border-radius: 50%;
+  border: 1px solid var(--light-gold-edge, rgba(232, 208, 152, 0.25));
+  box-shadow:
+    0 0 40px var(--light-gold-soft, rgba(212, 188, 132, 0.1)),
+    0 0 0 1px var(--light-gold-soft, rgba(212, 188, 132, 0.08)) inset;
+  pointer-events: none;
+  transition: all 0.8s var(--ease-breath, cubic-bezier(0.45, 0.05, 0.55, 0.95));
+}
+
+@keyframes relic-light-respire {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.04);
+    opacity: 0.7;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   信物内容 — 不是卡片内容，是空间中的文本存在
+   ══════════════════════════════════════════════ */
+
+.relic-manifestation__content {
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+  text-align: center;
+}
+
+.relic-manifestation__title {
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: 0.72rem;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  color: var(--text-whisper, rgba(148, 168, 198, 0.5));
+  margin-bottom: 8px;
+}
+
+.relic-manifestation__name {
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: 1.3rem;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-indent: 0.18em;
+  transition: all 0.8s var(--ease-breath, cubic-bezier(0.45, 0.05, 0.55, 0.95));
+  padding: 8px 0;
+}
+
+/* 来源场景 — 轻声信息 */
+.relic-manifestation__source {
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: var(--text-whisper, rgba(148, 168, 198, 0.35));
+  margin-top: 4px;
+  transition: color 0.6s ease;
+}
+
+/* ══════════════════════════════════════════════
+   视觉阶段 — 光点序列
+   ══════════════════════════════════════════════ */
+
+.relic-manifestation__stages {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.relic-manifestation__stage-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  transition: all 0.6s ease;
+}
+
+/* ACTIVE 态的阶段点 */
+.relic-manifestation.state-active .relic-manifestation__stage-dot.active {
+  background: var(--light-gold-core, rgba(232, 208, 152, 0.5));
+  box-shadow: 0 0 8px var(--light-gold-soft, rgba(212, 188, 132, 0.3));
+}
+
+.relic-manifestation.state-active .relic-manifestation__stage-dot.active:nth-child(1) { animation-delay: 0ms; }
+.relic-manifestation.state-active .relic-manifestation__stage-dot.active:nth-child(2) { animation-delay: 300ms; }
+
+/* COLLECTED 态的阶段点 */
+.relic-manifestation.state-collected .relic-manifestation__stage-dot.active {
+  background: rgba(160, 216, 160, 0.4);
+  box-shadow: 0 0 4px rgba(100, 180, 100, 0.15);
+}
+
+/* ══════════════════════════════════════════════
+   信物覆盖层 — 非"弹窗"，是"空间焦点"
+   ══════════════════════════════════════════════ */
+
+.relic-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.relic-overlay__bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  pointer-events: auto;
+  animation: motion-overlay-in 0.4s ease-out;
+}
+
+.relic-overlay__focus {
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
+  max-width: 85vw;
+}
+
+/* 显现动画 */
+.relic-overlay__focus .relic-manifestation {
+  animation: motion-reveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* 收集动画 — 光绽放 */
+.relic-overlay__focus .relic-manifestation.state-collected {
+  animation: motion-burst 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* 错误状态 */
+.relic-overlay__focus .relic-manifestation.state-error {
+  filter: none;
+}
+
+.relic-overlay__focus .relic-manifestation.state-error .relic-manifestation__name {
+  color: rgba(248, 160, 160, 0.6);
+}
+
+/* ══════════════════════════════════════════════
+   收集确认 — 光消退入空间
+   ══════════════════════════════════════════════ */
+
+.relic-collect-confirm {
+  text-align: center;
+  padding: 20px;
+}
+
+.relic-collect-confirm__icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+  color: var(--light-gold-core, rgba(232, 208, 152, 0.5));
+}
+
+.relic-collect-confirm__text {
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: 0.82rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  color: var(--text-subtitle, rgba(168, 184, 210, 0.65));
+}
+
+.relic-collect-confirm__id {
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: 0.6rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: var(--text-whisper, rgba(148, 168, 198, 0.25));
+  margin-top: 6px;
+}
+
+/* ══════════════════════════════════════════════
+   信物三态 CSS 变量（供 JS 驱动）
+   ══════════════════════════════════════════════ */
+
+.relic-manifestation.state-locked {
+  --relic-light: none;
+  --relic-glow: none;
+  --relic-presence: 0.2;
+}
+
+.relic-manifestation.state-active {
+  --relic-light: var(--light-gold, rgba(212, 188, 132, 0.78));
+  --relic-glow: 0 0 32px var(--light-gold-soft);
+  --relic-presence: 1;
+}
+
+.relic-manifestation.state-collected {
+  --relic-light: rgba(160, 216, 160, 0.6);
+  --relic-glow: 0 0 20px rgba(100, 180, 100, 0.1);
+  --relic-presence: 1;
+}

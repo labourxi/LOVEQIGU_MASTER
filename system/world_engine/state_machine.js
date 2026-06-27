@@ -1,5 +1,12 @@
 /**
  * STATE_MACHINE — production-grade world state driver
+ *
+ * STRUCTURAL FREEZE (PRODUCTION_GUARD_V3):
+ *   - SINGLE SOURCE OF TRUTH for world state
+ *   - No other module may maintain independent state
+ *   - All state transitions MUST go through setWorldState()
+ *   - Passive: no auto-init at module level
+ *   - Singleton: must not be instantiated more than once
  */
 
 import { triggerRevelationBurst, clearRevelationState } from './revelation_engine.js';

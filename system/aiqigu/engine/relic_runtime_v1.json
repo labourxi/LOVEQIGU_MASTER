@@ -1,0 +1,317 @@
+{
+  "meta": {
+    "version": "AIQIGU_RELIC_ENGINE_RUNTIME_V1",
+    "date": "2026-06-27",
+    "title": "AR游伴 · 信物引擎 V1 — 运行示例数据",
+    "note": "本文件为 relic_engine_v1.js 引擎运行后的示例输出数据，展示用户从进入场景到收集完成的完整流程。",
+    "source_system": [
+      "/system/aiqigu/engine/relic_engine_v1.js",
+      "/system/aiqigu/engine/relic_state_machine_v1.js",
+      "/system/aiqigu/engine/relic_generator_v1.js",
+      "/system/aiqigu/engine/relic_store_v1.js"
+    ],
+    "data_source": "/system/aiqigu/v1/relic_system_v1.json",
+    "user_scenario": "新用户首次使用AR游伴，按推荐路径依次探索爱企谷7个场景节点"
+  },
+
+  "engine_init": {
+    "action": "initEngine(userId: 'user_demo_001')",
+    "result": {
+      "success": true,
+      "relic_count": 7,
+      "scenes": [
+        { "scene_id": "entrance_plaza", "has_relic": true, "relic_id": "relic_entrance_greeting", "trigger_type": "entry_trigger" },
+        { "scene_id": "entrance_landscape", "has_relic": true, "relic_id": "relic_garden_grove", "trigger_type": "proximity_trigger" },
+        { "scene_id": "jiangnan_street", "has_relic": true, "relic_id": "relic_street_sign", "trigger_type": "interaction_trigger" },
+        { "scene_id": "interior_cafe", "has_relic": true, "relic_id": "relic_cafe_seal", "trigger_type": "interaction_trigger" },
+        { "scene_id": "interior_bookstore", "has_relic": true, "relic_id": "relic_book_page", "trigger_type": "interaction_trigger" },
+        { "scene_id": "interior_craft_hall", "has_relic": true, "relic_id": "relic_craft_seal", "trigger_type": "interaction_trigger" },
+        { "scene_id": "central_plaza", "has_relic": true, "relic_id": "relic_center_core", "trigger_type": "proximity_trigger" }
+      ],
+      "userId": "user_demo_001"
+    }
+  },
+
+  "runtime_flow": [
+    {
+      "step": 1,
+      "action": "enterScene('entrance_plaza', 'user_demo_001')",
+      "description": "用户到达入口广场，打开AR小程序",
+      "result": {
+        "success": true,
+        "scene": "entrance_plaza",
+        "relic": {
+          "relic_id": "relic_entrance_greeting",
+          "relic_name": "入口印记",
+          "source_node": "entrance_plaza",
+          "trigger_condition": "entry_trigger",
+          "visual_stage": 0,
+          "timestamp": 1719451200000,
+          "user_id": "user_demo_001",
+          "state": "ACTIVE",
+          "brand": "启程之印",
+          "interaction_type": "entry"
+        },
+        "trigger_type": "entry_trigger",
+        "visual_stages": 0
+      }
+    },
+    {
+      "step": 2,
+      "action": "collectRelic('relic_entrance_greeting')",
+      "description": "用户完成入口印记收集",
+      "result": {
+        "success": true,
+        "relic_id": "relic_entrance_greeting",
+        "collected": true
+      }
+    },
+    {
+      "step": 3,
+      "action": "enterScene('entrance_landscape', 'user_demo_001')",
+      "description": "用户步行至古树区域，靠近触发林荫印记",
+      "result": {
+        "success": true,
+        "scene": "entrance_landscape",
+        "relic": {
+          "relic_id": "relic_garden_grove",
+          "relic_name": "林荫印记",
+          "source_node": "entrance_landscape",
+          "trigger_condition": "proximity_trigger",
+          "visual_stage": 0,
+          "timestamp": 1719451800000,
+          "user_id": "user_demo_001",
+          "state": "ACTIVE",
+          "brand": "古树见证印",
+          "interaction_type": "explore"
+        },
+        "trigger_type": "proximity_trigger",
+        "visual_stages": 0
+      }
+    },
+    {
+      "step": 4,
+      "action": "collectRelic('relic_garden_grove')",
+      "description": "用户完成林荫印记收集",
+      "result": {
+        "success": true,
+        "relic_id": "relic_garden_grove",
+        "collected": true
+      }
+    },
+    {
+      "step": 5,
+      "action": "enterScene('jiangnan_street', 'user_demo_001')",
+      "description": "用户进入江南老街，扫描店铺门头触发老街印记",
+      "result": {
+        "success": true,
+        "scene": "jiangnan_street",
+        "relic": {
+          "relic_id": "relic_street_sign",
+          "relic_name": "老街印记",
+          "source_node": "jiangnan_street",
+          "trigger_condition": "interaction_trigger",
+          "visual_stage": 0,
+          "timestamp": 1719452400000,
+          "user_id": "user_demo_001",
+          "state": "ACTIVE",
+          "brand": "匠心印",
+          "interaction_type": "explore"
+        },
+        "trigger_type": "interaction_trigger",
+        "visual_stages": 0
+      }
+    },
+    {
+      "step": 6,
+      "action": "collectRelic('relic_street_sign')",
+      "description": "用户完成老街印记收集",
+      "result": { "success": true, "relic_id": "relic_street_sign", "collected": true }
+    },
+    {
+      "step": 7,
+      "action": "enterScene('interior_cafe', 'user_demo_001')",
+      "description": "用户在咖啡店就座，扫描桌面小卡触发咖啡印记",
+      "result": {
+        "success": true,
+        "scene": "interior_cafe",
+        "relic": {
+          "relic_id": "relic_cafe_seal",
+          "relic_name": "咖啡印记",
+          "source_node": "interior_cafe",
+          "trigger_condition": "interaction_trigger",
+          "visual_stage": 0,
+          "timestamp": 1719453000000,
+          "user_id": "user_demo_001",
+          "state": "ACTIVE",
+          "brand": "咖啡馆印记",
+          "interaction_type": "reward"
+        },
+        "trigger_type": "interaction_trigger",
+        "visual_stages": 0
+      }
+    },
+    {
+      "step": 8,
+      "action": "collectRelic('relic_cafe_seal')",
+      "description": "用户完成咖啡印记收集",
+      "result": { "success": true, "relic_id": "relic_cafe_seal", "collected": true }
+    },
+    {
+      "step": 9,
+      "action": "enterScene('interior_bookstore', 'user_demo_001')",
+      "description": "用户进入书店，扫描门头触发书页印记",
+      "result": {
+        "success": true,
+        "scene": "interior_bookstore",
+        "relic": {
+          "relic_id": "relic_book_page",
+          "relic_name": "书页印记",
+          "source_node": "interior_bookstore",
+          "trigger_condition": "interaction_trigger",
+          "visual_stage": 0,
+          "timestamp": 1719453600000,
+          "user_id": "user_demo_001",
+          "state": "ACTIVE",
+          "brand": "书页印记",
+          "interaction_type": "explore"
+        },
+        "trigger_type": "interaction_trigger",
+        "visual_stages": 0
+      }
+    },
+    {
+      "step": 10,
+      "action": "collectRelic('relic_book_page')",
+      "description": "用户完成书页印记收集",
+      "result": { "success": true, "relic_id": "relic_book_page", "collected": true }
+    },
+    {
+      "step": 11,
+      "action": "enterScene('interior_craft_hall', 'user_demo_001')",
+      "description": "用户完成手作体验后，扫描作品触发手作印记",
+      "result": {
+        "success": true,
+        "scene": "interior_craft_hall",
+        "relic": {
+          "relic_id": "relic_craft_seal",
+          "relic_name": "手作印记",
+          "source_node": "interior_craft_hall",
+          "trigger_condition": "interaction_trigger",
+          "visual_stage": 0,
+          "timestamp": 1719454200000,
+          "user_id": "user_demo_001",
+          "state": "ACTIVE",
+          "brand": "手作印记",
+          "interaction_type": "reward"
+        },
+        "trigger_type": "interaction_trigger",
+        "visual_stages": 0
+      }
+    },
+    {
+      "step": 12,
+      "action": "collectRelic('relic_craft_seal')",
+      "description": "用户完成手作印记收集",
+      "result": { "success": true, "relic_id": "relic_craft_seal", "collected": true }
+    },
+    {
+      "step": 13,
+      "action": "enterScene('central_plaza', 'user_demo_001')",
+      "description": "用户集齐前6枚印记后到达中心广场，扫描地面铺装触发中心印记",
+      "result": {
+        "success": true,
+        "scene": "central_plaza",
+        "relic": {
+          "relic_id": "relic_center_core",
+          "relic_name": "中心印记",
+          "source_node": "central_plaza",
+          "trigger_condition": "proximity_trigger",
+          "visual_stage": 0,
+          "timestamp": 1719454800000,
+          "user_id": "user_demo_001",
+          "state": "ACTIVE",
+          "brand": "万象之印",
+          "interaction_type": "narrative"
+        },
+        "trigger_type": "proximity_trigger",
+        "visual_stages": 0
+      }
+    },
+    {
+      "step": 14,
+      "action": "collectRelic('relic_center_core')",
+      "description": "用户完成中心印记收集 — 全部7枚信物收集完成",
+      "result": { "success": true, "relic_id": "relic_center_core", "collected": true }
+    }
+  ],
+
+  "final_user_status": {
+    "states": [
+      { "relic_id": "relic_entrance_greeting", "state": "COLLECTED", "node_id": "entrance_plaza" },
+      { "relic_id": "relic_garden_grove", "state": "COLLECTED", "node_id": "entrance_landscape" },
+      { "relic_id": "relic_street_sign", "state": "COLLECTED", "node_id": "jiangnan_street" },
+      { "relic_id": "relic_cafe_seal", "state": "COLLECTED", "node_id": "interior_cafe" },
+      { "relic_id": "relic_book_page", "state": "COLLECTED", "node_id": "interior_bookstore" },
+      { "relic_id": "relic_craft_seal", "state": "COLLECTED", "node_id": "interior_craft_hall" },
+      { "relic_id": "relic_center_core", "state": "COLLECTED", "node_id": "central_plaza" }
+    ],
+    "progress": {
+      "collected": 7,
+      "total": 7,
+      "percentage": 100,
+      "unlocked_next": null
+    }
+  },
+
+  "error_scenarios": {
+    "duplicate_collect": {
+      "action": "enterScene('entrance_plaza', 'user_demo_001')",
+      "description": "用户试图再次收集已完成的场景",
+      "expected_error": "scene_already_collected",
+      "result": { "success": false, "error": "scene_already_collected", "scene": "entrance_plaza" }
+    },
+    "missing_prerequisite": {
+      "action": "enterScene('central_plaza', 'user_new_002')",
+      "description": "新用户直接到达中心广场（未收集前置信物）",
+      "expected_error": "prerequisites_not_met",
+      "missing_prerequisites": [
+        "relic_entrance_greeting",
+        "relic_garden_grove",
+        "relic_street_sign",
+        "relic_cafe_seal",
+        "relic_book_page",
+        "relic_craft_seal"
+      ],
+      "result": {
+        "success": false,
+        "error": "prerequisites_not_met",
+        "scene": "central_plaza",
+        "missing_prerequisites": [
+          "relic_entrance_greeting",
+          "relic_garden_grove",
+          "relic_street_sign",
+          "relic_cafe_seal",
+          "relic_book_page",
+          "relic_craft_seal"
+        ]
+      }
+    },
+    "invalid_scene": {
+      "action": "enterScene('ui_exploration_overview', 'user_demo_001')",
+      "description": "用户试图进入非交互节点（UI场景）",
+      "expected_error": "invalid_scene_id",
+      "result": { "success": false, "error": "invalid_scene_id", "scene": "ui_exploration_overview" }
+    }
+  },
+
+  "constraint_verification": {
+    "no_random_relics": true,
+    "all_relics_have_scene_source": true,
+    "no_mythological_names": true,
+    "no_cross_node_sharing": true,
+    "each_node_one_relic": true,
+    "all_relics_trigger_bound": true,
+    "state_machine_locked_active_collected": true
+  }
+}

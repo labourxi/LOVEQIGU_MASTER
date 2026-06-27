@@ -1,0 +1,368 @@
+{
+  "meta": {
+    "version": "AIQIGU_RELIC_SYSTEM_V1",
+    "date": "2026-06-27",
+    "title": "AR游伴 · 爱企谷 信物系统 V1（Production Layer）",
+    "note": "本系统仅基于 scene_map_v1.json 中的7个真实场景生成。信物命名全部来自现实场景特征，无任何神话/星象/玄学命名。",
+    "source": "system/aiqigu/scene_map_v1.json — Reality-first Scene Model V1",
+    "audit": "system/audit/aiqigu_reality_audit_v1.js — 真实空间对齐审计",
+    "constraints": [
+      "禁止虚构场景",
+      "禁止神话/星象/玄学命名",
+      "禁止水潭/祭坛/虚构空间",
+      "所有信物必须可被现实场景锚定",
+      "所有信物必须对应到真实图片"
+    ]
+  },
+
+  "relics": [
+    {
+      "relic_id": "relic_entrance_greeting",
+      "relic_name": "入口印记",
+      "scene_id": "entrance_plaza",
+      "scene_name": "入口广场",
+      "source_images": [
+        "Snipaste_2026-06-10_22-31-57.png",
+        "Snipaste_2026-06-10_22-32-36.png",
+        "Snipaste_2026-06-11_12-06-13.png",
+        "微信图片_20260611145955_1_2.jpg",
+        "微信图片_20260611145958_2_2.jpg"
+      ],
+
+      "trigger_type": "image_target",
+      "trigger_details": {
+        "anchor": "入口广场地面图案/铺装纹理",
+        "alternative": "主标识/门头前方平面检测",
+        "note": "地面铺装纹理丰富，适合图像识别锚定。assest包中已确认铺装图案在各光照条件下保持稳定。"
+      },
+
+      "interaction_type": "entry",
+      "interaction_flow": "用户到达入口广场 → 打开小程序AR → 扫描地面识别 → 入口印记显现 → 祝福文案浮现 → 收集完成",
+
+      "generation_rule": {
+        "condition": "用户GPS定位在入口广场半径20m范围内 + AR相机识别到地面铺装锚点",
+        "trigger_priority": 1,
+        "unlock_prerequisite": [],
+        "cooldown_seconds": 0,
+        "max_collect_count": 1,
+        "re_generation": "不可重新生成（一次性信物）"
+      },
+
+      "visual_effect_stage": [
+        { "phase": "锚定", "action": "地面图案被AR相机锁定，绿色锚定框稳定" },
+        { "phase": "浮现", "action": "锚定位置上方缓现金色轮廓（从透明度0升至0.72，历时1200ms）" },
+        { "phase": "显现", "action": "轮廓变为完整印记，微光脉冲3次（脉冲周期1400ms）" },
+        { "phase": "确认", "action": "印记稳定，淡出至收藏态（40%亮度持续微光），UI显示收集完成" }
+      ],
+
+      "relic_type": "视觉信物",
+      "brand": "启程之印",
+      "conclusion": "探索路径的第一个锚点。用户通过识别入口广场地面完成首次AR交互，建立产品心智。"
+    },
+
+    {
+      "relic_id": "relic_garden_grove",
+      "relic_name": "林荫印记",
+      "scene_id": "entrance_landscape",
+      "scene_name": "入口景观（古树）",
+      "source_images": [
+        "Snipaste_2026-06-11_12-07-47.png",
+        "微信图片_20260611150040_12_2.jpg"
+      ],
+
+      "trigger_type": "image_target",
+      "trigger_details": {
+        "anchor": "古树树干/树根处自然纹理",
+        "alternative": "古树冠幅下平面检测",
+        "note": "古树已有实拍图片（factory_package landmark_tree_v1 8张参考图），锚点置信度高。"
+      },
+
+      "interaction_type": "explore",
+      "interaction_flow": "用户步行到古树区域 → 打开AR → 扫描古树树干 → 树根处显现林荫印记 → 微光扩散至树冠 → 收集完成",
+
+      "generation_rule": {
+        "condition": "用户GPS定位在古树半径10m范围内 + AR相机识别到古树图像锚点",
+        "trigger_priority": 2,
+        "unlock_prerequisite": [
+          "必须已收集 relic_entrance_greeting（入口印记）"
+        ],
+        "cooldown_seconds": 0,
+        "max_collect_count": 1,
+        "re_generation": "不可重新生成"
+      },
+
+      "visual_effect_stage": [
+        { "phase": "锚定", "action": "古树树干被识别锁定，锚定框贴合树形轮廓" },
+        { "phase": "浮现", "action": "树根处缓现柔光印记，缓慢向上浮升（1600ms）" },
+        { "phase": "扩散", "action": "光点沿树冠方向扩散，形成微弱光幕（2000ms）" },
+        { "phase": "确认", "action": "光幕收缩回印记内部，标记完成（800ms）" }
+      ],
+
+      "relic_type": "视觉信物",
+      "brand": "古树见证印",
+      "conclusion": "利用园区古树作为自然锚点，将探索从建筑延伸到景观。"
+    },
+
+    {
+      "relic_id": "relic_street_sign",
+      "relic_name": "老街印记",
+      "scene_id": "jiangnan_street",
+      "scene_name": "江南老街",
+      "source_images": [
+        "Snipaste_2026-06-11_12-06-45.png",
+        "Snipaste_2026-06-11_12-06-59.png",
+        "Snipaste_2026-06-11_12-07-18.png",
+        "微信图片_20260611150040_12_2.jpg"
+      ],
+
+      "trigger_type": "image_target",
+      "trigger_details": {
+        "anchor": "老街店铺门头/招牌图像识别",
+        "alternative": "街道交汇处地面石板平面检测",
+        "note": "店铺招牌常亮，识别特征稳定。首选手作馆门口区域。"
+      },
+
+      "interaction_type": "explore",
+      "interaction_flow": "用户进入江南老街 → 扫描店铺门头 → 门头浮现老街印记 → 印记刻线逐条显现 → 收集完成",
+
+      "generation_rule": {
+        "condition": "用户GPS定位在江南老街范围内 + AR相机识别到店铺门头锚点",
+        "trigger_priority": 3,
+        "unlock_prerequisite": [
+          "必须已收集 relic_garden_grove（林荫印记）"
+        ],
+        "cooldown_seconds": 0,
+        "max_collect_count": 1,
+        "re_generation": "不可重新生成"
+      },
+
+      "visual_effect_stage": [
+        { "phase": "锚定", "action": "店铺门头被识别锁定" },
+        { "phase": "浮现", "action": "门头一侧浮现金色刻线，缓慢向另一侧延展（1800ms）" },
+        { "phase": "刻线", "action": "刻线完成形成印记轮廓（1000ms）" },
+        { "phase": "确认", "action": "印记微光稳定，收集完成" }
+      ],
+
+      "relic_type": "行为信物",
+      "brand": "匠心印",
+      "conclusion": "通过门头识别连接用户与手工艺空间，致敬江南老街的工匠文化。"
+    },
+
+    {
+      "relic_id": "relic_cafe_seal",
+      "relic_name": "咖啡印记",
+      "scene_id": "interior_cafe",
+      "scene_name": "爱企谷咖啡",
+      "source_images": [
+        "微信图片_20260611150043_13_2.jpg",
+        "微信图片_20260611150046_14_2.jpg",
+        "微信图片_20260611150050_16_2.jpg"
+      ],
+
+      "trigger_type": "image_target",
+      "trigger_details": {
+        "anchor": "桌面小卡/杯垫图案识别",
+        "alternative": "店门Logo墙图像识别",
+        "note": "桌面小卡可控分发，识别率高，用户体验自然。首推AR方案。"
+      },
+
+      "interaction_type": "reward",
+      "interaction_flow": "用户在咖啡店就座 → 看到桌面小卡 → 打开AR扫描 → 杯垫/小卡上浮现咖啡印记 → 收集完成",
+
+      "generation_rule": {
+        "condition": "用户GPS定位在爱企谷咖啡室内区域 + AR相机识别到桌面小卡/杯垫锚点",
+        "trigger_priority": 4,
+        "unlock_prerequisite": [
+          "必须已收集 relic_street_sign（老街印记）"
+        ],
+        "cooldown_seconds": 0,
+        "max_collect_count": 1,
+        "re_generation": "不可重新生成"
+      },
+
+      "visual_effect_stage": [
+        { "phase": "锚定", "action": "桌面小卡/杯垫被识别锁定" },
+        { "phase": "浮现", "action": "印记从小卡中心缓慢扩散浮现（1400ms）" },
+        { "phase": "光尘", "action": "印记周围有微量金色光尘缓缓沉降（1200ms）" },
+        { "phase": "确认", "action": "光尘消退，印记稳定，收集完成" }
+      ],
+
+      "relic_type": "行为信物",
+      "brand": "咖啡馆印记",
+      "conclusion": "室内场景首选桌面AR方案，操作成本最低，转化率最高。"
+    },
+
+    {
+      "relic_id": "relic_book_page",
+      "relic_name": "书页印记",
+      "scene_id": "interior_bookstore",
+      "scene_name": "爱企谷书店",
+      "source_images": [
+        "微信图片_20260611150049_15_2.jpg",
+        "微信图片_20260611150053_17_2.jpg"
+      ],
+
+      "trigger_type": "image_target",
+      "trigger_details": {
+        "anchor": "书店入口门头图案识别",
+        "alternative": "文创展示台上的书籍封面图像识别",
+        "note": "门头固定，识别稳定。展示台锚点需定期更新。"
+      },
+
+      "interaction_type": "explore",
+      "interaction_flow": "用户进入书店 → 扫描门头或书籍 → 书页印记浮现 → 印记翻开如书页 → 收集完成",
+
+      "generation_rule": {
+        "condition": "用户GPS定位在爱企谷书店室内区域 + AR相机识别到门头或书籍锚点",
+        "trigger_priority": 5,
+        "unlock_prerequisite": [
+          "必须已收集 relic_cafe_seal（咖啡印记）"
+        ],
+        "cooldown_seconds": 0,
+        "max_collect_count": 1,
+        "re_generation": "不可重新生成"
+      },
+
+      "visual_effect_stage": [
+        { "phase": "锚定", "action": "书店门头/书籍封面被识别锁定" },
+        { "phase": "浮现", "action": "印记以书页翻开的形态从锚点展开（1800ms）" },
+        { "phase": "刻线", "action": "印记中的刻线如书法笔迹般缓缓写下（1400ms）" },
+        { "phase": "确认", "action": "书页合拢为印记，收集完成" }
+      ],
+
+      "relic_type": "行为信物",
+      "brand": "书页印记",
+      "conclusion": "书店场景的文化属性与书页形态的自然结合。"
+    },
+
+    {
+      "relic_id": "relic_craft_seal",
+      "relic_name": "手作印记",
+      "scene_id": "interior_craft_hall",
+      "scene_name": "爱企谷手作馆",
+      "source_images": [
+        "微信图片_20260611150002_3_2.jpg",
+        "微信图片_20260611150004_4_2.jpg",
+        "微信图片_20260611150007_5_2.jpg",
+        "微信图片_20260611150015_8_2.jpg"
+      ],
+
+      "trigger_type": "image_target",
+      "trigger_details": {
+        "anchor": "手作工作台面或作品表面图案识别",
+        "alternative": "展示墙上的成品图像识别",
+        "note": "用户在手作时自然看到台面，体验最连贯。"
+      },
+
+      "interaction_type": "reward",
+      "interaction_flow": "用户完成手作体验 → AR扫描作品/台面 → 手作印记在作品旁边显现 → 印记与作品合影 → 收集完成",
+
+      "generation_rule": {
+        "condition": "用户GPS定位在手作馆室内区域 + AR相机识别到工作台面或作品锚点",
+        "trigger_priority": 6,
+        "unlock_prerequisite": [
+          "必须已收集 relic_book_page（书页印记）"
+        ],
+        "cooldown_seconds": 0,
+        "max_collect_count": 1,
+        "re_generation": "不可重新生成"
+      },
+
+      "visual_effect_stage": [
+        { "phase": "锚定", "action": "台面/作品被识别锁定" },
+        { "phase": "浮现", "action": "印记从作品表面缓慢浮出（1600ms）" },
+        { "phase": "场扩散", "action": "印记周围扩散出微弱的能量场波纹（1200ms）" },
+        { "phase": "确认", "action": "场收缩回印记，用户可与作品+印记合影后收集" }
+      ],
+
+      "relic_type": "叙事信物",
+      "brand": "手作印记",
+      "conclusion": "手作体验后的AR收集，让用户带走的不仅是实物作品还有数字印记。"
+    },
+
+    {
+      "relic_id": "relic_center_core",
+      "relic_name": "中心印记",
+      "scene_id": "central_plaza",
+      "scene_name": "中心广场",
+      "source_images": [
+        "Snipaste_2026-06-10_22-36-36.png",
+        "Snipaste_2026-06-10_22-38-53.png",
+        "微信图片_20260611150036_10_2.jpg",
+        "微信图片_20260611150038_11_2.jpg"
+      ],
+
+      "trigger_type": "image_target",
+      "trigger_details": {
+        "anchor": "中心广场地面特色铺装图案",
+        "alternative": "平面检测+GPS范围（广场中心区域触发）",
+        "note": "铺装图案独特，识别稳定。首推地面图案作为AR触发器。"
+      },
+
+      "interaction_type": "narrative",
+      "interaction_flow": "用户集齐前6枚印记后到达中心广场 → 扫描地面铺装 → 6枚印记环绕显现 → 汇聚为中心印记 → 动画完成后收集 → 活动完成",
+
+      "generation_rule": {
+        "condition": "用户GPS定位在中心广场半径25m范围内 + AR相机识别到地面铺装锚点",
+        "trigger_priority": 7,
+        "unlock_prerequisite": [
+          "必须已收集 relic_entrance_greeting（入口印记）",
+          "必须已收集 relic_garden_grove（林荫印记）",
+          "必须已收集 relic_street_sign（老街印记）",
+          "必须已收集 relic_cafe_seal（咖啡印记）",
+          "必须已收集 relic_book_page（书页印记）",
+          "必须已收集 relic_craft_seal（手作印记）"
+        ],
+        "cooldown_seconds": 0,
+        "max_collect_count": 1,
+        "re_generation": "不可重新生成（活动终章信物）"
+      },
+
+      "visual_effect_stage": [
+        { "phase": "锚定", "action": "地面铺装图案被识别锁定" },
+        { "phase": "汇集", "action": "6枚已收集印记的微光从各自方向汇入中心广场（2800ms）" },
+        { "phase": "融合", "action": "6束光在中心汇聚形成完整印记轮廓（1200ms）" },
+        { "phase": "成型", "action": "印记逐层显现填满轮廓（1600ms），光脉冲1次" },
+        { "phase": "确认", "action": "光稳定至收藏态，整个探索流程完成" }
+      ],
+
+      "relic_type": "叙事信物",
+      "brand": "万象之印",
+      "conclusion": "活动终极信物。必须集齐全部前置印记后才可触发。体现\"探索→收集→汇聚\"的完整叙事弧。"
+    }
+  ],
+
+  "summary": {
+    "total_relics": 7,
+    "total_scenes_used": 7,
+    "total_scenes_excluded": 1,
+    "excluded_scene": "ui_exploration_overview（非交互节点，UI设计稿）",
+    "relics_by_trigger": {
+      "image_target": 7,
+      "plane_detection": 0,
+      "object_anchor": 0
+    },
+    "relics_by_interaction": {
+      "entry": 1,
+      "explore": 3,
+      "reward": 2,
+      "narrative": 1
+    },
+    "exploration_path_sequence": [
+      "#1 relic_entrance_greeting — 入口广场（入口印记）",
+      "#2 relic_garden_grove — 古树区域（林荫印记）",
+      "#3 relic_street_sign — 江南老街（老街印记）",
+      "#4 relic_cafe_seal — 爱企谷咖啡（咖啡印记）",
+      "#5 relic_book_page — 爱企谷书店（书页印记）",
+      "#6 relic_craft_seal — 爱企谷手作馆（手作印记）",
+      "#7 relic_center_core — 中心广场（中心印记）"
+    ],
+    "constraint_verification": {
+      "no_mythological_names": true,
+      "no_fictional_spaces": true,
+      "all_scene_anchored": true,
+      "all_have_source_images": true,
+      "all_triggers_from_audit_rules": true
+    }
+  }
+}

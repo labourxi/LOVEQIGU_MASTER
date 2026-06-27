@@ -1,5 +1,11 @@
 /**
  * WORLD_RUNTIME — USER ACTION → world_state → world_memory → world_generator
+ *
+ * STRUCTURAL FREEZE (PRODUCTION_GUARD_V3):
+ *   - SINGLE runtime loop
+ *   - Passive: no auto-init at module level
+ *   - All runtime behaviors initiated by bootstrap → enterExplore()
+ *   - No direct user bypass of bootstrap()
  */
 
 import { recordEvent } from './world_memory.js';

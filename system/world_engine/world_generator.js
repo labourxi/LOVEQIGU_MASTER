@@ -1,5 +1,11 @@
 /**
  * WORLD_GENERATOR — world_state → Shanghai world fragments (no UI)
+ *
+ * STRUCTURAL FREEZE (PRODUCTION_GUARD_V3):
+ *   - SINGLE pipeline for world generation
+ *   - Passive: pure function, no auto-init at module level
+ *   - No state maintained internally
+ *   - Input: worldState, memory → Output: generated world
  */
 
 import { WORLD_STATE } from './state_machine.js';

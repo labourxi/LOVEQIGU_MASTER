@@ -1,0 +1,22 @@
+================================================================
+AR-YOUBAN-WORLD-SYSTEM — ARCHIVE LOCK
+
+STATUS: ARCHIVE ONLY
+DATE:    2026-06-27
+ORDER:   SYSTEM_CONVERGENCE_V1
+
+This directory is ARCHIVED as per SYSTEM CONVERGENCE V1.
+
+RULES:
+- NOT a runtime entry
+- NOT part of bootstrap
+- NOT part of world_engine
+- NOT routable by any system
+- RETAINED for historical reference only
+
+PRIMARY WORLD SYSTEM is at LOVEQIGU_MASTER root:
+  /bootstrap.js
+  /system/world_engine/
+  /pages/
+
+================================================================

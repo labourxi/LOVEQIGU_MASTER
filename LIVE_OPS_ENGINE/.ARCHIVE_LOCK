@@ -1,0 +1,14 @@
+================================================================
+LIVE_OPS_ENGINE — ARCHIVE LOCK
+
+STATUS: ARCHIVE ONLY (YAML config library)
+DATE:    2026-06-27
+ORDER:   SYSTEM_CONVERGENCE_V1
+
+This directory contains YAML configuration data only.
+It is NOT a runtime engine.
+It is NOT part of the world engine system.
+
+PRIMARY WORLD ENGINE: /system/world_engine/
+
+================================================================

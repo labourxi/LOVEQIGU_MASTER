@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>AR游伴 — 探索</title>
+
+  <!-- 世界视觉母体 + 探索空间 + 信物空间 -->
+  <link rel="stylesheet" href="../../system/visual/world_atmosphere/world_atmosphere.css" />
+  <link rel="stylesheet" href="../../system/visual/motion/motion_visual.css" />
+  <link rel="stylesheet" href="../../system/visual/pages/explore_spatial.css" />
+  <link rel="stylesheet" href="../../system/visual/relic/relic_spatial.css" />
+
+  <!-- 仅布局（无任何视觉定义） -->
+  <link rel="stylesheet" href="explore.css" />
+</head>
+<body data-page="explore">
+  <!-- 世界母体（继承 world_atmosphere） -->
+
+  <!-- 头部 — 融入空间的轻提示 -->
+  <header class="explore-space__header">
+    <span class="explore-space__title">爱企谷 · 探索</span>
+  </header>
+
+  <!-- 导语 -->
+  <section class="explore-space__intro">
+    <p class="explore-space__intro-text">点击光之所在，寻回印记</p>
+  </section>
+
+  <!-- 空间节点容器（非卡片列表） -->
+  <div id="scene-container" class="explore-space__nodes"></div>
+
+  <script src="explore.js"></script>
+</body>
+</html>

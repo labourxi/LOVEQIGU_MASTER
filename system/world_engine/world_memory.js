@@ -1,12 +1,23 @@
 /**
  * WORLD_MEMORY — state recording only
+ *
+ * SYSTEM_CONVERGENCE_V1: LAZY-LOAD
+ * WORLD_MEMORY is null until first recordEvent() or getWorldMemory() call.
+ * No sessionStorage reads at module load time.
  */
 
 import { gc } from './memory_gc.js';
 
 const STORAGE_KEY = 'loveqigu_world_memory';
 
-let WORLD_MEMORY = loadMemory();
+let WORLD_MEMORY = null;
+
+function ensureMemory() {
+  if (!WORLD_MEMORY) {
+    WORLD_MEMORY = loadMemory();
+  }
+  return WORLD_MEMORY;
+}
 
 function defaultMemory() {
   return { visitedPlaces: [], activatedNodes: [], relics: [], resonance: 0, events: [] };
@@ -38,21 +49,23 @@ function saveMemory() {
 }
 
 export function recordEvent(event) {
-  if (!event || !event.type) return WORLD_MEMORY;
-  if (event.type === 'visit') WORLD_MEMORY.visitedPlaces.push(event.data);
-  if (event.type === 'activate') WORLD_MEMORY.activatedNodes.push(event.data);
-  WORLD_MEMORY.events.push({ type: event.type, data: event.data, ts: Date.now() });
-  WORLD_MEMORY.resonance += 1;
+  const mem = ensureMemory();
+  if (!event || !event.type) return mem;
+  if (event.type === 'visit') mem.visitedPlaces.push(event.data);
+  if (event.type === 'activate') mem.activatedNodes.push(event.data);
+  mem.events.push({ type: event.type, data: event.data, ts: Date.now() });
+  mem.resonance += 1;
   WORLD_MEMORY = gc(WORLD_MEMORY);
   saveMemory();
   return WORLD_MEMORY;
 }
 
 export function getWorldMemory() {
-  return WORLD_MEMORY;
+  return ensureMemory();
 }
 
 export function persistMemory() {
+  ensureMemory();
   saveMemory();
   return WORLD_MEMORY;
 }

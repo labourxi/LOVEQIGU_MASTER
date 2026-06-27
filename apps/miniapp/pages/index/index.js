@@ -133,7 +133,12 @@ Page({
 
       try {
         const entry = require('../../services/ar/ar-entry-controller.js');
-        entry.trigger({ source: 'index_enter_scenic' });
+
+        // 使用稳定性加固版本
+        var xrResult = await entry.triggerStable(
+          { source: 'index_enter_scenic' },
+          { pageCtx: this }
+        );
 
         await this.runPilotStageEffect(pilotSceneFlow.STAGES.ENTER);
 
@@ -141,16 +146,26 @@ Page({
         const pointId = userRuntime.resolvePointId(
           point && point.point_id ? point.point_id : 'ep_001'
         );
-        const url = pilotSceneFlow.appendPilotQuery(
-          `/pages/explore-map/index?focusPointId=${encodeURIComponent(pointId)}`,
-          pilotSceneFlow.STAGES.EXPLORE
-        );
+
+        // 根据 XR 结果决定导航参数
+        var navUrl = '';
+        if (xrResult && xrResult.mode === 'normal') {
+          // fallback 模式：导航到普通探索模式
+          navUrl = '/pages/explore-map/index?focusPointId=' + encodeURIComponent(pointId) + '&xrMode=normal';
+        } else {
+          navUrl = pilotSceneFlow.appendPilotQuery(
+            '/pages/explore-map/index?focusPointId=' + encodeURIComponent(pointId),
+            pilotSceneFlow.STAGES.EXPLORE
+          );
+        }
 
         this.setData({
           xrLaunching: false,
-          xrLaunchMessage: ''
+          xrLaunchMessage: '',
+          xrFallbackMode: xrResult && xrResult.mode === 'normal' ? true : false
         });
-        this.safeNavigate(url, {
+
+        this.safeNavigate(navUrl, {
           fallbackTitle: '探索地图暂未开放'
         });
       } catch (error) {

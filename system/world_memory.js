@@ -1,10 +1,16 @@
 /**
  * WORLD_MEMORY — V0.5 user world persistence
  * Visit paths · event history · acquired relics (信物)
+ *
+ * SYSTEM_CONVERGENCE_V1: LAZY-LOAD
+ * memory is null until first export function call.
+ * No sessionStorage reads at module load time.
  */
 
 const STORAGE_KEY = 'loveqigu_v05_world_memory';
 const GENERATED_EVENT_KEY = 'loveqigu_v05_world_event';
+
+let memory = null;
 
 function defaultMemory() {
   return {
@@ -17,6 +23,13 @@ function defaultMemory() {
     userState: 'world',
     lastLocation: null
   };
+}
+
+function ensureMemory() {
+  if (!memory) {
+    memory = loadMemory();
+  }
+  return memory;
 }
 
 function loadMemory() {
@@ -39,59 +52,61 @@ function loadMemory() {
   }
 }
 
-function saveMemory(memory) {
+function saveMemory(mem) {
   try {
-    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(memory));
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(mem));
   } catch (err) { /* storage unavailable */ }
 }
 
-let memory = loadMemory();
-
 export function getMemory() {
-  return memory;
+  return ensureMemory();
 }
 
 export function getUserState() {
-  return memory.userState || 'world';
+  return ensureMemory().userState || 'world';
 }
 
 export function setUserState(state) {
-  memory.userState = state || 'world';
-  saveMemory(memory);
-  return memory.userState;
+  const mem = ensureMemory();
+  mem.userState = state || 'world';
+  saveMemory(mem);
+  return mem.userState;
 }
 
 export function recordVisitPath(route) {
-  if (!route) return memory;
-  memory.visitPaths.push({ route: route, ts: Date.now() });
-  if (memory.visitPaths.length > 100) {
-    memory.visitPaths = memory.visitPaths.slice(-80);
+  const mem = ensureMemory();
+  if (!route) return mem;
+  mem.visitPaths.push({ route: route, ts: Date.now() });
+  if (mem.visitPaths.length > 100) {
+    mem.visitPaths = mem.visitPaths.slice(-80);
   }
-  saveMemory(memory);
-  return memory;
+  saveMemory(mem);
+  return mem;
 }
 
 export function recordEventTrigger(entry) {
-  if (!entry) return memory;
-  memory.eventHistory.push({
+  const mem = ensureMemory();
+  if (!entry) return mem;
+  mem.eventHistory.push({
     route: entry.route || null,
     event: entry.event || null,
     worldEventId: entry.worldEventId || null,
     location: entry.location || null,
     ts: Date.now()
   });
-  if (memory.eventHistory.length > 200) {
-    memory.eventHistory = memory.eventHistory.slice(-150);
+  if (mem.eventHistory.length > 200) {
+    mem.eventHistory = mem.eventHistory.slice(-150);
   }
-  saveMemory(memory);
-  return memory;
+  saveMemory(mem);
+  return mem;
 }
 
 export function recordArtifact(artifact) {
-  if (!artifact || !artifact.id) return memory;
-  const exists = memory.artifacts.some(function (a) { return a.id === artifact.id; });
+  const mem = ensureMemory();
+  if (!artifact || !artifact.id) return mem;
+  const exists = mem.artifacts.some(function (a) { return a.id === artifact.id; });
   if (!exists) {
-    memory.artifacts.push({
+    mem.artifacts.push({
       id: artifact.id,
       name: artifact.name,
       description: artifact.description,
@@ -102,45 +117,48 @@ export function recordArtifact(artifact) {
       acquiredAt: Date.now()
     });
   }
-  saveMemory(memory);
-  return memory;
+  saveMemory(mem);
+  return mem;
 }
 
 export function recordNpcInteraction(entry) {
-  if (!entry) return memory;
-  memory.npc_interactions.push({
+  const mem = ensureMemory();
+  if (!entry) return mem;
+  mem.npc_interactions.push({
     npc_id: entry.npc_id || null,
     npc_name: entry.npc_name || null,
     dialogue_state: entry.dialogue_state || null,
     action: entry.action || null,
     ts: Date.now()
   });
-  if (memory.npc_interactions.length > 150) {
-    memory.npc_interactions = memory.npc_interactions.slice(-120);
+  if (mem.npc_interactions.length > 150) {
+    mem.npc_interactions = mem.npc_interactions.slice(-120);
   }
-  saveMemory(memory);
-  return memory;
+  saveMemory(mem);
+  return mem;
 }
 
 export function recordArtifactHistory(entry) {
-  if (!entry) return memory;
-  memory.artifact_history.push({
+  const mem = ensureMemory();
+  if (!entry) return mem;
+  mem.artifact_history.push({
     action: entry.action || null,
     artifact_id: entry.artifact && entry.artifact.id ? entry.artifact.id : null,
     artifact_name: entry.artifact && entry.artifact.name ? entry.artifact.name : null,
     rarity: entry.artifact && entry.artifact.rarity ? entry.artifact.rarity : null,
     ts: Date.now()
   });
-  if (memory.artifact_history.length > 150) {
-    memory.artifact_history = memory.artifact_history.slice(-120);
+  if (mem.artifact_history.length > 150) {
+    mem.artifact_history = mem.artifact_history.slice(-120);
   }
-  saveMemory(memory);
-  return memory;
+  saveMemory(mem);
+  return mem;
 }
 
 export function recordUserWorldDelta(delta) {
-  if (!delta) return memory;
-  memory.user_world_delta.push({
+  const mem = ensureMemory();
+  if (!delta) return mem;
+  mem.user_world_delta.push({
     world_state_shift: delta.world_state_shift || null,
     npc_state_shift: delta.npc_state_shift || null,
     artifact_spawn_rate_delta: delta.artifact_spawn_rate_delta || 0,
@@ -148,37 +166,38 @@ export function recordUserWorldDelta(delta) {
     messages: delta.messages || [],
     ts: Date.now()
   });
-  if (memory.user_world_delta.length > 100) {
-    memory.user_world_delta = memory.user_world_delta.slice(-80);
+  if (mem.user_world_delta.length > 100) {
+    mem.user_world_delta = mem.user_world_delta.slice(-80);
   }
-  saveMemory(memory);
-  return memory;
+  saveMemory(mem);
+  return mem;
 }
 
 export function getNpcInteractions() {
-  return memory.npc_interactions.slice();
+  return ensureMemory().npc_interactions.slice();
 }
 
 export function getArtifactHistory() {
-  return memory.artifact_history.slice();
+  return ensureMemory().artifact_history.slice();
 }
 
 export function getUserWorldDeltas() {
-  return memory.user_world_delta.slice();
+  return ensureMemory().user_world_delta.slice();
 }
 
 export function getArtifacts() {
-  return memory.artifacts.slice();
+  return ensureMemory().artifacts.slice();
 }
 
 export function setLastLocation(location) {
-  memory.lastLocation = location;
-  saveMemory(memory);
-  return memory.lastLocation;
+  const mem = ensureMemory();
+  mem.lastLocation = location;
+  saveMemory(mem);
+  return mem.lastLocation;
 }
 
 export function getLastLocation() {
-  return memory.lastLocation;
+  return ensureMemory().lastLocation;
 }
 
 export function setGeneratedWorldEvent(worldEvent) {

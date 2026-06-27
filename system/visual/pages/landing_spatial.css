@@ -1,0 +1,237 @@
+/**
+ * LANDING SPATIAL — 入口空间视觉
+ *
+ * Landing 是用户进入系统的第一个空间。
+ * 不是"登陆页"，而是"入口空间"。
+ *
+ * 设计原则：
+ *   ✔ 单入口（微信登录）
+ *   ✔ 雾化背景（继承 world_atmosphere）
+ *   ✔ 深度空间（星 → 雾 → 光路 → 内容）
+ *   ✔ 极简交互（仅微信登录）
+ *
+ * 禁止：
+ *   ❌ 按钮风格（已消除 — 使用 CTA 意象）
+ *   ❌ 卡片
+ *   ❌ 游戏化元素
+ *   ❌ 扁平界面
+ */
+
+/* ══════════════════════════════════════════════
+   入口空间 — 布局
+   ══════════════════════════════════════════════ */
+
+.landing-space {
+  position: relative;
+  z-index: 3;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+/* ══════════════════════════════════════════════
+   标题 — 不是"品牌"，是"空间入口标识"
+   ══════════════════════════════════════════════ */
+
+.landing-space__icon {
+  font-size: 48px;
+  color: var(--light-gold-core, rgba(232, 208, 152, 0.5));
+  margin-bottom: 16px;
+  text-shadow: 0 0 48px var(--light-gold-soft, rgba(212, 188, 132, 0.2));
+  animation: world-breath 4s ease-in-out infinite;
+}
+
+.landing-space__title {
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: clamp(1.3rem, 4.5vw, 1.6rem);
+  font-weight: 300;
+  letter-spacing: 0.4em;
+  text-indent: 0.4em;
+  color: var(--text-title, rgba(228, 236, 248, 0.85));
+  text-shadow: 0 0 32px var(--light-gold-soft, rgba(212, 188, 132, 0.15));
+}
+
+.landing-space__subtitle {
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: 0.78rem;
+  font-weight: 300;
+  letter-spacing: 0.35em;
+  color: var(--text-subtitle, rgba(168, 184, 210, 0.65));
+  margin-top: 10px;
+  opacity: 0.7;
+}
+
+/* ══════════════════════════════════════════════
+   描述 — 空间中的"轻声低语"
+   ══════════════════════════════════════════════ */
+
+.landing-space__description {
+  margin-top: 56px;
+  position: relative;
+}
+
+.landing-space__description p {
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: 0.74rem;
+  font-weight: 300;
+  line-height: 2.2;
+  letter-spacing: 0.15em;
+  color: var(--text-whisper, rgba(148, 168, 198, 0.55));
+}
+
+/* ══════════════════════════════════════════════
+   场景光点 — 7 个"远方的微光"
+   ══════════════════════════════════════════════ */
+
+.landing-space__scene-lights {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.landing-space__light-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    var(--light-gold-soft, rgba(212, 188, 132, 0.12)) 0%,
+    transparent 70%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  transition: all 0.6s var(--ease-breath, cubic-bezier(0.45, 0.05, 0.55, 0.95));
+  opacity: 0.6;
+}
+
+.landing-space__light-dot:hover {
+  opacity: 1;
+  background: radial-gradient(
+    circle at 50% 50%,
+    var(--light-gold-soft, rgba(212, 188, 132, 0.25)) 0%,
+    transparent 70%
+  );
+  transform: scale(1.1);
+}
+
+/* ══════════════════════════════════════════════
+   入口 CTA — 非"按钮"，是"进入路径"
+   ══════════════════════════════════════════════ */
+
+.landing-space__entry {
+  margin-top: 52px;
+}
+
+.landing-space__entry-trigger {
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: 0.82rem;
+  font-weight: 300;
+  letter-spacing: 0.35em;
+  text-indent: 0.35em;
+  color: var(--text-subtitle, rgba(168, 184, 210, 0.7));
+  padding: 10px 32px;
+  border: none;
+  outline: 1px solid rgba(232, 208, 152, 0.25);
+  outline-offset: -1px;
+  border-radius: 999px;
+  background: rgba(18, 36, 68, 0.2);
+  cursor: pointer;
+  transition: all 0.8s var(--ease-breath, cubic-bezier(0.45, 0.05, 0.55, 0.95));
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  position: relative;
+}
+
+.landing-space__entry-trigger::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 999px;
+  box-shadow: 0 0 20px var(--light-gold-soft, rgba(212, 188, 132, 0.08));
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.landing-space__entry-trigger:hover {
+  color: var(--light-gold, rgba(212, 188, 132, 0.7));
+  outline-color: rgba(232, 208, 152, 0.4);
+  background: rgba(18, 36, 68, 0.3);
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 28px var(--light-gold-soft, rgba(212, 188, 132, 0.18)),
+    0 0 0 var(--revelation-glow-outer, rgba(120, 168, 228, 0.06));
+}
+
+.landing-space__entry-trigger:active {
+  transform: translateY(0);
+}
+
+/* 加载状态 */
+.landing-space__entry-trigger.loading {
+  color: var(--text-whisper, rgba(148, 168, 198, 0.6));
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.landing-space__spinner {
+  display: none;
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  margin-right: 8px;
+  border: 1.5px solid rgba(198, 210, 240, 0.15);
+  border-top-color: var(--light-gold-core, rgba(232, 208, 152, 0.5));
+  border-radius: 50%;
+  animation: world-spin 0.8s linear infinite;
+}
+
+.landing-space__entry-trigger.loading .landing-space__spinner {
+  display: inline-block;
+}
+
+@keyframes world-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ══════════════════════════════════════════════
+   底部 — 极低姿态
+   ══════════════════════════════════════════════ */
+
+.landing-space__footer {
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: 0.6rem;
+  font-weight: 300;
+  letter-spacing: 0.35em;
+  color: rgba(148, 168, 198, 0.2);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* ══════════════════════════════════════════════
+   入场序列
+   ══════════════════════════════════════════════ */
+
+.landing-space > * {
+  opacity: 0;
+  animation: motion-reveal-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.landing-space > .landing-space__icon { animation-delay: 300ms; }
+.landing-space > .landing-space__title { animation-delay: 400ms; }
+.landing-space > .landing-space__subtitle { animation-delay: 500ms; }
+.landing-space > .landing-space__description { animation-delay: 600ms; }
+.landing-space > .landing-space__scene-lights { animation-delay: 700ms; }
+.landing-space > .landing-space__entry { animation-delay: 800ms; }

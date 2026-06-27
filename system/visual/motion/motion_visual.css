@@ -1,0 +1,232 @@
+/**
+ * MOTION VISUAL — 动效系统基础定义
+ *
+ * 全系统统一动效：
+ *   reveal（显现）— 信物/页面显现
+ *   glow（激活） — 节点/信物激活
+ *   burst（获得） — 收集完成
+ *   fade（消散） — 关闭/淡出
+ *
+ * 视觉原理：
+ *   - 所有动效遵循「东方空间感」：留白 + 雾 + 光
+ *   - 禁止：弹跳、闪烁、拖尾、变形
+ *   - 核心：缓慢、柔和、呼吸感
+ *
+ * 合规引用：
+ *   - visual_language_v1.js (LIGHT, MIST, REVELATION_MOTION)
+ *   - visual_tokens.css (CSS custom properties)
+ */
+
+/* ══════════════════════════════════════════════
+   Reveal — 显现
+   信物显现 / 页面入场 / 节点浮现
+   节奏：慢（600-1200ms），缓出
+   原理：遮蔽消散（非"出现"）
+   ══════════════════════════════════════════════ */
+
+@keyframes motion-reveal {
+  0% {
+    opacity: 0;
+    filter: blur(8px);
+    transform: scale(0.92);
+  }
+  60% {
+    opacity: 0.6;
+    filter: blur(2px);
+    transform: scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+@keyframes motion-reveal-up {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* ══════════════════════════════════════════════
+   Glow — 激活光
+   节点可点击状态 / ACTIVE 状态
+   节奏：脉冲（2s 周期），不刺眼
+   原理：光的呼吸（呼吸感是核心）
+   ══════════════════════════════════════════════ */
+
+@keyframes motion-glow-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 8px var(--light-gold-soft, rgba(212, 188, 132, 0.28)),
+      0 0 0 var(--revelation-glow-outer, rgba(120, 168, 228, 0.28));
+  }
+  50% {
+    box-shadow:
+      0 0 20px var(--light-gold, rgba(212, 188, 132, 0.42)),
+      0 0 40px var(--revelation-glow-outer, rgba(120, 168, 228, 0.08));
+  }
+}
+
+@keyframes motion-glow-breath {
+  0%, 100% {
+    opacity: 0.6;
+    filter: brightness(0.9);
+  }
+  50% {
+    opacity: 1;
+    filter: brightness(1.1);
+  }
+}
+
+/* ══════════════════════════════════════════════
+   Burst — 获得/绽放
+   信物收集完成 / COLLECTED 进入
+   节奏：单次（800ms），不可循环
+   原理：光的短暂绽放后归于稳定
+   ══════════════════════════════════════════════ */
+
+@keyframes motion-burst {
+  0% {
+    transform: scale(0.96);
+    opacity: 0.85;
+  }
+  30% {
+    transform: scale(1.04);
+    opacity: 1;
+    filter: brightness(1.25);
+    box-shadow:
+      0 0 40px var(--light-gold-core, rgba(232, 208, 152, 0.62)),
+      0 0 60px var(--revelation-glow-outer, rgba(120, 168, 228, 0.15));
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    filter: brightness(1);
+    box-shadow:
+      0 0 12px var(--light-gold-soft, rgba(212, 188, 132, 0.28)),
+      0 0 0 var(--revelation-glow-outer, rgba(120, 168, 228, 0.06));
+  }
+}
+
+@keyframes motion-burst-particle {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.15);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.3);
+  }
+}
+
+/* ══════════════════════════════════════════════
+   Fade — 消散
+   弹窗关闭 / 元素退出
+   节奏：快（200-400ms），减速
+   原理：归入遮蔽
+   ══════════════════════════════════════════════ */
+
+@keyframes motion-fade {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.96);
+    filter: blur(4px);
+  }
+}
+
+@keyframes motion-fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   Overlay — 遮罩
+   ══════════════════════════════════════════════ */
+
+@keyframes motion-overlay-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes motion-overlay-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   时钟 / 呼吸 — 环境运动
+   由 motion.js 的 rAF 驱动
+   这里仅定义 CSS 不动画部分
+   ══════════════════════════════════════════════ */
+
+@keyframes motion-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* ══════════════════════════════════════════════
+   视效类名绑定（供 HTML/JS 直接使用）
+   ══════════════════════════════════════════════ */
+
+.motion-reveal {
+  animation: motion-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.motion-reveal-up {
+  animation: motion-reveal-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.motion-glow {
+  animation: motion-glow-pulse 2s ease-in-out infinite;
+}
+
+.motion-burst {
+  animation: motion-burst 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.motion-fade {
+  animation: motion-fade 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.motion-float {
+  animation: motion-float 3s ease-in-out infinite;
+}
+
+/* 延迟辅助类 */
+.motion-delay-100 { animation-delay: 100ms; }
+.motion-delay-200 { animation-delay: 200ms; }
+.motion-delay-300 { animation-delay: 300ms; }
+.motion-delay-400 { animation-delay: 400ms; }
+.motion-delay-500 { animation-delay: 500ms; }

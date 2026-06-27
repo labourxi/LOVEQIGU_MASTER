@@ -1,0 +1,315 @@
+{
+  "meta": {
+    "version": "SCENE_MAP_V1",
+    "date": "2026-06-27",
+    "title": "爱企谷场景地图 — Reality-first Scene Model V1",
+    "total_images_analyzed": 27,
+    "total_scenes": 8,
+    "note": "所有图片为UI/UX概念渲染图（非实拍照片），场景判断基于视觉内容分析结合真实场地知识。",
+    "source_images_dir": "assets/aiqigu/images/"
+  },
+
+  "scenes": [
+    {
+      "scene_id": "entrance_plaza",
+      "scene_name": "入口广场",
+      "scene_type": "广场",
+      "source_images": [
+        "Snipaste_2026-06-10_22-31-57.png",
+        "Snipaste_2026-06-10_22-32-36.png",
+        "Snipaste_2026-06-11_12-06-13.png",
+        "微信图片_20260611145955_1_2.jpg",
+        "微信图片_20260611145958_2_2.jpg"
+      ],
+      "spatial_structure": {
+        "description": "开放式入口广场，正对园区主建筑/门头。地面铺装规整，视野开阔。两侧有绿化与引导标识。昼夜场景均有表现。",
+        "ground_plane": "水平硬质铺装（地砖/石板），适合AR地面锚点",
+        "vertical_elements": ["园区主标识/门头", "灯柱", "绿化带", "引导牌"],
+        "lighting": "暖色灯光（傍晚）或自然光（白天），无强反射干扰",
+        "depth": "中远距（10-50m），视距适合AR覆盖"
+      },
+      "ar_candidates": [
+        {
+          "position": "入口地面中心",
+          "type": "image_target",
+          "description": "广场地面作为AR信物显现的初始锚点",
+          "feasibility": "high",
+          "note": "地面纹理丰富，适合图像识别锚定"
+        },
+        {
+          "position": "主标识/门头前方",
+          "type": "plane_detection",
+          "description": "用户站立位置前方，显现启程之印",
+          "feasibility": "high",
+          "note": "开阔空间，用户站立点可控"
+        }
+      ],
+      "is_interaction_node": true,
+      "recommended_relic_type": "视觉信物（启程之印）",
+      "notes": "探索起点。推荐AR：入口处显现启程之印动画。"
+    },
+
+    {
+      "scene_id": "central_plaza",
+      "scene_name": "中心广场",
+      "scene_type": "广场",
+      "source_images": [
+        "Snipaste_2026-06-10_22-36-36.png",
+        "Snipaste_2026-06-10_22-38-53.png",
+        "微信图片_20260611150036_10_2.jpg",
+        "微信图片_20260611150038_11_2.jpg"
+      ],
+      "spatial_structure": {
+        "description": "园区核心广场，有中心装置或开阔集会空间。周围环绕建筑立面。地面有特色铺装图案（如星图/经纬线）。",
+        "ground_plane": "特色铺装地面，有几何图案纹理，适合图像AR锚点",
+        "vertical_elements": ["中心装置/雕塑", "周围建筑立面", "景观树"],
+        "lighting": "多角度照明，夜间有氛围灯",
+        "depth": "中距（5-30m）"
+      },
+      "ar_candidates": [
+        {
+          "position": "中心地面图案处",
+          "type": "image_target",
+          "description": "地面特色铺装作为AR锚点，显现万象之印",
+          "feasibility": "high",
+          "note": "铺装图案独特，识别稳定"
+        },
+        {
+          "position": "广场中心上空（环境光充足时）",
+          "type": "plane_detection",
+          "description": "用户环顾时，信物在空中显现",
+          "feasibility": "medium",
+          "note": "需保证环境光充足"
+        }
+      ],
+      "is_interaction_node": true,
+      "recommended_relic_type": "叙事信物（万象之印/最终仪式）",
+      "notes": "活动收束点。推荐AR：完成所有前置探索后，中心广场显现万象之印。"
+    },
+
+    {
+      "scene_id": "jiangnan_street",
+      "scene_name": "江南老街",
+      "scene_type": "商业街",
+      "source_images": [
+        "Snipaste_2026-06-11_12-06-45.png",
+        "Snipaste_2026-06-11_12-06-59.png",
+        "Snipaste_2026-06-11_12-07-18.png",
+        "微信图片_20260611150040_12_2.jpg"
+      ],
+      "spatial_structure": {
+        "description": "仿古建筑商业街，两侧为店铺立面。街道路面为石板铺装。有屋檐、灯笼、招牌等传统元素。",
+        "ground_plane": "石板路，纹理稳定",
+        "vertical_elements": ["店铺门头/招牌", "灯笼", "廊柱", "屋檐"],
+        "lighting": "暖光灯笼+自然光混合，有较丰富的光影层次",
+        "depth": "近-中距（2-15m），街巷较窄"
+      },
+      "ar_candidates": [
+        {
+          "position": "店铺门头处",
+          "type": "image_target",
+          "description": "店铺招牌作为AR锚点，显现匠心印",
+          "feasibility": "high",
+          "note": "招牌常亮，识别特征稳定"
+        },
+        {
+          "position": "街道交汇处地面",
+          "type": "plane_detection",
+          "description": "街道路面作为信物显现平面",
+          "feasibility": "medium",
+          "note": "人流较多时识别可能受干扰"
+        }
+      ],
+      "is_interaction_node": true,
+      "recommended_relic_type": "行为信物（匠心印 — 手作探索）",
+      "notes": "对应爱企谷手作馆区域。推荐AR：在手作馆门头或街道转角显现匠心印。"
+    },
+
+    {
+      "scene_id": "entrance_landscape",
+      "scene_name": "入口景观（古树）",
+      "scene_type": "景观",
+      "source_images": [
+        "Snipaste_2026-06-11_12-07-47.png",
+        "微信图片_20260611150040_12_2.jpg"
+      ],
+      "spatial_structure": {
+        "description": "入口广场附近的景观绿化区域，有树木、花坛、步道。古树所在地。",
+        "ground_plane": "混合地面（石材步道+绿化）",
+        "vertical_elements": ["古树", "景观灯", "花坛", "步道标识"],
+        "lighting": "自然光为主，树荫下有柔和散射光",
+        "depth": "近距（1-10m）"
+      },
+      "ar_candidates": [
+        {
+          "position": "古树树干/树根处",
+          "type": "image_target",
+          "description": "古树作为地标锚点，AR信物在树根或树冠显现",
+          "feasibility": "high",
+          "note": "古树纹理丰富，已有factory_package中的8张实拍参考图"
+        }
+      ],
+      "is_interaction_node": true,
+      "recommended_relic_type": "视觉信物（古树见证印）",
+      "notes": "古树探索点已有AR工厂包（landmark_tree_v1）。推荐AR：古树前显现自然印记。"
+    },
+
+    {
+      "scene_id": "interior_cafe",
+      "scene_name": "爱企谷咖啡",
+      "scene_type": "室内商业",
+      "source_images": [
+        "微信图片_20260611150043_13_2.jpg",
+        "微信图片_20260611150046_14_2.jpg",
+        "微信图片_20260611150050_16_2.jpg"
+      ],
+      "spatial_structure": {
+        "description": "咖啡馆室内环境，有吧台、桌椅、装饰墙。暖色灯光，空间中等大小。桌面和墙面为主要平面。",
+        "ground_plane": "室内地砖/木地板",
+        "vertical_elements": ["吧台", "菜单板", "装饰画/墙面", "咖啡机"],
+        "lighting": "暖色室内灯光，可控照明",
+        "depth": "近距（0.5-5m）"
+      },
+      "ar_candidates": [
+        {
+          "position": "桌面小卡/杯垫",
+          "type": "image_target",
+          "description": "桌面上的品牌小卡或杯垫作为AR trigger",
+          "feasibility": "high",
+          "note": "小卡可控分发，识别率高。首推AR方案。"
+        },
+        {
+          "position": "店铺Logo墙面",
+          "type": "image_target",
+          "description": "品牌Logo墙作为AR锚点",
+          "feasibility": "medium",
+          "note": "Logo固定，但可能存在遮挡"
+        }
+      ],
+      "is_interaction_node": true,
+      "recommended_relic_type": "行为信物（咖啡馆印记）",
+      "notes": "真实商户。推荐AR：桌面扫码/小卡识别后显现咖啡馆印记。"
+    },
+
+    {
+      "scene_id": "interior_bookstore",
+      "scene_name": "爱企谷书店",
+      "scene_type": "室内文化",
+      "source_images": [
+        "微信图片_20260611150049_15_2.jpg",
+        "微信图片_20260611150053_17_2.jpg"
+      ],
+      "spatial_structure": {
+        "description": "书店室内环境，有书架、阅读区、文创展示台。暖光照明，安静氛围。",
+        "ground_plane": "木地板",
+        "vertical_elements": ["书架", "展示台", "墙面装饰"],
+        "lighting": "暖色柔和灯光",
+        "depth": "近距（0.5-6m）"
+      },
+      "ar_candidates": [
+        {
+          "position": "书店入口门头",
+          "type": "image_target",
+          "description": "书店招牌作为AR锚点",
+          "feasibility": "high",
+          "note": "门头固定不变，识别稳定"
+        },
+        {
+          "position": "文创展示台面",
+          "type": "image_target",
+          "description": "展示台上的书籍/文创产品作为AR trigger",
+          "feasibility": "medium",
+          "note": "展示品可能更换，需定期更新锚点图"
+        }
+      ],
+      "is_interaction_node": true,
+      "recommended_relic_type": "行为信物（书页印记）",
+      "notes": "真实商户。推荐AR：书店入口或阅读区显现书页印记。"
+    },
+
+    {
+      "scene_id": "interior_craft_hall",
+      "scene_name": "爱企谷手作馆",
+      "scene_type": "室内体验",
+      "source_images": [
+        "微信图片_20260611150002_3_2.jpg",
+        "微信图片_20260611150004_4_2.jpg",
+        "微信图片_20260611150007_5_2.jpg",
+        "微信图片_20260611150015_8_2.jpg"
+      ],
+      "spatial_structure": {
+        "description": "手作工坊室内，有工作台、工具墙、作品展示区。自然光+工作灯照明。",
+        "ground_plane": "水泥/木地板（有工作区域划分）",
+        "vertical_elements": ["工具墙", "展示架", "工作台"],
+        "lighting": "混合照明（自然光+工作灯）",
+        "depth": "近距（0.5-4m），以工位为单位"
+      },
+      "ar_candidates": [
+        {
+          "position": "工作台面",
+          "type": "image_target",
+          "description": "工作台上的作品/材料作为AR trigger",
+          "feasibility": "high",
+          "note": "用户在手作时自然看到台面，体验连贯"
+        },
+        {
+          "position": "作品展示墙",
+          "type": "image_target",
+          "description": "墙上展示的手作成品作为AR锚点",
+          "feasibility": "medium",
+          "note": "展示品可能更新，需更新锚点"
+        }
+      ],
+      "is_interaction_node": true,
+      "recommended_relic_type": "叙事信物（手作印记）",
+      "notes": "真实商户。推荐AR：完成手作后在台面显现手作印记。"
+    },
+
+    {
+      "scene_id": "ui_exploration_overview",
+      "scene_name": "探索态地图概览",
+      "scene_type": "UI",
+      "source_images": [
+        "Snipaste_2026-06-11_12-07-58.png",
+        "Snipaste_2026-06-11_12-08-14.png",
+        "Snipaste_2026-06-11_12-09-12.png",
+        "Snipaste_2026-06-11_12-09-23.png"
+      ],
+      "spatial_structure": {
+        "description": "手机App内的探索态地图界面设计稿。包含地图背景、探索节点标记、路线引导UI。非真实空间。",
+        "ground_plane": null,
+        "vertical_elements": null,
+        "lighting": "UI设计光源（非真实光照）"
+      },
+      "ar_candidates": [
+        {
+          "position": null,
+          "type": "ui_overlay",
+          "description": "地图UI上的节点标记作为数字引导，非AR交互",
+          "feasibility": null,
+          "note": "UI组件，不属于AR场景。仅供页面导航参考。"
+        }
+      ],
+      "is_interaction_node": false,
+      "recommended_relic_type": null,
+      "notes": "UI设计稿，非真实空间场景。不产生AR交互点位。用于参考探索路线与节点视觉风格。"
+    }
+  ],
+
+  "summary": {
+    "real_scenes": 7,
+    "ui_scenes": 1,
+    "total_images": 27,
+    "images_allocated": 27,
+    "ar_candidate_count": 14,
+    "interaction_nodes": 7,
+    "non_interaction_nodes": 1,
+    "notes": [
+      "7个真实场景均有对应商户/场地知识支撑",
+      "UI探索态地图概览为App界面设计，不产生AR交互点位",
+      "古树场景已有factory_package中的8张实拍参考图（tree_full.jpg等）",
+      "所有室内场景（咖啡/书店/手作馆）首推桌面小卡AR方案",
+      "所有广场/室外场景首推地面图案或门头标识AR方案"
+    ]
+  }
+}

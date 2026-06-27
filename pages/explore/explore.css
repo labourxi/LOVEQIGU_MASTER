@@ -1,0 +1,21 @@
+/* ─────────────────────────────────────────────────────────────
+ * EXPLORE — 探索页布局样式
+ *
+ * 仅包含布局与结构定义。
+ * 所有视觉定义（颜色、光效、动效、字体）由下面文件提供：
+ *   /system/visual/visual_tokens.css
+ *   /system/visual/motion/motion_visual.css
+ *   /system/visual/explore/explore_visual.css
+ *   /system/visual/relic/relic_visual.css
+ * ───────────────────────────────────────────────────────────── */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  padding-bottom: 40px;
+}

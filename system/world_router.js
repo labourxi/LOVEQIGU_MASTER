@@ -1,6 +1,10 @@
 /**
  * WORLD_ROUTER — V0.5 self-generating world routing
  * explore / ar routes invoke world_generator before navigation
+ *
+ * SYSTEM_CONVERGENCE_V1: SINGLE WORLD SYSTEM
+ * - Only routes to root /pages/landing/ and /pages/explore/
+ * - ar-youban-world-system/ is ARCHIVE ONLY — NOT routable
  */
 
 import {

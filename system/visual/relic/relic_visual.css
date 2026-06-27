@@ -1,0 +1,318 @@
+/**
+ * RELIC VISUAL — 信物视觉系统（三态 + 弹窗）
+ *
+ * 信物三态视觉差异：
+ *   LOCKED    → 灰阶、低透明度、无光
+ *   ACTIVE    → 暖光、呼吸脉冲、可交互
+ *   COLLECTED → 稳定微光、淡绿收鞘、不可交互
+ *
+ * 设计原则：
+ *   - 每一态必须有视觉差异（光 / 透明度 / 纹理 / 动效）
+ *   - 信物不是卡牌，不是道具
+ *   - 展示 = 被找回的连接
+ *
+ * 合规引用：
+ *   - relic_visual_system_v1.js (RELIC_LIGHT / RELIC_FLOWS / RELIC_REVEAL_MOTION)
+ *   - visual_language_v1.js (LIGHT / REVELATION)
+ *   - motion/motion_visual.css (reveal / glow-pulse / burst / fade)
+ *   - visual_tokens.css
+ */
+
+/* ══════════════════════════════════════════════
+   信物卡片 — 弹窗内信物展示
+   ══════════════════════════════════════════════ */
+
+.relic-card {
+  position: relative;
+  width: 280px;
+  max-width: 85vw;
+  border-radius: 20px;
+  padding: 24px 20px 20px;
+  pointer-events: auto;
+}
+
+/* ─── LOCKED 态 ─── */
+.relic-card.state-locked {
+  border: 1px solid rgba(198, 210, 240, 0.08);
+  background: rgba(18, 32, 58, 0.3);
+  filter: grayscale(0.6);
+  opacity: 0.5;
+}
+
+.relic-card.state-locked .relic-card__title {
+  color: rgba(228, 236, 248, 0.4);
+}
+
+.relic-card.state-locked .relic-card__name {
+  text-shadow: none;
+}
+
+/* ─── ACTIVE 态 ─── */
+.relic-card.state-active {
+  border: 1px solid var(--light-gold-edge, rgba(232,208,152,0.42));
+  background: linear-gradient(145deg,
+    rgba(18, 32, 58, 0.5) 0%,
+    rgba(26, 42, 72, 0.4) 50%,
+    rgba(18, 32, 58, 0.5) 100%
+  );
+  box-shadow:
+    0 0 28px var(--light-gold-soft, rgba(212,188,132,0.2)),
+    0 0 0 var(--revelation-glow-outer, rgba(120,168,228,0.06));
+}
+
+.relic-card.state-active .relic-card__title {
+  color: var(--light-gold, rgba(212,188,132,0.82));
+}
+
+.relic-card.state-active .relic-card__name {
+  text-shadow: 0 0 20px var(--light-gold-soft, rgba(212,188,132,0.28));
+}
+
+/* ─── COLLECTED 态 ─── */
+.relic-card.state-collected {
+  border: 1px solid rgba(100, 180, 100, 0.25);
+  background: rgba(18, 32, 58, 0.35);
+  box-shadow:
+    0 0 16px rgba(100, 180, 100, 0.08),
+    0 0 0 rgba(120, 168, 228, 0.04);
+}
+
+.relic-card.state-collected .relic-card__title {
+  color: rgba(160, 216, 160, 0.7);
+}
+
+.relic-card.state-collected .relic-card__name {
+  text-shadow: 0 0 12px rgba(100, 180, 100, 0.15);
+}
+
+/* ══════════════════════════════════════════════
+   信物卡片内部组件
+   ══════════════════════════════════════════════ */
+
+.relic-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.relic-card__title {
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: 1.1rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  transition: all 0.4s ease;
+}
+
+.relic-card__badge {
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  padding: 2px 10px;
+  border-radius: 20px;
+  border: 1px solid;
+}
+
+.relic-card.state-active .relic-card__badge {
+  color: var(--light-gold, rgba(212,188,132,0.6));
+  border-color: var(--light-gold-edge, rgba(232,208,152,0.3));
+  background: rgba(212, 188, 132, 0.06);
+}
+
+.relic-card.state-collected .relic-card__badge {
+  color: rgba(160, 216, 160, 0.6);
+  border-color: rgba(100, 180, 100, 0.2);
+  background: rgba(100, 180, 100, 0.06);
+}
+
+/* ─── 信物名称（大号展示） ─── */
+.relic-card__name {
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: 1.4rem;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-align: center;
+  padding: 16px 0;
+  transition: all 0.4s ease;
+}
+
+/* ─── 信息行 ─── */
+.relic-card__field {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 0.72rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.relic-card__field-label {
+  color: var(--text-whisper, rgba(148,168,198,0.5));
+  letter-spacing: 0.06em;
+}
+
+.relic-card__field-value {
+  color: var(--text-subtitle, rgba(168,184,210,0.7));
+  letter-spacing: 0.04em;
+}
+
+/* ══════════════════════════════════════════════
+   视觉阶段圆点（visual_stage 0-3）
+   ══════════════════════════════════════════════ */
+
+.relic-card__stages {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 14px 0;
+}
+
+.relic-card__stage-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  transition: all 0.4s ease;
+}
+
+/* ACTIVE 态的阶段点 */
+.relic-card.state-active .relic-card__stage-dot.active {
+  background: var(--light-gold-core, rgba(232,208,152,0.62));
+  box-shadow: 0 0 6px var(--light-gold-soft, rgba(212,188,132,0.4));
+}
+
+/* COLLECTED 态的阶段点 */
+.relic-card.state-collected .relic-card__stage-dot.active {
+  background: rgba(160, 216, 160, 0.5);
+  box-shadow: 0 0 4px rgba(100, 180, 100, 0.2);
+}
+
+/* ══════════════════════════════════════════════
+   信物弹窗（覆写 relic_popup_v1 注入的内联样式）
+   ══════════════════════════════════════════════ */
+
+.relic-popup-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  pointer-events: auto;
+  animation: motion-overlay-in 0.3s ease-out;
+}
+
+.relic-popup-card {
+  position: relative;
+  width: 320px;
+  max-width: 90vw;
+  background: linear-gradient(145deg,
+    rgba(20, 36, 64, 0.85) 0%,
+    rgba(16, 28, 52, 0.82) 50%,
+    rgba(12, 22, 44, 0.88) 100%
+  );
+  border: 1px solid var(--light-gold-edge, rgba(232,208,152,0.35));
+  border-radius: 20px;
+  padding: 28px 24px;
+  pointer-events: auto;
+  box-shadow:
+    0 0 36px var(--light-gold-soft, rgba(212,188,132,0.2)),
+    0 0 0 var(--revelation-glow-outer, rgba(120,168,228,0.08));
+  z-index: 1;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
+/* ─── 动画覆写 ─── */
+.relic-popup-anim-reveal {
+  animation: motion-reveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.relic-popup-anim-glow {
+  animation: motion-glow-pulse 0.4s ease-out;
+}
+
+.relic-popup-anim-burst {
+  animation: motion-burst 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.relic-popup-anim-collect {
+  animation: motion-burst 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ─── 按钮 ─── */
+.relic-popup-btn {
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: 0.78rem;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  padding: 8px 28px;
+  border: 1px solid var(--light-gold-edge, rgba(232,208,152,0.3));
+  border-radius: 999px;
+  background: var(--cta-surface, rgba(18,36,68,0.38));
+  color: var(--text-subtitle, rgba(168,184,210,0.72));
+  cursor: pointer;
+  transition: all 0.4s var(--ease-breath, cubic-bezier(0.45,0.05,0.55,0.95));
+}
+
+.relic-popup-btn:hover {
+  color: var(--light-gold, rgba(212,188,132,0.7));
+  border-color: var(--light-gold-edge, rgba(232,208,152,0.5));
+  box-shadow: 0 0 16px var(--light-gold-soft, rgba(212,188,132,0.2));
+}
+
+.relic-popup-btn-primary {
+  color: var(--light-gold, rgba(212,188,132,0.72));
+  border-color: var(--light-gold, rgba(212,188,132,0.4));
+}
+
+.relic-popup-btn-primary:hover {
+  color: var(--light-gold-core, rgba(232,208,152,0.82));
+  box-shadow:
+    0 0 20px var(--light-gold-soft, rgba(212,188,132,0.28)),
+    0 0 0 var(--revelation-glow-outer, rgba(120,168,228,0.08));
+}
+
+.relic-popup-btn-close {
+  border-color: rgba(198, 210, 240, 0.15);
+  color: var(--text-whisper, rgba(148,168,198,0.55));
+}
+
+/* ─── 错误弹窗 ─── */
+.relic-popup-card.relic-popup-error {
+  border-color: rgba(180, 80, 80, 0.35);
+  background: linear-gradient(145deg, rgba(40, 20, 24, 0.8), rgba(36, 16, 28, 0.82));
+}
+
+/* ─── 收集完成弹窗 ─── */
+.relic-popup-collect-icon {
+  font-size: 40px;
+  text-align: center;
+  padding: 12px 0;
+  color: var(--light-gold-core, rgba(232,208,152,0.62));
+  animation: motion-burst 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ══════════════════════════════════════════════
+   信物三态 CSS 变量（供 JS 动态绑定）
+   ══════════════════════════════════════════════ */
+
+.relic-card.state-locked {
+  --relic-light: none;
+  --relic-opacity: 0.5;
+  --relic-texture: grayscale;
+  --relic-motion: none;
+}
+
+.relic-card.state-active {
+  --relic-light: var(--light-gold, rgba(212,188,132,0.82));
+  --relic-opacity: 1;
+  --relic-texture: normal;
+  --relic-motion: glow-pulse;
+}
+
+.relic-card.state-collected {
+  --relic-light: rgba(160, 216, 160, 0.5);
+  --relic-opacity: 0.85;
+  --relic-texture: normal;
+  --relic-motion: none;
+}

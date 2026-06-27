@@ -1,0 +1,255 @@
+/**
+ * EXPLORE SPATIAL — 探索空间视觉
+ *
+ * Explore 是用户"走入"的空间，不是"查看"的页面。
+ *
+ * 设计原则：
+ *   ✔ 节点空间化（不是卡片）
+ *   ✔ scene map → spatial nodes（空间中的光点）
+ *   ✔ 节点必须有光/雾/距离层级
+ *   ✔ 可点击节点 = 空间中的光
+ *
+ * 禁止：
+ *   ❌ 卡片 UI（无背景、无边框、无圆角容器）
+ *   ❌ 徽章（无 badge、无标签）
+ *   ❌ 扁平列表
+ *   ❌ 游戏化收集进度条
+ *
+ * 节点 = 空间中浮动存在的微光
+ */
+
+/* ══════════════════════════════════════════════
+   探索空间头部 — 极简，融入空间
+   ══════════════════════════════════════════════ */
+
+.explore-space__header {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px 8px;
+  padding-top: calc(24px + env(safe-area-inset-top, 0));
+}
+
+.explore-space__title {
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: 0.82rem;
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  color: var(--text-subtitle, rgba(168, 184, 210, 0.65));
+  text-shadow: 0 0 16px var(--light-gold-soft, rgba(212, 188, 132, 0.06));
+}
+
+/* ══════════════════════════════════════════════
+   探索空间 — 导语
+   ══════════════════════════════════════════════ */
+
+.explore-space__intro {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  padding: 12px 20px 32px;
+}
+
+.explore-space__intro-text {
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: 0.7rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  color: var(--text-whisper, rgba(148, 168, 198, 0.4));
+}
+
+/* ══════════════════════════════════════════════
+   空间节点容器
+   ══════════════════════════════════════════════ */
+
+.explore-space__nodes {
+  position: relative;
+  z-index: 3;
+  padding: 0 24px 48px;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+/* ══════════════════════════════════════════════
+   空间节点（不是卡片！）
+   ══════════════════════════════════════════════ */
+
+.spatial-node {
+  position: relative;
+  margin-bottom: 20px;
+  padding: 20px 24px;
+  cursor: default;
+  transition: all 0.6s var(--ease-breath, cubic-bezier(0.45, 0.05, 0.55, 0.95));
+  transform-origin: center left;
+  /* 无背景 — 无卡片 — 无边框 */
+  background: none;
+  border: none;
+  border-radius: 0;
+}
+
+/* 节点不是容器，是"空间中的存在" — 仅通过发光定义自身 */
+
+/* ─── LOCKED — 暗 / 半透明 / 无光 ─── */
+.spatial-node.state-locked {
+  opacity: 0.3;
+  filter: grayscale(0.8) blur(0.5px);
+  pointer-events: none;
+}
+
+.spatial-node.state-locked .spatial-node__name {
+  color: rgba(228, 236, 248, 0.25);
+}
+
+/* ─── ACTIVE — 微光 / 呼吸 / 可点击 ─── */
+.spatial-node.state-active {
+  cursor: pointer;
+  opacity: calc(0.6 + var(--node-interaction-weight, 0.5) * 0.4);
+}
+
+/* 节点的光 — 不是背景，是"空间中的光照" */
+.spatial-node.state-active::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: 50%;
+  width: 2px;
+  height: 60%;
+  transform: translateY(-50%);
+  background: linear-gradient(180deg,
+    transparent 0%,
+    var(--light-gold, rgba(212, 188, 132, 0.4)) 20%,
+    var(--light-gold-core, rgba(232, 208, 152, 0.5)) 50%,
+    var(--light-gold, rgba(212, 188, 132, 0.4)) 80%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 calc(var(--node-glow-size, 14px) * 1.5) var(--light-gold-soft, rgba(212, 188, 132, calc(0.08 + var(--node-glow-intensity, 0.15) * 0.5))),
+    0 0 calc(var(--node-glow-size, 14px) * 3) var(--light-gold-soft, rgba(212, 188, 132, calc(0.04 + var(--node-glow-intensity, 0.15) * 0.3)));
+  opacity: var(--node-glow-opacity, 0.15);
+  animation: node-light-breath calc(2s + var(--node-interaction-weight, 0.5) * 1.5s) ease-in-out infinite;
+}
+
+@keyframes node-light-breath {
+  0%, 100% {
+    opacity: calc(var(--node-glow-opacity, 0.15) * 0.6);
+    height: 50%;
+  }
+  50% {
+    opacity: var(--node-glow-opacity, 0.15);
+    height: 70%;
+  }
+}
+
+/* ACTIVE hover — 光增强 */
+.spatial-node.state-active:hover::before {
+  opacity: calc(var(--node-glow-opacity, 0.15) * 2);
+  box-shadow:
+    0 0 calc(var(--node-glow-size, 14px) * 2.5) var(--light-gold-soft, rgba(212, 188, 132, 0.2)),
+    0 0 calc(var(--node-glow-size, 14px) * 5) var(--light-gold-soft, rgba(212, 188, 132, 0.1));
+}
+
+/* ACTIVE hover — 节点名词微移 */
+.spatial-node.state-active:hover .spatial-node__name {
+  transform: translateX(4px);
+}
+
+/* ─── COLLECTED — 完整显现 / 光稳定存在 ─── */
+.spatial-node.state-collected {
+  opacity: 0.8;
+  cursor: default;
+  pointer-events: none;
+}
+
+.spatial-node.state-collected::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: 50%;
+  width: 2px;
+  height: 60%;
+  transform: translateY(-50%);
+  background: linear-gradient(180deg,
+    transparent 0%,
+    rgba(160, 216, 160, 0.3) 20%,
+    rgba(160, 216, 160, 0.4) 50%,
+    rgba(160, 216, 160, 0.3) 80%,
+    transparent 100%
+  );
+  box-shadow: 0 0 16px rgba(160, 216, 160, 0.08);
+  opacity: 0.5;
+}
+
+.spatial-node.state-collected .spatial-node__name {
+  color: rgba(160, 216, 160, 0.55);
+}
+
+/* ══════════════════════════════════════════════
+   空间节点 — 内容（极简，无卡片结构）
+   ══════════════════════════════════════════════ */
+
+.spatial-node__name {
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: 0.92rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: var(--text-title, rgba(228, 236, 248, 0.75));
+  transition: all 0.5s var(--ease-breath, cubic-bezier(0.45, 0.05, 0.55, 0.95));
+  position: relative;
+}
+
+.spatial-node__type {
+  font-family: var(--font-serif, "Noto Serif SC", serif);
+  font-size: 0.62rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  color: var(--text-whisper, rgba(148, 168, 198, 0.3));
+  margin-top: 4px;
+  transition: color 0.4s ease;
+}
+
+/* 无 icon 容器 — icon 是光的一部分 */
+.spatial-node__icon {
+  display: inline-block;
+  font-size: 16px;
+  margin-right: 10px;
+  opacity: 0.5;
+  vertical-align: middle;
+}
+
+/* 无 badge — 文字本身就是状态标记 */
+
+/* ─── 空间深度变体 ─── */
+
+/* 远 */
+.spatial-depth-distant {
+  opacity: 0.6;
+}
+
+/* 中 */
+.spatial-depth-mid {
+  opacity: 0.8;
+}
+
+/* 近 */
+.spatial-depth-close {
+  opacity: 1;
+}
+
+/* ══════════════════════════════════════════════
+   入场 — 淡入序列（如同从雾中走出）
+   ══════════════════════════════════════════════ */
+
+.spatial-node {
+  opacity: 0;
+  animation: motion-reveal-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.spatial-node:nth-child(1) { animation-delay: 200ms; }
+.spatial-node:nth-child(2) { animation-delay: 280ms; }
+.spatial-node:nth-child(3) { animation-delay: 360ms; }
+.spatial-node:nth-child(4) { animation-delay: 440ms; }
+.spatial-node:nth-child(5) { animation-delay: 520ms; }
+.spatial-node:nth-child(6) { animation-delay: 600ms; }
+.spatial-node:nth-child(7) { animation-delay: 680ms; }
