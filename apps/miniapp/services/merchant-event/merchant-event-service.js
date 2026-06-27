@@ -1,4 +1,5 @@
 let progressStore;
+const { safeClone } = require('../../utils/safe-json');
 
 function ensureDeps() {
   if (!progressStore) {
@@ -34,7 +35,7 @@ const seedState = {
 };
 
 function clone(value) {
-  return JSON.parse(JSON.stringify(value));
+  return safeClone(value);
 }
 
 function asArray(value) {

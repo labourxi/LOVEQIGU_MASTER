@@ -28,7 +28,7 @@
   right: 0;
   text-align: center;
   font-size: 30rpx;
-  color: #f4f1eb;
+  color: #F3F0E8;
   letter-spacing: 2rpx;
   text-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.35);
   animation: pilot-fx-label-rise 0.5s ease-out 0.2s both;
@@ -235,7 +235,7 @@
   width: 96rpx;
   height: 96rpx;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #f4f1eb 0%, #c9a96a 45%, #263a34 100%);
+  background: radial-gradient(circle at 35% 35%, #F3F0E8 0%, #c9a96a 45%, #0F2A22 100%);
   box-shadow: 0 0 40rpx rgba(182, 138, 61, 0.45);
   transform: translate(-50%, -50%) scale(0);
   animation: pilot-fx-relic-core 0.9s cubic-bezier(0.2, 0.9, 0.3, 1) 0.15s both;

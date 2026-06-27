@@ -1,7 +1,7 @@
 {
   "source_root": "data\\ar_factory\\poc\\landmark_tree_v1",
   "miniapp_runtime_root": "apps\\miniapp\\data\\runtime\\ar_factory\\landmark_tree_v1",
-  "miniapp_asset_root": "apps\\miniapp\\xr_demo\\miniprogram\\assets\\ar_factory\\landmark_tree_v1",
+  "miniapp_asset_root": "apps\\miniapp\\assets\\ar_factory\\landmark_tree_v1",
   "json_files": [
     "subject_analysis.json",
     "anchor.json",

@@ -4,7 +4,7 @@
 
 .user-phase1-page {
   padding-bottom: calc(120rpx + env(safe-area-inset-bottom));
-  background: #f4f1eb;
+  background: #F3F0E8;
   box-sizing: border-box;
 }
 
@@ -18,7 +18,7 @@
 
   padding: 56rpx 40rpx 44rpx;
 
-  background: linear-gradient(165deg, #1f302b 0%, #263a34 45%, #2d4540 100%);
+  background: linear-gradient(165deg, #0F2A22 0%, #0F2A22 45%, #0F2A22 100%);
 
   border-radius: 0 0 40rpx 40rpx;
 
@@ -46,7 +46,7 @@
 
   border-radius: 50%;
 
-  border: 1rpx solid rgba(244, 215, 166, 0.12);
+  border: 1rpx solid rgba(200, 162, 74, 0.12);
 
   opacity: 0.6;
 
@@ -142,7 +142,7 @@
 
   font-weight: 800;
 
-  color: #f4d7a6;
+  color: #C8A24A;
 
 }
 
@@ -176,7 +176,7 @@
 
   background: linear-gradient(180deg, #f0e2c4 0%, #e8d8b4 100%);
 
-  color: #263a34;
+  color: #0F2A22;
 
   font-size: 30rpx;
 
@@ -248,7 +248,7 @@
 
   font-weight: 700;
 
-  color: #263a34;
+  color: #0F2A22;
 
 }
 
@@ -314,7 +314,7 @@
 
   font-weight: 800;
 
-  color: #263a34;
+  color: #0F2A22;
 
 }
 
@@ -390,7 +390,7 @@
 
   padding: 48rpx 36rpx 40rpx;
 
-  background: linear-gradient(160deg, #1a2824 0%, #263a34 100%);
+  background: linear-gradient(160deg, #0F2A22 0%, #0F2A22 100%);
 
   color: #fff;
 
@@ -452,7 +452,7 @@
 
   font-size: 22rpx;
 
-  color: rgba(244, 215, 166, 0.85);
+  color: rgba(200, 162, 74, 0.85);
 
   letter-spacing: 1rpx;
 
@@ -572,11 +572,11 @@
 
 .atlas-node--lit .atlas-node__star {
 
-  background: radial-gradient(circle at 35% 35%, #f4d7a6, #b68a3d);
+  background: radial-gradient(circle at 35% 35%, #C8A24A, #b68a3d);
 
   border-color: #b68a3d;
 
-  box-shadow: 0 0 12rpx rgba(182, 138, 61, 0.35), 0 0 0 6rpx rgba(244, 215, 166, 0.2);
+  box-shadow: 0 0 12rpx rgba(182, 138, 61, 0.35), 0 0 0 6rpx rgba(200, 162, 74, 0.2);
 
 }
 
@@ -610,7 +610,7 @@
 
   font-weight: 700;
 
-  color: #263a34;
+  color: #0F2A22;
 
 }
 
@@ -682,7 +682,7 @@
 
   font-weight: 800;
 
-  color: #263a34;
+  color: #0F2A22;
 
 }
 
@@ -696,7 +696,7 @@
 
   font-weight: 700;
 
-  color: #263a34;
+  color: #0F2A22;
 
   letter-spacing: 2rpx;
 
@@ -982,7 +982,7 @@
 
   font-weight: 700;
 
-  color: #263a34;
+  color: #0F2A22;
 
   letter-spacing: 2rpx;
 
@@ -1472,7 +1472,7 @@
 
   background: #f1ece2;
 
-  color: #263a34;
+  color: #0F2A22;
 
   font-size: 22rpx;
 

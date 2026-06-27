@@ -6,6 +6,7 @@ const safeInteraction = require('../../../behaviors/safe-interaction');
 const pilotScene = require('../../../behaviors/pilot-scene');
 const pilotSceneFlow = require('../../../services/pilot/pilot-scene-flow');
 const { safeNavigate: coreSafeNavigate } = require('../../../utils/safe-interaction');
+const explorationState = require('../../../services/exploration-state');
 
 function formatCouponDisplay(coupon) {
   if (!coupon) {
@@ -92,13 +93,8 @@ function buildPageData(pointId) {
       bottomNav: journey.nav,
       nextStepLabel: resolveNextStepLabel(runtimeDetail),
       runtimeMock: true,
-      xrRenderReturned: false,
-      xrRenderStatus: 'NOT_STARTED',
-      xrObjectVisible: false,
-      xrBlockReason: '',
-      xrCheckedAt: '',
-      xrFallbackMessage: '',
-      xrReadyMessage: ''
+      nextStepLabel: resolveNextStepLabel(runtimeDetail),
+      explorationState: explorationState.resolveState(taskDone, null)
     };
   }
   const raw =
@@ -117,14 +113,8 @@ function buildPageData(pointId) {
     activityId: merchantEventService.ACTIVITY_ID,
     activeTab: 'map',
     bottomNav: journey.nav,
-    xrRenderReturned: false,
-    xrRenderStatus: 'NOT_STARTED',
-    xrObjectVisible: false,
-    xrBlockReason: '',
-    xrCheckedAt: '',
-    xrFallbackMessage: '',
-    xrReadyMessage: '',
-    nextStepLabel: taskDone ? '可前往显现仪式' : '完成探索纪要后，可触发显现'
+    nextStepLabel: taskDone ? '可前往显现仪式' : '完成探索纪要后，可触发显现',
+    explorationState: explorationState.resolveState(taskDone, null)
   };
 }
 
@@ -189,11 +179,9 @@ Page({
 
   onShow() {
     this.refresh();
-    this.syncScenicPointXRResultFromStorage();
     if (merchantEventService.ensureReadyAsync) {
       merchantEventService.ensureReadyAsync().then(() => {
         this.refresh();
-        this.syncScenicPointXRResultFromStorage();
       });
     }
   },
@@ -233,102 +221,14 @@ Page({
     });
   },
 
-  onOpenXRDemoTest() {
-    this.openScenicPointXRRenderer();
-  },
-
-  openScenicPointXRRenderer() {
-    const checkedAt = new Date().toISOString();
-    this.setData({
-      xrRenderReturned: false,
-      xrRenderStatus: 'OPENING_RENDERER',
-      xrObjectVisible: false,
-      xrBlockReason: '',
-      xrCheckedAt: checkedAt,
-      xrFallbackMessage: '',
-      xrReadyMessage: ''
-    });
-
-    safeNavigate('/xr_demo/miniprogram/pages/xr-scenic-point-render/index', {
-      success() {
-        console.log('[XR_EXPLORE_PAGE_XR_BUTTON_ROUTE_FIX_V1] NAVIGATE_TO_SCENIC_RENDERER_SUCCESS');
-      },
-      fail: (err) => {
-        console.error('[XR_EXPLORE_PAGE_XR_BUTTON_ROUTE_FIX_V1] NAVIGATE_TO_SCENIC_RENDERER_FAIL', err);
-        this.setData({
-          xrRenderReturned: true,
-          xrRenderStatus: 'NAVIGATE_FAILED',
-          xrObjectVisible: false,
-          xrBlockReason: 'XR_SCENIC_POINT_RENDERER_NAVIGATE_FAILED',
-          xrCheckedAt: new Date().toISOString(),
-          xrFallbackMessage: '当前设备暂未完成 XR 显现，可继续通过普通探索流程获得信物。',
-          xrReadyMessage: ''
-        });
-      }
-    });
-  },
-
-  applyScenicPointRendererResult(result) {
-    if (!result) {
-      return;
-    }
-
-    const currentTime = isoTimeValue(this.data.xrCheckedAt);
-    const incomingTime = isoTimeValue(result.checkedAt);
-    if (this.data.xrRenderReturned && incomingTime && incomingTime < currentTime) {
-      return;
-    }
-
-    const status = result.status || 'UNKNOWN';
-    const objectVisible = Boolean(result.objectVisible);
-    const ready = status === 'READY' && objectVisible === true;
-    const checkedAt = result.checkedAt || new Date().toISOString();
-    const payload = {
-      xrRenderReturned: true,
-      xrRenderStatus: status,
-      xrObjectVisible: ready ? true : objectVisible,
-      xrBlockReason: ready ? '' : (result.blockReason || ''),
-      xrCheckedAt: checkedAt,
-      xrReadyMessage: ready ? 'XR 显现已完成，可继续领取或查看信物。' : '',
-      xrFallbackMessage: ready ? '' : '当前设备暂未完成 XR 显现，可继续通过普通探索流程获得信物。'
-    };
-
-    this.setData(payload);
-
-    console.log('[XR_MERCHANT_EVENT_DETAIL_RETURN_RESULT_AND_COPY_FIX_V1] XR_RESULT_SYNCED', {
-      xrRenderReturned: payload.xrRenderReturned,
-      xrRenderStatus: payload.xrRenderStatus,
-      xrObjectVisible: payload.xrObjectVisible
-    });
-  },
-
-  syncScenicPointXRResultFromStorage() {
-    if (typeof wx === 'undefined' || typeof wx.getStorageSync !== 'function') {
-      return;
-    }
-
-    try {
-      const storedResult = wx.getStorageSync('XR_SCENIC_POINT_RENDER_RESULT_V1');
-      console.log('[XR_MERCHANT_EVENT_DETAIL_RETURN_RESULT_AND_COPY_FIX_V1] STORAGE_RESULT', storedResult);
-      let result = storedResult;
-      if (typeof result === 'string') {
-        try {
-          result = JSON.parse(result);
-        } catch (parseErr) {
-          console.warn('[XR_MERCHANT_EVENT_DETAIL_RETURN_RESULT_AND_COPY_FIX_V1] STORAGE_RESULT_PARSE_FAIL', parseErr);
-          result = null;
-        }
-      }
-      if (result) {
-        this.applyScenicPointRendererResult(result);
-      }
-    } catch (err) {
-      console.warn('[XR_MERCHANT_EVENT_DETAIL_RETURN_RESULT_AND_COPY_FIX_V1] STORAGE_READ_FAIL', err);
-    }
-  },
-
-  // runtimePoc=landmark_tree_v1
+  // ─── 唯一 XR 入口：仅在 explorationState === REVEALABLE 时触发 ───
   onEnterARScan() {
+    var state = this.data.explorationState;
+    if (!explorationState.canReveal(state)) {
+      console.log('[EXPLORATION] XR blocked — state:', state);
+      safeToast('完成探索纪要后，印记方可显现', 'none');
+      return;
+    }
     const pointId = (this.data.detail && this.data.detail.runtimePointId) || userRuntime.resolvePointId(this.pointId);
     const runtimePoc = this.runtimePoc || 'landmark_tree_v1';
     safeNavigate(`/pages/ar-entry/index?pointId=${pointId}&runtimePoc=${runtimePoc}`);

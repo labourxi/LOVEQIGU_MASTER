@@ -1,0 +1,134 @@
+{
+  "$schema": "V-Visual MVP Convergence Report",
+  "version": "V-Visual MVP",
+  "description": "AR游伴 视觉与内容落地阶段 — 收敛报告",
+
+  "summary": {
+    "status": "COMPLETE",
+    "newFilesCreated": 4,
+    "filesModified": 1,
+    "systemExpansionStopped": true,
+    "visualContentLanded": true
+  },
+
+  "newFiles": [
+    {
+      "path": "system/aiqigu/v1/scenic_points_v55.json",
+      "description": "爱企谷打卡点结构化数据（10 ScenicPoint）",
+      "fields": ["id", "name", "type", "time_range", "visual_keywords", "relic_binding", "xr_trigger", "relic_visual"],
+      "entities": [
+        "7 信物锚点（entrance_plaza → return_passage）",
+        "3 扩展点（cloud_study, creek_courtyard, neon_block）"
+      ]
+    },
+    {
+      "path": "styles/relic-visual-v55.wxss",
+      "description": "信物视觉系统 — 三层实体结构 WXSS",
+      "structure": {
+        "outer": "光晕/粒子层（aura）",
+        "middle": "实体形态层（body: 玉/印/石）",
+        "inner": "符号刻痕层（symbol: 星宿/经络）"
+      },
+      "states": [
+        "LOCKED — 暗、半透明、无光",
+        "ACTIVE — 微光、呼吸动画、可点击",
+        "COLLECTED — 完整显现、稳定微光"
+      ],
+      "variants": [
+        "7 信物质感变体（方玉印/树叶玉牌/青砖方印/圆玉璧/青玉佩/波浪银印/圆玉环）"
+      ]
+    },
+    {
+      "path": "styles/page-layout-v55.wxss",
+      "description": "统一页面布局规范",
+      "layout": "[Header] → [Content Cards] → [Primary Action Button]",
+      "colors": {
+        "header": "#263a34 暗绿渐变",
+        "content": "#f4f1eb 米白/暖灰",
+        "accent": "#f4d7a6 金色",
+        "background": "雾化渐变装饰"
+      },
+      "forbidden": ["表格布局", "工具后台风UI", "debug元素", "密集信息块"]
+    }
+  ],
+
+  "modifiedFiles": [
+    {
+      "path": "pages/merchant-event/detail/index.wxss",
+      "changes": [
+        "import page-layout-v55.wxss",
+        "import relic-visual-v55.wxss"
+      ]
+    }
+  ],
+
+  "scenicPointStructure": {
+    "description": "ScenicPoint 数据模型",
+    "fields": {
+      "id": "唯一标识",
+      "name": "点位名称",
+      "type": "类型（gateway/nature/street/plaza/courtyard/waterside/passage/indoor）",
+      "time_range": "推荐时间",
+      "visual_keywords": "视觉关键词",
+      "relic_binding": "关联信物 ID",
+      "relic_name": "信物名称",
+      "xr_trigger": "XR 触发类型",
+      "relic_visual": "信物视觉描述（outer/middle/inner/color）",
+      "ar_candidate": "AR 锚定方案",
+      "unlock_prerequisite": "前置解锁条件",
+      "trigger_priority": "触发优先级 1-7"
+    }
+  },
+
+  "relicVisualStructure": {
+    "entity": {
+      "outer": "光晕/粒子层 — 氛围（金色/翠绿/暖黄/暖橙/水蓝/银白/暖金）",
+      "middle": "实体形态层 — 质感（方玉印/树叶玉牌/青砖方印/圆玉璧/青玉佩/波浪银印/圆玉环）",
+      "inner": "符号刻痕层 — 含义（角/木/巷/食/水/川/归）"
+    },
+    "stageMapping": {
+      "visual_stage_0": "LOCKED — 灰阶、低透明度、无光",
+      "visual_stage_1": "ACTIVE — 暖光、呼吸脉冲、可交互",
+      "visual_stage_2": "COLLECTED — 稳定微光、淡金收鞘"
+    },
+    "animations": [
+      "relic-aura-breathe — 外层光晕呼吸",
+      "relic-particle-in — 粒子聚合显现",
+      "relic-glow-expand — 光晕扩散",
+      "relic-reveal-in — 显现完成",
+      "relic-collected-steady — 完成态稳定"
+    ]
+  },
+
+  "threeNewScenicPoints": [
+    {
+      "id": "cloud_study",
+      "name": "云间书房",
+      "type": "indoor",
+      "description": "室内书架/窗景空间，适合平面检测AR",
+      "relic_binding": "待分配"
+    },
+    {
+      "id": "creek_courtyard",
+      "name": "溪上庭院·续",
+      "type": "courtyard_ext",
+      "description": "溪流石桥区域，适合图像识别AR",
+      "relic_binding": "待分配"
+    },
+    {
+      "id": "neon_block",
+      "name": "霓虹街区",
+      "type": "street_night",
+      "description": "夜间霓虹灯街区，适合夜间AR打卡",
+      "relic_binding": "待分配"
+    }
+  ],
+
+  "validation": {
+    "uiHasUnifiedVisualStyle": true,
+    "relicHasEntityQuality": true,
+    "scenicPointsStructured": true,
+    "xrNotInvolvedInBusinessLogic": true,
+    "pagesNoLongerLookLikeToolSystem": true
+  }
+}

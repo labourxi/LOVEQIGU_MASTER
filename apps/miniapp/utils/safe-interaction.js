@@ -11,6 +11,51 @@ const PRODUCT_NAV_ROUTES = {
   arEntry: '/pages/ar-entry/index'
 };
 
+/**
+ * 已注册页面路由白名单（含子包）。
+ * 用于 navigateTo 前预检查，避免跳转不存在的路径导致 XR 中断。
+ */
+var REGISTERED_PAGES = [
+  // 主包 pages（来自 app.json）
+  '/pages/index/index',
+  '/pages/explore-map/index',
+  '/pages/ar-entry/index',
+  '/pages/atom/index',
+  '/pages/lottie/index',
+  '/pages/echo/index',
+  '/pages/digital-collectible/index',
+  '/pages/campaign-closure/index',
+  '/pages/next-activity/index',
+  '/pages/story-flow/index',
+  '/pages/relic-archive/index',
+  '/pages/story-archive/index',
+  '/pages/rights-center/index',
+  '/pages/profile/index',
+  '/pages/scenic-list/index',
+  '/pages/scenic-detail/index',
+  '/pages/progress-center/index',
+  '/pages/event-complete/index',
+  '/pages/merchant-event/index/index',
+  '/pages/merchant-event/exploration/index',
+  '/pages/merchant-event/detail/index',
+  '/pages/star-map/index',
+  '/pages/meridian-map/index',
+  '/pages/heaven-human-unity/index',
+  '/pages/synthesis/index',
+  '/pages/seals/index',
+  '/pages/reward-center/index'
+];
+
+/**
+ * 检查路由是否已注册（白名单匹配）。
+ * 路径含 query 时自动截断。
+ */
+function isPageRegistered(url) {
+  if (!url || typeof url !== 'string') return false;
+  var pathOnly = url.split('?')[0];
+  return REGISTERED_PAGES.indexOf(pathOnly) >= 0;
+}
+
 function showFallbackToast(title = '功能开发中') {
   if (typeof wx !== 'undefined' && wx.showToast) {
     wx.showToast({
@@ -36,6 +81,16 @@ function safeNavigate(url, options = {}) {
     showFallbackToast(options.fallbackTitle || '页面暂未开放');
     if (typeof options.fail === 'function') {
       options.fail(new Error('missing url'));
+    }
+    return false;
+  }
+
+  // ─── 页面存在性预检查：未注册的路由直接 fallback ───
+  if (!isPageRegistered(url)) {
+    console.warn('⚠️ XR page not found, fallback UI — url:', url);
+    showFallbackToast(options.fallbackTitle || '页面暂未开放');
+    if (typeof options.fail === 'function') {
+      options.fail(new Error('page not registered: ' + url));
     }
     return false;
   }
@@ -104,5 +159,7 @@ module.exports = {
   showFallbackToast,
   safeNavigate,
   safeTap,
-  isTabPath
+  isTabPath,
+  isPageRegistered,
+  REGISTERED_PAGES
 };

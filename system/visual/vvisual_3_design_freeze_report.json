@@ -1,0 +1,121 @@
+{
+  "$schema": "V-Visual 3.0 DESIGN FREEZE",
+  "version": "V-Visual 3.0",
+  "date": "2026-06-27",
+  "description": "AR游伴 设计系统锁定 — 不可随意修改",
+
+  "lockType": "FULL DESIGN FREEZE",
+  "lockStatus": "ACTIVE",
+
+  "locks": {
+    "visual": {
+      "status": "LOCKED",
+      "colors": {
+        "primary": "#0F2A22",
+        "background": "#F3F0E8",
+        "accent": "#C8A24A",
+        "shadow": "rgba(0,0,0,0.15)"
+      },
+      "forbidden": ["新增任何主色体系", "高饱和UI", "蓝色科技风"]
+    },
+    "layout": {
+      "status": "LOCKED",
+      "landing": ["title", "subtitle", "login button", "qrcode hint"],
+      "explore": ["world title", "status", "map nodes", "relic entry"],
+      "xr": ["black", "reveal", "relic", "exit"],
+      "forbidden": ["页面结构调整", "页面合并", "多入口设计"]
+    },
+    "component": {
+      "status": "LOCKED",
+      "allowed": ["Button (primary/secondary)", "Card (explore only)", "Badge (status)", "GlowContainer", "RelicDisplay"],
+      "forbidden": ["table", "list dense UI", "debug UI", "admin UI", "test UI"]
+    },
+    "relic": {
+      "status": "LOCKED",
+      "structure": ["energy layer", "entity layer", "symbol layer"],
+      "forbidden": ["icon化", "UI badge替代"]
+    },
+    "point": {
+      "status": "LOCKED",
+      "fixedScenicPoints": ["云间书房", "溪上庭院", "霓虹街区", "集装箱街区"],
+      "requiredFields": ["id", "name", "theme", "time", "relic", "xr_trigger"]
+    },
+    "xr": {
+      "status": "LOCKED",
+      "allowed": ["receive trigger", "render reveal"],
+      "forbidden": ["business logic", "state management", "page control"]
+    }
+  },
+
+  "migratedFiles": [
+    {
+      "path": "pages/landing/index.wxml",
+      "action": "Layout locked: [title+halo+seal] [subtitle/guide] [seal-login-btn] [qrcode-hint]"
+    },
+    {
+      "path": "pages/landing/index.wxss",
+      "action": "Colors migrated to #0F2A22 / #F3F0E8 / #C8A24A"
+    },
+    {
+      "path": "pages/landing/index.json",
+      "action": "backgroundColor migrated to #0F2A22"
+    },
+    {
+      "path": "pages/explore-map/index.wxml",
+      "action": "Layout locked: [world title] [status stats] [map nodes] [relic entry]"
+    },
+    {
+      "path": "pages/explore-map/index.wxss",
+      "action": "Colors migrated; node states (dim/next/lit) locked"
+    },
+    {
+      "path": "pages/index/index.wxss",
+      "action": "Colors migrated"
+    },
+    {
+      "path": "pages/ar-entry/index.wxss",
+      "action": "Colors fully migrated (#0F2A22 / #C8A24A / #F3F0E8)"
+    },
+    {
+      "path": "pages/merchant-event/detail/index.wxss",
+      "action": "Colors migrated"
+    },
+    {
+      "path": "styles/page-layout-v55.wxss",
+      "action": "Colors & component rules locked"
+    },
+    {
+      "path": "styles/relic-visual-v55.wxss",
+      "action": "Relic 3-layer structure locked; colors migrated"
+    },
+    {
+      "path": "styles/prototype-v1.wxss",
+      "action": "All button/card/badge colors migrated to frozen palette"
+    },
+    {
+      "path": "styles/user-phase1.wxss",
+      "action": "Colors migrated to frozen palette"
+    },
+    {
+      "path": "components/pilot-fx-overlay/index.wxss",
+      "action": "Colors migrated"
+    },
+    {
+      "path": "system/aiqigu/v1/scenic_points_v55.json",
+      "action": "theme field added to all 11 points; color values migrated to #C8A24A"
+    }
+  ],
+
+  "validation": {
+    "视觉系统不可变": true,
+    "页面结构不可变": true,
+    "组件体系不可扩展": true,
+    "信物结构统一": true,
+    "XR完全独立": true,
+    "无表格/无列表/无debug/无admin/无test UI": true,
+    "Landing=仪式入口": true,
+    "Explore=地图化探索": true,
+    "Relic=实体化信物": true,
+    "颜色系统锁定": true
+  }
+}

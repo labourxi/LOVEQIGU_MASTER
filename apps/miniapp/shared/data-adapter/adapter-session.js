@@ -3,6 +3,14 @@
  * memory | sessionStorage | localStorage demo persistence (not a real backend).
  */
 (function (global) {
+  var safeJson = null;
+  try {
+    safeJson = require('../../utils/safe-json');
+  } catch (e) { /* ignore */ }
+  var safeParse = safeJson && typeof safeJson.safeParse === 'function' ? safeJson.safeParse : function (v, fb) { try { return JSON.parse(v); } catch (e) { return fb; } };
+
+  var safeClone = safeJson && typeof safeJson.safeClone === 'function' ? safeJson.safeClone : function (v, fb) { try { return JSON.parse(JSON.stringify(v)); } catch (e) { return fb; } };
+
   var SESSION_VERSION = "1.0.0";
   var SEED_VERSION = "PHASE2_RUNTIME_FLOW_FREEZE_V1";
   var SESSION_KEY = "LOVEQIGU_ADAPTER_SESSION_V1";
@@ -48,7 +56,7 @@
   }
 
   function clone(val) {
-    return JSON.parse(JSON.stringify(val));
+    return safeClone(val);
   }
 
   function defaultMeta(overrides) {
@@ -143,7 +151,7 @@
     try {
       var raw = storage.getItem(key);
       if (!raw) return null;
-      return JSON.parse(raw);
+      return safeParse(raw);
     } catch (e) {
       return null;
     }

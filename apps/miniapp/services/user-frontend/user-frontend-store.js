@@ -1,4 +1,5 @@
 const STORAGE_KEY = 'loveqigu_user_frontend_v1';
+const { safeParse, safeClone } = require('../../utils/safe-json');
 
 const DEFAULT_STATE = {
   schema: 'loveqigu.user_frontend.v1',
@@ -20,7 +21,7 @@ const DEFAULT_STATE = {
 let memoryState = null;
 
 function clone(value) {
-  return JSON.parse(JSON.stringify(value));
+  return safeClone(value);
 }
 
 function isObject(value) {
@@ -31,7 +32,13 @@ function readStoredValue(key) {
   try {
     if (typeof wx !== 'undefined' && wx.getStorageSync) {
       const value = wx.getStorageSync(key);
-      return value === undefined ? null : value;
+      if (value === undefined) return null;
+      // 保护：storage 返回的字符串可能是被污染的数据（如 HTML 片段）
+      if (typeof value === 'string' && (value.startsWith('<') || value.startsWith('%') || value.startsWith('!'))) {
+        console.warn('[storage] corrupted data detected for key:', key, 'first 50 chars:', value.slice(0, 50));
+        return null;
+      }
+      return value;
     }
   } catch (err) {
     // ignore storage read errors
@@ -43,11 +50,7 @@ function readStoredValue(key) {
       if (raw === null) {
         return null;
       }
-      try {
-        return JSON.parse(raw);
-      } catch (err) {
-        return raw;
-      }
+      return safeParse(raw);
     }
   } catch (err) {
     // ignore storage read errors

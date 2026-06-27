@@ -1,4 +1,10 @@
 <view class="proto-page user-phase1-page">
+  <!-- ─── 氛围层 ─── -->
+  <view class="ui-ambient-layer">
+    <view class="ambient-glow ambient-glow--top"></view>
+    <view class="ambient-glow ambient-glow--bottom"></view>
+  </view>
+
   <view wx:if="{{loading}}" class="home-skeleton">
     <view class="home-skeleton__block home-skeleton__hero"></view>
     <view class="home-skeleton__row">
@@ -35,18 +41,6 @@
         </view>
       </view>
       <button class="user-primary-cta" bindtap="onOpenExploreMap">开始探索</button>
-      <button
-        class="proto-btn proto-btn--ghost home-ar-cta"
-        loading="{{xrLaunching}}"
-        disabled="{{xrLaunching}}"
-        bindtap="onEnterScenic"
-      >{{xrLaunching ? '进入中…' : '进入景区'}}</button>
-    </view>
-
-    <view class="login-panel" wx:if="{{!auth.logged_in}}">
-      <view class="panel-title">微信登录</view>
-      <view class="panel-copy">{{loginBanner.subtitle}}</view>
-      <button class="primary-button" bindtap="onMockLogin">{{loginBanner.actionLabel}}</button>
     </view>
 
     <view class="proto-section" wx:if="{{recommendedPoint}}">
@@ -106,13 +100,6 @@
       </view>
     </view>
   </block>
-
-  <view wx:if="{{xrLaunching}}" class="home-xr-launch-overlay">
-    <view class="home-xr-launch-card">
-      <view class="home-xr-launch-spinner"></view>
-      <view class="home-xr-launch-copy">{{xrLaunchMessage || '正在进入景区…'}}</view>
-    </view>
-  </view>
 
   <pilot-fx-overlay id="pilotFx" />
 

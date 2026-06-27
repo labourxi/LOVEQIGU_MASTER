@@ -6,13 +6,23 @@ const persistence = require('../../services/ar/ar-persistence-store.js');
 const spatialStore = require('../../services/ar/ar-spatial-store.js');
 const cloud = require('../../services/ar/ar-cloud-sync.js');
 const xrStability = require('../../services/ar/xr-stability-layer.js');
+const safeFallback = require('../../services/xr-safe-fallback.js');
 
 const XR_STATE = Object.freeze({
   IDLE: 'IDLE',
   INIT: 'INIT',
   READY: 'READY',
   RUNNING: 'RUNNING',
-  FAILED: 'FAILED'
+  FAILED: 'FAILED',
+  SAFE_MODE: 'SAFE_MODE'
+});
+
+const XR_SAFE_MODE_REASON = Object.freeze({
+  MARKER_UNBOUND: 'marker_unbound',
+  MODEL_UNLOADED: 'model_unloaded',
+  NETWORK_FAIL: 'network_fail',
+  ASSET_LOAD_ERROR: 'asset_load_error',
+  UNKNOWN: 'unknown'
 });
 
 const PILOT_MODE = true;
@@ -39,7 +49,52 @@ function createRuntimeBuilder(options = {}) {
     worldEngine: null,
     cameraStarter: null
   };
+  // 默认初始化 XR 生命周期对象
+  let xrScene = null;
+  let xrCamera = null;
+  let xrMarkerTracker = null;
+  let xrModel = null;
+
   let xrStabilityResult = null;
+
+  // ─── XR SAFE MODE ───
+  let xrSafeMode = false;
+  let xrSafeModeReason = XR_SAFE_MODE_REASON.UNKNOWN;
+
+  /**
+   * 激活 XR SAFE MODE。
+   *
+   * 当 marker 未绑定 / model 未加载 / network 失败时自动进入。
+   * 安全模式行为：
+   *   - 不渲染 3D
+   *   - 不触发 destroy / render loop
+   *   - 页面继续运行
+   *   - 显示占位 UI
+   */
+  function enterXRSafeMode(reason) {
+    if (xrSafeMode) return;
+    xrSafeMode = true;
+    xrSafeModeReason = reason || XR_SAFE_MODE_REASON.UNKNOWN;
+    clearXRReadyTimeout();
+    setXRState(XR_STATE.SAFE_MODE, { reason: xrSafeModeReason });
+    bus.emit('XR_SAFE_MODE_ACTIVATED', {
+      state: XR_STATE.SAFE_MODE,
+      reason: xrSafeModeReason
+    });
+    console.log('🛡️ XR SAFE MODE ACTIVATED:', reason);
+  }
+
+  function isXRSafeMode() {
+    return xrSafeMode === true;
+  }
+
+  function exitXRSafeMode() {
+    if (!xrSafeMode) return;
+    xrSafeMode = false;
+    xrSafeModeReason = XR_SAFE_MODE_REASON.UNKNOWN;
+    setXRState(XR_STATE.IDLE, { reason: 'safe_mode_exit' });
+    console.log('🛡️ XR SAFE MODE EXITED');
+  }
 
   function emitStateChange(previous, next, detail = {}) {
     bus.emit('XR_STATE_CHANGE', {
@@ -88,13 +143,20 @@ function createRuntimeBuilder(options = {}) {
   }
 
   function clearXRReadyTimeout() {
-    if (xrReadyTimeout) {
+    if (typeof xrReadyTimeout !== 'undefined' && xrReadyTimeout !== null) {
       clearTimeout(xrReadyTimeout);
     }
     xrReadyTimeout = null;
   }
 
   function handleXRFailure(reason, error, detail = {}) {
+    // ─── XR SAFE MODE：特定原因进入安全模式而非 FAILED ───
+    var safeModeReasons = ['pipeline_start_failed', 'render_pipeline_failed', 'runtime_guard_failed', 'ready_timeout'];
+    if (safeModeReasons.indexOf(reason) >= 0) {
+      enterXRSafeMode(reason === 'ready_timeout' ? XR_SAFE_MODE_REASON.MARKER_UNBOUND : XR_SAFE_MODE_REASON.UNKNOWN);
+      return xrState;
+    }
+
     if (xrState === XR_STATE.FAILED) {
       return xrState;
     }
@@ -197,6 +259,12 @@ function createRuntimeBuilder(options = {}) {
     bindPilotRuntime(bus);
     bus.on('XR_START_PIPELINE', safeRuntimeGuard(handleXRStartPipeline, 'XR_START_PIPELINE'));
     bus.on('XR_READY', safeRuntimeGuard(handleXRReady, 'XR_READY'));
+
+    // ─── 监听 XR_SAFE_FALLBACK 事件：route / storage / marker 失败时激活安全模式 ───
+    bus.on('XR_SAFE_FALLBACK', safeRuntimeGuard(function (payload) {
+      var reason = payload && payload.reason ? payload.reason : XR_SAFE_MODE_REASON.UNKNOWN;
+      enterXRSafeMode(reason);
+    }, 'XR_SAFE_FALLBACK'));
   }
 
   function bindXRContext(boundContext = {}) {
@@ -210,6 +278,12 @@ function createRuntimeBuilder(options = {}) {
   }
 
   async function handleXRStartPipeline(payload = {}) {
+    // ─── XR SAFE MODE 门禁 ───
+    if (isXRSafeMode()) {
+      console.log('🛡️ XR SAFE MODE active, blocking pipeline start');
+      return getXRState();
+    }
+
     bindXRPipeline();
     resetXRReadiness();
     setXRState(XR_STATE.INIT, {
@@ -387,6 +461,58 @@ function createRuntimeBuilder(options = {}) {
   }
 
   function startXRRenderPipeline(options = {}) {
+    console.log("🔥 XR RUNTIME INIT:", Date.now());
+    globalThis.__XR_RUNTIME_INIT__ = Date.now();
+
+    // ─── XR SAFE MODE 门禁：安全模式下跳过所有 3D 渲染 ★ ───
+    if (isXRSafeMode()) {
+      console.log('🛡️ XR SAFE MODE active, skipping render pipeline');
+      return Promise.resolve({ started: false, safeMode: true, reason: xrSafeModeReason });
+    }
+    // ─── SAFE MODE 门禁结束 ───
+
+    // ─── XR 版本检测：强制重建 ★ ───
+    if (typeof globalThis !== 'undefined' && globalThis.__XR_VERSION__) {
+      var xrVersion = globalThis.__XR_VERSION__;
+      if (typeof globalThis.__XR_BUILD_VERSION__ === 'undefined') {
+        globalThis.__XR_BUILD_VERSION__ = xrVersion;
+        console.log("[XR BUILD] first build version:", xrVersion);
+      } else if (globalThis.__XR_BUILD_VERSION__ !== xrVersion) {
+        globalThis.__XR_BUILD_VERSION__ = xrVersion;
+
+        // ★ 安全销毁旧 XR 生命周期对象 ★
+        if (typeof xrScene !== 'undefined' && xrScene !== null && typeof xrScene.destroy === 'function') {
+          try { xrScene.destroy(); } catch (e) { console.warn('[XR] scene destroy error', e); }
+        }
+        if (typeof xrCamera !== 'undefined' && xrCamera !== null && typeof xrCamera.destroy === 'function') {
+          try { xrCamera.destroy(); } catch (e) { console.warn('[XR] camera destroy error', e); }
+        }
+        if (typeof xrMarkerTracker !== 'undefined' && xrMarkerTracker !== null && typeof xrMarkerTracker.destroy === 'function') {
+          try { xrMarkerTracker.destroy(); } catch (e) { console.warn('[XR] markerTracker destroy error', e); }
+        }
+        if (typeof xrModel !== 'undefined' && xrModel !== null && typeof xrModel.destroy === 'function') {
+          try { xrModel.destroy(); } catch (e) { console.warn('[XR] model destroy error', e); }
+        }
+
+        // 重置所有绑定守卫 + XR 状态
+        worldLifecycleBound = false;
+        xrTriggerBound = false;
+        spatialRelicRenderBound = false;
+        xrListenersBound = false;
+        xrContextBound = false;
+        xrState = XR_STATE.IDLE;
+        xrReadyFlags = { world: false, camera: false };
+        xrUserTriggerEmitted = false;
+        xrContext = { worldEngine: null, cameraStarter: null };
+        xrScene = null;
+        xrCamera = null;
+        xrMarkerTracker = null;
+        xrModel = null;
+        console.log("♻️ XR REBUILD TRIGGERED:", xrVersion);
+      }
+    }
+    // ─── 版本检测结束 ───
+
     const loadStarScene = typeof options.loadStarScene === 'function' ? options.loadStarScene : null;
     const loadMeridianScene = typeof options.loadMeridianScene === 'function' ? options.loadMeridianScene : null;
     const renderInWorldSpace = typeof options.renderInWorldSpace === 'function' ? options.renderInWorldSpace : null;
@@ -595,7 +721,9 @@ function createRuntimeBuilder(options = {}) {
         ...xrReadyFlags
       },
       contextBound: xrContextBound,
-      stability: xrStabilityResult
+      stability: xrStabilityResult,
+      safeMode: xrSafeMode,
+      safeModeReason: xrSafeModeReason
     };
   }
 
@@ -640,7 +768,13 @@ function createRuntimeBuilder(options = {}) {
     startXRRenderPipeline,
     scheduler,
     getXRErrorLog: xrStability.getXRErrorLog,
-    clearXRErrorLog: xrStability.clearXRErrorLog
+    clearXRErrorLog: xrStability.clearXRErrorLog,
+
+    // XR SAFE MODE
+    enterXRSafeMode,
+    exitXRSafeMode,
+    isXRSafeMode,
+    XR_SAFE_MODE_REASON
   };
 
   return api;

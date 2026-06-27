@@ -1,124 +1,266 @@
 @import '../../../styles/prototype-v1.wxss';
 @import '../../../styles/user-phase1.wxss';
+@import '../../../styles/page-layout-v55.wxss';
+@import '../../../styles/relic-visual-v55.wxss';
 
-.point-journal-scroll {
-  padding: 28rpx;
-  border-radius: 20rpx;
-  background: #fff;
-  border: 1rpx solid rgba(38, 58, 52, 0.08);
+/* ─── 页面基底 ─── */
+.ar-detail-page {
+  background: #F3F0E8;
 }
 
-.point-journal-block {
-  padding-bottom: 32rpx;
-  margin-bottom: 32rpx;
-  border-bottom: 1rpx solid rgba(38, 58, 52, 0.06);
+/* ─── 卡片叠层容器 ─── */
+.ad-card-stack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0 4rpx;
 }
 
-.point-journal-block:last-child {
-  margin-bottom: 0;
-  padding-bottom: 0;
-  border-bottom: 0;
+/* ═══════════════════════════════════
+   卡1：主行动按钮（探索进度）
+   ═══════════════════════════════════ */
+.ad-action-card {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(150deg, #ffffff 0%, #faf8f4 100%);
+  border-radius: 24rpx;
+  padding: 40rpx 32rpx 36rpx;
+  box-shadow:
+    0 8rpx 32rpx rgba(38, 58, 52, 0.08),
+    0 2rpx 8rpx rgba(38, 58, 52, 0.04);
+  text-align: center;
+  z-index: 10;
 }
 
-.point-journal-row {
-  margin-top: 12rpx;
+.ad-action-card__label {
+  font-size: 20rpx;
+  font-weight: 600;
+  letter-spacing: 6rpx;
+  color: #9ca3af;
+  margin-bottom: 12rpx;
 }
 
-.point-journal-value {
-  font-size: 36rpx;
+.ad-action-card__value {
+  font-size: 48rpx;
   font-weight: 800;
-  color: #263a34;
+  color: #0F2A22;
+  line-height: 1.2;
+  margin-bottom: 12rpx;
 }
 
-.point-journal-title {
-  margin-top: 8rpx;
-  font-size: 30rpx;
-  font-weight: 700;
-  color: #111827;
-}
-
-.point-journal-copy {
-  margin-top: 10rpx;
-  font-size: 26rpx;
-  color: #374151;
-  line-height: 1.7;
-}
-
-.point-journal-meta {
-  margin-top: 8rpx;
+.ad-action-card__hint {
   font-size: 24rpx;
   color: #6b7280;
+  line-height: 1.6;
+  margin-bottom: 24rpx;
 }
 
-.point-journal-badge {
-  display: inline-block;
-  padding: 6rpx 14rpx;
-  border-radius: 999rpx;
-  font-size: 20rpx;
-  font-weight: 700;
-  background: #e8efe9;
+.ad-action-card__hint--done {
   color: #4b635c;
 }
 
-.point-journal-badge--warm {
-  background: #f1ece2;
-  color: #7f4f24;
+.ad-action-card__btn {
+  display: inline-block;
+  min-width: 340rpx;
 }
 
-.point-journal-actions {
-  display: flex;
-  gap: 12rpx;
-  margin-top: 20rpx;
+/* ═══════════════════════════════════
+   卡2：信物
+   ═══════════════════════════════════ */
+.ad-relic-card {
+  position: relative;
+  margin-top: -12rpx;
+  background: linear-gradient(135deg, #fffdf7 0%, #fffaf0 100%);
+  border-radius: 24rpx;
+  padding: 28rpx 32rpx;
+  box-shadow:
+    0 6rpx 20rpx rgba(38, 58, 52, 0.05),
+    0 1rpx 4rpx rgba(38, 58, 52, 0.02);
+  border: 1rpx solid rgba(244, 215, 166, 0.18);
+  z-index: 9;
 }
 
-.point-journal-actions .proto-btn {
-  flex: 1;
-}
-
-.xr-product-entry-card {
-  margin-top: 24rpx;
-  padding: 24rpx;
-  border-radius: 16rpx;
-  background: #fffaf0;
-  border: 1rpx solid #ead7b0;
-}
-
-.xr-product-entry-title {
-  font-size: 32rpx;
+.ad-relic-card__kicker {
+  font-size: 18rpx;
   font-weight: 600;
-  color: #25332b;
+  letter-spacing: 3rpx;
+  color: #b8a58c;
+  margin-bottom: 14rpx;
 }
 
-.xr-product-entry-desc {
-  margin-top: 12rpx;
-  font-size: 24rpx;
+.ad-relic-card__row {
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+}
+
+.ad-relic-card__icon {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #C8A24A, #edc78a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+  color: #6b4220;
+  flex-shrink: 0;
+}
+
+.ad-relic-card__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.ad-relic-card__title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #374151;
+}
+
+.ad-relic-card__badge {
+  display: inline-block;
+  padding: 4rpx 14rpx;
+  border-radius: 999rpx;
+  font-size: 20rpx;
+  font-weight: 600;
+  background: #e8efe9;
+  color: #4b635c;
+  align-self: flex-start;
+}
+
+.ad-relic-card__desc {
+  font-size: 26rpx;
+  color: #6b7280;
   line-height: 1.6;
-  color: #677168;
+  margin-top: 14rpx;
+  padding-top: 14rpx;
+  border-top: 1rpx solid rgba(38, 58, 52, 0.06);
 }
 
-.xr-product-entry-status {
-  margin-top: 12rpx;
+.ad-relic-card__footnote {
+  font-size: 20rpx;
+  color: #9ca3af;
+  margin-top: 10rpx;
+  letter-spacing: 1rpx;
+}
+
+/* ═══════════════════════════════════
+   卡3：礼遇
+   ═══════════════════════════════════ */
+.ad-coupon-card {
+  position: relative;
+  margin-top: -10rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 28rpx 32rpx;
+  box-shadow:
+    0 6rpx 20rpx rgba(38, 58, 52, 0.05),
+    0 1rpx 4rpx rgba(38, 58, 52, 0.02);
+  z-index: 8;
+}
+
+.ad-coupon-card__kicker {
+  font-size: 18rpx;
+  font-weight: 600;
+  letter-spacing: 3rpx;
+  color: #b8a58c;
+  margin-bottom: 14rpx;
+}
+
+.ad-coupon-card__row {
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+}
+
+.ad-coupon-card__icon {
+  font-size: 36rpx;
+  flex-shrink: 0;
+}
+
+.ad-coupon-card__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.ad-coupon-card__title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #374151;
+}
+
+.ad-coupon-card__badge {
+  display: inline-block;
+  padding: 4rpx 14rpx;
+  border-radius: 999rpx;
+  font-size: 20rpx;
+  font-weight: 600;
+  background: #fff7ed;
+  color: #7f4f24;
+  align-self: flex-start;
+}
+
+.ad-coupon-card__desc {
+  font-size: 26rpx;
+  color: #6b7280;
+  line-height: 1.6;
+  margin-top: 14rpx;
+}
+
+.ad-coupon-card__meta {
   font-size: 22rpx;
-  color: #5d665f;
-  word-break: break-all;
+  color: #9ca3af;
+  margin-top: 6rpx;
 }
 
-.xr-product-entry-ready {
-  margin-top: 16rpx;
-  padding: 16rpx;
-  border-radius: 12rpx;
-  background: #eff9f0;
-  color: #2f6b39;
-  font-size: 24rpx;
-  line-height: 1.6;
+.ad-coupon-card__btn {
+  margin-top: 18rpx;
+  width: 100%;
 }
 
-.xr-product-entry-fallback {
-  margin-top: 16rpx;
-  padding: 16rpx;
-  border-radius: 12rpx;
-  background: #fff3e4;
-  color: #9a5f00;
-  font-size: 24rpx;
+/* ═══════════════════════════════════
+   卡5：下一步操作
+   ═══════════════════════════════════ */
+.ad-nav-card {
+  position: relative;
+  margin-top: -10rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 28rpx 24rpx 32rpx;
+  box-shadow:
+    0 6rpx 20rpx rgba(38, 58, 52, 0.05),
+    0 1rpx 4rpx rgba(38, 58, 52, 0.02);
+  z-index: 6;
+}
+
+.ad-nav-card__kicker {
+  font-size: 20rpx;
+  font-weight: 600;
+  letter-spacing: 4rpx;
+  color: #9ca3af;
+  margin-bottom: 10rpx;
+}
+
+.ad-nav-card__hint {
+  font-size: 26rpx;
+  color: #374151;
   line-height: 1.6;
+  margin-bottom: 20rpx;
+}
+
+.ad-nav-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.ad-nav-card__actions .proto-btn {
+  flex: 1;
+  min-width: 180rpx;
 }

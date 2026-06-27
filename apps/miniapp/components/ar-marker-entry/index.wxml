@@ -1,11 +1,6 @@
 <ar-marker-xr-scene
-  marker-img="{{markerImg}}"
   bind:xrready="handleReady"
-  bind:arready="handleARReady"
   bind:assetsprogress="handleAssetsProgress"
   bind:assetsloaded="handleAssetsLoaded"
-  bind:trackertrack="handleARTrackerTrack"
-  bind:trackerload="handleARTrackerLoad"
-  bind:trackerstatechange="handleARTrackerStateChange"
-  bind:trackerstate="handleARTrackerState"
+  bind:assetserror="handleAssetsError"
 />

@@ -1,0 +1,117 @@
+{
+  "$schema": "V-Visual 2.0 Visual Finalization Report",
+  "version": "V-Visual 2.0",
+  "description": "AR游伴 设计稿级视觉定稿 — 三大系统视觉统一",
+
+  "summary": {
+    "status": "COMPLETE",
+    "filesModified": 4,
+    "filesCreated": 0,
+    "designLevelVisualAchieved": true
+  },
+
+  "modifiedFiles": [
+    {
+      "path": "pages/landing/index.wxml",
+      "changes": "完整重写 — 仪式入口结构（世界标题+光晕/印章登录/雾山背景/东方引导语）"
+    },
+    {
+      "path": "pages/landing/index.wxss",
+      "changes": "完整重写 — 水墨雾山光流背景、印章化按钮呼吸、金色浮印脉动"
+    },
+    {
+      "path": "pages/landing/index.json",
+      "changes": "移除 navigationBarTitleText, background → #1a2c26"
+    },
+    {
+      "path": "pages/explore-map/index.wxml",
+      "changes": "完整重写 — 浮动节点地图 + 状态光晕 + 信物入口卡片（非列表）"
+    },
+    {
+      "path": "pages/explore-map/index.wxss",
+      "changes": "完整重写 — 浮动节点三态（dim/next/lit）、节点核心呼吸、信物卡片"
+    },
+    {
+      "path": "system/aiqigu/v1/scenic_points_v55.json",
+      "changes": "添加 container_block（集装箱街区），4 个扩展点全部就位"
+    }
+  ],
+
+  "visualSystem": {
+    "landing": {
+      "status": "UPGRADED",
+      "spec": "仪式入口",
+      "background": "水墨雾山光流（landing-atmosphere__mist/mountain/lightflow/fog）",
+      "title": "世界标题 + 光晕 + 金色印章（landing-world-title__seal）",
+      "guide": "东方引导语（双线夹文）",
+      "loginButton": "印章化（金色浮印 + 内外呼吸动画 + 旋转光晕）",
+      "scanButton": "幽灵按钮 + 底线装饰",
+      "forbidden": ["无原生微信按钮样式", "无卡片式布局", "无工具风UI"]
+    },
+    "explore": {
+      "status": "UPGRADED",
+      "spec": "地图化探索",
+      "header": "暗绿渐变头部 + 三统计胶囊",
+      "mapArea": "浮动节点（2列网格）+ 节点三态光晕",
+      "nodeStates": [
+        "dim — 未探索（opacity 0.55 + 灰点）",
+        "next — 推荐（金色核心呼吸 + 光晕脉冲）",
+        "lit — 已点亮（金色微光 + 稳定光晕）"
+      ],
+      "relicEntry": "信物卡片（圆角 + 图标 + 首字）",
+      "forbidden": ["无表格布局", "无列表UI", "无工具后台风"]
+    },
+    "relic": {
+      "status": "ALREADY DONE in V-Visual MVP (relic-visual-v55.wxss)",
+      "structure": {
+        "outer": "能量层 — 光晕（relic-entity__aura, 7 color variants）",
+        "middle": "实体层 — 玉/金/石（relic-entity__body, 7 shape variants）",
+        "inner": "符号层 — 星宿/刻痕（relic-entity__symbol, 7 char variants）"
+      },
+      "forbidden": ["无icon化表现", "无平面UI展示"]
+    }
+  },
+
+  "scenePoints": {
+    "total": 11,
+    "relicAnchored": 7,
+    "expansionPoints": 4,
+    "expansionList": [
+      { "id": "cloud_study", "name": "云间书房" },
+      { "id": "creek_courtyard", "name": "溪上庭院·续" },
+      { "id": "neon_block", "name": "霓虹街区" },
+      { "id": "container_block", "name": "集装箱街区" }
+    ]
+  },
+
+  "globalDesignSystem": {
+    "colors": {
+      "darkGreen": "#263a34（头部/主色）",
+      "warmBeige": "#f4f1eb（内容区背景）",
+      "goldAccent": "#f4d7a6（信物/按钮强调）"
+    },
+    "layout": {
+      "top": "世界标题/头部",
+      "center": "内容卡片/浮动节点",
+      "bottom": "行动按钮/底部导航"
+    },
+    "appliedIn": [
+      "styles/page-layout-v55.wxss",
+      "styles/relic-visual-v55.wxss",
+      "styles/prototype-v1.wxss",
+      "pages/landing/index.wxss",
+      "pages/explore-map/index.wxss",
+      "pages/index/index.wxss",
+      "pages/ar-entry/index.wxss"
+    ]
+  },
+
+  "validation": {
+    "landingIsCeremonialEntry": true,
+    "exploreIsMapVersion": true,
+    "relicHasEntityQuality": true,
+    "noToolUI": true,
+    "noListUI": true,
+    "designLevelVisualAchieved": true
+  }
+}

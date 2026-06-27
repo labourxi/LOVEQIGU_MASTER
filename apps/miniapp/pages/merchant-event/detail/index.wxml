@@ -1,68 +1,87 @@
-﻿<view class="proto-page user-phase1-page point-journal-page" wx:if="{{detail}}">
+﻿<view class="proto-page user-phase1-page ar-detail-page" wx:if="{{detail}}">
   <view wx:if="{{pilotSceneActive}}" class="pilot-scene-banner">
     <view class="pilot-scene-banner__kicker">发现印记</view>
     <view class="pilot-scene-banner__copy">{{pilotSceneHint}}</view>
   </view>
+
+  <!-- ─── 头部 ─── -->
   <view class="proto-hero">
     <view class="proto-kicker">探索纪要</view>
     <view class="proto-title">{{detail.point_name}}</view>
     <view class="proto-subtitle">{{detail.merchant_name}}</view>
   </view>
 
-  <view class="proto-section">
-    <view class="point-journal-scroll">
-      <view class="point-journal-block">
-        <view class="scenic-flow-kicker">探索进度</view>
-        <view class="point-journal-row">
-          <view class="point-journal-value">{{detail.display.exploreProgress}}</view>
-          <view class="point-journal-copy" wx:if="{{!detail.display.isJourneyComplete}}">抵达此处，完成打卡以显现印记</view>
-          <view class="point-journal-copy" wx:else>你已走过这段路，印记留在收藏册中</view>
-        </view>
-        <button wx:if="{{detail.canCompleteTask}}" class="proto-btn proto-btn--primary" bindtap="onCompleteTask">完成探索纪要</button>
+  <!-- ─── 卡片叠层 ─── -->
+  <view class="ad-card-stack">
+    <!-- 卡1：主行动按钮 -->
+    <view class="ad-action-card ad-action-card--primary">
+      <view class="ad-action-card__label">探索进度</view>
+      <view class="ad-action-card__value">{{detail.display.exploreProgress}}</view>
+      <view wx:if="{{!detail.display.isJourneyComplete}}" class="ad-action-card__hint">
+        抵达此处，完成打卡以显现印记
       </view>
-
-      <view class="point-journal-block">
-        <view class="scenic-flow-kicker">信物</view>
-        <view class="point-journal-row">
-          <view class="point-journal-badge">{{detail.display.relicStatus}}</view>
-          <view class="point-journal-title">{{detail.relic.relic_name}}</view>
-        </view>
-        <view class="point-journal-copy">{{detail.relic.story_snippet}}</view>
-        <view class="scenic-relic-chip">故事进度资产 · 非数字藏品</view>
+      <view wx:else class="ad-action-card__hint ad-action-card__hint--done">
+        你已走过这段路，印记留在收藏册中
       </view>
+      <button wx:if="{{detail.canCompleteTask}}"
+              class="proto-btn proto-btn--float ad-action-card__btn"
+              bindtap="onCompleteTask">
+        完成探索纪要
+      </button>
+    </view>
 
-      <view class="point-journal-block" wx:if="{{detail.coupon}}">
-        <view class="scenic-flow-kicker">探索礼遇</view>
-        <view class="point-journal-row">
-          <view class="point-journal-badge point-journal-badge--warm">{{detail.display.couponStatus}}</view>
-          <view class="point-journal-title">{{detail.coupon.coupon_name}}</view>
+    <!-- 卡2：信物 -->
+    <view class="ad-relic-card">
+      <view class="ad-relic-card__kicker">信物 · 故事进度资产</view>
+      <view class="ad-relic-card__row">
+        <view class="ad-relic-card__icon">
+          <text wx:if="{{detail.display.relicStatus === '已收集' || detail.display.relicStatus === 'COLLECTED'}}">✦</text>
+          <text wx:else>◇</text>
         </view>
-        <view class="point-journal-copy">{{detail.display.couponDisplay}}</view>
-        <view class="point-journal-meta">{{detail.coupon.merchant_name}}</view>
-        <view class="rights-source">来自探索</view>
-        <button wx:if="{{detail.canClaimCoupon}}" class="proto-btn" style="margin-top: 16rpx;" bindtap="onClaimCoupon">领取礼遇</button>
+        <view class="ad-relic-card__info">
+          <view class="ad-relic-card__title">{{detail.relic.relic_name}}</view>
+          <view class="ad-relic-card__badge">{{detail.display.relicStatus}}</view>
+        </view>
       </view>
+      <view class="ad-relic-card__desc">{{detail.relic.story_snippet}}</view>
+      <view class="ad-relic-card__footnote">故事进度资产 · 非数字藏品</view>
+    </view>
 
-      <view class="point-journal-block">
-        <view class="scenic-flow-kicker">下一步</view>
-        <view class="point-journal-copy">{{nextStepLabel}}</view>
-        <view class="point-journal-actions">
-          <button class="proto-btn proto-btn--ghost" bindtap="onOpenExploration">探索图谱</button>
-          <button class="proto-btn proto-btn--primary" bindtap="onEnterARScan">进入AR扫描</button>
-          <button class="proto-btn proto-btn--ghost" bindtap="onOpenScanShell">显现仪</button>
-          <button class="proto-btn proto-btn--ghost" bindtap="onOpenXRDemoTest">景点 XR 显现</button>
+    <!-- 卡3：礼遇（条件显示） -->
+    <view wx:if="{{detail.coupon}}" class="ad-coupon-card">
+      <view class="ad-coupon-card__kicker">探索礼遇</view>
+      <view class="ad-coupon-card__row">
+        <view class="ad-coupon-card__icon">🎁</view>
+        <view class="ad-coupon-card__info">
+          <view class="ad-coupon-card__title">{{detail.coupon.coupon_name}}</view>
+          <view class="ad-coupon-card__badge">{{detail.display.couponStatus}}</view>
         </view>
-        <view class="xr-product-entry-card">
-          <view class="xr-product-entry-title">景点 XR 显现</view>
-          <view class="xr-product-entry-desc">打开景点信物的 3D 显现页，完成一次轻量 XR 查看。</view>
-          <view class="xr-product-entry-status">XR_RENDER_RETURNED {{xrRenderReturned ? 'YES' : 'NO'}}</view>
-          <view class="xr-product-entry-status">XR_RENDER_STATUS {{xrRenderStatus}}</view>
-          <view class="xr-product-entry-status">XR_OBJECT_VISIBLE {{xrObjectVisible ? 'YES' : 'NO'}}</view>
-          <view class="xr-product-entry-status">XR_BLOCK_REASON {{xrBlockReason || '-'}}</view>
-          <view class="xr-product-entry-status">XR_CHECKED_AT {{xrCheckedAt}}</view>
-          <view wx:if="{{xrReadyMessage}}" class="xr-product-entry-ready">{{xrReadyMessage}}</view>
-          <view wx:if="{{xrFallbackMessage}}" class="xr-product-entry-fallback">{{xrFallbackMessage}}</view>
-        </view>
+      </view>
+      <view class="ad-coupon-card__desc">{{detail.display.couponDisplay}}</view>
+      <view class="ad-coupon-card__meta">{{detail.coupon.merchant_name}} · 来自探索</view>
+      <button wx:if="{{detail.canClaimCoupon}}"
+              class="proto-btn ad-coupon-card__btn"
+              bindtap="onClaimCoupon">
+        领取礼遇
+      </button>
+    </view>
+
+    <!-- 卡4：下一步操作 -->
+    <view class="ad-nav-card">
+      <view class="ad-nav-card__kicker">下一步</view>
+      <view class="ad-nav-card__hint">{{nextStepLabel}}</view>
+      <view class="ad-nav-card__actions">
+        <button class="proto-btn proto-btn--ghost" bindtap="onOpenExploration">探索图谱</button>
+        <button wx:if="{{explorationState === 'REVEALABLE'}}"
+                class="proto-btn proto-btn--primary"
+                bindtap="onEnterARScan">
+          进入 AR 显现
+        </button>
+        <button wx:else
+                class="proto-btn proto-btn--ghost"
+                disabled="true">
+          完成探索后可显现
+        </button>
       </view>
     </view>
   </view>
@@ -70,7 +89,7 @@
   <user-bottom-nav activeKey="{{activeTab}}" bind:change="onBottomNavChange" />
 </view>
 
-<view class="proto-page user-phase1-page" wx:else>
+<view class="proto-page user-phase1-page ar-detail-page" wx:else>
   <view class="proto-card">
     <view class="proto-card-title">探索点未找到</view>
     <view class="proto-card-copy">请返回探索图谱重新选择。</view>

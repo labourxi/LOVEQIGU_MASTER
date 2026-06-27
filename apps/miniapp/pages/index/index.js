@@ -1,15 +1,25 @@
+/**
+ * Index Page — 探索首页（登录后入口）
+ *
+ * 职责：
+ *   - 登录成功后进入的探索首页
+ *   - 展示探索进度、推荐点、导航路径
+ *
+ * 禁止：
+ *   - 登录/扫码逻辑（由 landing page 完成）
+ *   - XR 初始化和触发（由 explore-map / AR pages 完成）
+ *   - 世界引擎 bootstrap
+ */
 const merchantEventService = require('../../services/merchant-event');
 const userFrontend = require('../../services/user-frontend.js');
 const userRuntime = require('../../services/user-runtime-adapter/index');
 const phase1PageGuard = require('../../behaviors/phase1-page-guard');
 const safeInteraction = require('../../behaviors/safe-interaction');
 const pilotScene = require('../../behaviors/pilot-scene');
-const pilotSceneFlow = require('../../services/pilot/pilot-scene-flow');
 
 function emptyHomeState() {
   return {
     activeTab: 'home',
-    auth: { logged_in: false },
     journey: {
       progressSummary: {
         completionRate: 0,
@@ -17,11 +27,6 @@ function emptyHomeState() {
         claimedCouponCount: 0
       },
       latestRelic: null
-    },
-    loginBanner: {
-      subtitle: '使用 Mock Runtime 登录后即可进入主链路。',
-      actionLabel: '微信登录',
-      actionType: 'login'
     },
     eventSummary: {
       title: '当前景区'
@@ -34,7 +39,6 @@ function buildPageData() {
   userRuntime.boot();
   const adapter = userRuntime.getAdapter();
   const journey = userFrontend.buildJourneySummary();
-  const loginBanner = userFrontend.buildLoginBanner();
 
   if (adapter) {
     const home = adapter.getHomeData(userRuntime.getUserId(), userRuntime.getActivityId());
@@ -42,9 +46,7 @@ function buildPageData() {
     return {
       loading: false,
       activeTab: 'home',
-      auth: journey.auth,
       journey,
-      loginBanner,
       eventSummary: {
         title: summary && summary.title ? summary.title : '当前景区',
         description: summary && summary.parkName ? summary.parkName : ''
@@ -64,9 +66,7 @@ function buildPageData() {
   return {
     loading: false,
     activeTab: 'home',
-    auth: journey.auth,
     journey,
-    loginBanner,
     eventSummary: {
       title: overview.activity.event_name,
       description: overview.activity.description || ''
@@ -81,8 +81,6 @@ Page({
 
   data: {
     loading: true,
-    xrLaunching: false,
-    xrLaunchMessage: '',
     ...emptyHomeState()
   },
 
@@ -113,85 +111,10 @@ Page({
       console.error('[index.refresh]', error);
       this.setData({
         loading: false,
-        xrLaunching: false,
-        xrLaunchMessage: '',
         ...emptyHomeState()
       });
       this.showFallbackToast('功能开发中');
     }
-  },
-
-  onEnterScenic() {
-    if (this.data.xrLaunching) {
-      return;
-    }
-    this.safeTap(async () => {
-      this.setData({
-        xrLaunching: true,
-        xrLaunchMessage: '正在进入景区…'
-      });
-
-      try {
-        const entry = require('../../services/ar/ar-entry-controller.js');
-
-        // 使用稳定性加固版本
-        var xrResult = await entry.triggerStable(
-          { source: 'index_enter_scenic' },
-          { pageCtx: this }
-        );
-
-        await this.runPilotStageEffect(pilotSceneFlow.STAGES.ENTER);
-
-        const point = this.data.recommendedPoint;
-        const pointId = userRuntime.resolvePointId(
-          point && point.point_id ? point.point_id : 'ep_001'
-        );
-
-        // 根据 XR 结果决定导航参数
-        var navUrl = '';
-        if (xrResult && xrResult.mode === 'normal') {
-          // fallback 模式：导航到普通探索模式
-          navUrl = '/pages/explore-map/index?focusPointId=' + encodeURIComponent(pointId) + '&xrMode=normal';
-        } else {
-          navUrl = pilotSceneFlow.appendPilotQuery(
-            '/pages/explore-map/index?focusPointId=' + encodeURIComponent(pointId),
-            pilotSceneFlow.STAGES.EXPLORE
-          );
-        }
-
-        this.setData({
-          xrLaunching: false,
-          xrLaunchMessage: '',
-          xrFallbackMode: xrResult && xrResult.mode === 'normal' ? true : false
-        });
-
-        this.safeNavigate(navUrl, {
-          fallbackTitle: '探索地图暂未开放'
-        });
-      } catch (error) {
-        console.error('[index.onEnterScenic]', error);
-        this.setData({
-          xrLaunching: false,
-          xrLaunchMessage: ''
-        });
-        this.showFallbackToast('功能开发中');
-      }
-    }, { fallbackTitle: '功能开发中' });
-  },
-
-  onARButtonTap() {
-    this.onEnterScenic();
-  },
-
-  onMockLogin() {
-    const loginBanner = this.data.loginBanner || {};
-    if (loginBanner.actionType === 'logout') {
-      userFrontend.logoutMock();
-      this.refresh();
-      return;
-    }
-    userFrontend.loginMock({ nick_name: 'AR游伴游客', role: 'explorer' });
-    this.refresh();
   },
 
   onOpenExploreMap() {

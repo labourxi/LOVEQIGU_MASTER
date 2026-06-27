@@ -95,9 +95,16 @@ function callWxAsync(apiName, pickFallback) {
       return;
     }
 
+    var settled = false;
     wx[apiName]({
-      success: resolve,
-      fail: () => {
+      success: function (res) {
+        if (settled) return;
+        settled = true;
+        resolve(res);
+      },
+      fail: function () {
+        if (settled) return;
+        settled = true;
         try {
           resolve(pickFallback(getLegacySystemInfoSync()));
         } catch (error) {
@@ -105,6 +112,17 @@ function callWxAsync(apiName, pickFallback) {
         }
       }
     });
+
+    // timeout fallback — wx API 5秒无响应时降级
+    setTimeout(function () {
+      if (settled) return;
+      settled = true;
+      try {
+        resolve(pickFallback(getLegacySystemInfoSync()));
+      } catch (error) {
+        reject(error);
+      }
+    }, 5000);
   });
 }
 

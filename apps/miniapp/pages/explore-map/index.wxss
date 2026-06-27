@@ -1,71 +1,413 @@
 @import '../../styles/prototype-v1.wxss';
-@import '../../styles/user-phase1.wxss';
+@import '../../styles/experience-animations-v54.wxss';
+@import '../../styles/relic-visual-v55.wxss';
 
-.proto-row--actions {
-  gap: 12rpx;
-  margin-top: 16rpx;
+/* ═══════════════════════════════════
+   Explore Page V3 — 地图化探索（DESIGN FREEZE）
+   浮动节点 + 状态光晕 + 雾层叠加
+   LOCKED Colors: #0F2A22 / #F3F0E8 / #C8A24A
+   ═══════════════════════════════════ */
+
+.exp-page {
+  min-height: 100vh;
+  background: #F3F0E8;
+  padding-bottom: calc(120rpx + env(safe-area-inset-bottom));
+  position: relative;
 }
 
-.proto-row--actions .proto-btn {
-  flex: 1;
+/* ─── 背景：雾层 ─── */
+.exp-atmosphere {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
 }
 
-.xr-product-entry-card {
-  margin: 24rpx 24rpx 0;
-  padding: 24rpx;
-  border-radius: 16rpx;
-  background: #fffaf0;
-  border: 1rpx solid #ead7b0;
+.exp-atmosphere__fog {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(200, 162, 74, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 40%);
 }
 
-.xr-product-entry-title {
-  font-size: 32rpx;
+.exp-atmosphere__mist {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: linear-gradient(0deg, rgba(243, 240, 232, 0.5) 0%, transparent 100%);
+}
+
+.exp-atmosphere__glow {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400rpx;
+  height: 300rpx;
+  background: radial-gradient(ellipse, rgba(200, 162, 74, 0.04) 0%, transparent 70%);
+}
+
+/* ─── 头部 ─── */
+.exp-header {
+  position: relative;
+  z-index: 1;
+  padding: 40rpx 32rpx 24rpx;
+  background: linear-gradient(165deg, #0F2A22 0%, #0F2A22 45%, #0F2A22 100%);
+  border-radius: 0 0 32rpx 32rpx;
+  margin-bottom: 24rpx;
+}
+
+.exp-header__kicker {
+  font-size: 20rpx;
   font-weight: 600;
-  color: #25332b;
+  letter-spacing: 4rpx;
+  color: rgba(200, 162, 74, 0.5);
+  margin-bottom: 6rpx;
 }
 
-.xr-product-entry-desc {
-  margin-top: 12rpx;
-  font-size: 24rpx;
-  line-height: 1.6;
-  color: #677168;
-}
-
-.xr-product-entry-button {
-  margin-top: 20rpx;
-  width: 100%;
-  min-height: 88rpx;
-  line-height: 88rpx;
-  border-radius: 999rpx;
-  background: #213c35;
+.exp-header__title {
+  font-size: 36rpx;
+  font-weight: 800;
   color: #ffffff;
-  font-size: 30rpx;
+  margin-bottom: 8rpx;
+}
+
+.exp-header__guide {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 20rpx;
+  letter-spacing: 2rpx;
+}
+
+.exp-header__stats {
+  display: flex;
+  gap: 12rpx;
+}
+
+.exp-stat {
+  flex: 1;
+  padding: 12rpx 0;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 12rpx;
+  border: 1rpx solid rgba(255, 255, 255, 0.04);
+}
+
+.exp-stat__value {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 800;
+  color: #C8A24A;
+}
+
+.exp-stat__label {
+  display: block;
+  font-size: 20rpx;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 4rpx;
+}
+
+/* ─── 浮动地图 ─── */
+.exp-map {
+  position: relative;
+  z-index: 1;
+  padding: 0 28rpx;
+  margin-bottom: 24rpx;
+}
+
+.exp-map__title {
+  font-size: 26rpx;
+  font-weight: 700;
+  color: #0F2A22;
+  margin-bottom: 20rpx;
+  letter-spacing: 2rpx;
+}
+
+.exp-map__trail {
+  position: absolute;
+  top: 120rpx;
+  left: 60rpx;
+  right: 60rpx;
+  height: 2rpx;
+  background: linear-gradient(90deg, transparent, rgba(15, 42, 34, 0.06), transparent);
+}
+
+/* 浮动节点 */
+.exp-node {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+  padding: 20rpx 24rpx;
+  border-radius: 20rpx;
+  background: #ffffff;
+  box-shadow: 0 4rpx 16rpx rgba(15, 42, 34, 0.04);
+  margin-bottom: 16rpx;
+  position: relative;
+  transition: all 0.3s ease;
+  width: calc(50% - 10rpx);
+  box-sizing: border-box;
+  vertical-align: top;
+}
+
+.exp-map > .exp-node:nth-child(odd) {
+  margin-right: 12rpx;
+}
+
+.exp-node:active {
+  transform: scale(0.97);
+}
+
+.exp-node__halo {
+  position: absolute;
+  top: -12rpx;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  pointer-events: none;
+  transition: all 0.5s ease;
+}
+
+.exp-node__core {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.exp-node__dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  transition: all 0.4s ease;
+}
+
+/* ─── 节点三态 ─── */
+
+/* LIT — 已点亮 */
+.exp-node--lit {
+  border: 1rpx solid rgba(200, 162, 74, 0.15);
+}
+
+.exp-node--lit .exp-node__halo {
+  background: radial-gradient(circle, rgba(200, 162, 74, 0.08) 0%, transparent 70%);
+  animation: node-lit-pulse 4s ease-in-out infinite;
+}
+
+@keyframes node-lit-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+.exp-node--lit .exp-node__core {
+  background: rgba(200, 162, 74, 0.1);
+  box-shadow: 0 0 12rpx rgba(200, 162, 74, 0.1);
+}
+
+.exp-node--lit .exp-node__dot {
+  background: #C8A24A;
+  box-shadow: 0 0 8rpx rgba(200, 162, 74, 0.3);
+}
+
+.exp-node--lit .exp-node__label {
+  color: #0F2A22;
   font-weight: 600;
 }
 
-.xr-product-entry-status {
-  margin-top: 12rpx;
+/* NEXT — 推荐 */
+.exp-node--next {
+  border: 1rpx solid rgba(200, 162, 74, 0.25);
+  box-shadow: 0 4rpx 20rpx rgba(200, 162, 74, 0.08);
+}
+
+.exp-node--next .exp-node__halo {
+  background: radial-gradient(circle, rgba(200, 162, 74, 0.12) 0%, transparent 70%);
+  animation: node-next-pulse 3s ease-in-out infinite;
+}
+
+@keyframes node-next-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+
+.exp-node--next .exp-node__core {
+  background: rgba(200, 162, 74, 0.15);
+  box-shadow: 0 0 16rpx rgba(200, 162, 74, 0.15);
+}
+
+.exp-node--next .exp-node__dot {
+  width: 20rpx;
+  height: 20rpx;
+  background: #C8A24A;
+  box-shadow: 0 0 12rpx rgba(200, 162, 74, 0.4);
+  animation: node-dot-breathe 2s ease-in-out infinite;
+}
+
+@keyframes node-dot-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+
+.exp-node--next .exp-node__label {
+  color: #0F2A22;
+  font-weight: 700;
+}
+
+/* DIM — 未探索 */
+.exp-node--dim {
+  opacity: 0.55;
+}
+
+.exp-node--dim .exp-node__halo {
+  opacity: 0;
+}
+
+.exp-node--dim .exp-node__core {
+  background: rgba(15, 42, 34, 0.04);
+}
+
+.exp-node--dim .exp-node__dot {
+  background: #9ca3af;
+}
+
+.exp-node--dim .exp-node__label {
+  color: #6b7280;
+}
+
+.exp-node__label {
   font-size: 22rpx;
-  color: #5d665f;
-  word-break: break-all;
+  text-align: center;
+  letter-spacing: 1rpx;
 }
 
-.xr-product-entry-ready {
-  margin-top: 16rpx;
-  padding: 16rpx;
-  border-radius: 12rpx;
-  background: #eff9f0;
-  color: #2f6b39;
-  font-size: 24rpx;
-  line-height: 1.6;
+/* ─── 推荐条 ─── */
+.exp-next {
+  position: relative;
+  z-index: 1;
+  margin: 0 28rpx 24rpx;
+  padding: 20rpx 24rpx;
+  border-radius: 16rpx;
+  background: linear-gradient(135deg, rgba(200, 162, 74, 0.06), rgba(200, 162, 74, 0.02));
+  border: 1rpx solid rgba(200, 162, 74, 0.12);
 }
 
-.xr-product-entry-fallback {
-  margin-top: 16rpx;
-  padding: 16rpx;
-  border-radius: 12rpx;
-  background: #fff3e4;
-  color: #9a5f00;
+.exp-next__label {
+  font-size: 20rpx;
+  color: #b68a3d;
+  letter-spacing: 2rpx;
+  margin-bottom: 4rpx;
+}
+
+.exp-next__name {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #0F2A22;
+  margin-bottom: 4rpx;
+}
+
+.exp-next__relic {
+  font-size: 22rpx;
+  color: #6b7280;
+}
+
+/* ─── 探索印记（信物入口卡片） ─── */
+.exp-section {
+  position: relative;
+  z-index: 1;
+  padding: 0 28rpx;
+  margin-bottom: 24rpx;
+}
+
+.exp-section__title {
+  font-size: 26rpx;
+  font-weight: 700;
+  color: #0F2A22;
+  margin-bottom: 16rpx;
+  letter-spacing: 2rpx;
+}
+
+.exp-relics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.exp-relic {
+  width: calc(50% - 8rpx);
+  padding: 20rpx;
+  border-radius: 16rpx;
+  background: #ffffff;
+  box-shadow: 0 2rpx 12rpx rgba(15, 42, 34, 0.03);
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.exp-relic:active {
+  transform: scale(0.97);
+}
+
+.exp-relic__icon {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8rpx;
+  position: relative;
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #0F2A22;
+}
+
+.exp-relic__glow {
+  position: absolute;
+  inset: -8rpx;
+  border-radius: 20rpx;
+  pointer-events: none;
+}
+
+.exp-relic__char {
+  position: relative;
+  z-index: 1;
+}
+
+.exp-relic__name {
   font-size: 24rpx;
-  line-height: 1.6;
+  font-weight: 600;
+  color: #0F2A22;
+  margin-bottom: 2rpx;
+}
+
+.exp-relic__status {
+  font-size: 20rpx;
+  color: #6b7280;
+}
+
+/* 信物三态 */
+.exp-relic--lit .exp-relic__icon {
+  background: rgba(200, 162, 74, 0.08);
+}
+.exp-relic--lit .exp-relic__glow {
+  background: radial-gradient(circle, rgba(200, 162, 74, 0.06) 0%, transparent 70%);
+}
+
+.exp-relic--next .exp-relic__icon {
+  background: rgba(200, 162, 74, 0.12);
+}
+.exp-relic--next .exp-relic__glow {
+  background: radial-gradient(circle, rgba(200, 162, 74, 0.1) 0%, transparent 70%);
+  animation: node-next-pulse 3s ease-in-out infinite;
+}
+
+.exp-relic--dim .exp-relic__icon {
+  background: rgba(15, 42, 34, 0.03);
+  opacity: 0.5;
 }

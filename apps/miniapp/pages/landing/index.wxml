@@ -1,0 +1,62 @@
+<view class="landing-page">
+  <!-- ─── 骨架加载 ─── -->
+  <view wx:if="{{loading}}" class="landing-skeleton">
+    <view class="landing-skeleton__seal"></view>
+    <view class="landing-skeleton__title"></view>
+    <view class="landing-skeleton__verse"></view>
+    <view class="landing-skeleton__btn"></view>
+  </view>
+
+  <block wx:else>
+    <!-- ─── 背景：水墨雾山光流 ─── -->
+    <view class="landing-atmosphere">
+      <view class="landing-atmosphere__mist"></view>
+      <view class="landing-atmosphere__mountain"></view>
+      <view class="landing-atmosphere__lightflow"></view>
+      <view class="landing-atmosphere__fog"></view>
+    </view>
+
+    <!-- ─── 世界标题 + 光晕 ─── -->
+    <view class="landing-content">
+      <view class="landing-world-title">
+        <view class="landing-world-title__halo"></view>
+        <view class="landing-world-title__seal">
+          <text class="landing-world-title__seal-char">爱</text>
+        </view>
+        <view class="landing-world-title__name">AR游伴</view>
+        <view class="landing-world-title__sub">企谷 · 探索之旅</view>
+      </view>
+
+      <!-- ─── 东方引导语 ─── -->
+      <view class="landing-guide">
+        <view class="landing-guide__line"></view>
+        <view class="landing-guide__text">每一处探索，都是与这片土地的一次重逢</view>
+        <view class="landing-guide__line"></view>
+      </view>
+
+      <!-- ─── 扫码结果 ─── -->
+      <view wx:if="{{scanResult}}" class="landing-scan-badge">
+        已识别景区二维码
+      </view>
+
+      <!-- ─── 印章化登录按钮 ─── -->
+      <view class="landing-actions">
+        <button class="landing-seal-btn" bindtap="onLogin">
+          <view class="landing-seal-btn__inner">
+            <text class="landing-seal-btn__char">登</text>
+            <text class="landing-seal-btn__label">{{loginBanner.actionLabel}}</text>
+          </view>
+          <view class="landing-seal-btn__glow"></view>
+        </button>
+        <button class="landing-ghost-btn" bindtap="onScanCode">扫码进入园区</button>
+      </view>
+
+      <!-- ─── 底部 ─── -->
+      <view class="landing-footer">
+        <text class="landing-footer__text">登录即表示同意服务协议</text>
+        <text class="landing-footer__dot">·</text>
+        <text class="landing-footer__text">首次使用需获取设备信息</text>
+      </view>
+    </view>
+  </block>
+</view>

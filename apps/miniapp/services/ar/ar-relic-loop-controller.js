@@ -22,6 +22,10 @@ class ARRelicLoopController {
     }
   }
 
+  static reset() {
+    isBound = false;
+  }
+
   static bindToActionLayer(actionLayer) {
     if (isBound) {
       return actionLayer || null;

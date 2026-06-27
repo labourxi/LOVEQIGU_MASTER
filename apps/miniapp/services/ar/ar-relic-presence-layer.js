@@ -36,6 +36,10 @@ class ARRelicPresenceLayer {
     return relic;
   }
 
+  static reset() {
+    ARRelicPresenceLayer.activeRelics = [];
+  }
+
   static bindToLoop(eventBus) {
     const sourceBus = eventBus || bus;
     sourceBus.on('XR_RELIC_BIND_ANCHOR', (data) => {

@@ -7,6 +7,7 @@ const {
   writeRawValue,
   normalizeProgress
 } = require('./user-progress-store');
+const { safeParse } = require('../../utils/safe-json');
 
 const EVENT_ACTIVITY_ID = 'LOVEQIGU_FIRST_EVENT_CASE_V1';
 
@@ -31,14 +32,7 @@ function readLegacyValues() {
 }
 
 function parseMaybeJson(value) {
-  if (typeof value !== 'string') {
-    return value;
-  }
-  try {
-    return JSON.parse(value);
-  } catch (err) {
-    return value;
-  }
+  return safeParse(value, value);
 }
 
 function buildBaseProgress() {

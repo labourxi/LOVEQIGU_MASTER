@@ -1,92 +1,488 @@
 @import '../../styles/prototype-v1.wxss';
 @import '../../styles/xr-ui-overlay.wxss';
 
+/* ─── 页面基底 ─── */
 .ar-entry-page {
-  background: #f4f1eb;
+  background: #F3F0E8;
 }
 
-.ar-entry-marker-ui--host {
-  top: 0;
-  height: 520rpx;
-  padding: 24rpx;
-  background: linear-gradient(180deg, rgba(31, 42, 38, 0.72) 0%, rgba(31, 42, 38, 0.35) 55%, rgba(31, 42, 38, 0.72) 100%);
-  box-sizing: border-box;
-}
+/* ─── XR 宿主（已迁移至独立 XR page） ─── */
 
-.ar-entry-title {
-  font-size: 32rpx;
-  font-weight: 600;
-  color: #f4f1eb;
-}
-
-.ar-entry-copy {
-  margin-top: 12rpx;
-  font-size: 24rpx;
-  line-height: 1.6;
-  color: rgba(244, 241, 235, 0.82);
-}
-
-.ar-entry-btn {
-  margin-top: 20rpx;
-  pointer-events: auto;
-}
-
-.ar-entry-row {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 12rpx;
-  font-size: 24rpx;
-  color: rgba(244, 241, 235, 0.9);
-}
-
-.xr-host-layer--ar-entry ar-marker-entry,
-.xr-host-layer--ar-entry ar-marker-xr-scene {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.ar-entry-xr-spacer {
-  height: 520rpx;
-  margin-top: 0;
-  padding: 0;
-  background: transparent;
-}
-
+/* ─── 内容区 ─── */
 .ar-entry-ui {
-  padding-bottom: 160rpx;
+  padding: 0 20rpx 200rpx;
 }
 
+/* ─── 返回按钮 ─── */
 .ar-entry-topbar {
   position: relative;
   z-index: 20;
-  padding: 8rpx 0 0;
+  padding: 12rpx 0 0;
   pointer-events: auto;
 }
 
 .ar-entry-back {
   width: auto;
   min-width: 140rpx;
+  animation: none !important;       /* 返回按钮不呼吸 */
+  box-shadow: none !important;
 }
 
-.ar-scan-card {
+/* ─── 卡片叠层容器 ─── */
+.ar-card-stack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-top: 16rpx;
+}
+
+/* ═══════════════════════════════════
+   卡1：主行动按钮（英雄卡）
+   ═══════════════════════════════════ */
+.ar-hero-card {
+  position: relative;
   overflow: hidden;
+  background: linear-gradient(150deg, #ffffff 0%, #faf8f4 100%);
+  border-radius: 24rpx;
+  padding: 40rpx 32rpx 36rpx;
+  margin-bottom: 0;
+  box-shadow:
+    0 8rpx 32rpx rgba(15, 42, 34, 0.08),
+    0 2rpx 8rpx rgba(15, 42, 34, 0.04);
+  text-align: center;
+  z-index: 10;
 }
 
-.ar-scan-viewport {
+/* 辉光装饰 */
+.ar-hero-card__aura {
+  position: absolute;
+  top: -60rpx;
+  right: -60rpx;
+  width: 280rpx;
+  height: 280rpx;
+  background: radial-gradient(circle, rgba(200, 162, 74, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.ar-hero-card__label {
+  font-size: 20rpx;
+  font-weight: 600;
+  letter-spacing: 6rpx;
+  color: #9ca3af;
+  margin-bottom: 12rpx;
+}
+
+.ar-hero-card__title {
+  font-size: 40rpx;
+  font-weight: 800;
+  color: #0F2A22;
+  line-height: 1.25;
+  margin-bottom: 12rpx;
+}
+
+.ar-hero-card__desc {
+  font-size: 24rpx;
+  color: #6b7280;
+  line-height: 1.6;
+  margin-bottom: 28rpx;
+}
+
+.ar-hero-card__action {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  min-width: 420rpx;
+}
+
+/* ═══════════════════════════════════
+   卡2：XR 区域 — 渐变 + 模拟深度光
+   ═══════════════════════════════════ */
+.ar-xr-aura-card {
+  position: relative;
+  margin-top: -12rpx;              /* 叠层 */
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 24rpx 24rpx 28rpx;
+  box-shadow:
+    0 8rpx 24rpx rgba(15, 42, 34, 0.06),
+    0 2rpx 6rpx rgba(15, 42, 34, 0.03);
+  z-index: 9;
+}
+
+.ar-xr-aura-card__label {
+  font-size: 20rpx;
+  font-weight: 600;
+  letter-spacing: 4rpx;
+  color: #9ca3af;
+  margin-bottom: 16rpx;
+}
+
+.ar-xr-aura-card__surface {
   position: relative;
   width: 100%;
-  height: 480rpx;
-  margin: 24rpx 0;
-  background: #1f2a26;
+  height: 340rpx;
+  border-radius: 18rpx;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  /* 渐变 + 模拟深度光 — 代替黑块 */
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(200, 162, 74, 0.18) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 70%, rgba(15, 42, 34, 0.06) 0%, transparent 50%),
+    linear-gradient(165deg, #e8efe9 0%, #dce4de 40%, #d1dad3 70%, #c8d2cb 100%);
+}
+
+.ar-xr-aura-card__glow {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200rpx;
+  height: 200rpx;
+  background: radial-gradient(circle, rgba(200, 162, 74, 0.35) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.ar-xr-aura-card__ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 160rpx;
+  height: 160rpx;
+  border: 1rpx solid rgba(200, 162, 74, 0.35);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: ar-ring-pulse 4s ease-in-out infinite;
+}
+
+@keyframes ar-ring-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+  50% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.7; }
+}
+
+.ar-xr-aura-card__hint {
+  position: relative;
+  z-index: 2;
+  font-size: 22rpx;
+  color: #6b7280;
+  margin-top: 8rpx;
+  text-align: center;
+}
+
+.ar-xr-aura-card__caption {
+  font-size: 22rpx;
+  color: #9ca3af;
+  margin-top: 14rpx;
+  text-align: center;
+  letter-spacing: 1rpx;
+}
+
+/* ═══════════════════════════════════
+   卡3：探索状态
+   ═══════════════════════════════════ */
+.ar-status-card {
+  position: relative;
+  margin-top: -10rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 28rpx 32rpx;
+  box-shadow:
+    0 6rpx 20rpx rgba(15, 42, 34, 0.05),
+    0 1rpx 4rpx rgba(15, 42, 34, 0.02);
+  z-index: 8;
+}
+
+.ar-status-card__kicker {
+  font-size: 20rpx;
+  font-weight: 600;
+  letter-spacing: 4rpx;
+  color: #9ca3af;
+  margin-bottom: 18rpx;
+}
+
+.ar-status-card__row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 24rpx;
+}
+
+.ar-status-card__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6rpx;
+}
+
+.ar-status-card__num {
+  font-size: 40rpx;
+  font-weight: 800;
+  color: #0F2A22;
+  line-height: 1;
+}
+
+.ar-status-card__lbl {
+  font-size: 22rpx;
+  color: #9ca3af;
+}
+
+.ar-status-card__scan {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  justify-content: center;
+  margin-top: 18rpx;
+  padding-top: 16rpx;
+  border-top: 1rpx solid rgba(15, 42, 34, 0.06);
+  font-size: 24rpx;
+  color: #6b7280;
+}
+
+.ar-status-card__scan-dot {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background: #C8A24A;
+  display: inline-block;
+}
+
+/* ═══════════════════════════════════
+   卡4：信物 / 礼物
+   ═══════════════════════════════════ */
+.ar-gift-card {
+  position: relative;
+  margin-top: -10rpx;
+  background: linear-gradient(135deg, #fffdf7 0%, #fffaf0 100%);
+  border-radius: 24rpx;
+  padding: 28rpx 32rpx;
+  box-shadow:
+    0 6rpx 20rpx rgba(15, 42, 34, 0.05),
+    0 1rpx 4rpx rgba(15, 42, 34, 0.02);
+  border: 1rpx solid rgba(200, 162, 74, 0.20);
+  z-index: 7;
+}
+
+.ar-gift-card__kicker {
+  font-size: 18rpx;
+  font-weight: 600;
+  letter-spacing: 3rpx;
+  color: #b8a58c;
+  margin-bottom: 14rpx;
+}
+
+.ar-gift-card__body {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.ar-gift-card__icon {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #C8A24A, #edc78a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26rpx;
+  color: #6b4220;
+  flex-shrink: 0;
+}
+
+.ar-gift-card__text {
+  flex: 1;
+}
+
+.ar-gift-card__title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #374151;
+  margin-bottom: 4rpx;
+}
+
+.ar-gift-card__desc {
+  font-size: 22rpx;
+  color: #9ca3af;
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════
+   卡5：识别引导（条件显示）
+   ═══════════════════════════════════ */
+.ar-guide-card {
+  position: relative;
+  margin-top: -10rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 28rpx 32rpx;
+  box-shadow:
+    0 6rpx 20rpx rgba(15, 42, 34, 0.05),
+    0 1rpx 4rpx rgba(15, 42, 34, 0.02);
+  z-index: 6;
+}
+
+.ar-guide-card__kicker {
+  font-size: 20rpx;
+  font-weight: 600;
+  letter-spacing: 4rpx;
+  color: #9ca3af;
+  margin-bottom: 16rpx;
+}
+
+.ar-guide-card__viewport {
+  width: 100%;
+  height: 320rpx;
   border-radius: 16rpx;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at center, rgba(200, 162, 74, 0.10) 0%, transparent 70%),
+    linear-gradient(135deg, #e8efe9 0%, #dce4de 100%);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.ar-scan-overlay {
+.ar-guide-card__overlay {
   width: 78%;
   height: 78%;
-  opacity: 0.72;
+  opacity: 0.7;
 }
+
+.ar-guide-card__hint {
+  font-size: 24rpx;
+  color: #6b7280;
+  margin-top: 14rpx;
+  line-height: 1.6;
+}
+
+.ar-guide-card__flow {
+  display: flex;
+  gap: 12rpx;
+  margin-top: 16rpx;
+  flex-wrap: wrap;
+}
+
+.ar-guide-card__step {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+  font-size: 22rpx;
+  color: #4b635c;
+  padding: 6rpx 16rpx;
+  background: #F3F0E8;
+  border-radius: 999rpx;
+}
+
+.ar-guide-card__step-dot {
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 50%;
+  background: #C8A24A;
+  display: inline-block;
+}
+
+/* ═══════════════════════════════════
+   卡6：引导提示（含主副按钮）
+   ═══════════════════════════════════ */
+.ar-action-card {
+  position: relative;
+  margin-top: -10rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 28rpx 32rpx 36rpx;
+  box-shadow:
+    0 6rpx 20rpx rgba(15, 42, 34, 0.05),
+    0 1rpx 4rpx rgba(15, 42, 34, 0.02);
+  z-index: 5;
+  text-align: center;
+}
+
+.ar-action-card__label {
+  font-size: 20rpx;
+  font-weight: 600;
+  letter-spacing: 4rpx;
+  color: #9ca3af;
+  margin-bottom: 12rpx;
+}
+
+.ar-action-card__hint {
+  font-size: 26rpx;
+  color: #374151;
+  line-height: 1.7;
+  margin-bottom: 8rpx;
+}
+
+.ar-action-card__revelation {
+  font-size: 24rpx;
+  color: #7f4f24;
+  background: #fff7ed;
+  padding: 12rpx 20rpx;
+  border-radius: 12rpx;
+  margin: 12rpx 0;
+  line-height: 1.6;
+}
+
+.ar-action-card__mode {
+  font-size: 22rpx;
+  color: #6b7280;
+  margin-bottom: 16rpx;
+  padding: 6rpx 14rpx;
+  display: inline-block;
+  background: #F3F0E8;
+  border-radius: 999rpx;
+}
+
+.ar-action-card__btn {
+  margin-top: 20rpx;
+  width: 100%;
+}
+
+.ar-action-card__btn--sec {
+  margin-top: 12rpx;
+}
+
+/* ─── XR SAFE MODE ─── */
+.xr-safe-mode-banner {
+  position: relative;
+  z-index: 30;
+  margin: 8rpx 0 0;
+  padding: 20rpx;
+  background: rgba(246, 173, 85, 0.12);
+  border: 1px solid rgba(246, 173, 85, 0.3);
+  border-radius: 18rpx;
+  text-align: center;
+  pointer-events: auto;
+}
+
+.xr-safe-mode-banner__icon {
+  font-size: 36rpx;
+  margin-bottom: 8rpx;
+}
+
+.xr-safe-mode-banner__title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #d97706;
+  margin-bottom: 6rpx;
+}
+
+.xr-safe-mode-banner__desc {
+  font-size: 24rpx;
+  color: rgba(31, 42, 38, 0.75);
+  line-height: 1.5;
+}
+
+.xr-safe-mode-banner__reason {
+  font-size: 20rpx;
+  color: rgba(31, 42, 38, 0.5);
+  margin-top: 6rpx;
+  font-family: monospace;
+}
+
+/* ─── 注意：继承的 prototype-v1 按钮呼吸动画可能与本页样式重叠，
+   此处通过重写 .ar-hero-card__action 覆盖呼吸感。 */

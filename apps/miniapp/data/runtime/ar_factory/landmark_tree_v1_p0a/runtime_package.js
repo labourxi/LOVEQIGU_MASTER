@@ -20,12 +20,12 @@ module.exports = {
     "anchor_score": 0.6148,
     "anchor_ref": "data/ar_factory/poc/landmark_tree_v1_p0a/anchor.json",
     "preview_assets": [
-      "/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.webp",
-      "/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_energy_flow.webp",
-      "/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_head_reveal.webp",
-      "/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/azure_dragon_seal.webp"
+      "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.webp",
+      "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_energy_flow.webp",
+      "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_head_reveal.webp",
+      "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/azure_dragon_seal.webp"
     ],
-    "preview_overlay": "/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.webp",
+    "preview_overlay": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.webp",
     "render_layers": [
       "trunk_overlay",
       "dragon_scale_glow",
@@ -45,7 +45,7 @@ module.exports = {
       "hint_text": "请将古树轮廓与参考轮廓对齐。"
     },
     "alignment_overlay": {
-      "overlay_uri": "/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.webp",
+      "overlay_uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.webp",
       "contour_uri": "data/ar_factory/poc/landmark_tree_v1_p0a/alignment_overlay.png",
       "alignment_threshold": 0.72,
       "hint_text": "请将古树树干与参考轮廓重合，触发龙影浮现。",
@@ -149,19 +149,19 @@ module.exports = {
   "reveal_assets": [
     {
       "asset_type": "dragon_imprint_overlay",
-      "asset_uri": "/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.webp"
+      "asset_uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.webp"
     },
     {
       "asset_type": "dragon_energy_flow",
-      "asset_uri": "/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_energy_flow.webp"
+      "asset_uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_energy_flow.webp"
     },
     {
       "asset_type": "dragon_head_reveal",
-      "asset_uri": "/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_head_reveal.webp"
+      "asset_uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_head_reveal.webp"
     },
     {
       "asset_type": "azure_dragon_seal",
-      "asset_uri": "/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/azure_dragon_seal.webp"
+      "asset_uri": "/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/azure_dragon_seal.webp"
     },
     {
       "asset_type": "position_guide",

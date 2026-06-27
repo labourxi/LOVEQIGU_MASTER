@@ -1,77 +1,77 @@
-<view class="proto-page user-phase1-page atlas-page ui-overlay-layer">
-  <view wx:if="{{pilotSceneActive}}" class="pilot-scene-banner">
-    <view class="pilot-scene-banner__kicker">景区体验</view>
-    <view class="pilot-scene-banner__copy">{{pilotSceneHint}}</view>
+<view class="exp-page">
+  <!-- ─── 背景：低饱和园区图 + 雾层 ─── -->
+  <view class="exp-atmosphere">
+    <view class="exp-atmosphere__fog"></view>
+    <view class="exp-atmosphere__mist"></view>
+    <view class="exp-atmosphere__glow"></view>
   </view>
 
-  <view class="atlas-header">
-    <view class="atlas-header__kicker">探索图谱</view>
-    <view class="atlas-header__title">{{activity.event_name}}</view>
-    <view class="atlas-header__guide">沿星点前行，印记将次第显现。每一处探索，都是找回的一部分。</view>
-    <view class="atlas-header__meta">
-      <text>已点亮 {{stats.completedTaskCount}} 处</text>
-      <text>·</text>
-      <text>信物 {{stats.ownedRelicCount}}</text>
-      <text>·</text>
-      <text>礼遇 {{stats.claimedCouponCount}}</text>
+  <!-- ─── 顶部：世界标题 ─── -->
+  <view class="exp-header">
+    <view class="exp-header__kicker">探索图谱</view>
+    <view class="exp-header__title">{{activity.event_name}}</view>
+    <view class="exp-header__guide">沿光点前行，印记将次第显现</view>
+    <view class="exp-header__stats">
+      <view class="exp-stat">
+        <text class="exp-stat__value">{{stats.completedTaskCount}}</text>
+        <text class="exp-stat__label">已点亮</text>
+      </view>
+      <view class="exp-stat">
+        <text class="exp-stat__value">{{stats.ownedRelicCount}}</text>
+        <text class="exp-stat__label">信物</text>
+      </view>
+      <view class="exp-stat">
+        <text class="exp-stat__value">{{stats.claimedCouponCount}}</text>
+        <text class="exp-stat__label">礼遇</text>
+      </view>
     </view>
   </view>
 
-  <view class="xr-product-entry-card">
-    <view class="xr-product-entry-title">景点 XR 显现</view>
-    <view class="xr-product-entry-desc">打开景点信物的 3D 显现页，完成一次轻量 XR 查看。</view>
-    <button class="xr-product-entry-button" bindtap="openScenicPointXRRenderer">查看 XR 显现</button>
-    <view class="xr-product-entry-status">XR_RENDER_RETURNED {{xrRenderReturned ? 'YES' : 'NO'}}</view>
-    <view class="xr-product-entry-status">XR_RENDER_STATUS {{xrRenderStatus}}</view>
-    <view class="xr-product-entry-status">XR_OBJECT_VISIBLE {{xrObjectVisible ? 'YES' : 'NO'}}</view>
-    <view class="xr-product-entry-status">XR_BLOCK_REASON {{xrBlockReason || '-'}}</view>
-    <view class="xr-product-entry-status">XR_CHECKED_AT {{xrCheckedAt}}</view>
-    <view wx:if="{{xrReadyMessage}}" class="xr-product-entry-ready">{{xrReadyMessage}}</view>
-    <view wx:if="{{xrFallbackMessage}}" class="xr-product-entry-fallback">{{xrFallbackMessage}}</view>
-  </view>
+  <!-- ─── 打卡点浮动地图 ─── -->
+  <view class="exp-map">
+    <view class="exp-map__title">星点路径</view>
+    <view class="exp-map__trail"></view>
 
-  <view class="atlas-canvas">
-    <view class="atlas-canvas__title">星点路径</view>
-    <view class="atlas-path__stem"></view>
+    <!-- 浮动节点（非列表） -->
     <view
-      class="atlas-node atlas-node--{{item.state}}"
+      class="exp-node exp-node--{{item.state}}"
       wx:for="{{graphNodes}}"
       wx:key="point_id"
+      data-point-id="{{item.point_id}}"
+      bindtap="onOpenScanShell"
     >
-      <view class="atlas-node__star"></view>
-      <view class="atlas-node__body">
-        <view class="atlas-node__name">{{item.point_name}}</view>
-        <view class="atlas-node__hint">{{item.hint}}</view>
+      <view class="exp-node__halo"></view>
+      <view class="exp-node__core">
+        <view class="exp-node__dot"></view>
       </view>
+      <view class="exp-node__label">{{item.point_name}}</view>
     </view>
   </view>
 
-  <view class="atlas-next-banner" wx:if="{{recommendedPoint}}">
-    <view class="atlas-next-banner__label">推荐前行</view>
-    <view class="atlas-next-banner__name">{{recommendedPoint.point_name}}</view>
-    <view class="atlas-timeline__meta" style="margin-top: 8rpx;">{{recommendedPoint.merchant_name}} · 可获得 {{recommendedPoint.relic_name}}</view>
+  <!-- ─── 推荐点 ─── -->
+  <view class="exp-next" wx:if="{{recommendedPoint}}">
+    <view class="exp-next__label">推荐前行</view>
+    <view class="exp-next__name">{{recommendedPoint.point_name}}</view>
+    <view class="exp-next__relic">可获得 · {{recommendedPoint.relic_name}}</view>
   </view>
 
-  <view class="atlas-section-label">探索印记</view>
-  <view class="atlas-timeline">
-    <view
-      class="atlas-timeline__item atlas-timeline__item--{{item.state}}"
-      wx:for="{{points}}"
-      wx:key="point_id"
-    >
-      <view class="atlas-timeline__mark">
-        <view class="atlas-timeline__dot"></view>
-      </view>
-      <view class="atlas-timeline__content">
-        <view class="atlas-timeline__head">
-          <view class="atlas-timeline__name">{{item.point_name}}</view>
-          <view class="atlas-timeline__badge">{{item.statusLabel}}</view>
+  <!-- ─── 探索印记（信物入口，非列表） ─── -->
+  <view class="exp-section">
+    <view class="exp-section__title">探索印记</view>
+    <view class="exp-relics">
+      <view
+        class="exp-relic exp-relic--{{item.state}}"
+        wx:for="{{points}}"
+        wx:key="point_id"
+        data-point-id="{{item.point_id}}"
+        bindtap="onOpenScanShell"
+      >
+        <view class="exp-relic__icon">
+          <view class="exp-relic__glow"></view>
+          <text class="exp-relic__char">{{item.point_name.slice(0, 1)}}</text>
         </view>
-        <view class="atlas-timeline__meta">{{item.merchant_name}} · {{item.relic_name}}</view>
-        <view class="atlas-timeline__actions">
-          <button class="proto-btn proto-btn--ghost" data-point-id="{{item.point_id}}" bindtap="onOpenDetail">详情</button>
-          <button class="proto-btn" data-point-id="{{item.point_id}}" bindtap="onOpenScanShell">前往打卡</button>
-        </view>
+        <view class="exp-relic__name">{{item.point_name}}</view>
+        <view class="exp-relic__status">{{item.statusLabel}}</view>
       </view>
     </view>
   </view>

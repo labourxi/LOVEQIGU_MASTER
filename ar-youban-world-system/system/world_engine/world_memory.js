@@ -1,15 +1,23 @@
 /**
  * WORLD_MEMORY — state recording only
+ *
+ * 被动执行模式。不在 import 时读取 storage。
+ * memory 在首次 recordEvent() / getWorldMemory() 时懒加载。
  */
 
 import { gc } from './memory_gc.js';
 
 const STORAGE_KEY = 'loveqigu_world_memory';
 
-let WORLD_MEMORY = loadMemory();
+let WORLD_MEMORY = null;
 
 function defaultMemory() {
   return { visitedPlaces: [], activatedNodes: [], relics: [], resonance: 0, events: [] };
+}
+
+function ensureMemory() {
+  if (WORLD_MEMORY) return;
+  WORLD_MEMORY = loadMemory();
 }
 
 function loadMemory() {
@@ -38,6 +46,7 @@ function saveMemory() {
 }
 
 export function recordEvent(event) {
+  ensureMemory();
   if (!event || !event.type) return WORLD_MEMORY;
   if (event.type === 'visit') WORLD_MEMORY.visitedPlaces.push(event.data);
   if (event.type === 'activate') WORLD_MEMORY.activatedNodes.push(event.data);
@@ -49,6 +58,7 @@ export function recordEvent(event) {
 }
 
 export function getWorldMemory() {
+  ensureMemory();
   return WORLD_MEMORY;
 }
 

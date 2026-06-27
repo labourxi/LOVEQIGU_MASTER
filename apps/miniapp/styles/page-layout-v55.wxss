@@ -1,0 +1,222 @@
+/**
+ * PAGE LAYOUT STANDARD — DESIGN FREEZE V3
+ *
+ * LOCKED Colors (2026-06-27):
+ *   primary:   #0F2A22
+ *   background: #F3F0E8
+ *   accent:    #C8A24A
+ *   shadow:    rgba(0,0,0,0.15)
+ *
+ * Allowed components:
+ *   Button (primary / secondary)
+ *   Card (explore only)
+ *   Badge (status)
+ *   GlowContainer
+ *   RelicDisplay
+ *
+ * Forbidden:
+ *   - table
+ *   - list dense UI
+ *   - debug UI
+ *   - admin UI
+ *   - test UI
+ */
+
+/* ─── 页面容器 ─── */
+.std-page {
+  min-height: 100vh;
+  background: #F3F0E8;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Header — 暗绿渐变头部 ─── */
+.std-header {
+  padding: 40rpx 32rpx 32rpx;
+  background: linear-gradient(165deg, #0F2A22 0%, #0F2A22 45%, #0F2A22 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.std-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3rpx;
+  background: linear-gradient(90deg, transparent, rgba(200, 162, 74, 0.2), transparent);
+}
+
+.std-header__kicker {
+  font-size: 22rpx;
+  font-weight: 600;
+  letter-spacing: 4rpx;
+  color: rgba(200, 162, 74, 0.6);
+  margin-bottom: 8rpx;
+}
+
+.std-header__title {
+  font-size: 40rpx;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.25;
+  margin-bottom: 8rpx;
+}
+
+.std-header__subtitle {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.5;
+}
+
+/* ─── 内容区 — 卡片叠层 ─── */
+.std-content {
+  flex: 1;
+  padding: 24rpx 28rpx 32rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.std-card {
+  padding: 28rpx 24rpx;
+  border-radius: 20rpx;
+  background: #ffffff;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.std-card__title {
+  font-size: 26rpx;
+  font-weight: 700;
+  color: #0F2A22;
+  margin-bottom: 12rpx;
+}
+
+.std-card__body {
+  font-size: 24rpx;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+/* ─── 主行动按钮 ─── */
+.std-action {
+  padding: 16rpx 28rpx calc(32rpx + env(safe-area-inset-bottom));
+  background: #F3F0E8;
+}
+
+.std-action__btn {
+  width: 100%;
+  height: 88rpx;
+  line-height: 88rpx;
+  border-radius: 44rpx;
+  font-size: 28rpx;
+  font-weight: 700;
+  letter-spacing: 4rpx;
+  text-align: center;
+  background: #0F2A22;
+  color: #C8A24A;
+  border: none;
+  box-shadow:
+    0 4rpx 12rpx rgba(15, 42, 34, 0.2),
+    0 2rpx 4rpx rgba(15, 42, 34, 0.1);
+  transition: all 0.3s ease;
+  animation: std-btn-breathe 4s ease-in-out infinite;
+}
+
+@keyframes std-btn-breathe {
+  0%, 100% {
+    box-shadow: 0 4rpx 12rpx rgba(15, 42, 34, 0.2), 0 2rpx 4rpx rgba(15, 42, 34, 0.1);
+  }
+  50% {
+    box-shadow: 0 6rpx 24rpx rgba(15, 42, 34, 0.35), 0 4rpx 8rpx rgba(15, 42, 34, 0.2);
+  }
+}
+
+.std-action__btn:active {
+  opacity: 0.85;
+  animation: none;
+}
+
+.std-action__btn--gold {
+  background: #C8A24A;
+  color: #0F2A22;
+  box-shadow:
+    0 4rpx 12rpx rgba(200, 162, 74, 0.25),
+    0 2rpx 4rpx rgba(200, 162, 74, 0.15);
+}
+
+@keyframes std-btn-gold-breathe {
+  0%, 100% {
+    box-shadow: 0 4rpx 12rpx rgba(200, 162, 74, 0.25), 0 2rpx 4rpx rgba(200, 162, 74, 0.15);
+  }
+  50% {
+    box-shadow: 0 8rpx 28rpx rgba(200, 162, 74, 0.4), 0 4rpx 8rpx rgba(200, 162, 74, 0.25);
+  }
+}
+
+.std-action__btn--gold:not([disabled]) {
+  animation: std-btn-gold-breathe 4s ease-in-out infinite;
+}
+
+/* ─── 列表项（非表格风格） ─── */
+.std-list-item {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid rgba(15, 42, 34, 0.04);
+}
+
+.std-list-item:last-child {
+  border-bottom: none;
+}
+
+.std-list-item__icon {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(200, 162, 74, 0.08);
+  color: #C8A24A;
+  font-size: 28rpx;
+  flex-shrink: 0;
+}
+
+.std-list-item__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.std-list-item__title {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #0F2A22;
+  margin-bottom: 4rpx;
+}
+
+.std-list-item__desc {
+  font-size: 22rpx;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+.std-list-item__arrow {
+  font-size: 28rpx;
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+
+/* ─── 雾化背景装饰 ─── */
+.std-fog {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(200, 162, 74, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 40%);
+}

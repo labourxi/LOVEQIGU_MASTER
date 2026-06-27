@@ -1,4 +1,5 @@
 const eventBus = require('../ar-event-bus.js');
+const { safeClone } = require('../../utils/safe-json');
 
 const DEFAULT_EVENT_MAPPING = Object.freeze({
   DETECTED: {
@@ -28,7 +29,7 @@ const DEFAULT_EVENT_MAPPING = Object.freeze({
 });
 
 function clone(value) {
-  return JSON.parse(JSON.stringify(value));
+  return safeClone(value);
 }
 
 function getEventMappingTable() {

@@ -1,4 +1,5 @@
 const ASSET_MANIFEST = require('../assets/star-ritual/asset-manifest.js');
+const { safeClone } = require('../utils/safe-json');
 
 const STATES = {
   IDLE: 'idle',
@@ -34,7 +35,7 @@ const DEFAULT_NODE_LAYOUT = [
 ];
 
 function clone(value) {
-  return JSON.parse(JSON.stringify(value));
+  return safeClone(value);
 }
 
 function getTimeline() {

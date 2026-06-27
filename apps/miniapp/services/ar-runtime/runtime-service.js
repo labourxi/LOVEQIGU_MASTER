@@ -4,13 +4,13 @@
  */
 const VARIANT_MAP = {
   landmark_tree_v1: {
-    assetRoot: '/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1',
+    assetRoot: '/assets/ar_factory/landmark_tree_v1',
     runtimePackagePath: '../../data/runtime/ar_factory/landmark_tree_v1/runtime_package.js',
     anchorDataPath: '../../data/runtime/ar_factory/landmark_tree_v1/anchor.js',
     effectPackage: null
   },
   landmark_tree_v1_p0a: {
-    assetRoot: '/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a',
+    assetRoot: '/assets/ar_factory/landmark_tree_v1_p0a',
     runtimePackagePath: '../../data/runtime/ar_factory/landmark_tree_v1_p0a/runtime_package.js',
     anchorDataPath: '../../data/runtime/ar_factory/landmark_tree_v1_p0a/anchor.js',
     effectPackagePath: '../../data/runtime/ar_factory/landmark_tree_v1_p0a/effect_package.js'
@@ -26,10 +26,10 @@ const cache = {
 
 /** Shared binary assets — deduplicated across landmark_tree variants. */
 const SHARED_ASSET_PATHS = {
-  'alignment_overlay.png': '/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1/alignment_overlay.webp',
-  'alignment_overlay.webp': '/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1/alignment_overlay.webp',
-  'position_guide.png': '/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1/position_guide.webp',
-  'position_guide.webp': '/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1/position_guide.webp'
+  'alignment_overlay.png': '/assets/ar_factory/landmark_tree_v1/alignment_overlay.webp',
+  'alignment_overlay.webp': '/assets/ar_factory/landmark_tree_v1/alignment_overlay.webp',
+  'position_guide.png': '/assets/ar_factory/landmark_tree_v1/position_guide.webp',
+  'position_guide.webp': '/assets/ar_factory/landmark_tree_v1/position_guide.webp'
 };
 
 function resolveSharedAsset(normalized) {

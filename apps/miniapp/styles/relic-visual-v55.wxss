@@ -1,0 +1,353 @@
+/**
+ * RELIC VISUAL SYSTEM — DESIGN FREEZE V3
+ *
+ * 信物三层视觉结构：
+ *   外层：能量层（光晕 / 粒子）
+ *   中层：实体层（玉 / 金 / 石）
+ *   内层：符号层（星宿 / 刻痕）
+ *
+ * 三态系统：
+ *   LOCKED    → 暗、半透明、无光
+ *   ACTIVE    → 微光、呼吸动画、可点击
+ *   COLLECTED → 完整显现、稳定微光
+ *
+ * LOCKED Colors (2026-06-27):
+ *   primary: #0F2A22     background: #F3F0E8
+ *   accent:  #C8A24A     shadow:    rgba(0,0,0,0.15)
+ *
+ * Forbidden:
+ *   - icon 化表现
+ *   - 平面 UI 展示
+ *   - UI badge 替代
+ */
+
+/* ══════════════════════════════════════════════
+   信物实体 — 三层结构容器
+   ══════════════════════════════════════════════ */
+
+.relic-entity {
+  position: relative;
+  width: 200rpx;
+  height: 200rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ══════════════════════════════════════════════
+   能源层（外层）— 光晕 / 粒子氛围
+   ══════════════════════════════════════════════ */
+
+.relic-entity__aura {
+  position: absolute;
+  inset: -20rpx;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  pointer-events: none;
+}
+
+/* ─── LOCKED: 无光晕 ─── */
+.relic-entity--LOCKED .relic-entity__aura {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+/* ─── ACTIVE: 微光呼吸 ─── */
+.relic-entity--ACTIVE .relic-entity__aura {
+  opacity: 0.6;
+  animation: relic-aura-breathe 3s ease-in-out infinite;
+}
+
+/* ─── COLLECTED: 稳定光晕 ─── */
+.relic-entity--COLLECTED .relic-entity__aura {
+  opacity: 0.9;
+  animation: relic-collected-steady 4s ease-in-out infinite;
+}
+
+/* 光晕呼吸 */
+@keyframes relic-aura-breathe {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.06); }
+}
+
+/* 收集稳定态 */
+@keyframes relic-collected-steady {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+
+/* ══════════════════════════════════════════════
+   实体层（中层）— 玉 / 金 / 石
+   ══════════════════════════════════════════════ */
+
+.relic-entity__body {
+  position: relative;
+  z-index: 1;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  transition: all 0.6s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─── LOCKED: 半透明灰暗 ─── */
+.relic-entity--LOCKED .relic-entity__body {
+  background: rgba(15, 42, 34, 0.08);
+  border: 2rpx solid rgba(15, 42, 34, 0.1);
+  opacity: 0.4;
+  filter: grayscale(0.8);
+}
+
+/* ─── ACTIVE: 材质显现 ─── */
+.relic-entity--ACTIVE .relic-entity__body {
+  opacity: 0.85;
+  filter: grayscale(0);
+  animation: relic-body-reveal 1.2s ease-out;
+}
+
+@keyframes relic-body-reveal {
+  0% { transform: scale(0.5); opacity: 0; }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 0.85; }
+}
+
+/* ─── COLLECTED: 稳定显现 ─── */
+.relic-entity--COLLECTED .relic-entity__body {
+  opacity: 1;
+  filter: grayscale(0);
+}
+
+/* ══════════════════════════════════════════════
+   符号层（内层）— 星宿 / 刻痕
+   ══════════════════════════════════════════════ */
+
+.relic-entity__symbol {
+  position: absolute;
+  z-index: 2;
+  font-size: 44rpx;
+  font-weight: 300;
+  color: #0F2A22;
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.relic-entity--ACTIVE .relic-entity__symbol {
+  opacity: 0.7;
+  transform: scale(1);
+  animation: relic-symbol-reveal 1.5s ease-out;
+}
+
+.relic-entity--COLLECTED .relic-entity__symbol {
+  opacity: 0.9;
+  transform: scale(1);
+}
+
+@keyframes relic-symbol-reveal {
+  0% { opacity: 0; transform: scale(0.3) rotate(-10deg); }
+  60% { opacity: 0.8; transform: scale(1.05) rotate(2deg); }
+  100% { opacity: 0.7; transform: scale(1) rotate(0deg); }
+}
+
+.relic-entity--LOCKED .relic-entity__symbol {
+  opacity: 0;
+}
+
+/* ══════════════════════════════════════════════
+   粒子层（外层补充）— 浮动粒子
+   ══════════════════════════════════════════════ */
+
+.relic-entity__particles {
+  position: absolute;
+  inset: -40rpx;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.relic-entity--ACTIVE .relic-entity__particles {
+  opacity: 0.5;
+  animation: relic-particle-in 2s ease-out;
+}
+
+.relic-entity--COLLECTED .relic-entity__particles {
+  opacity: 0.3;
+}
+
+@keyframes relic-particle-in {
+  0% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 0.7; transform: scale(1.2); }
+  100% { opacity: 0.5; transform: scale(1); }
+}
+
+/* ══════════════════════════════════════════════
+   7 种信物材质变体
+   ══════════════════════════════════════════════ */
+
+/* ─── 入口印记 — 金色玉印 ─── */
+.relic-entity--relic_entrance_greeting .relic-entity__aura {
+  background: radial-gradient(circle, rgba(200, 162, 74, 0.15) 0%, transparent 70%);
+}
+.relic-entity--relic_entrance_greeting .relic-entity__body {
+  background: linear-gradient(145deg, #e8d4a0, #c8a060);
+  border-radius: 20%;
+  border: 3rpx solid rgba(200, 162, 74, 0.3);
+}
+.relic-entity--relic_entrance_greeting .relic-entity__symbol {
+  font-family: 'serif';
+}
+.relic-entity--relic_entrance_greeting .relic-entity__symbol::after {
+  content: '角'; font-size: 36rpx;
+}
+
+/* ─── 林荫印记 — 翠绿玉牌 ─── */
+.relic-entity--relic_garden_grove .relic-entity__aura {
+  background: radial-gradient(circle, rgba(122, 184, 122, 0.12) 0%, transparent 70%);
+}
+.relic-entity--relic_garden_grove .relic-entity__body {
+  background: linear-gradient(145deg, #9bc89b, #6ba06b);
+  border-radius: 50%/60%;
+  border: 3rpx solid rgba(122, 184, 122, 0.3);
+}
+.relic-entity--relic_garden_grove .relic-entity__symbol::after {
+  content: '木'; font-size: 36rpx;
+}
+
+/* ─── 老街印记 — 青砖方印 ─── */
+.relic-entity--relic_street_sign .relic-entity__aura {
+  background: radial-gradient(circle, rgba(212, 167, 106, 0.12) 0%, transparent 70%);
+}
+.relic-entity--relic_street_sign .relic-entity__body {
+  background: linear-gradient(145deg, #d4b878, #b89858);
+  border-radius: 15%;
+  border: 3rpx solid rgba(212, 167, 106, 0.3);
+}
+.relic-entity--relic_street_sign .relic-entity__symbol::after {
+  content: '巷'; font-size: 36rpx;
+}
+
+/* ─── 食光印记 — 暖橙玉璧 ─── */
+.relic-entity--relic_gourmet_square .relic-entity__aura {
+  background: radial-gradient(circle, rgba(232, 168, 76, 0.14) 0%, transparent 70%);
+}
+.relic-entity--relic_gourmet_square .relic-entity__body {
+  background: linear-gradient(145deg, #e8b870, #d09448);
+  border-radius: 50%;
+  border: 3rpx solid rgba(232, 168, 76, 0.3);
+}
+.relic-entity--relic_gourmet_square .relic-entity__symbol::after {
+  content: '食'; font-size: 36rpx;
+}
+
+/* ─── 绿庭印记 — 流水青玉佩 ─── */
+.relic-entity--relic_courtyard .relic-entity__aura {
+  background: radial-gradient(circle, rgba(106, 184, 200, 0.12) 0%, transparent 70%);
+}
+.relic-entity--relic_courtyard .relic-entity__body {
+  background: linear-gradient(145deg, #8ac8d8, #58a8b8);
+  border-radius: 45%/55%;
+  border: 3rpx solid rgba(106, 184, 200, 0.3);
+}
+.relic-entity--relic_courtyard .relic-entity__symbol::after {
+  content: '水'; font-size: 36rpx;
+}
+
+/* ─── 水岸印记 — 波浪银印 ─── */
+.relic-entity--relic_waterfront .relic-entity__aura {
+  background: radial-gradient(circle, rgba(168, 200, 216, 0.12) 0%, transparent 70%);
+}
+.relic-entity--relic_waterfront .relic-entity__body {
+  background: linear-gradient(145deg, #b8d0d8, #88a8b8);
+  border-radius: 25%/50%;
+  border: 3rpx solid rgba(168, 200, 216, 0.3);
+}
+.relic-entity--relic_waterfront .relic-entity__symbol::after {
+  content: '川'; font-size: 36rpx;
+}
+
+/* ─── 归途印记 — 金色闭合玉环 ─── */
+.relic-entity--relic_return_sign .relic-entity__aura {
+  background: radial-gradient(circle, rgba(212, 184, 120, 0.14) 0%, transparent 70%);
+}
+.relic-entity--relic_return_sign .relic-entity__body {
+  background: linear-gradient(145deg, #d4c080, #b8a060);
+  border-radius: 50%;
+  border: 4rpx solid rgba(212, 184, 120, 0.4);
+  width: 100rpx;
+  height: 100rpx;
+}
+.relic-entity--relic_return_sign .relic-entity__symbol::after {
+  content: '归'; font-size: 36rpx;
+}
+
+/* ══════════════════════════════════════════════
+   显现动画 — 完整显现流程
+   ══════════════════════════════════════════════ */
+
+/* t0: 延迟 */
+@keyframes relic-reveal-delay {
+  0% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* t1: 粒子聚合 */
+@keyframes relic-reveal-particle {
+  0% { opacity: 0; transform: scale(0.3); }
+  50% { opacity: 0.7; transform: scale(1.3); }
+  100% { opacity: 0.5; transform: scale(1); }
+}
+
+/* t2: 光晕扩散 */
+@keyframes relic-reveal-glow {
+  0% { opacity: 0; transform: scale(0.5); }
+  60% { opacity: 0.8; transform: scale(1.15); }
+  100% { opacity: 0.6; transform: scale(1); }
+}
+
+/* t3: 实体显现 */
+@keyframes relic-reveal {
+  0% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 0.9; transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* ══════════════════════════════════════════════
+   显现触发器 — 绑定到 revealing 中间态
+   ══════════════════════════════════════════════ */
+
+.relic-entity--REVEALING .relic-entity__particles {
+  animation: relic-reveal-particle 2s ease-out;
+}
+
+.relic-entity--REVEALING .relic-entity__aura {
+  animation: relic-reveal-glow 1.6s ease-out 0.3s both;
+}
+
+.relic-entity--REVEALING .relic-entity__body {
+  animation: relic-reveal 1s ease-out 0.8s both;
+}
+
+.relic-entity--REVEALING .relic-entity__symbol {
+  animation: relic-symbol-reveal 1s ease-out 1.2s both;
+}
+
+/* ─── GlowContainer ─── */
+.glow-container {
+  position: relative;
+  pointer-events: none;
+}
+
+.glow-container__glow {
+  position: absolute;
+  inset: -20rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 162, 74, 0.06) 0%, transparent 70%);
+  animation: glow-container-pulse 6s ease-in-out infinite;
+}
+
+@keyframes glow-container-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+}

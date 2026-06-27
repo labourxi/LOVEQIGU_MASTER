@@ -1,16 +1,21 @@
-/** Shared Eastern-aesthetic prototype styles — import in page wxss via @import */
+/** Shared Eastern-aesthetic prototype styles — DESIGN FREEZE V3
+ *
+ * LOCKED Colors:
+ *   primary: #0F2A22     background: #F3F0E8
+ *   accent:  #C8A24A     shadow:    rgba(0,0,0,0.15)
+ */
 
 .proto-page {
   min-height: 100vh;
   padding: 0 28rpx 48rpx;
-  background: #f4f1eb;
+  background: #F3F0E8;
   color: #111827;
 }
 
 .proto-hero {
   margin: 0 -28rpx 32rpx;
   padding: 48rpx 40rpx 40rpx;
-  background: linear-gradient(145deg, #263a34 0%, #1f302b 100%);
+  background: linear-gradient(145deg, #0F2A22 0%, #0F2A22 100%);
   color: #fff;
   border-radius: 0 0 32rpx 32rpx;
 }
@@ -55,7 +60,7 @@
 .proto-stat-value {
   font-size: 36rpx;
   font-weight: 800;
-  color: #f4d7a6;
+  color: #C8A24A;
 }
 
 .proto-stat-label {
@@ -64,21 +69,22 @@
   margin-top: 4rpx;
 }
 
+/* ─── Section — 留白增强 30% ─── */
 .proto-section {
-  margin-bottom: 32rpx;
+  margin-bottom: 42rpx;
 }
 
 .proto-section-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16rpx;
+  margin-bottom: 20rpx;
 }
 
 .proto-section-title {
   font-size: 30rpx;
   font-weight: 700;
-  color: #263a34;
+  color: #0F2A22;
 }
 
 .proto-section-more {
@@ -86,12 +92,19 @@
   color: #4b635c;
 }
 
+/* ─── 卡片叠层系统 ─── */
 .proto-card {
   background: #fff;
-  border-radius: 16rpx;
-  padding: 28rpx;
-  margin-bottom: 16rpx;
-  box-shadow: 0 8rpx 24rpx rgba(17, 24, 39, 0.06);
+  border-radius: 20rpx;
+  padding: 32rpx;
+  margin-bottom: 20rpx;
+  box-shadow:
+    0 8rpx 24rpx rgba(0, 0, 0, 0.15),
+    0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+.proto-card + .proto-card {
+  margin-top: -8rpx;
 }
 
 .proto-card-title {
@@ -124,7 +137,7 @@
 }
 
 .proto-badge--gold {
-  background: #f4d7a6;
+  background: #C8A24A;
   color: #6b4220;
 }
 
@@ -139,31 +152,85 @@
   align-items: center;
 }
 
+/* ─── 按钮系统 — 浮层阴影 + 呼吸感 ─── */
 .proto-btn {
   margin: 0;
-  padding: 0 32rpx;
-  height: 72rpx;
-  line-height: 72rpx;
-  border-radius: 36rpx;
+  padding: 0 40rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 40rpx;
   font-size: 28rpx;
   font-weight: 600;
-  background: #f4d7a6;
-  color: #263a34;
+  background: #C8A24A;
+  color: #0F2A22;
+  box-shadow:
+    0 4rpx 12rpx rgba(200, 162, 74, 0.35),
+    0 2rpx 4rpx rgba(200, 162, 74, 0.2);
+  transition: all 0.3s ease;
+}
+
+/* 呼吸感动画 — 阴影脉动 */
+@keyframes proto-btn-breathe {
+  0%, 100% { box-shadow: 0 4rpx 12rpx rgba(200, 162, 74, 0.35), 0 2rpx 4rpx rgba(200, 162, 74, 0.2); }
+  50% { box-shadow: 0 6rpx 20rpx rgba(200, 162, 74, 0.55), 0 3rpx 8rpx rgba(200, 162, 74, 0.3); }
+}
+
+.proto-btn:not([disabled]) {
+  animation: proto-btn-breathe 3s ease-in-out infinite;
+}
+
+.proto-btn[disabled] {
+  opacity: 0.5;
+  animation: none;
 }
 
 .proto-btn::after {
   border: 0;
 }
 
+/* ─── 主要按钮 — 深色呼吸 ─── */
+.proto-btn--primary {
+  background: #0F2A22;
+  color: #C8A24A;
+  box-shadow:
+    0 4rpx 12rpx rgba(15, 42, 34, 0.30),
+    0 2rpx 4rpx rgba(15, 42, 34, 0.15);
+}
+
+@keyframes proto-btn-primary-breathe {
+  0%, 100% { box-shadow: 0 4rpx 12rpx rgba(15, 42, 34, 0.30), 0 2rpx 4rpx rgba(15, 42, 34, 0.15); }
+  50% { box-shadow: 0 6rpx 24rpx rgba(15, 42, 34, 0.50), 0 4rpx 10rpx rgba(15, 42, 34, 0.25); }
+}
+
+.proto-btn--primary:not([disabled]) {
+  animation: proto-btn-primary-breathe 3.5s ease-in-out infinite;
+}
+
+/* ─── 幽灵按钮 ─── */
 .proto-btn--ghost {
   background: transparent;
   color: #4b635c;
   border: 1rpx solid #d1d5db;
+  box-shadow: none;
+  animation: none;
 }
 
-.proto-btn--primary {
-  background: #263a34;
-  color: #f4d7a6;
+/* ─── 浮动按钮（层级最高） ─── */
+.proto-btn--float {
+  background: #C8A24A;
+  color: #0F2A22;
+  box-shadow:
+    0 8rpx 28rpx rgba(200, 162, 74, 0.40),
+    0 4rpx 12rpx rgba(200, 162, 74, 0.25);
+}
+
+@keyframes proto-btn-float-breathe {
+  0%, 100% { box-shadow: 0 8rpx 28rpx rgba(200, 162, 74, 0.40), 0 4rpx 12rpx rgba(200, 162, 74, 0.25); transform: translateY(0); }
+  50% { box-shadow: 0 12rpx 36rpx rgba(200, 162, 74, 0.60), 0 6rpx 20rpx rgba(200, 162, 74, 0.35); transform: translateY(-4rpx); }
+}
+
+.proto-btn--float:not([disabled]) {
+  animation: proto-btn-float-breathe 4s ease-in-out infinite;
 }
 
 .proto-grid-2 {
@@ -176,13 +243,13 @@
   background: #fff;
   border-radius: 16rpx;
   padding: 24rpx;
-  box-shadow: 0 8rpx 24rpx rgba(17, 24, 39, 0.06);
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.15);
 }
 
 .proto-link-title {
   font-size: 28rpx;
   font-weight: 700;
-  color: #263a34;
+  color: #0F2A22;
 }
 
 .proto-link-desc {
@@ -201,7 +268,7 @@
 
 .proto-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #4b635c, #263a34);
+  background: linear-gradient(90deg, #4b635c, #0F2A22);
   border-radius: 999rpx;
 }
 
@@ -229,9 +296,9 @@
 }
 
 .proto-chip--lit {
-  background: #263a34;
-  color: #f4d7a6;
-  border-color: #263a34;
+  background: #0F2A22;
+  color: #C8A24A;
+  border-color: #0F2A22;
 }
 
 .proto-chip--dim {

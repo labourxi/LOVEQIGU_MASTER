@@ -1,4 +1,5 @@
 const bus = require('../xr/xr-event-bus.js');
+const { safeClone } = require('../../utils/safe-json');
 
 const PILOT_SCENE = {
   id: 'pilot_001',
@@ -26,7 +27,7 @@ const sceneState = {
 let bound = false;
 
 function clone(value) {
-  return JSON.parse(JSON.stringify(value));
+  return safeClone(value);
 }
 
 function pushToCRM(payload) {

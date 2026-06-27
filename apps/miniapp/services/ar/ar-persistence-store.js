@@ -1,3 +1,5 @@
+const { safeParse } = require('../../utils/safe-json');
+
 const KEY = 'AR_WORLD_STATE_V1';
 
 function safeWx() {
@@ -21,7 +23,7 @@ function loadWorld() {
       return null;
     }
     const raw = miniapp.getStorageSync(KEY);
-    return raw ? JSON.parse(raw) : null;
+    return raw ? safeParse(raw) : null;
   } catch (e) {
     return null;
   }

@@ -17,6 +17,8 @@
  *   });
  */
 
+var safeJson = require('../../utils/safe-json');
+var guardStorageValue = safeJson.guardStorageValue;
 var ERROR_LOG_KEY = 'xr_init_error_log';
 
 /* ---- 设备检测 ---- */
@@ -79,7 +81,7 @@ function detectDeviceCapability() {
 
 function getErrorLog() {
   try {
-    var raw = wx.getStorageSync(ERROR_LOG_KEY);
+    var raw = guardStorageValue(wx.getStorageSync(ERROR_LOG_KEY));
     return Array.isArray(raw) ? raw : [];
   } catch (e) {
     return [];

@@ -14,6 +14,13 @@ function on(event, fn) {
 }
 
 function off(event, fn) {
+  if (typeof event === 'undefined') {
+    // 无参调用 = 清空所有监听器
+    Object.keys(listeners).forEach(function (key) {
+      delete listeners[key];
+    });
+    return;
+  }
   if (!event || !listeners[event]) {
     return;
   }

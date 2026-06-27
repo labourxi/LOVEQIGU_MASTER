@@ -1,0 +1,156 @@
+{
+  "$schema": "V5.5 World System Transformation Report",
+  "version": "5.5",
+  "description": "AR游伴 多世界可扩展系统升级 — 完整变更报告",
+
+  "summary": {
+    "status": "COMPLETE",
+    "newFilesCreated": 1,
+    "filesModified": 0,
+    "architectureEstablished": true
+  },
+
+  "newFiles": [
+    {
+      "path": "services/world-system.js",
+      "description": "多世界可扩展系统核心架构",
+      "modules": {
+        "WorldContainer": "管理所有 WorldInstance + 用户跨世界状态 + 持久化",
+        "WorldInstance": "每个景区抽象为一个世界实例（world_id, relic_chain, xr_theme）",
+        "RelicNode": "链式信物节点（id, prev, next, evolution_stage, unlock_prerequisite）",
+        "WorldTransition": "完成当前世界 → 自动解锁下一个世界"
+      }
+    }
+  ],
+
+  "architectureLayers": [
+    {
+      "layer": "WorldContainer",
+      "singleton": true,
+      "responsibilities": [
+        "管理所有 WorldInstance 注册表",
+        "管理用户跨世界状态（current_world, completed/unlocked worlds）",
+        "管理信物总体系（collected_relic_ids）",
+        "持久化加载/保存（wx storage key: LOVEQIGU_WORLD_SYSTEM_V55）",
+        "世界解锁逻辑（完成 → unlock next）"
+      ],
+      "publicAPI": [
+        "init() — 初始化世界容器",
+        "getWorld(worldId) — 获取世界实例",
+        "getCurrentWorld() — 当前世界",
+        "getAllWorlds() / getUnlockedWorlds() — 世界列表",
+        "switchWorld(worldId) — 切换世界",
+        "canAccessWorld(worldId) — 访问权限检查",
+        "getRelicChain(worldId) — 获取信物链",
+        "getNextRevealableRelic(worldId) — 下一个可显现信物",
+        "markRelicCollected(relicId, worldId) — 标记信物已收集",
+        "getProgress() — 用户跨世界进度",
+        "resetAll() — 重置"
+      ]
+    },
+    {
+      "layer": "WorldInstance",
+      "fields": {
+        "world_id": "唯一标识",
+        "world_name": "世界名称（如 '爱企谷'）",
+        "world_index": "世界序号（0,1,2...）",
+        "description": "世界描述",
+        "unlock_prerequisite": "解锁前置条件",
+        "completion_relic_id": "完成态信物 ID",
+        "xr_theme": "XR 主题标识",
+        "relic_chain": "RelicNode[] 信物链",
+        "unlocked": "是否已解锁",
+        "completed": "是否已完成",
+        "completion_rate": "完成率 0-100",
+        "last_visited_at": "上次访问时间"
+      }
+    },
+    {
+      "layer": "RelicNode",
+      "fields": {
+        "id": "信物唯一 ID",
+        "name": "信物名称",
+        "world_id": "所属世界",
+        "scene_id": "关联场景",
+        "trigger_type": "触发类型",
+        "trigger_priority": "触发优先级 1-7",
+        "unlock_prerequisite": "前置信物列表",
+        "evolution_stage": "进化阶段 0-6",
+        "prev": "前置信物 ID（链式结构）",
+        "next": "下一个信物 ID（链式结构）",
+        "collected": "是否已收集",
+        "collected_at": "收集时间",
+        "visual_stage": "视觉阶段 0-3"
+      }
+    },
+    {
+      "layer": "WorldTransition",
+      "trigger": "markRelicCollected(relicId) → 如果 relicId === completion_relic_id",
+      "action": "world.completed = true → _unlockNextWorld()",
+      "sequence": [
+        "1. 用户收集最后一个信物（completion_relic_id）",
+        "2. 该世界标记为 completed",
+        "3. 注册表检查是否有下一个世界",
+        "4. 下一个世界标记为 unlocked",
+        "5. 用户可 switchWorld() 进入新世界"
+      ]
+    }
+  ],
+
+  "builtinWorlds": [
+    {
+      "world_id": "aiqigu",
+      "world_name": "爱企谷",
+      "world_index": 0,
+      "status": "ACTIVE",
+      "xr_theme": "landmark_tree",
+      "relicCount": 7,
+      "completion_relic_id": "relic_return_sign",
+      "relicChain": [
+        { "id": "relic_entrance_greeting", "name": "入口印记",     "prio": 1, "prev": null,                          "next": "relic_garden_grove" },
+        { "id": "relic_garden_grove",      "name": "林荫印记",     "prio": 2, "prev": "relic_entrance_greeting",      "next": "relic_street_sign" },
+        { "id": "relic_street_sign",       "name": "老街印记",     "prio": 3, "prev": "relic_garden_grove",           "next": "relic_gourmet_square" },
+        { "id": "relic_gourmet_square",    "name": "食光印记",     "prio": 4, "prev": "relic_street_sign",            "next": "relic_courtyard" },
+        { "id": "relic_courtyard",         "name": "绿庭印记",     "prio": 5, "prev": "relic_gourmet_square",         "next": "relic_waterfront" },
+        { "id": "relic_waterfront",        "name": "水岸印记",     "prio": 6, "prev": "relic_courtyard",              "next": "relic_return_sign" },
+        { "id": "relic_return_sign",       "name": "归途印记",     "prio": 7, "prev": "relic_waterfront",             "next": null }
+      ]
+    },
+    {
+      "world_id": "shanhaijing",
+      "world_name": "山海经",
+      "status": "RESERVED (not yet implemented)"
+    },
+    {
+      "world_id": "dunhuang",
+      "world_name": "敦煌",
+      "status": "RESERVED (not yet implemented)"
+    }
+  ],
+
+  "persistence": {
+    "storageKey": "LOVEQIGU_WORLD_SYSTEM_V55",
+    "savedFields": [
+      "current_world_id",
+      "completed_world_ids",
+      "unlocked_world_ids",
+      "total_relic_count",
+      "collected_relic_ids",
+      "每个 world: unlocked, completed, completion_rate, last_visited_at",
+      "每个 relic node: collected, collected_at, visual_stage"
+    ],
+    "loadOnInit": true,
+    "saveOnMutation": true
+  },
+
+  "validation": {
+    "multiWorldStructure": true,
+    "relicChainFormed": true,
+    "worldEvolutionPossible": true,
+    "xrIndependent": true,
+    "usersCanMigrateAcrossWorlds": true,
+    "worldLogicNotHardcodedInExplore": true,
+    "relicIsolatedStructureBanned": true,
+    "xrNotBoundToBusiness": true
+  }
+}

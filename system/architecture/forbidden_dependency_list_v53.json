@@ -1,0 +1,171 @@
+{
+  "$schema": "V5.3 Forbidden Dependency List",
+  "version": "5.3",
+  "description": "AR游伴 三层架构禁止依赖清单 — 每个层级的禁止导入/模式列表",
+
+  "rules": {
+    "global": {
+      "description": "全局禁止 — 适用于任何层级",
+      "forbiddenImports": [
+        "ENGINE_WASM.js",
+        "draco_mini.js",
+        "WXWebAssembly",
+        "WebAssembly.instantiate"
+      ],
+      "forbiddenPatterns": [
+        "WebAssembly\\.(instantiate|compile|Module)",
+        "WXWebAssembly",
+        "ENGINE_WASM",
+        "draco_mini"
+      ],
+      "forbiddenPackages": [
+        "自定义 XR runtime",
+        "自定义 WebAssembly loader"
+      ]
+    },
+
+    "landing": {
+      "description": "LANDING 层 — 禁止依赖",
+      "forbiddenModules": [
+        "xr",
+        "XR",
+        "xr-frame",
+        "scene",
+        "render",
+        "gltf",
+        "wasm",
+        "WebAssembly",
+        "bootstrap",
+        "world",
+        "engine",
+        "marker",
+        "anchor",
+        "tracker",
+        "relic",
+        "explore",
+        "node_renderer",
+        "click_router",
+        "userRuntime",
+        "merchantEvent"
+      ],
+      "forbiddenRequirePatterns": [
+        "/xr/",
+        "/ar-/",
+        "services/ar-",
+        "services/xr-",
+        "core/runtime/",
+        "core/world/",
+        "core/xr/"
+      ],
+      "allowedModules": [
+        "user-frontend.js",
+        "safe-interaction"
+      ]
+    },
+
+    "explore": {
+      "description": "EXPLORE 层 — 禁止依赖",
+      "forbiddenModules": [
+        "xr-frame",
+        "xr-scene",
+        "WebAssembly",
+        "gltf",
+        "marker",
+        "anchor",
+        "tracker",
+        "ar-runtime",
+        "ar-marker"
+      ],
+      "forbiddenRequirePatterns": [
+        "services/ar-runtime",
+        "services/xr-",
+        "components/ar-",
+        "core/xr/",
+        "core/runtime/"
+      ],
+      "forbiddenPatternsInWxml": [
+        "<xr-scene",
+        "<xr-frame"
+      ],
+      "forbiddenPatternsInJson": [
+        "renderer"
+      ],
+      "allowedExports": {
+        "emit": "XR_TRIGGER_EVENT via xr-trigger-standard.js"
+      }
+    },
+
+    "xr": {
+      "description": "XR 层 — 禁止依赖（xr-primitive-sample）",
+      "forbiddenModules": [
+        "user-frontend",
+        "merchant-event",
+        "userRuntime",
+        "user-progress",
+        "pilot",
+        "ar-event-bus",
+        "ar-runtime",
+        "safe-interaction",
+        "phase1-page-guard"
+      ],
+      "forbiddenRequirePatterns": [
+        "services/user-",
+        "services/merchant-",
+        "services/pilot/",
+        "services/ar-",
+        "behaviors/"
+      ],
+      "forbiddenStorageAccess": [
+        "wx.getStorageSync",
+        "wx.setStorageSync",
+        "wx.getStorage",
+        "wx.setStorage"
+      ],
+      "allowedModules": [],
+      "allowedPatterns": [
+        "xr-frame renderer",
+        "xr-scene root node",
+        "<xr-assets>",
+        "<xr-asset-load type=\"gltf\">",
+        "<xr-gltf>",
+        "<xr-camera>",
+        "createSelectorQuery (diagnostics only)"
+      ]
+    },
+
+    "arEntry": {
+      "description": "AR Bridge 层 — 介于 Explore 和 XR 之间",
+      "forbiddenModules": [
+        "xr-scene",
+        "ar-marker",
+        "marker",
+        "anchor",
+        "tracker",
+        "draco_mini",
+        "WebAssembly"
+      ],
+      "allowedModules": [
+        "userRuntime",
+        "userFrontend",
+        "merchantEvent",
+        "arRuntimeService",
+        "arEventBus",
+        "pilotScene",
+        "pilotSceneFlow",
+        "resetXR",
+        "safeInteraction",
+        "xrTrigger"
+      ]
+    }
+  },
+
+  "auditResults": {
+    "lastAuditTimestamp": "2026-06-27T11:02:00Z",
+    "landingViolations": 0,
+    "exploreViolations": 0,
+    "xrViolations": 0,
+    "globalViolations": 0,
+    "totalViolations": 0,
+    "auditStatus": "ALL_CLEAN"
+  }
+}

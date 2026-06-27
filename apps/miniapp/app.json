@@ -1,8 +1,10 @@
 {
   "pages": [
+    "pages/landing/index",
     "pages/index/index",
     "pages/explore-map/index",
     "pages/ar-entry/index",
+    "pages/xr-primitive-sample/index",
     "pages/atom/index",
     "pages/lottie/index",
     "pages/echo/index",
@@ -28,14 +30,21 @@
     "pages/seals/index",
     "pages/reward-center/index"
   ],
-  "subpackages": [],
   "window": {
-    "navigationBarTitleText": "AR娓镐即",
+    "navigationBarTitleText": "AR游伴",
     "navigationBarBackgroundColor": "#263a34",
     "navigationBarTextStyle": "white",
     "backgroundColor": "#f4f1eb"
   },
+  "entryPagePath": "pages/landing/index",
   "style": "v2",
   "lazyCodeLoading": "requiredComponents",
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+
+  "requiredBackgroundModes": ["ar"],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "AR 体验需要获取您的位置信息"
+    }
+  }
 }

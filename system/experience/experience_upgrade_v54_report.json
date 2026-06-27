@@ -1,0 +1,130 @@
+{
+  "$schema": "V5.4 Experience System Upgrade Report",
+  "version": "5.4",
+  "description": "AR游伴 仪式化体验系统升级 — 完整变更报告",
+
+  "summary": {
+    "status": "COMPLETE",
+    "newFilesCreated": 2,
+    "filesModified": 6,
+    "bypassPaths": 0,
+    "flowChainVerified": true
+  },
+
+  "newFiles": [
+    {
+      "path": "services/revelation-rhythm-engine.js",
+      "description": "仪式化体验系统核心引擎",
+      "modules": [
+        "revealRelic(relicInfo, onStage) — 信物显现节奏（delay→particle→glow→reveal）",
+        "enterXRRhythm(onStage) — XR 进入节奏（t0黑场→t1环境→t2粒子→t3显现）",
+        "exploreFeedback(options, onComplete) — 探索反馈（vibration + 300-800ms 延迟）",
+        "glowFlash(selector) — UI 轻反馈闪光",
+        "XR_RHYTHM_STAGES — 节奏阶段常量"
+      ]
+    },
+    {
+      "path": "styles/experience-animations-v54.wxss",
+      "description": "仪式化体验 CSS 动画层",
+      "animations": [
+        "ambient-breath-glow — 氛围呼吸光",
+        "particle-float — 装饰粒子浮动",
+        "node-glow-flash — 点击节点闪光反馈",
+        "relic-reveal-delay / particle / glow / reveal — 信物显现四阶段动画",
+        "xr-blackout-fadein / fadeout — XR 黑场过渡",
+        "xr-environment-enter — 环境生成过渡",
+        "relic-stable-glow — 信物完成态稳定呼吸"
+      ],
+      "layerClasses": [
+        "ui-background-layer — 背景层",
+        "ui-ambient-layer — 氛围呼吸层",
+        "ui-interaction-layer — 交互层"
+      ]
+    }
+  ],
+
+  "modifiedFiles": [
+    {
+      "path": "pages/explore-map/index.js",
+      "changes": [
+        "import rhythm engine",
+        "onOpenScanShell: 包装 exploreFeedback(vibration + 延迟) → 再执行 XR_TRIGGER"
+      ]
+    },
+    {
+      "path": "pages/explore-map/index.wxml",
+      "changes": [
+        "添加 ui-ambient-layer（氛围呼吸光）"
+      ]
+    },
+    {
+      "path": "pages/explore-map/index.wxss",
+      "changes": [
+        "import experience-animations-v54.wxss"
+      ]
+    },
+    {
+      "path": "pages/index/index.wxml",
+      "changes": [
+        "添加 ui-ambient-layer（氛围呼吸光）"
+      ]
+    },
+    {
+      "path": "pages/index/index.wxss",
+      "changes": [
+        "import experience-animations-v54.wxss"
+      ]
+    },
+    {
+      "path": "pages/ar-entry/index.js",
+      "changes": [
+        "import rhythm engine",
+        "onEnterARScan: 集成 XR 节奏系统 (t0→t1→t2→t3, 5.2s 总时长)",
+        "添加 xrRhythmActive data 字段"
+      ]
+    }
+  ],
+
+  "experienceFlow": {
+    "chain": [
+      "1. Landing → 登录 → Explore Home",
+      "2. Explore Home → 开始探索 → Explore Map",
+      "3. Explore Map → 点击节点 → UI 轻反馈(glow+vibration) + 300-800ms 延迟确认",
+      "4. 延迟后 → emit XR_TRIGGER_EVENT → navigate to AR Entry",
+      "5. AR Entry → 点击开始显现 → XR 节奏系统 (黑场0.5s→环境1.2s→粒子1.5s→显现2.0s)",
+      "6. 节奏完成 → navigate to XR Primitive Sample (纯 xr-frame 渲染)",
+      "7. XR 渲染完成 → 返回 Explore"
+    ],
+    "totalExperienceTime": "~6-7 seconds (含反馈延迟 + XR 节奏)"
+  },
+
+  "rhythmTimeline": {
+    "exploreFeedback": {
+      "glow": "0-0.2s",
+      "vibration": "0.1s",
+      "delay": "0.3-0.8s (随机)"
+    },
+    "xrEntry": {
+      "t0_blackout": "0-0.5s (黑场 fade-in)",
+      "t1_environment": "0.5-1.7s (环境生成过渡)",
+      "t2_particle": "1.7-3.2s (粒子聚合)",
+      "t3_reveal": "3.2-5.2s (信物显现完成)"
+    },
+    "relicReveal": {
+      "delay": "0.3-0.8s (随机延迟，营造非瞬时感)",
+      "particle": "0.6s (粒子聚合动画)",
+      "glow": "0.8s (光晕扩散效果)",
+      "reveal": "0.5s (显现完成)"
+    }
+  },
+
+  "validation": {
+    "xrHasRhythm": true,
+    "relicHasGenerationProcess": true,
+    "uiHasBreathingQuality": true,
+    "noInstantNavigation": true,
+    "exploreHasFeedbackLayer": true,
+    "noDirectXREntry": true,
+    "fullChainComplete": true
+  }
+}

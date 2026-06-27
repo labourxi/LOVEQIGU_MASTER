@@ -6,6 +6,9 @@ const arEventBus = require('../../services/ar-event-bus.js');
 const safeInteraction = require('../../behaviors/safe-interaction');
 const pilotScene = require('../../behaviors/pilot-scene');
 const pilotSceneFlow = require('../../services/pilot/pilot-scene-flow');
+const resetXR = require('../../core/runtime/resetXR.js').resetXR;
+const xrTrigger = require('../../services/xr-trigger-standard');
+const rhythm = require('../../services/revelation-rhythm-engine');
 
 function buildModeData(options = {}, flow = {}) {
   const pointId = userRuntime.resolvePointId(options.pointId || flow.pointId || '');
@@ -169,6 +172,7 @@ Page({
       modelVisible: false,
       modelFollowsMarker: false
     },
+    xrRhythmActive: false,
     ...buildModeData()
   },
 
@@ -219,7 +223,15 @@ Page({
   },
 
   onLoad(options = {}) {
+    globalThis.__AR_ENTRY_LOADED__ = Date.now();
+    console.log("🚨 AR ENTRY LOADED:", Date.now());
     this.initPilotSceneFromOptions(options);
+
+    // 监听 XR_TRIGGER_EVENT（来自 explore 层）
+    xrTrigger.listen(function (payload) {
+      console.log('[ar-entry] XR_TRIGGER_EVENT received:', payload);
+    });
+
     const pointId = userRuntime.resolvePointId(options.pointId || '');
     this._bindAREventBus();
     if (options.runtimePoc && arRuntimeService.supportsRuntimePoc && arRuntimeService.supportsRuntimePoc(options.runtimePoc)) {
@@ -236,6 +248,9 @@ Page({
   },
 
   onShow() {
+    globalThis.__XR_VERSION__ = Date.now();
+    resetXR({ keepEventBus: true });
+
     if (this.data.runtimePocActive) {
       return;
     }
@@ -482,11 +497,6 @@ Page({
   },
 
   onUploadMarkerImage() {
-    const host = this.selectComponent('#arMarkerHost');
-    if (host && typeof host.handleChangeMarkerImg === 'function') {
-      host.handleChangeMarkerImg();
-      return;
-    }
     this.showFallbackToast('功能开发中');
   },
 
@@ -507,5 +517,29 @@ Page({
     });
   },
 
-  onBottomNavChange() {}
+  onBottomNavChange() {},
+
+  onEnterARScan() {
+    var self = this;
+
+    // XR 节奏系统：t0 黑场(0.5s) → t1 环境(1.2s) → t2 粒子(1.5s) → t3 显现(2.0s)
+    // 总时长 = 5.2s，在 t3 完成时导航
+    self.setData({ xrRhythmActive: true });
+
+    var rhythmCancel = rhythm.enterXRRhythm(function (stage) {
+      console.log('[ar-entry] XR rhythm stage:', stage.name, 'progress:', stage.progress);
+      if (stage.progress >= 1 && stage.name === 't3_reveal') {
+        // 节奏完成，导航到 XR page
+        var url = '/pages/xr-primitive-sample/index';
+        var pointId = self.data.pointId;
+        if (pointId) {
+          url += '?pointId=' + encodeURIComponent(pointId);
+        }
+        self.setData({ xrRhythmActive: false });
+        self.safeNavigate(url, {
+          fallbackTitle: 'XR 显现暂未开放'
+        });
+      }
+    });
+  }
 });

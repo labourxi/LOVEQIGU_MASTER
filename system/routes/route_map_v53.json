@@ -1,0 +1,146 @@
+{
+  "$schema": "V5.3 Route Map",
+  "version": "5.3",
+  "description": "AR游伴 三层架构路由映射 — Landing / Explore / XR 路由清单",
+
+  "entryPoint": {
+    "page": "pages/landing/index",
+    "config": "entryPagePath",
+    "type": "扫码定制首页（未登录入口）",
+    "nextHop": "pages/index/index"
+  },
+
+  "routes": {
+    "landing": {
+      "page": "/pages/landing/index",
+      "renderer": null,
+      "businessLogic": false,
+      "xrCapable": false,
+      "entryType": "QR / Scene Scan Entry",
+      "navigatesTo": [
+        "/pages/index/index"
+      ],
+      "registeredInAppJson": true
+    },
+
+    "exploreHome": {
+      "page": "/pages/index/index",
+      "renderer": null,
+      "businessLogic": true,
+      "xrCapable": false,
+      "entryType": "登录后探索首页",
+      "navigatesTo": [
+        "/pages/explore-map/index",
+        "/pages/relic-archive/index",
+        "/pages/rights-center/index",
+        "/pages/profile/index",
+        "/pages/seals/index",
+        "/pages/reward-center/index",
+        "/pages/merchant-event/index/index",
+        "/pages/merchant-event/detail/index"
+      ],
+      "registeredInAppJson": true
+    },
+
+    "exploreMap": {
+      "page": "/pages/explore-map/index",
+      "renderer": null,
+      "businessLogic": true,
+      "xrCapable": false,
+      "xrTrigger": "XR_TRIGGER_EVENT → ar-entry",
+      "entryType": "探索地图页面",
+      "navigatesTo": [
+        "/pages/ar-entry/index",
+        "/pages/merchant-event/detail/index",
+        "/pages/progress-center/index",
+        "/pages/index/index"
+      ],
+      "registeredInAppJson": true
+    },
+
+    "arEntry": {
+      "page": "/pages/ar-entry/index",
+      "renderer": "xr-frame",
+      "businessLogic": true,
+      "xrCapable": true,
+      "entryType": "AR 显现流程桥接页面",
+      "xrBridge": true,
+      "listensTo": "XR_TRIGGER_EVENT",
+      "navigatesTo": [
+        "/pages/xr-primitive-sample/index",
+        "/pages/lottie/index",
+        "/pages/merchant-event/detail/index",
+        "/pages/explore-map/index",
+        "/pages/index/index"
+      ],
+      "registeredInAppJson": true
+    },
+
+    "xrPrimitiveSample": {
+      "page": "/pages/xr-primitive-sample/index",
+      "renderer": "xr-frame",
+      "businessLogic": false,
+      "xrCapable": true,
+      "xrPure": true,
+      "entryType": "纯 XR 渲染页面（baseline）",
+      "baselineSource": "xr_demo/miniprogram/pages/xr-primitive-sample/",
+      "navigatesTo": [],
+      "registeredInAppJson": true
+    }
+  },
+
+  "xrRoutes": [
+    {
+      "page": "/pages/xr-primitive-sample/index",
+      "renderer": "xr-frame",
+      "type": "Pure XR Baseline",
+      "note": "唯一 XR 渲染页面，无权访问业务逻辑"
+    },
+    {
+      "page": "/pages/ar-entry/index",
+      "renderer": "xr-frame",
+      "type": "XR Bridge + UI",
+      "note": "显现流程 UI 引导，不含 xr-scene，导航到 pure XR page"
+    }
+  ],
+
+  "nonXrRoutes": [
+    "/pages/landing/index",
+    "/pages/index/index",
+    "/pages/explore-map/index",
+    "/pages/atom/index",
+    "/pages/lottie/index",
+    "/pages/echo/index",
+    "/pages/digital-collectible/index",
+    "/pages/campaign-closure/index",
+    "/pages/next-activity/index",
+    "/pages/story-flow/index",
+    "/pages/relic-archive/index",
+    "/pages/story-archive/index",
+    "/pages/rights-center/index",
+    "/pages/profile/index",
+    "/pages/scenic-list/index",
+    "/pages/scenic-detail/index",
+    "/pages/progress-center/index",
+    "/pages/event-complete/index",
+    "/pages/merchant-event/index/index",
+    "/pages/merchant-event/exploration/index",
+    "/pages/merchant-event/detail/index",
+    "/pages/star-map/index",
+    "/pages/meridian-map/index",
+    "/pages/heaven-human-unity/index",
+    "/pages/synthesis/index",
+    "/pages/seals/index",
+    "/pages/reward-center/index"
+  ],
+
+  "validation": {
+    "landingIndependent": true,
+    "exploreIndependent": true,
+    "xrIndependent": true,
+    "noPageMixing": true,
+    "xrFrameOnlyInXrPages": true,
+    "triggerChainSinglePath": true,
+    "noBypass": true
+  }
+}

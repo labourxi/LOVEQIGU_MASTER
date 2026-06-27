@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "ARYOUBAN 2D Marker AR",
-  "renderer": "xr-frame",
-  "usingComponents": {
-    "ar-marker-entry": "/components/ar-marker-entry/index"
-  },
-  "disableScroll": true
-}

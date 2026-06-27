@@ -1,0 +1,256 @@
+{
+  "meta": {
+    "version": "AIQIGU_SCENIC_POINTS_V55_DESIGN_FREEZE",
+    "date": "2026-06-27",
+    "title": "爱企谷打卡点结构化数据 — DESIGN FREEZE V3",
+    "locked_fields": ["id", "name", "theme", "time", "relic_binding", "xr_trigger"],
+    "total_points": 11
+  },
+
+  "scenicPoints": [
+    {
+      "id": "entrance_plaza",
+      "name": "入口广场",
+      "theme": "启程之印 · 金色颗粒从地面上升聚合",
+      "time_range": "全天",
+      "visual_keywords": ["地面铺装", "门头标识", "开敞空间"],
+      "relic_binding": "relic_entrance_greeting",
+      "relic_name": "入口印记",
+      "xr_trigger": "image_target",
+      "relic_visual": {
+        "outer": "金色颗粒从地面上升聚合",
+        "middle": "方形玉印轮廓缓现",
+        "inner": "星宿纹样「角」字微光刻痕",
+        "color": "#C8A24A"
+      },
+      "ar_candidate": {
+        "anchor": "入口广场地面图案/铺装纹理",
+        "type": "image_target",
+        "feasibility": "high"
+      },
+      "unlock_prerequisite": [],
+      "trigger_priority": 1,
+      "scene_index": 0
+    },
+    {
+      "id": "entrance_landscape",
+      "name": "入口景观（古树）",
+      "theme": "林荫印记 · 翠绿光点沿树冠方向飘散",
+      "time_range": "白天优先",
+      "visual_keywords": ["古树", "树冠", "自然纹理"],
+      "relic_binding": "relic_garden_grove",
+      "relic_name": "林荫印记",
+      "xr_trigger": "image_target",
+      "relic_visual": {
+        "outer": "翠绿光点沿树冠方向飘散",
+        "middle": "树叶形态玉牌",
+        "inner": "经络纹路「木」字刻痕",
+        "color": "#7ab87a"
+      },
+      "ar_candidate": {
+        "anchor": "古树树干/树根处自然纹理",
+        "type": "image_target",
+        "feasibility": "high"
+      },
+      "unlock_prerequisite": ["relic_entrance_greeting"],
+      "trigger_priority": 2,
+      "scene_index": 1
+    },
+    {
+      "id": "jiangnan_street",
+      "name": "江南老街",
+      "theme": "老街印记 · 暖黄光粒沿街巷流动",
+      "time_range": "傍晚至夜间",
+      "visual_keywords": ["老建筑立面", "暖色灯光", "石板路"],
+      "relic_binding": "relic_street_sign",
+      "relic_name": "老街印记",
+      "xr_trigger": "image_target",
+      "relic_visual": {
+        "outer": "暖黄光粒沿街巷流动",
+        "middle": "青砖纹理方印",
+        "inner": "刻痕「巷」字微光",
+        "color": "#d4a76a"
+      },
+      "ar_candidate": {
+        "anchor": "老建筑立面砖墙纹理",
+        "type": "image_target",
+        "feasibility": "high"
+      },
+      "unlock_prerequisite": ["relic_garden_grove"],
+      "trigger_priority": 3,
+      "scene_index": 2
+    },
+    {
+      "id": "gourmet_square",
+      "name": "食光广场",
+      "theme": "食光印记 · 暖橙光晕呈环形扩散",
+      "time_range": "午间至傍晚",
+      "visual_keywords": ["餐饮外摆", "暖光", "热闹氛围"],
+      "relic_binding": "relic_gourmet_square",
+      "relic_name": "食光印记",
+      "xr_trigger": "image_target",
+      "relic_visual": {
+        "outer": "暖橙光晕呈环形扩散",
+        "middle": "圆形食盘状玉璧",
+        "inner": "刻痕「食」字象形纹",
+        "color": "#e8a84c"
+      },
+      "ar_candidate": {
+        "anchor": "广场地面或外摆区域平面",
+        "type": "plane_detection",
+        "feasibility": "medium"
+      },
+      "unlock_prerequisite": ["relic_street_sign"],
+      "trigger_priority": 4,
+      "scene_index": 3
+    },
+    {
+      "id": "courtyard_garden",
+      "name": "溪上庭院",
+      "theme": "绿庭印记 · 水蓝色光点沿水面扩散",
+      "time_range": "白天",
+      "visual_keywords": ["水景", "绿化", "庭院空间"],
+      "relic_binding": "relic_courtyard",
+      "relic_name": "绿庭印记",
+      "xr_trigger": "plane_detection",
+      "relic_visual": {
+        "outer": "水蓝色光点沿水面扩散",
+        "middle": "流水形态青玉佩",
+        "inner": "刻痕「水」字涟漪纹",
+        "color": "#6ab8c8"
+      },
+      "ar_candidate": {
+        "anchor": "庭院中心水面或平台平面",
+        "type": "plane_detection",
+        "feasibility": "medium"
+      },
+      "unlock_prerequisite": ["relic_gourmet_square"],
+      "trigger_priority": 5,
+      "scene_index": 4
+    },
+    {
+      "id": "waterfront",
+      "name": "水岸回廊",
+      "theme": "水岸印记 · 银白光晕在水面起伏",
+      "time_range": "傍晚至夜间",
+      "visual_keywords": ["水岸", "灯光倒影", "夜景"],
+      "relic_binding": "relic_waterfront",
+      "relic_name": "水岸印记",
+      "xr_trigger": "plane_detection",
+      "relic_visual": {
+        "outer": "银白光晕在水面起伏",
+        "middle": "波浪形态银印",
+        "inner": "刻痕「川」字流动纹",
+        "color": "#a8c8d8"
+      },
+      "ar_candidate": {
+        "anchor": "水岸平台或回廊平面",
+        "type": "plane_detection",
+        "feasibility": "medium"
+      },
+      "unlock_prerequisite": ["relic_courtyard"],
+      "trigger_priority": 6,
+      "scene_index": 5
+    },
+    {
+      "id": "return_passage",
+      "name": "归途通道",
+      "theme": "归途印记 · 暖金色光点呈弧形聚合",
+      "time_range": "全天",
+      "visual_keywords": ["通道", "出口", "光影交织"],
+      "relic_binding": "relic_return_sign",
+      "relic_name": "归途印记",
+      "xr_trigger": "image_target",
+      "relic_visual": {
+        "outer": "暖金色光点呈弧形聚合",
+        "middle": "圆形闭合玉环",
+        "inner": "刻痕「归」字完整篆书",
+        "color": "#d4b878"
+      },
+      "ar_candidate": {
+        "anchor": "通道末端墙面或地面标识",
+        "type": "image_target",
+        "feasibility": "high"
+      },
+      "unlock_prerequisite": ["relic_waterfront"],
+      "trigger_priority": 7,
+      "scene_index": 6
+    },
+    {
+      "id": "cloud_study",
+      "name": "云间书房",
+      "theme": "云间阅读 · 书架间静谧光晕",
+      "time_range": "全天",
+      "visual_keywords": ["书架", "窗景", "静谧空间"],
+      "relic_binding": null,
+      "relic_name": null,
+      "xr_trigger": "plane_detection",
+      "relic_visual": null,
+      "ar_candidate": {
+        "anchor": "桌面或窗台平面",
+        "type": "plane_detection",
+        "feasibility": "high"
+      },
+      "unlock_prerequisite": [],
+      "trigger_priority": null,
+      "scene_index": 7
+    },
+    {
+      "id": "creek_courtyard",
+      "name": "溪上庭院·续",
+      "theme": "溪畔漫步 · 水声与绿意交织",
+      "time_range": "白天至傍晚",
+      "visual_keywords": ["溪流", "石桥", "绿植"],
+      "relic_binding": null,
+      "relic_name": null,
+      "xr_trigger": "image_target",
+      "relic_visual": null,
+      "ar_candidate": {
+        "anchor": "石桥或溪边自然纹理",
+        "type": "image_target",
+        "feasibility": "high"
+      },
+      "unlock_prerequisite": [],
+      "trigger_priority": null,
+      "scene_index": 8
+    },
+    {
+      "id": "neon_block",
+      "name": "霓虹街区",
+      "theme": "霓虹夜游 · 光色流动的城市记忆",
+      "time_range": "夜间",
+      "visual_keywords": ["霓虹灯", "年轻氛围", "打卡点"],
+      "relic_binding": null,
+      "relic_name": null,
+      "xr_trigger": "image_target",
+      "relic_visual": null,
+      "ar_candidate": {
+        "anchor": "霓虹灯下方地面或墙面",
+        "type": "image_target",
+        "feasibility": "medium"
+      },
+      "unlock_prerequisite": [],
+      "trigger_priority": null,
+      "scene_index": 9
+    },
+    {
+      "id": "container_block",
+      "name": "集装箱街区",
+      "theme": "工业潮流 · 彩色立面的年轻活力",
+      "time_range": "傍晚至夜间",
+      "visual_keywords": ["集装箱", "工业风", "年轻潮流", "彩色立面"],
+      "relic_binding": null,
+      "relic_name": null,
+      "xr_trigger": "image_target",
+      "relic_visual": null,
+      "ar_candidate": {
+        "anchor": "集装箱彩色墙面纹理",
+        "type": "image_target",
+        "feasibility": "high"
+      },
+      "unlock_prerequisite": [],
+      "trigger_priority": null,
+      "scene_index": 10
+    }
+  ]
+}

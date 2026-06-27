@@ -1,0 +1,115 @@
+{
+  "$schema": "V5.3 Architecture Stabilization Lock",
+  "version": "5.3",
+  "description": "AR游伴 三层架构锁定 — Landing / Explore / XR 完全隔离",
+
+  "layers": {
+    "landing": {
+      "path": "/pages/landing/",
+      "entryPoint": true,
+      "entryPagePath": "pages/landing/index",
+      "responsibilities": [
+        "微信登录",
+        "QR/景区扫码识别",
+        "配置加载",
+        "登录成功后重定向到 Explore Layer"
+      ],
+      "forbiddenImports": [
+        "xr", "XR", "xr-frame", "scene", "render", "gltf",
+        "wasm", "WebAssembly", "bootstrap", "world", "engine",
+        "marker", "anchor", "tracker", "relic",
+        "explore", "node_renderer", "click_router"
+      ],
+      "forbiddenPatterns": [
+        "<xr-scene", "<xr-frame",
+        "renderer: \"xr-frame\"",
+        "userRuntime.boot()",
+        "bootstrap()"
+      ],
+      "importWhitelist": [
+        "user-frontend.js",
+        "safe-interaction"
+      ],
+      "auditStatus": "CLEAN"
+    },
+
+    "explore": {
+      "path": "/pages/index/ 和 /pages/explore-map/",
+      "responsibilities": [
+        "探索地图展示",
+        "场景节点交互",
+        "信物系统（业务逻辑层）",
+        "用户进度展示",
+        "emit XR_TRIGGER_EVENT（触发 XR 标准事件）"
+      ],
+      "forbiddenImports": [
+        "xr-frame", "xr-scene", "WebAssembly",
+        "gltf", "marker", "anchor", "tracker",
+        "ar-entry", "ar-marker",
+        "ar-runtime"
+      ],
+      "forbiddenPatterns": [
+        "<xr-scene", "<xr-frame",
+        "renderer: \"xr-frame\""
+      ],
+      "triggerEvent": {
+        "name": "XR_TRIGGER_EVENT",
+        "module": "services/xr-trigger-standard.js",
+        "direction": "explore → emit → ar-entry ← listen ←",
+        "payload": "{ pointId: string }"
+      },
+      "auditStatus": "CLEAN"
+    },
+
+    "xr": {
+      "path": "/pages/xr-primitive-sample/",
+      "baselineSource": "apps/miniapp/xr_demo/miniprogram/pages/xr-primitive-sample/",
+      "responsibilities": [
+        "纯 xr-frame GLTF 渲染",
+        "AR camera 基线渲染",
+        "渲染结果诊断"
+      ],
+      "rules": [
+        "renderer = xr-frame",
+        "xr-scene 必须是 root node",
+        "必须继承 primitive-sample baseline",
+        "不允许任何业务逻辑",
+        "不允许 storage 读写（除渲染结果）",
+        "不允许 userRuntime / merchantEvent 调用"
+      ],
+      "bridgePage": {
+        "path": "/pages/ar-entry/",
+        "responsibilities": [
+          "显现流程 UI 引导",
+          "监听 XR_TRIGGER_EVENT",
+          "导航到 xr-primitive-sample",
+          "设备适配 & fallback 判断"
+        ],
+        "renderer": "xr-frame"
+      },
+      "auditStatus": "CLEAN"
+    }
+  },
+
+  "globalProhibitionRules": [
+    "禁止 merge landing + explore",
+    "禁止 merge explore + xr",
+    "禁止 WebAssembly 出现在 explore/landing",
+    "禁止 draco_mini.js 出现在非 XR 页面",
+    "禁止自定义 XR runtime",
+    "禁止 ENGINE_WASM.js 引用",
+    "禁止 WXWebAssembly 直接调用"
+  ],
+
+  "triggerChain": {
+    "direction": "Single Path (单向)",
+    "steps": [
+      "explore-map → emit XR_TRIGGER_EVENT via xr-trigger-standard",
+      "ar-entry ← listen XR_TRIGGER_EVENT → build UI state",
+      "ar-entry → safeNavigate → xr-primitive-sample (纯 XR page)",
+      "xr-primitive-sample → render AR GLTF → report render result"
+    ],
+    "alternatePaths": [],
+    "bypassAllowed": false
+  }
+}

@@ -3,6 +3,10 @@ const bus = require('../xr/xr-event-bus.js');
 class ARWorldIntro {
   static hasShown = false;
 
+  static reset() {
+    ARWorldIntro.hasShown = false;
+  }
+
   static showFirstEntryMessage() {
     if (this.hasShown) {
       return;

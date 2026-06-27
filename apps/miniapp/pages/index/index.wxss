@@ -1,5 +1,6 @@
 @import '../../styles/prototype-v1.wxss';
 @import '../../styles/user-phase1.wxss';
+@import '../../styles/experience-animations-v54.wxss';
 
 .user-home-page {
   padding-top: 0;
@@ -16,7 +17,7 @@
 .login-panel {
   margin-top: 22rpx;
   background: #faf8f4;
-  border: 1rpx solid rgba(38, 58, 52, 0.06);
+  border: 1rpx solid rgba(15, 42, 34, 0.06);
 }
 
 .login-panel--logged {
@@ -31,7 +32,7 @@
 }
 
 .panel-title {
-  color: #263a34;
+  color: #0F2A22;
   font-size: 30rpx;
   font-weight: 700;
 }
@@ -57,8 +58,8 @@
   height: 72rpx;
   line-height: 72rpx;
   border-radius: 36rpx;
-  background: #263a34;
-  color: #f4d7a6;
+  background: #0F2A22;
+  color: #C8A24A;
   font-size: 28rpx;
   font-weight: 700;
 }
@@ -115,46 +116,4 @@
   }
 }
 
-.home-ar-cta {
-  margin-top: 16rpx;
-}
-
-.home-xr-launch-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 1200;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(38, 58, 52, 0.28);
-}
-
-.home-xr-launch-card {
-  min-width: 320rpx;
-  padding: 36rpx 40rpx;
-  border-radius: 20rpx;
-  background: #fff;
-  box-shadow: 0 16rpx 48rpx rgba(17, 24, 39, 0.12);
-  text-align: center;
-}
-
-.home-xr-launch-spinner {
-  width: 56rpx;
-  height: 56rpx;
-  margin: 0 auto 20rpx;
-  border: 4rpx solid rgba(38, 58, 52, 0.12);
-  border-top-color: #263a34;
-  border-radius: 50%;
-  animation: home-xr-spin 0.8s linear infinite;
-}
-
-.home-xr-launch-copy {
-  font-size: 28rpx;
-  color: #263a34;
-}
-
-@keyframes home-xr-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
+/* XR overlay 已迁出 — XR 仅在 explore-map / AR pages 中触发 */

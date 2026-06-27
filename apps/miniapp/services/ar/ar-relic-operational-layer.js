@@ -22,6 +22,10 @@ class ARRelicOperationalLayer {
     return operationalRelic;
   }
 
+  static reset() {
+    ARRelicOperationalLayer.registry = [];
+  }
+
   static bind(eventBus) {
     const sourceBus = eventBus || bus;
     sourceBus.on('XR_RELIC_MEANING_ENRICHED', (relic) => {

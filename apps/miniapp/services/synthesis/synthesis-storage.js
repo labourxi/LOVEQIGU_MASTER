@@ -1,4 +1,5 @@
 const STORAGE_KEY = 'loveqigu_synthesis_v1';
+const { guardStorageValue } = require('../../utils/safe-json');
 
 const DEFAULT_STATE = {
   schema: 'loveqigu.synthesis.state.v1',
@@ -32,7 +33,7 @@ function normalizeState(raw) {
 
 function readState() {
   if (typeof wx !== 'undefined' && wx.getStorageSync) {
-    return normalizeState(wx.getStorageSync(STORAGE_KEY));
+    return normalizeState(guardStorageValue(wx.getStorageSync(STORAGE_KEY)));
   }
   if (!memoryState) {
     memoryState = cloneState(DEFAULT_STATE);

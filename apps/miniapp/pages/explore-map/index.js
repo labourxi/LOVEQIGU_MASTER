@@ -5,6 +5,8 @@ const phase1PageGuard = require('../../behaviors/phase1-page-guard');
 const safeInteraction = require('../../behaviors/safe-interaction');
 const pilotScene = require('../../behaviors/pilot-scene');
 const pilotSceneFlow = require('../../services/pilot/pilot-scene-flow');
+const xrTrigger = require('../../services/xr-trigger-standard');
+const rhythm = require('../../services/revelation-rhythm-engine');
 
 function decoratePoints(points, recommendedPoint) {
   return (points || []).map((item) => {
@@ -62,14 +64,7 @@ function buildPageData() {
       coupons: mapData.points.map((p) => p.benefit).filter(Boolean),
       journey: front,
       bottomNav: front.nav,
-      runtimeMock: true,
-      xrRenderReturned: false,
-      xrRenderStatus: 'NOT_STARTED',
-      xrObjectVisible: false,
-      xrBlockReason: '',
-      xrCheckedAt: '',
-      xrFallbackMessage: '',
-      xrReadyMessage: ''
+      runtimeMock: true
     };
   }
   const overview = merchantEventService.getActivityOverview(merchantEventService.ACTIVITY_ID);
@@ -98,23 +93,8 @@ function buildPageData() {
     relics: overview.relics,
     coupons: overview.coupons,
     journey: journeyFront,
-    bottomNav: journeyFront.nav,
-    xrRenderReturned: false,
-    xrRenderStatus: 'NOT_STARTED',
-    xrObjectVisible: false,
-    xrBlockReason: '',
-    xrCheckedAt: '',
-    xrFallbackMessage: '',
-    xrReadyMessage: ''
+    bottomNav: journeyFront.nav
   };
-}
-
-function isoTimeValue(value) {
-  if (!value) {
-    return 0;
-  }
-  const parsed = Date.parse(value);
-  return Number.isFinite(parsed) ? parsed : 0;
 }
 
 Page({
@@ -134,7 +114,6 @@ Page({
 
   onShow() {
     this.refresh();
-    this.applyScenicPointRendererResultFromStorage();
     if (this.data.pilotSceneActive && this.data.pilotSceneStage === pilotSceneFlow.STAGES.EXPLORE) {
       if (!this._pilotTrailPlayed) {
         this._pilotTrailPlayed = true;
@@ -172,88 +151,22 @@ Page({
 
   onOpenScanShell(event) {
     const { pointId } = event.currentTarget.dataset;
-    let url = `/pages/ar-entry/index?pointId=${pointId || ''}`;
-    if (this.data.pilotSceneActive) {
-      url = this.appendPilotSceneUrl(url, pilotSceneFlow.STAGES.DISCOVER);
-    }
-    this.safeNavigate(url);
+    var self = this;
+
+    // 探索反馈：glow + vibration + 300-800ms 延迟
+    rhythm.exploreFeedback({ pointId: pointId || '', source: 'onOpenScanShell' }, function () {
+      // 标准触发：emit XR_TRIGGER_EVENT
+      xrTrigger.emit({ pointId: pointId || '' });
+      var url = '/pages/ar-entry/index?pointId=' + encodeURIComponent(pointId || '');
+      if (self.data.pilotSceneActive) {
+        url = self.appendPilotSceneUrl(url, pilotSceneFlow.STAGES.DISCOVER);
+      }
+      self.safeNavigate(url);
+    });
   },
 
   onOpenProgressCenter() {
     this.safeNavigate('/pages/progress-center/index');
-  },
-
-  openScenicPointXRRenderer() {
-    const checkedAt = new Date().toISOString();
-    this.setData({
-      xrRenderReturned: false,
-      xrRenderStatus: 'OPENING_RENDERER',
-      xrObjectVisible: false,
-      xrBlockReason: '',
-      xrCheckedAt: checkedAt,
-      xrFallbackMessage: '',
-      xrReadyMessage: ''
-    });
-
-    this.safeNavigate('/xr_demo/miniprogram/pages/xr-scenic-point-render/index', {
-      fallbackTitle: '页面暂未开放',
-      success: () => {
-        console.log('[XR_PRODUCT_ENTRY_TO_SCENIC_RENDERER_WRAPPER_V1] NAVIGATE_SUCCESS');
-      },
-      fail: (err) => {
-        console.error('[XR_PRODUCT_ENTRY_TO_SCENIC_RENDERER_WRAPPER_V1] NAVIGATE_FAIL', err);
-        this.setData({
-          xrRenderReturned: true,
-          xrRenderStatus: 'NAVIGATE_FAILED',
-          xrObjectVisible: false,
-          xrBlockReason: 'XR_SCENIC_POINT_RENDERER_NAVIGATE_FAILED',
-          xrCheckedAt: new Date().toISOString(),
-          xrFallbackMessage: '当前设备暂未完成 XR 显现，可继续通过普通探索流程获得信物。',
-          xrReadyMessage: ''
-        });
-      }
-    });
-  },
-
-  applyScenicPointRendererResult(result) {
-    if (!result) {
-      return;
-    }
-
-    const currentTime = isoTimeValue(this.data.xrCheckedAt);
-    const incomingTime = isoTimeValue(result.checkedAt);
-    if (this.data.xrRenderReturned && incomingTime && incomingTime < currentTime) {
-      return;
-    }
-
-    const status = result.status || 'UNKNOWN';
-    const objectVisible = Boolean(result.objectVisible);
-    const ready = status === 'READY' && objectVisible === true;
-    const checkedAt = result.checkedAt || new Date().toISOString();
-
-    this.setData({
-      xrRenderReturned: true,
-      xrRenderStatus: status,
-      xrObjectVisible: ready ? true : objectVisible,
-      xrBlockReason: ready ? '' : (result.blockReason || ''),
-      xrCheckedAt: checkedAt,
-      xrReadyMessage: ready ? 'XR 显现已完成，可继续领取或查看信物。' : '',
-      xrFallbackMessage: ready ? '' : '当前设备暂未完成 XR 显现，可继续通过普通探索流程获得信物。'
-    });
-  },
-
-  applyScenicPointRendererResultFromStorage() {
-    if (typeof wx === 'undefined' || typeof wx.getStorageSync !== 'function') {
-      return;
-    }
-    try {
-      const result = wx.getStorageSync('XR_SCENIC_POINT_RENDER_RESULT_V1');
-      if (result) {
-        this.applyScenicPointRendererResult(result);
-      }
-    } catch (err) {
-      console.warn('[XR_PRODUCT_ENTRY_TO_SCENIC_RENDERER_WRAPPER_V1] STORAGE_READ_FAIL', err);
-    }
   },
 
   onBottomNavChange() {}

@@ -1,7 +1,7 @@
 {
   "source_root": "data/ar_factory/poc/landmark_tree_v1_p0a",
   "miniapp_runtime_root": "apps/miniapp/data/runtime/ar_factory/landmark_tree_v1_p0a",
-  "miniapp_asset_root": "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a",
+  "miniapp_asset_root": "apps/miniapp/assets/ar_factory/landmark_tree_v1_p0a",
   "json_files": [
     "apps/miniapp/data/runtime/ar_factory/landmark_tree_v1_p0a/anchor.json",
     "apps/miniapp/data/runtime/ar_factory/landmark_tree_v1_p0a/anchor_quality.json",
@@ -16,11 +16,11 @@
     "apps/miniapp/data/runtime/ar_factory/landmark_tree_v1_p0a/preview_assets.json"
   ],
   "image_files": [
-    "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.webp",
-    "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_energy_flow.webp",
-    "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_head_reveal.webp",
-    "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/azure_dragon_seal.webp",
-    "apps/miniapp/xr_demo/miniprogram/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/preview_sheet.webp"
+    "apps/miniapp/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_imprint_overlay.webp",
+    "apps/miniapp/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_energy_flow.webp",
+    "apps/miniapp/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/dragon_head_reveal.webp",
+    "apps/miniapp/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/azure_dragon_seal.webp",
+    "apps/miniapp/assets/ar_factory/landmark_tree_v1_p0a/effect_preview/preview_sheet.webp"
   ],
   "synced_at": "2026-06-18T17:00:25+08:00"
 }

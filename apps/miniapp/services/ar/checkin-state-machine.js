@@ -13,6 +13,12 @@
 
 var STATE_KEY = 'lqg_checkin_state_v1';
 var LOG_KEY = 'lqg_checkin_log_v1';
+var safeJson = null;
+try {
+  safeJson = require('../../utils/safe-json');
+} catch (e) { /* ignore */ }
+var safeParse = safeJson && typeof safeJson.safeParse === 'function' ? safeJson.safeParse : function (v) { return v; };
+var guardStorageValue = safeJson && typeof safeJson.guardStorageValue === 'function' ? safeJson.guardStorageValue : function (v) { return v; };
 
 var ALLOWED_TRANSITIONS = {
   IDLE: ['AVAILABLE', 'FAILED'],
@@ -36,7 +42,9 @@ function loadMachine(pointId) {
   try {
     var raw = wx.getStorageSync(STATE_KEY + ':' + pointId);
     if (!raw) return null;
-    return JSON.parse(raw);
+    raw = guardStorageValue(raw);
+    if (!raw) return null;
+    return safeParse(raw);
   } catch (e) {
     return null;
   }
@@ -61,7 +69,7 @@ function clearMachine(pointId) {
 function appendLog(pointId, entry) {
   try {
     var key = LOG_KEY + ':' + pointId;
-    var raw = wx.getStorageSync(key);
+    var raw = guardStorageValue(wx.getStorageSync(key));
     var log = Array.isArray(raw) ? raw : [];
     log.push(Object.assign({ ts: Date.now() }, entry));
     if (log.length > 50) log = log.slice(-50);
@@ -73,7 +81,7 @@ function appendLog(pointId, entry) {
 
 function getLog(pointId) {
   try {
-    var raw = wx.getStorageSync(LOG_KEY + ':' + pointId);
+    var raw = guardStorageValue(wx.getStorageSync(LOG_KEY + ':' + pointId));
     return Array.isArray(raw) ? raw : [];
   } catch (e) {
     return [];

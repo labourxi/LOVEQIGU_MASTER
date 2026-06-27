@@ -1,14 +1,15 @@
 /**
- * AR_RESOURCE_STABILITY — V1.0 AR 资源加载稳定性层
+ * AR_RESOURCE_STABILITY — V1.1 AR 资源加载稳定性层
  *
  * 问题：AR 资源加载不稳定（超时、网络、资源缺失）
- * 方案：重试机制 + 降级资源策略 + 加载追踪
+ * 方案：重试机制 + 降级资源策略 + 加载追踪 + downloadFile 安全包装
  *
  * 集成方式：
  * 在 ar-runtime.js、ar-runtime-bridge.js 加载资源处调用
  * loadARResourceWithRetry() / loadARSceneWithDegradation()
  */
 
+const { guardStorageValue } = require('../../utils/safe-json');
 const MAX_RESOURCE_RETRY = 2;
 const RESOURCE_TIMEOUT_MS = 8000;
 const DEGRADATION_LEVELS = ['full', 'light', 'minimal', 'fallback'];
@@ -16,7 +17,7 @@ const RESOURCE_LOG_KEY = 'lqg_ar_resource_log';
 
 function getResourceLog() {
   try {
-    var raw = wx.getStorageSync(RESOURCE_LOG_KEY);
+    var raw = guardStorageValue(wx.getStorageSync(RESOURCE_LOG_KEY));
     return Array.isArray(raw) ? raw : [];
   } catch (e) {
     return [];
@@ -180,10 +181,94 @@ function shouldActivateResourceFallback() {
   return failures >= 5;
 }
 
+/**
+ * 安全下载文件包装器（带 fallback）。
+ *
+ * 防止 TLS / 域名校验失败导致 XR 资源加载崩溃。
+ *
+ * @param {string} url - 下载地址
+ * @param {object} options
+ * @param {Function} options.onFallback - fallback 回调，参数为错误
+ * @param {string} options.resourceName - 日志标签
+ * @returns {Promise<{ok: boolean, result: *, error: *}>}
+ */
+function safeDownloadFile(url, options) {
+  options = options || {};
+  var resourceName = options.resourceName || 'unknown_asset';
+
+  if (!url || typeof url !== 'string') {
+    return Promise.resolve({ ok: false, result: null, error: new Error('no_url') });
+  }
+
+  return new Promise(function (resolve) {
+    try {
+      wx.downloadFile({
+        url: url,
+        success: function (res) {
+          if (res.statusCode === 200) {
+            // 校验下载内容非 HTML（防止恶意/错误响应污染 XR 渲染）
+            if (res.tempFilePath && typeof res.tempFilePath === 'string') {
+              // tempFilePath 是本地临时文件路径，无法直接检查内容
+              // 但 XR 渲染引擎加载资源时会自行校验格式
+            }
+            appendResourceLog({
+              resource: resourceName,
+              action: 'download_success',
+              url: url
+            });
+            resolve({ ok: true, result: res, error: null });
+          } else {
+              resource: resourceName,
+              action: 'download_success',
+              url: url
+            });
+            resolve({ ok: true, result: res, error: null });
+          } else {
+            var err = new Error('download_failed_status:' + res.statusCode);
+            appendResourceLog({
+              resource: resourceName,
+              action: 'download_failed',
+              url: url,
+              statusCode: res.statusCode
+            });
+            resolve({ ok: false, result: null, error: err });
+          }
+        },
+        fail: function (err) {
+          console.warn('⚠️ XR asset download failed, fallback local', url, err);
+          appendResourceLog({
+            resource: resourceName,
+            action: 'download_failed',
+            url: url,
+            error: err && err.errMsg ? err.errMsg : String(err)
+          });
+          if (typeof options.onFallback === 'function') {
+            try { options.onFallback(err); } catch (e) { /* ignore */ }
+          }
+          resolve({ ok: false, result: null, error: err });
+        }
+      });
+    } catch (catchErr) {
+      console.warn('⚠️ XR asset download exception, fallback local', url, catchErr);
+      appendResourceLog({
+        resource: resourceName,
+        action: 'download_exception',
+        url: url,
+        error: catchErr && catchErr.message ? catchErr.message : String(catchErr)
+      });
+      if (typeof options.onFallback === 'function') {
+        try { options.onFallback(catchErr); } catch (e) { /* ignore */ }
+      }
+      resolve({ ok: false, result: null, error: catchErr });
+    }
+  });
+}
+
 module.exports = {
   loadARResourceWithRetry: loadARResourceWithRetry,
   loadARSceneWithDegradation: loadARSceneWithDegradation,
   shouldActivateResourceFallback: shouldActivateResourceFallback,
+  safeDownloadFile: safeDownloadFile,
   getResourceLog: getResourceLog,
   DEGRADATION_LEVELS: DEGRADATION_LEVELS.slice()
 };

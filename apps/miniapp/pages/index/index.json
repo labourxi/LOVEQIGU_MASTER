@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "AR娓镐即",
+  "navigationBarTitleText": "AR游伴",
   "backgroundColor": "#f4f1eb",
   "usingComponents": {
     "user-bottom-nav": "/components/user-bottom-nav/index",

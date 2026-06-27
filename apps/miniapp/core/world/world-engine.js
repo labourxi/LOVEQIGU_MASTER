@@ -17,6 +17,11 @@ function createWorldEngine(options = {}) {
   const processedAnchorIds = new Set();
   const processedRelicIds = new Set();
 
+  // 默认初始化 XR 生命周期对象（避免 undefined 进入 lifecycle）
+  let sceneRef = null;
+  let cameraRef = null;
+  let markerRef = null;
+
   function ensureStarSystem() {
     if (!starSystem) {
       const { createStarSystem } = require('./star-system.js');
@@ -319,6 +324,22 @@ function createWorldEngine(options = {}) {
     }
     processedAnchorIds.clear();
     processedRelicIds.clear();
+
+    // ★ 安全销毁 XR 引用对象 ★
+    if (typeof sceneRef !== 'undefined' && sceneRef !== null && typeof sceneRef.destroy === 'function') {
+      try { sceneRef.destroy(); } catch (e) { /* ignore */ }
+    }
+    if (typeof cameraRef !== 'undefined' && cameraRef !== null && typeof cameraRef.destroy === 'function') {
+      try { cameraRef.destroy(); } catch (e) { /* ignore */ }
+    }
+    if (typeof markerRef !== 'undefined' && markerRef !== null && typeof markerRef.destroy === 'function') {
+      try { markerRef.destroy(); } catch (e) { /* ignore */ }
+    }
+
+    sceneRef = null;
+    cameraRef = null;
+    markerRef = null;
+
     return getSnapshot();
   }
 
