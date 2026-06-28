@@ -1,7 +1,14 @@
 const brand = require('./config/brand.v1');
-const platformInfo = require('./utils/platform-info');
-const shareGuard = require('./utils/share-guard');
-const { showFallbackToast } = require('./utils/safe-interaction');
+
+// ════════════════════════════════════════════════════════════════
+// BOOT SEQUENCE GUARD
+// UI renders first, async init happens after.
+// ════════════════════════════════════════════════════════════════
+globalThis.__BOOT_STATE__ = {
+  launched: false,
+  uiRendered: false,
+  asyncReady: false
+};
 
 // ─── 全局运行时保护层 ───
 globalThis.__SAFE_RUNTIME_ERROR__ = null;
@@ -9,9 +16,7 @@ globalThis.__SAFE_RUNTIME_GUARD__ = function (err) {
   try {
     console.error('SAFE RUNTIME ERROR:', err && err.message ? err.message : String(err));
     globalThis.__SAFE_RUNTIME_ERROR__ = { ts: Date.now(), msg: String(err && err.message ? err.message : err) };
-  } catch (_) {
-    // final guard — suppress all
-  }
+  } catch (_) {}
   return true;
 };
 try {
@@ -24,62 +29,93 @@ try {
       }
     };
   }
-} catch (_) { /* wx unavailable */ }
+} catch (_) {}
 
+// ════════════════════════════════════════════════════════════════
+// WORLD SEED — loaded at module eval time, before App().
+// Synchronous require() is safe here; no async or DOM dependency.
+// If seed module is missing, safe fallback activates immediately.
+// ════════════════════════════════════════════════════════════════
+var _seed;
+try {
+  _seed = require('./data/world_seed_v1');
+  if (!_seed || !_seed.explore_points || _seed.explore_points.length === 0) {
+    throw new Error('seed module is empty');
+  }
+  globalThis.__SAFE_MODE__ = false;
+} catch (e) {
+  console.error('[CRITICAL] world seed module missing —', e.message || e);
+  _seed = {
+    explore_points: [],
+    relics: [],
+    collectibles: [],
+    merchant_coupons: [],
+    routes: [],
+    meta: { version: 'safe-fallback', generatedAt: new Date().toISOString() },
+    safeMode: true
+  };
+  globalThis.__SAFE_MODE__ = true;
+}
+
+// ════════════════════════════════════════════════════════════════
+// App instance — minimal onLaunch, no async boot dependencies.
+// ════════════════════════════════════════════════════════════════
 App({
   globalData: {
     appName: brand.productName,
     systemInfo: null,
-    isHarmonyOS: false
+    worldSeed: _seed,
+    safeMode: globalThis.__SAFE_MODE__
   },
 
-  onLaunch() {
-    try {
-      globalThis.__APP_LAUNCHED__ = Date.now();
-      console.log("🚨 APP LAUNCHED:", Date.now());
-      if (typeof shareGuard !== 'undefined' && shareGuard && typeof shareGuard.suppressUserFacingShareMenus === 'function') {
-        shareGuard.suppressUserFacingShareMenus();
-      }
-      try {
-        wx.setStorageSync('appName', this.globalData.appName);
-      } catch (e) {
-        // storage unavailable — non-blocking
-      }
-    } catch (err) {
-      console.error('SAFE RUNTIME ERROR (onLaunch):', err);
-    }
+  // Deferred async init — called from page onReady after first render.
+  deferredInit: function _deferredInit() {
+    if (globalThis.__BOOT_STATE__.asyncReady) return;
+    globalThis.__BOOT_STATE__.asyncReady = true;
 
-    Promise.race([
-      platformInfo.getDeviceInfoAsync(),
-      new Promise(function (resolve) {
-        setTimeout(function () {
-          resolve(platformInfo.getDeviceInfoSafe());
-        }, 5000);
-      })
-    ])
-      .then((info) => {
-        this.globalData.systemInfo = info;
-        this.globalData.isHarmonyOS = platformInfo.isHarmonyOS(info);
-      })
-      .catch(() => {
-        const info = platformInfo.getDeviceInfoSafe();
-        this.globalData.systemInfo = info;
-        this.globalData.isHarmonyOS = platformInfo.isHarmonyOS(info);
-      });
-  },
-
-  onError(error) {
-    console.error('[app.onError]', error);
     try {
-      showFallbackToast('功能开发中');
+      this._initPlatformInfo();
     } catch (e) {
-      // showFallbackToast unavailable — suppress
+      console.error('[deferredInit] platform info error:', e);
     }
+  },
+
+  _initPlatformInfo: function _initPlatformInfo() {
+    var info;
+    try {
+      var platformInfo = require('./utils/platform-info');
+      // Synchronous safe fallback — no await, no setTimeout.
+      info = platformInfo.getDeviceInfoSafe ? platformInfo.getDeviceInfoSafe() : null;
+    } catch (e) {
+      info = tryWxGetSystemInfo();
+    }
+    if (info) {
+      this.globalData.systemInfo = info;
+    }
+  },
+
+  onLaunch: function _onLaunch() {
+    globalThis.__APP_LAUNCHED__ = Date.now();
+    globalThis.__BOOT_STATE__.launched = true;
+    // NO async calls here. UI must render first.
+  },
+
+  onError: function _onError(error) {
+    console.error('[app.onError]', error);
     return true;
   },
 
-  onUnhandledRejection(res) {
+  onUnhandledRejection: function _onUnhandledRejection(res) {
     console.error('[app.onUnhandledRejection]', res);
-    showFallbackToast('功能开发中');
   }
 });
+
+// Helper: synchronous wx.getSystemInfoSync wrapped safely.
+function tryWxGetSystemInfo() {
+  try {
+    if (typeof wx !== 'undefined' && typeof wx.getSystemInfoSync === 'function') {
+      return wx.getSystemInfoSync();
+    }
+  } catch (_) {}
+  return null;
+}

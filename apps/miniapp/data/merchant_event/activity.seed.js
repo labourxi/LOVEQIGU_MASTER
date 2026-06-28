@@ -6,7 +6,7 @@ module.exports = {
   start_time: '2026-06-20T09:00:00+08:00',
   end_time: '2026-07-20T21:00:00+08:00',
   status: 'DRAFT',
-  merchant_count: 3,
+  merchant_count: 14,
   coupon_count: 3,
-  task_count: 5
+  task_count: 16
 };

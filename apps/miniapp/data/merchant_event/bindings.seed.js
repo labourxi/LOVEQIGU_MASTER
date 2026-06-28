@@ -7,26 +7,63 @@ module.exports = {
     'point_loveqigu_cafe',
     'point_loveqigu_bookstore',
     'point_loveqigu_craft_hall',
-    'point_central_plaza'
+    'point_central_plaza',
+    'point_entrance_landscape',
+    'point_jiangnan_street',
+    'point_gourmet_square',
+    'point_courtyard_garden',
+    'point_waterfront',
+    'point_return_passage',
+    'point_cloud_study',
+    'point_creek_courtyard',
+    'point_neon_block',
+    'point_container_block'
   ],
   activity_to_tasks: [
     'task_entrance_checkin',
     'task_cafe_scan',
     'task_book_quiz',
     'task_craft_collect',
-    'task_center_finish'
+    'task_center_finish',
+    'task_scenic_entrance_landscape',
+    'task_scenic_jiangnan_street',
+    'task_scenic_gourmet_square',
+    'task_scenic_courtyard_garden',
+    'task_scenic_waterfront',
+    'task_scenic_return_passage',
+    'task_scenic_cloud_study',
+    'task_scenic_creek_courtyard',
+    'task_scenic_neon_block',
+    'task_scenic_container_block'
   ],
   activity_to_relics: [
     'relic_qigu_first_mark',
     'relic_cafe_stamp',
     'relic_bookmark',
     'relic_craft_mark',
-    'relic_central_seal'
+    'relic_central_seal',
+    'relic_entrance_greeting',
+    'relic_garden_grove',
+    'relic_street_sign',
+    'relic_gourmet_square',
+    'relic_courtyard',
+    'relic_waterfront',
+    'relic_return_sign'
   ],
   activity_to_merchants: [
     'merchant_loveqigu_cafe_01',
     'merchant_loveqigu_book_01',
-    'merchant_loveqigu_craft_01'
+    'merchant_loveqigu_craft_01',
+    'merchant_entrance_landscape',
+    'merchant_jiangnan_street',
+    'merchant_gourmet_square',
+    'merchant_courtyard_garden',
+    'merchant_waterfront',
+    'merchant_return_passage',
+    'merchant_cloud_study',
+    'merchant_creek_courtyard',
+    'merchant_neon_block',
+    'merchant_container_block'
   ],
   activity_to_coupon_templates: [
     'coupon_loveqigu_cafe_01',
@@ -38,14 +75,30 @@ module.exports = {
     { point_id: 'point_loveqigu_cafe', task_id: 'task_cafe_scan' },
     { point_id: 'point_loveqigu_bookstore', task_id: 'task_book_quiz' },
     { point_id: 'point_loveqigu_craft_hall', task_id: 'task_craft_collect' },
-    { point_id: 'point_central_plaza', task_id: 'task_center_finish' }
+    { point_id: 'point_central_plaza', task_id: 'task_center_finish' },
+    { point_id: 'point_entrance_landscape', task_id: 'task_scenic_entrance_landscape' },
+    { point_id: 'point_jiangnan_street', task_id: 'task_scenic_jiangnan_street' },
+    { point_id: 'point_gourmet_square', task_id: 'task_scenic_gourmet_square' },
+    { point_id: 'point_courtyard_garden', task_id: 'task_scenic_courtyard_garden' },
+    { point_id: 'point_waterfront', task_id: 'task_scenic_waterfront' },
+    { point_id: 'point_return_passage', task_id: 'task_scenic_return_passage' },
+    { point_id: 'point_cloud_study', task_id: 'task_scenic_cloud_study' },
+    { point_id: 'point_creek_courtyard', task_id: 'task_scenic_creek_courtyard' },
+    { point_id: 'point_neon_block', task_id: 'task_scenic_neon_block' },
+    { point_id: 'point_container_block', task_id: 'task_scenic_container_block' }
   ],
   task_relic_bindings: [
     { task_id: 'task_entrance_checkin', relic_id: 'relic_qigu_first_mark' },
     { task_id: 'task_cafe_scan', relic_id: 'relic_cafe_stamp' },
     { task_id: 'task_book_quiz', relic_id: 'relic_bookmark' },
     { task_id: 'task_craft_collect', relic_id: 'relic_craft_mark' },
-    { task_id: 'task_center_finish', relic_id: 'relic_central_seal' }
+    { task_id: 'task_center_finish', relic_id: 'relic_central_seal' },
+    { task_id: 'task_scenic_entrance_landscape', relic_id: 'relic_garden_grove' },
+    { task_id: 'task_scenic_jiangnan_street', relic_id: 'relic_street_sign' },
+    { task_id: 'task_scenic_gourmet_square', relic_id: 'relic_gourmet_square' },
+    { task_id: 'task_scenic_courtyard_garden', relic_id: 'relic_courtyard' },
+    { task_id: 'task_scenic_waterfront', relic_id: 'relic_waterfront' },
+    { task_id: 'task_scenic_return_passage', relic_id: 'relic_return_sign' }
   ],
   merchant_coupon_bindings: [
     { merchant_id: 'merchant_loveqigu_cafe_01', coupon_id: 'coupon_loveqigu_cafe_01' },

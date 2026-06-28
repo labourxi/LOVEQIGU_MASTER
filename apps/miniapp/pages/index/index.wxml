@@ -1,107 +1,170 @@
-<view class="proto-page user-phase1-page">
-  <!-- ─── 氛围层 ─── -->
-  <view class="ui-ambient-layer">
-    <view class="ambient-glow ambient-glow--top"></view>
-    <view class="ambient-glow ambient-glow--bottom"></view>
-  </view>
+<view class="v54-page v55-aware--{{awarenessMode}}">
 
-  <view wx:if="{{loading}}" class="home-skeleton">
-    <view class="home-skeleton__block home-skeleton__hero"></view>
-    <view class="home-skeleton__row">
-      <view class="home-skeleton__pill"></view>
-      <view class="home-skeleton__pill"></view>
-      <view class="home-skeleton__pill"></view>
-    </view>
-    <view class="home-skeleton__block home-skeleton__cta"></view>
-    <view class="home-skeleton__block home-skeleton__panel"></view>
-    <view class="home-skeleton__block home-skeleton__panel"></view>
+  <!-- ─── 背景氛围层 ─── -->
+  <view class="v54-atmosphere v55-atmosphere--{{awarenessMode}}">
+    <view class="v54-atmosphere__mist"></view>
+    <view class="v54-atmosphere__glow"></view>
+    <view class="v54-atmosphere__fog"></view>
+  </view>
+  <view class="v55-atmosphere-particle v55-particle--{{awarenessMode}}"></view>
+
+  <!-- ─── 记忆共鸣场 ─── -->
+  <view class="v55-resonance-field v55-field--{{awarenessMode}}"></view>
+
+  <!-- ─── 显象流 — 世界回应氛围 ─── -->
+  <view class="v55-apparition-overlay v55-apparition--{{awarenessMode}}"></view>
+
+  <!-- ─── 骨架加载 ─── -->
+  <view wx:if="{{loading}}" class="v54-skeleton">
+    <view class="v54-skeleton__hero"></view>
+    <view class="v54-skeleton__card"></view>
+    <view class="v54-skeleton__card"></view>
+    <view class="v54-skeleton__card"></view>
   </view>
 
   <block wx:else>
-    <view class="user-home-scroll">
-      <view class="proto-kicker">AR游伴</view>
-      <view class="user-tagline">看见即是找回</view>
-      <view class="proto-subtitle">{{eventSummary.title || '当前景区'}}</view>
-      <view class="user-verse">
-        <view>每一处探索，都是与这片土地的一次重逢。</view>
-        <view>信物记录故事，礼遇延续温度。</view>
+
+    <!-- ════════════════════════════════════
+         BLOCK 1: WORLD MANIFEST
+         Arrival moment — the world receives you
+         ════════════════════════════════════ -->
+    <view class="v55-manifest">
+      <view class="v55-manifest__seal">
+        <text class="v55-manifest__seal-char">爱</text>
       </view>
-      <view class="user-hero-stats">
-        <view class="user-stat-pill">
-          <view class="user-stat-value">{{journey.progressSummary.completionRate}}%</view>
-          <view class="user-stat-label">探索进度</view>
-        </view>
-        <view class="user-stat-pill">
-          <view class="user-stat-value">{{journey.progressSummary.ownedRelicCount}}</view>
-          <view class="user-stat-label">信物</view>
-        </view>
-        <view class="user-stat-pill">
-          <view class="user-stat-value">{{journey.progressSummary.claimedCouponCount}}</view>
-          <view class="user-stat-label">礼遇</view>
-        </view>
-      </view>
-      <button class="user-primary-cta" bindtap="onOpenExploreMap">开始探索</button>
+      <view class="v55-manifest__realm">游离之域</view>
+      <view class="v55-manifest__whisper">{{scenicLayers.worldState.worldHint}}</view>
+      <view class="v55-manifest__atmosphere">{{scenicLayers.worldState.atmosphere}}</view>
+
+      <!-- 记忆低语 — 返回访问时 -->
+      <view wx:if="{{memoryDialogue}}" class="v55-memory-dialogue">{{memoryDialogue}}</view>
+
+      <!-- 世界记忆网络低语 -->
+      <view wx:if="{{showNetworkMurmur}}" class="v55-network-murmur">{{networkMurmur}}</view>
     </view>
 
-    <view class="proto-section" wx:if="{{recommendedPoint}}">
-      <view class="user-featured-scroll">
-        <view class="user-featured-kicker">今日推荐</view>
-        <view class="user-featured-title">{{recommendedPoint.point_name}}</view>
-        <view class="user-featured-meta">{{recommendedPoint.merchant_name}} · 可获得 {{recommendedPoint.relic_name}}</view>
-        <button class="proto-btn proto-btn--primary" style="margin-top: 20rpx;" data-point-id="{{recommendedPoint.point_id}}" bindtap="onOpenPointDetail">前往探索点</button>
+    <!-- ════════════════════════════════════
+         BLOCK 2: EXPLORE ENTRY
+         Single primary entry point to the world
+         ════════════════════════════════════ -->
+    <view class="v55-explore-entry" bindtap="onOpenExploreMap">
+      <view class="v55-explore-entry__icon">
+        <text class="v55-explore-entry__glyph">◎</text>
+      </view>
+      <view class="v55-explore-entry__body">
+        <view class="v55-explore-entry__name">路径正在显现</view>
+        <view class="v55-explore-entry__desc">跟随星点的指引</view>
+      </view>
+      <view class="v55-explore-entry__action">回应</view>
+    </view>
+
+    <!-- ════════════════════════════════════
+         BLOCK 3: FOCUS POINT — 爱企谷入口广场
+         Visually dominant hero card, primary CTA only
+         ════════════════════════════════════ -->
+    <view wx:if="{{showJourney}}" class="v55-journey v55-journey--{{resonanceFieldClass}} v55-journey--{{awarenessMode}}">
+      <view
+        class="v55-hero-card v55-hero-card--{{awarenessMode}}"
+        data-point-id="{{scenicLayers.heroItem.point_id}}"
+        bindtap="onOpenPointDetail"
+      >
+        <view class="v55-hero-card__glow"></view>
+        <view class="v55-hero-card__halo"></view>
+        <view class="v55-hero-card__body">
+          <view class="v55-hero-card__place-label">爱企谷·入口广场</view>
+          <view class="v55-hero-card__name">{{scenicLayers.heroItem.phenomenon}}</view>
+          <view class="v55-hero-card__emotion">“{{scenicLayers.heroItem.emotion}}”</view>
+        </view>
+        <view class="v55-hero-card__action">回应</view>
+      </view>
+
+      <!-- ─── SECONDARY POINTS (indices 1-3) ─── -->
+      <view class="v55-journey__secondary">
+        <view
+          class="v55-secondary-card v55-secondary-card--{{awarenessMode}}"
+          wx:for="{{scenicLayers.secondaryItems}}"
+          wx:key="point_id"
+          data-point-id="{{item.point_id}}"
+          bindtap="onOpenPointDetail"
+          style="animation-delay: {{item.staggerDelay}}ms;"
+        >
+          <view class="v55-secondary-card__body">
+            <view class="v55-secondary-card__icon">◈</view>
+            <view class="v55-secondary-card__text">
+              <view class="v55-secondary-card__name">{{item.phenomenon}}</view>
+              <view class="v55-secondary-card__emotion">“{{item.emotion}}”</view>
+            </view>
+            <view class="v55-secondary-card__action">回应</view>
+          </view>
+        </view>
+      </view>
+
+      <!-- ─── BACKGROUND CONTEXT (indices 4-9) ─── -->
+      <view class="v55-journey__context">
+        <view class="v55-journey__context-fade"></view>
+        <view
+          class="v55-context-card v55-context-card--{{awarenessMode}}"
+          wx:for="{{scenicLayers.contextItems}}"
+          wx:key="point_id"
+          data-point-id="{{item.point_id}}"
+          bindtap="onOpenPointDetail"
+          style="animation-delay: {{item.staggerDelay}}ms;"
+        >
+          <view class="v55-context-card__body">
+            <view class="v55-context-card__name">{{item.phenomenon}}</view>
+          </view>
+        </view>
+      </view>
+
+    </view>
+    <view wx:else class="v55-scenic-fallback">
+      <text>世界正在加载...</text>
+    </view>
+
+    <!-- ════════════════════════════════════
+         BLOCK 4: RELIC MANIFESTATION
+         Phenomena that occur in the world
+         ════════════════════════════════════ -->
+
+    <!-- Manifestation Sequence Overlay -->
+    <view wx:if="{{showManifestationOverlay}}" class="v55-manifestation-overlay">
+      <view class="v55-manifestation-dim" style="opacity: {{manifestationDim}};"></view>
+      <view class="v55-manifestation-mist" style="opacity: {{manifestationMist}};"></view>
+      <view wx:if="{{manifestationPauseActive}}" class="v55-manifestation-pulse"></view>
+    </view>
+
+    <!-- Manifested Relics -->
+    <view wx:if="{{manifestationActive && manifestedEvents.length > 0}}" class="v55-phenomenon-block">
+      <view class="v55-phenomenon-block__header">
+        <view class="v55-phenomenon-block__title">显现</view>
+        <view class="v55-phenomenon-block__count">{{manifestedEvents.length}} 段记忆</view>
+      </view>
+
+      <view
+        class="v55-phenomenon-item v55-phenomenon-item--{{item.intensity}} v55-phenomenon-item--{{awarenessMode}} {{item.temporalClass}}
+          {{item.temporalPulseClass}}
+          {{item.temporalWarmShiftClass}}"
+        wx:for="{{manifestedEvents}}"
+        wx:key="id"
+        style="opacity: {{item.temporalOpacity}}; transition: opacity 0.8s ease; filter: blur({{item.temporalBlur}}rpx);"
+      >
+        <view class="v55-phenomenon-item__aura"
+          style="background: radial-gradient(circle, {{item.color}}18 0%, transparent 70%); opacity: {{item.temporalGlowOpacity}};">
+        </view>
+        <view class="v55-phenomenon-item__body">
+          <view class="v55-phenomenon-item__symbol">{{item.symbol}}</view>
+          <view class="v55-phenomenon-item__content">
+            <view class="v55-phenomenon-item__name">{{item.phenomenon}}</view>
+            <view class="v55-phenomenon-item__emotion">“{{item.emotion}}”</view>
+            <view class="v55-phenomenon-item__echo">{{item.locationEcho}}</view>
+            <view wx:if="{{item.timeFeedback}}" class="v55-phenomenon-item__time-feedback">{{item.timeFeedback}}</view>
+          </view>
+        </view>
       </view>
     </view>
 
-    <view class="proto-section">
-      <view class="proto-section-title" style="margin-bottom: 16rpx;">探索路径</view>
-      <view class="user-path-links">
-        <view class="user-path-link" bindtap="onOpenExploreMap">
-          <view>
-            <view class="user-path-link__title">探索地图</view>
-            <view class="user-path-link__copy">星点图谱 · 印记路径</view>
-          </view>
-          <view class="user-path-link__arrow">›</view>
-        </view>
-        <view class="user-path-link" bindtap="onOpenRelicArchive">
-          <view>
-            <view class="user-path-link__title">我的信物</view>
-            <view class="user-path-link__copy">收藏册 · 已显现的印记</view>
-          </view>
-          <view class="user-path-link__arrow">›</view>
-        </view>
-        <view class="user-path-link" bindtap="onOpenRightsCenter">
-          <view>
-            <view class="user-path-link__title">权益中心</view>
-            <view class="user-path-link__copy">探索后获得的地在礼遇</view>
-          </view>
-          <view class="user-path-link__arrow">›</view>
-        </view>
-        <view class="user-path-link" bindtap="onOpenActivity">
-          <view>
-            <view class="user-path-link__title">活动页</view>
-            <view class="user-path-link__copy">景区活动 · 探索任务</view>
-          </view>
-          <view class="user-path-link__arrow">›</view>
-        </view>
-        <view class="user-path-link" bindtap="onOpenProfile">
-          <view>
-            <view class="user-path-link__title">个人中心</view>
-            <view class="user-path-link__copy">旅程记录 · 探索印记</view>
-          </view>
-          <view class="user-path-link__arrow">›</view>
-        </view>
-      </view>
-    </view>
-
-    <view class="proto-section">
-      <view class="user-echo-panel">
-        <view class="user-echo-kicker">今日回响</view>
-        <view class="user-echo-copy">{{journey.latestRelic ? journey.latestRelic.story_snippet : '完成探索后，回响将在此轻轻显现。'}}</view>
-      </view>
-    </view>
   </block>
 
   <pilot-fx-overlay id="pilotFx" />
-
   <user-bottom-nav activeKey="{{activeTab}}" bind:change="onBottomNavChange" />
 </view>

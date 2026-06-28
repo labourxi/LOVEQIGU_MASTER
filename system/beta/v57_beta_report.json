@@ -1,0 +1,211 @@
+{
+  "schema": "v57_beta_report_v1",
+  "generatedAt": "2026-06-28T09:01:00+08:00",
+  "reviewedComponent": "pages/index/index — Homepage (Explore + Manifestation)",
+  "overall_beta_readiness": "NOT READY FOR RELEASE",
+
+  "simulated_user_journey": {
+    "flow": [
+      "Landing → World Manifest (seal + realm + whisper)",
+      "→ Explore Entry (v55-explore-entry: '路径正在显现')",
+      "→ Hero Focus Point (v55-hero-card: '爱企谷·入口广场')",
+      "→ Secondary Points (3 cards, indices 1-3)",
+      "→ Context Points (6 cards, indices 4-9)",
+      "→ Relic Manifestation (v55-phenomenon-block)"
+    ],
+    "time_to_understand_per_page_ms": {
+      "landing_world_manifest": 2000,
+      "explore_entry": 1500,
+      "hero_focus_point": 1000,
+      "secondary_points": 2000,
+      "context_points": 3000,
+      "relic_manifestation": 2500
+    },
+    "confusion_points": [
+      "Secondary and context cards both call onOpenPointDetail but have no visual difference between 'detail view' and 'this page not built yet' — user gets fallback toast on all points",
+      "Relic manifestation block appears at bottom with no scroll hint — users may miss it entirely",
+      "Network murmur text ('记忆网络正在共振') has no semantic relation to any actionable element — users may wonder what it means"
+    ],
+    "dead_clicks": [
+      "Hero card → onOpenPointDetail → safeNavigate → fallbackTitle '记忆片段暂未开放' (no actual detail page exists)",
+      "Secondary cards → onOpenPointDetail → same dead end",
+      "Context cards → onOpenPointDetail → same dead end",
+      "Explore entry → onOpenExploreMap → fallbackTitle '探索地图暂未开放' (no explore map page)"
+    ],
+    "missing_feedback": [
+      "No visual feedback when hero card is pressed (no :active state subtle animation for touch)",
+      "No loading state between CTA click and fallback toast — feels like nothing happened for ~500ms",
+      "World response message fades out after 4s but has no interaction hook — users can't re-read it"
+    ]
+  },
+
+  "flow_breakpoints": [
+    {
+      "id": "BP-01",
+      "severity": "critical",
+      "description": "All 10 scenic point CTAs lead to fallback pages (记忆片段暂未开放)",
+      "affected_elements": ["v55-hero-card", "v55-secondary-card", "v55-context-card"],
+      "impact": "Core user flow dead-ends after '回应' CTA. User sees toast, cannot proceed further."
+    },
+    {
+      "id": "BP-02",
+      "severity": "critical",
+      "description": "Explore entry CTA (onOpenExploreMap) leads to fallback (探索地图暂未开放)",
+      "affected_elements": ["v55-explore-entry"],
+      "impact": "Primary navigation path from landing to exploration is blocked."
+    },
+    {
+      "id": "BP-03",
+      "severity": "high",
+      "description": "No visible state difference between working and non-working CTAs",
+      "affected_elements": ["all cards with bindtap actions"],
+      "impact": "User cannot distinguish clickable items that lead to real pages vs. fallback toasts. Erodes trust."
+    },
+    {
+      "id": "BP-04",
+      "severity": "high",
+      "description": "Relic manifestation section is below-the-fold with no scroll indicator",
+      "affected_elements": ["v55-phenomenon-block"],
+      "impact": "If user does not scroll down, relics are invisible. The 2.2s manifestation sequence runs but may never be seen."
+    },
+    {
+      "id": "BP-05",
+      "severity": "medium",
+      "description": "v55-world-response and v55-memory-dialogue are temporary (fade out after 4-5s) with no way to recall",
+      "affected_elements": ["v55-world-response", "v55-memory-dialogue"],
+      "impact": "World-building text is lost if user reads slowly or looks away."
+    },
+    {
+      "id": "BP-06",
+      "severity": "medium",
+      "description": "v55-network-murmur text is semantically disconnected from page actions",
+      "affected_elements": ["v55-network-murmur"],
+      "impact": "User sees '记忆网络正在共振' but has no concept of what a 'memory network' is or how to interact with it."
+    },
+    {
+      "id": "BP-07",
+      "severity": "medium",
+      "description": "Journey container uses resonanceField class (v55-journey--low/medium/high) but effects are minimal",
+      "affected_elements": [".v55-journey--high", ".v55-journey--medium", ".v55-journey--low"],
+      "impact": "The class is set but CSS rules for these are empty or near-invisible. Feature appears broken."
+    },
+    {
+      "id": "BP-08",
+      "severity": "low",
+      "description": "Temporal state feedback uses Math.random for message selection — same message may repeat",
+      "affected_elements": ["getTimeMemoryFeedback()"],
+      "impact": "Return visits may show identical time feedback text, breaking the illusion of a 'living' world."
+    },
+    {
+      "id": "BP-09",
+      "severity": "low",
+      "description": "No back-navigation from point detail (it doesn't exist) — but even if it did, there's no return UX",
+      "affected_elements": ["onOpenPointDetail navigation"],
+      "impact": "If detail page were built, there is no defined return path to keep the journey context."
+    }
+  ],
+
+  "ui_confusion_points": [
+    {
+      "id": "UC-01",
+      "description": "World manifest has 5 stacked text elements (seal char, realm, whisper, atmosphere, murmur) — high cognitive load on first impression",
+      "first_impression_clarity_seconds": 3,
+      "primary_action_visibility": "low — the seal+banner area is visually dense, the actual CTA (explore entry) is below the fold for some screen sizes"
+    },
+    {
+      "id": "UC-02",
+      "description": "Explore entry and hero card both have '回应' as CTA text but lead to different actions (map vs detail)",
+      "first_impression_clarity_seconds": 2,
+      "primary_action_visibility": "medium — same label for different destinations is ambiguous"
+    },
+    {
+      "id": "UC-03",
+      "description": "Context cards (indices 4-9) have no emotion text and no action button — they look non-interactive but are actually tappable",
+      "first_impression_clarity_seconds": 3,
+      "primary_action_visibility": "low — users may not realize they can tap context cards"
+    },
+    {
+      "id": "UC-04",
+      "description": "Cognitive load: journey container has 4 nested wx:for loops rendering the same array with different wx:if filters — complex DOM structure",
+      "cognitive_load_level": "medium-high — 3 parallel wx:for renderings of the same data is a performance concern on low-end devices"
+    }
+  ],
+
+  "content_realism_check": {
+    "scenic_points_feel_real": true,
+    "scenic_points_notes": [
+      "10 points cover diverse locations (广场, 林雾, 石阶, 声音, 仰望, 残页, 水面, 风, 碑林, 门)",
+      "Each has a unique phenomenon-emotion pair with Eastern poetic tone",
+      "Missing: any visual (image/icon) associated with each point — purely text-based"
+    ],
+    "relics_feel_meaningful": true,
+    "relics_notes": [
+      "Relic events include symbol, color, material, locationEcho — rich sensory description",
+      "Temporal state system (decay/sediment/resonance) gives each relic a sense of history",
+      "Missing: relic count is low (only what world_seed_v1.js provides) — may feel sparse on repeat visits"
+    ],
+    "system_feels_cohesive_world": true,
+    "system_notes": [
+      "World manifestation + memory network + temporal decay creates a consistent 'living world' feeling",
+      "Awareness mode (minimal/balanced/deep) provides subtle adaptation",
+      "The gap between 'world narrative' and 'functional CTAs that go nowhere' breaks immersion"
+    ],
+    "content_realism_score": 72
+  },
+
+  "stability_validation": {
+    "missing_data_issues": [],
+    "undefined_state_issues": [
+      {
+        "id": "ST-01",
+        "severity": "high",
+        "description": "If worldSeed.explore_points has fewer than 10 items, requireSeed() returns null and buildPageData still runs — scenicLayers may have missing rhythmItems slots",
+        "condition": "seed.explore_points.length < 10"
+      },
+      {
+        "id": "ST-02",
+        "severity": "medium",
+        "description": "getTimeMemoryFeedback() uses Math.random on a pooled array — if all arrays are empty (edge case where no triggerType matches and no decay/sediment/resonance thresholds met), pool is ['一段记忆正在凝聚'] which is fine"
+      }
+    ],
+    "broken_rendering_issues": [],
+    "inconsistent_layout_issues": [
+      {
+        "id": "ST-03",
+        "severity": "medium",
+        "description": "WXSS file has orphaned CSS rules (v55-journey__header-- classes, v55-journey--high/medium/low with near-empty bodies, v55-journey__title/guide) that reference removed WXML elements — dead code adds file size",
+        "file_size_waste_kb": 3
+      },
+      {
+        "id": "ST-04",
+        "severity": "low",
+        "description": "v55-journey::after gradient fade (bottom) defined twice in the WXSS — once in the old section (~line 555 previous) and once in the new V5.6 section — the latest wins but duplicate exists"
+      }
+    ],
+    "stability_score": 88
+  },
+
+  "verdict_logic": {
+    "flow_breakpoints_total": 9,
+    "flow_breakpoints_critical_or_high": 4,
+    "breakpoint_threshold_exceeded": true,
+    "stability_score_below_85": false,
+    "overall_beta_readiness": "NOT READY FOR RELEASE"
+  },
+
+  "recommendation": {
+    "blocking_issues_to_resolve": [
+      "BP-01: Implement at least one real scenic point detail page (merchant-event/detail/index) so the hero CTA produces a real view",
+      "BP-02: Implement the explore-map page or redirect hero card to be the primary action instead",
+      "BP-03: Add visual state differentiation — gray out / show lock icon on fallback CTAs vs. active CTAs",
+      "BP-04: Add scroll hint or auto-scroll to relic manifestation when events are active"
+    ],
+    "recommended_fixes_before_release": [
+      "Reduce redundant wx:for loops in journey (merge secondary + context into one pass with conditional styling)",
+      "Add :active press states to all tappable cards (hero, secondary, context)",
+      "Clean up orphaned CSS classes (v55-journey__header, __title, __guide, unused awareness mode selectors)",
+      "Replace v55-network-murmur text with something contextually relevant to the visible cards",
+      "Add loading spinner/spinner overlay between CTA tap and page navigation"
+    ]
+  }
+}

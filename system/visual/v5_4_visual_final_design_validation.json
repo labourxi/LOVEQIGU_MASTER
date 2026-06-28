@@ -1,0 +1,75 @@
+{
+  "$schema": "V5.4 VISUAL FINAL DESIGN SPEC",
+  "version": "V5.4",
+  "date": "2026-06-27",
+  "status": "ALREADY COMPLETE — covered by V5.3 DESIGN FREEZE",
+
+  "description": "AR游伴 V5.4 视觉最终定稿 — 验证结果：所有要求已在 V5.3 冻结中实现，无需额外修改",
+
+  "validation": {
+    "landing": {
+      "spec": "[world title + glow] [guiding sentence] [wechat login button (gold seal style)] [qrcode entry hint]",
+      "actual": "[landing-world-title__halo + __seal + __name + __sub] [landing-guide 引导语] [landing-seal-btn 金色印章+呼吸] [landing-ghost-btn 扫码]",
+      "status": "MEETS SPEC ✅",
+      "forbiddenChecks": {
+        "cardUI": false,
+        "listUI": false,
+        "multipleButtons": false
+      }
+    },
+    "explore": {
+      "spec": "[world name] [status] [map nodes] [relic entry] [action button]",
+      "actual": "[exp-header__title + __kicker] [exp-header__stats 三统计] [exp-map 浮动节点] [exp-section 探索印记] [user-bottom-nav]",
+      "status": "MEETS SPEC ✅",
+      "nodeStates": {
+        "undiscovered": "exp-node--dim (opacity 0.55, gray dot)",
+        "available": "exp-node--next (gold core breathing, halo pulse)",
+        "completed": "exp-node--lit (gold glow, stable halo)"
+      },
+      "background": "exp-atmosphere fog + mist + glow layers"
+    },
+    "relic": {
+      "spec": "3-layer: energy → entity → symbol",
+      "actual": "relic-entity__aura / relic-entity__body / relic-entity__symbol with 7 material variants",
+      "status": "MEETS SPEC ✅",
+      "forbiddenChecks": {
+        "iconBased": false,
+        "flatBadge": false
+      }
+    },
+    "scenePoints": {
+      "spec": "4 fixed: Cloud Study, Riverside Courtyard, Neon Street, Container District",
+      "actual": "cloud_study / creek_courtyard / neon_block / container_block",
+      "fields": "id / name / theme / time_range / relic_binding / xr_trigger",
+      "status": "MEETS SPEC ✅"
+    },
+    "visualSystem": {
+      "colors": {
+        "darkGreen": "#0F2A22",
+        "beige": "#F3F0E8",
+        "gold": "#C8A24A"
+      },
+      "appliedIn": [
+        "pages/landing/index.wxss",
+        "pages/explore-map/index.wxss",
+        "pages/index/index.wxss",
+        "pages/ar-entry/index.wxss",
+        "styles/page-layout-v55.wxss",
+        "styles/relic-visual-v55.wxss",
+        "styles/prototype-v1.wxss",
+        "styles/user-phase1.wxss"
+      ],
+      "status": "MEETS SPEC ✅"
+    }
+  },
+
+  "overallValidation": {
+    "landing = ritual entrance": true,
+    "explore = map system": true,
+    "relic = physical object feel": true,
+    "no table UI": true,
+    "no debug UI": true,
+    "no backend UI": true,
+    "codeChangesRequired": false
+  }
+}

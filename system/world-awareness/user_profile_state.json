@@ -1,0 +1,83 @@
+{
+  "schema": "world_awareness_v1",
+  "description": "User behavior profile used by the World Awareness Layer to adapt presentation style. No AI personality. No conversational system. Only presentation strategy shifts based on observed behavior patterns.",
+
+  "fields": {
+    "visit_frequency": {
+      "type": "string",
+      "values": ["new", "returning", "frequent"],
+      "description": "How often the user returns. Derived from total return count."
+    },
+    "preferred_nodes": {
+      "type": "array",
+      "items": "string",
+      "description": "Node IDs the user revisits most often. Derived from visit frequency per node in temporal state."
+    },
+    "dwell_time_pattern": {
+      "type": "string",
+      "values": ["brief", "normal", "extended"],
+      "description": "How long user typically stays per session."
+    },
+    "navigation_style": {
+      "type": "string",
+      "values": ["fast", "slow", "exploratory"],
+      "description": "Derived from interaction patterns within session."
+    },
+    "repetition_score": {
+      "type": "number",
+      "min": 0,
+      "max": 10,
+      "description": "How often user returns to the same nodes. 0 = new user, 10 = highest repetition."
+    }
+  },
+
+  "expression_modes": {
+    "minimal": {
+      "trigger": "visit_frequency === 'new'",
+      "characteristics": {
+        "ui_density": "low",
+        "cards_shown": "fewer",
+        "transitions": "soft, slow fade",
+        "text_tone": "sparse, minimal",
+        "background_intensity": "subtle",
+        "card_emphasis": "light"
+      }
+    },
+    "balanced": {
+      "trigger": "visit_frequency === 'returning'",
+      "characteristics": {
+        "ui_density": "normal",
+        "cards_shown": "full",
+        "transitions": "normal",
+        "text_tone": "neutral",
+        "background_intensity": "medium",
+        "card_emphasis": "standard"
+      }
+    },
+    "deep": {
+      "trigger": "repetition_score >= 4",
+      "characteristics": {
+        "ui_density": "high",
+        "cards_shown": "full with richer descriptions",
+        "transitions": "slower, more atmospheric",
+        "text_tone": "warm, narrative, personalized",
+        "background_intensity": "stronger",
+        "card_emphasis": "elevated glow and warmth"
+      }
+    }
+  },
+
+  "presentation_rules": {
+    "text_tone": {
+      "description": "Replace generic names with personalized descriptions in DEEP mode",
+      "example_normal": "入口广场",
+      "example_deep": "你第一次进入的地方"
+    },
+    "spacing_density": "MINIMAL mode reduces padding and margin between elements",
+    "card_emphasis": "DEEP mode adds stronger glow and warmth to hero and primary cards",
+    "background_intensity": "DEEP mode increases atmosphere opacity and animation duration",
+    "description_style": "DEEP mode replaces short emotion text with fuller narrative phrases"
+  },
+
+  "runtime_location": "apps/miniapp/pages/index/index.js — Section: V5.5.5 World Awareness Layer"
+}

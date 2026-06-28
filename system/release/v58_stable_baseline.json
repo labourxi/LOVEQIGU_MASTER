@@ -1,0 +1,139 @@
+{
+  "schema": "v58_stable_baseline_v1",
+  "generatedAt": "2026-06-28T11:25:00+08:00",
+  "freezeVersion": "V5.8",
+  "status": "LOCKED",
+
+  "summary": {
+    "app_renders": true,
+    "white_screen_possible": false,
+    "boot_time_async_chain": false,
+    "template_syntax_errors": false,
+    "stable_across_reload": true,
+    "safe_on_missing_xr_wasm": true
+  },
+
+  "boot_flow_status": {
+    "onLaunch": {
+      "async_calls": 0,
+      "setTimeout": false,
+      "Promise": false,
+      "wx_api_calls": 0,
+      "require_calls": 0,
+      "only_flag_sets": true,
+      "content": [
+        "globalThis.__APP_LAUNCHED__ = Date.now()",
+        "globalThis.__BOOT_STATE__.launched = true"
+      ]
+    },
+    "seed_loading": {
+      "timing": "module_eval_time",
+      "method": "require('./data/world_seed_v1')",
+      "format": ".js (ES5 module.exports)",
+      "fallback_on_failure": {
+        "action": "empty_safe_seed",
+        "flag": "__SAFE_MODE__ = true",
+        "log_level": "error"
+      }
+    },
+    "bootstrap_guards": {
+      "__BOOT_STATE__": { "launched": true, "uiRendered": false, "asyncReady": false },
+      "__SAFE_MODE__": "set at module eval",
+      "__SAFE_RUNTIME_ERROR__": "catch-all error guard",
+      "__APP_LAUNCHED__": "timestamp at onLaunch"
+    },
+    "deferred_init": {
+      "trigger": "page onReady lifecycle",
+      "content": "platform-info (sync split APIs only)",
+      "blocking": false
+    }
+  },
+
+  "data_source": {
+    "locked": true,
+    "single_source_of_truth": "apps/miniapp/data/world_seed_v1.js",
+    "format": "JS module (ES5 module.exports)",
+    "alternative_loaders": [],
+    "duplicate_seed_files": [],
+    "json_seed_files": [],
+    "forbidden_patterns_eliminated": [
+      "require('*.json') in app.js",
+      "world_seed_v1.json anywhere",
+      "inline mock data in pages"
+    ]
+  },
+
+  "runtime_complexity": {
+    "dynamic_require_chains": false,
+    "runtime_module_switching": false,
+    "bootstrap_re_entry": false,
+    "setTimeout_boot_chains": false,
+    "promise_boot_chains": false
+  },
+
+  "xr_status": {
+    "global_imports_in_app_js": 0,
+    "global_imports_in_index_js": 0,
+    "feature_flag": "globalThis.__FEATURE_XR__",
+    "feature_flag_computed_at": "module_eval_time (runtime-builder.js)",
+    "feature_flag_logic": "WebAssembly.instantiate && wx.canIUse('xr-frame')",
+    "pipeline_guard": {
+      "startXRRenderPipeline": "returns safe fallback if !FEATURE_XR",
+      "startXRPipelineStable": "returns safe fallback if !FEATURE_XR",
+      "onEnterARScan": "shows fallback toast if !FEATURE_XR"
+    },
+    "degradation": "graceful — static fallback UI, no 3D init attempted"
+  },
+
+  "ui_status": {
+    "stable": true,
+    "wxss_compilation": "valid — no orphaned declarations",
+    "wxml_syntax": "valid — no ?? or ?. operators",
+    "style_binding_expressions": "none — all precomputed in JS",
+    "inline_style_safety": "all rpx values have numeric guarantees via JS layer"
+  },
+
+  "risk_level": "low",
+
+  "error_policy": {
+    "non_critical_errors_affect_ui": false,
+    "downgraded_to_warnings": [
+      "world_seed load failure → console.error + empty safe seed",
+      "XR pipeline disabled → console.log + fallback toast",
+      "platform-info failure → console.error, no UI impact",
+      "wx.getSystemInfoSync deprecation → WeChat console warning only"
+    ],
+    "critical_errors_still_exposed": [
+      "[CRITICAL] world seed module missing",
+      "SAFE RUNTIME ERROR",
+      "[app.onError]"
+    ]
+  },
+
+  "acceptance_criteria": {
+    "app_always_loads": true,
+    "no_white_screen_possible": true,
+    "no_boot_time_async_chain": true,
+    "no_template_syntax_errors": true,
+    "stable_across_reload": true,
+    "safe_on_missing_xr_wasm": true
+  },
+
+  "files_inventory": {
+    "seed_module": ["apps/miniapp/data/world_seed_v1.js"],
+    "deleted_seed_files": ["data/world_seed_v1.json"],
+    "app_entry": ["apps/miniapp/app.js"],
+    "index_page": [
+      "apps/miniapp/pages/index/index.js",
+      "apps/miniapp/pages/index/index.wxml",
+      "apps/miniapp/pages/index/index.wxss"
+    ],
+    "xr_pages": [
+      "apps/miniapp/pages/ar-entry/index.js",
+      "apps/miniapp/pages/xr-primitive-sample/index.js"
+    ],
+    "xr_core": [
+      "apps/miniapp/core/runtime/runtime-builder.js"
+    ]
+  }
+}

@@ -522,6 +522,14 @@ Page({
   onEnterARScan() {
     var self = this;
 
+    // ─── FEATURE_XR 门禁：不支持 XR 的设备跳过导航 ★ ───
+    if (!(typeof globalThis !== 'undefined' && globalThis.__FEATURE_XR__)) {
+      console.log('[ar-entry] XR not supported, showing fallback');
+      self.setData({ xrRhythmActive: false });
+      self.showFallbackToast('当前设备暂不支持 XR 探索模式');
+      return;
+    }
+
     // XR 节奏系统：t0 黑场(0.5s) → t1 环境(1.2s) → t2 粒子(1.5s) → t3 显现(2.0s)
     // 总时长 = 5.2s，在 t3 完成时导航
     self.setData({ xrRhythmActive: true });

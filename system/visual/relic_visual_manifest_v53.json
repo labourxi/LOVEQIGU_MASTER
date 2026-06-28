@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "version": "RELIC_VISUAL_MANIFEST_V53",
+    "date": "2026-06-27",
+    "description": "爱企谷探索信物视觉元数据 — 仅用于 UI 层展示占位",
+    "total_relics": 12
+  },
+  "relics": [
+    {
+      "relic_id": "relic_qigu_first_mark",
+      "relic_name": "企谷初见印",
+      "material": "jade",
+      "visual_state": "latent",
+      "drop_context": "完成三处探索后收集",
+      "visual_seed": "金色圆形玉印，内含篆书'初'字",
+      "ui_display_type": "seal"
+    },
+    {
+      "relic_id": "relic_cafe_stamp",
+      "relic_name": "咖啡馆印记",
+      "material": "ink",
+      "visual_state": "latent",
+      "drop_context": "爱企谷咖啡扫码",
+      "visual_seed": "墨色方印，咖啡杯轮廓在印内浮现",
+      "ui_display_type": "card"
+    },
+    {
+      "relic_id": "relic_bookmark",
+      "relic_name": "书页印记",
+      "material": "silk",
+      "visual_state": "latent",
+      "drop_context": "爱企谷书店问答",
+      "visual_seed": "浅黄丝质书签，书页翻卷纹理",
+      "ui_display_type": "card"
+    },
+    {
+      "relic_id": "relic_craft_mark",
+      "relic_name": "手作印记",
+      "material": "bronze",
+      "visual_state": "latent",
+      "drop_context": "爱企谷手作馆集章",
+      "visual_seed": "铜色徽章，手作工具纹样压印",
+      "ui_display_type": "card"
+    },
+    {
+      "relic_id": "relic_central_seal",
+      "relic_name": "中心广场纪念章",
+      "material": "bronze",
+      "visual_state": "latent",
+      "drop_context": "中心广场完成",
+      "visual_seed": "青铜圆章，广场建筑轮廓浮雕",
+      "ui_display_type": "seal"
+    },
+    {
+      "relic_id": "relic_entrance_greeting",
+      "relic_name": "入口印记",
+      "material": "jade",
+      "visual_state": "latent",
+      "drop_context": "入口广场地面印记",
+      "visual_seed": "方形玉印，星宿纹样'角'字微光刻痕",
+      "ui_display_type": "seal"
+    },
+    {
+      "relic_id": "relic_garden_grove",
+      "relic_name": "林荫印记",
+      "material": "jade",
+      "visual_state": "latent",
+      "drop_context": "入口景观古树下",
+      "visual_seed": "树叶形态玉牌，经络纹路'木'字刻痕",
+      "ui_display_type": "fragment"
+    },
+    {
+      "relic_id": "relic_street_sign",
+      "relic_name": "老街印记",
+      "material": "stone",
+      "visual_state": "latent",
+      "drop_context": "江南老街砖墙",
+      "visual_seed": "青砖纹理方印，刻痕'巷'字微光",
+      "ui_display_type": "seal"
+    },
+    {
+      "relic_id": "relic_gourmet_square",
+      "relic_name": "食光印记",
+      "material": "jade",
+      "visual_state": "latent",
+      "drop_context": "食光广场外摆区域",
+      "visual_seed": "圆形食盘状玉璧，刻痕'食'字象形纹",
+      "ui_display_type": "card"
+    },
+    {
+      "relic_id": "relic_courtyard",
+      "relic_name": "绿庭印记",
+      "material": "jade",
+      "visual_state": "latent",
+      "drop_context": "溪上庭院水面",
+      "visual_seed": "流水形态青玉佩，刻痕'水'字涟漪纹",
+      "ui_display_type": "fragment"
+    },
+    {
+      "relic_id": "relic_waterfront",
+      "relic_name": "水岸印记",
+      "material": "stone",
+      "visual_state": "latent",
+      "drop_context": "水岸回廊平台",
+      "visual_seed": "波浪形态银印，刻痕'川'字流动纹",
+      "ui_display_type": "seal"
+    },
+    {
+      "relic_id": "relic_return_sign",
+      "relic_name": "归途印记",
+      "material": "jade",
+      "visual_state": "latent",
+      "drop_context": "归途通道末端",
+      "visual_seed": "圆形闭合玉环，刻痕'归'字完整篆书",
+      "ui_display_type": "seal"
+    }
+  ]
+}

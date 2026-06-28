@@ -8,6 +8,23 @@ const cloud = require('../../services/ar/ar-cloud-sync.js');
 const xrStability = require('../../services/ar/xr-stability-layer.js');
 const safeFallback = require('../../services/xr-safe-fallback.js');
 
+// ═══════════════════════════════════════════════════════════════
+// FEATURE_XR — global XR capability flag.
+// XR is available only when the device supports WebAssembly AND
+// the WeChat runtime exposes xr-frame APIs.
+// This flag gates ALL XR pipeline entry points.
+// ═══════════════════════════════════════════════════════════════
+var FEATURE_XR = false;
+try {
+  var _hasWasm = typeof WebAssembly !== 'undefined' && typeof WebAssembly.instantiate === 'function';
+  var _hasXRFrame = typeof wx !== 'undefined' && typeof wx.canIUse === 'function' && wx.canIUse('xr-frame');
+  FEATURE_XR = _hasWasm && _hasXRFrame;
+} catch (_) { FEATURE_XR = false; }
+globalThis.__FEATURE_XR__ = FEATURE_XR;
+if (!FEATURE_XR) {
+  console.log('[XR] XR disabled (no WebAssembly or xr-frame support) — all XR pipelines will return safe fallback');
+}
+
 const XR_STATE = Object.freeze({
   IDLE: 'IDLE',
   INIT: 'INIT',
@@ -461,6 +478,12 @@ function createRuntimeBuilder(options = {}) {
   }
 
   function startXRRenderPipeline(options = {}) {
+    // ─── FEATURE_XR 门禁：不支持 XR 的设备跳过全部 3D 渲染 ★ ───
+    if (!FEATURE_XR) {
+      console.log('[XR] FEATURE_XR disabled, skipping render pipeline');
+      return Promise.resolve({ started: false, safeMode: true, reason: 'feature_xr_disabled' });
+    }
+
     console.log("🔥 XR RUNTIME INIT:", Date.now());
     globalThis.__XR_RUNTIME_INIT__ = Date.now();
 
@@ -626,6 +649,13 @@ function createRuntimeBuilder(options = {}) {
    * @returns {Promise<{status: string, mode: string, reason: string}>}
    */
   function startXRPipelineStable(payload) {
+    // ─── FEATURE_XR 门禁 ───
+    if (!FEATURE_XR) {
+      console.log('[XR] FEATURE_XR disabled, pipeline stable returns fallback');
+      safeFallback.trigger('feature_xr_disabled');
+      return Promise.resolve({ status: 'fallback', mode: 'normal', reason: 'feature_xr_disabled' });
+    }
+
     payload = payload || {};
 
     function buildPipelineFn() {

@@ -1,173 +1,165 @@
-const merchantEventService = require('../../services/merchant-event');
-const userFrontend = require('../../services/user-frontend.js');
-const userRuntime = require('../../services/user-runtime-adapter/index');
 const phase1PageGuard = require('../../behaviors/phase1-page-guard');
 const safeInteraction = require('../../behaviors/safe-interaction');
 const pilotScene = require('../../behaviors/pilot-scene');
-const pilotSceneFlow = require('../../services/pilot/pilot-scene-flow');
-const xrTrigger = require('../../services/xr-trigger-standard');
-const rhythm = require('../../services/revelation-rhythm-engine');
 
-function decoratePoints(points, recommendedPoint) {
-  return (points || []).map((item) => {
-    const isLit = item.task_status === 'COMPLETED' || item.task_status === 'DONE' || item.task_status === 'OWNED';
-    const isNext = recommendedPoint && item.point_id === recommendedPoint.point_id;
-    const state = isLit ? 'lit' : isNext ? 'next' : 'dim';
-    const statusLabel = item.statusLabel || (isLit ? '已点亮' : isNext ? '推荐' : '待探索');
-    const hint = isLit ? '印记已显现' : isNext ? '建议从这里继续前行' : '等待你的脚步';
-    return {
-      ...item,
-      isLit,
-      isNext,
-      state,
-      statusLabel,
-      hint
-    };
-  });
+// ═══════════════════════════════════════════
+// V5.4.10 — World Seed Consumer
+// SINGLE source: apps/miniapp/data/world_seed_v1.js via app.globalData.worldSeed
+// ═══════════════════════════════════════════
+
+function getWorldSeed() {
+  try {
+    var app = typeof getApp !== 'undefined' ? getApp() : null;
+    return (app && app.globalData && app.globalData.worldSeed) || null;
+  } catch (e) { return null; }
 }
 
 function buildPageData() {
-  userRuntime.boot();
-  const adapter = userRuntime.getAdapter();
-  const front = userFrontend.buildJourneySummary();
-  if (adapter) {
-    const mapData = adapter.getExploreMapData(userRuntime.getUserId(), userRuntime.getActivityId());
-    const recommendedPoint = mapData.points.find((item) => item.point && item.point.id === mapData.recommendedPointId) || mapData.points[0] || null;
-    const points = decoratePoints(
-      mapData.points.map((row) => userRuntime.mapExplorePointForList(row)),
-      recommendedPoint ? userRuntime.mapExplorePointForList(recommendedPoint) : null
-    );
-    const graphNodes = points.map((item) => ({
-      point_id: item.point_id,
-      point_name: item.point_name,
-      isLit: item.isLit,
-      isNext: item.isNext,
-      state: item.state,
-      hint: item.hint,
-      statusLabel: item.statusLabel
-    }));
+  try {
+    var seed = getWorldSeed();
+    if (!seed) return null;
+
+    var points = seed.explore_points || [];
+    var relics = seed.relics || [];
+    var coupons = seed.merchant_coupons || [];
+    var routes = seed.routes || [];
+    var collectibles = seed.collectibles || [];
+
+    var decoratedPoints = points.map(function(p, idx) {
+      return {
+        point_id: p.id,
+        point_name: p.name,
+        isLit: idx < 3,
+        isNext: idx === 0,
+        state: idx < 3 ? 'lit' : idx === 0 ? 'next' : 'dim',
+        statusLabel: idx < 3 ? '已点亮' : '待探索',
+        hint: idx < 3 ? '印记已显现' : idx === 0 ? '建议从这里继续前行' : '等待你的脚步',
+        related_ids: p.related_ids || [],
+        related_relic: relics.find(function(r) { return r.origin_point === p.id; }) || null
+      };
+    });
+
+    var graphNodes = decoratedPoints.map(function(item) {
+      return {
+        point_id: item.point_id,
+        point_name: item.point_name,
+        isLit: item.isLit,
+        isNext: item.isNext,
+        state: item.state,
+        hint: item.hint,
+        statusLabel: item.statusLabel
+      };
+    });
+
+    var recommendedPoint = decoratedPoints.length > 0 ? decoratedPoints[0] : null;
+
     return {
       activeTab: 'map',
-      activity: mapData.activity,
+      loading: false,
+      activity: { event_name: '爱企谷 · 游离之域', event_id: 'LOVEQIGU_FIRST_EVENT_CASE_V1' },
       stats: {
-        completedTaskCount: mapData.progress.completedPointIds.length,
-        ownedRelicCount: mapData.progress.collectedRelicIds.length,
-        claimedCouponCount: mapData.progress.claimedCouponIds.length,
-        completionRate: mapData.progress.progressPercent,
-        taskCount: mapData.points.length
+        completedTaskCount: 0,
+        ownedRelicCount: relics.length,
+        claimedCouponCount: coupons.length,
+        completionRate: 0,
+        taskCount: points.length
       },
-      points,
-      graphNodes,
-      recommendedPoint: recommendedPoint ? userRuntime.mapExplorePointForList(recommendedPoint) : null,
+      points: decoratedPoints,
+      graphNodes: graphNodes,
+      recommendedPoint: recommendedPoint,
       tasks: [],
-      relics: mapData.points.map((p) => p.relic).filter(Boolean),
-      coupons: mapData.points.map((p) => p.benefit).filter(Boolean),
-      journey: front,
-      bottomNav: front.nav,
-      runtimeMock: true
+      relics: relics,
+      coupons: coupons,
+      routes: routes,
+      collectibles: collectibles,
+      journey: {
+        activityName: '爱企谷探索',
+        points: points,
+        routes: routes,
+        nav: { currentKey: 'explore', keys: ['home', 'explore', 'relic', 'reward', 'profile'] }
+      },
+      bottomNav: { currentKey: 'explore' }
     };
+  } catch (err) {
+    console.error('[explore-map] buildPageData error:', err);
+    return null;
   }
-  const overview = merchantEventService.getActivityOverview(merchantEventService.ACTIVITY_ID);
-  const journeyFront = userFrontend.buildJourneySummary();
-  const recommendedPoint =
-    overview.points.find((item) => item && item.task_status !== 'COMPLETED' && item.task_status !== 'DONE') ||
-    overview.points[0] ||
-    null;
-  const points = decoratePoints(overview.points, recommendedPoint);
-  const graphNodes = points.map((item) => ({
-    point_id: item.point_id,
-    point_name: item.point_name,
-    isLit: item.isLit,
-    isNext: item.isNext,
-    state: item.state,
-    hint: item.hint
-  }));
-  return {
-    activeTab: 'map',
-    activity: overview.activity,
-    stats: overview.stats,
-    points,
-    graphNodes,
-    recommendedPoint,
-    tasks: overview.tasks,
-    relics: overview.relics,
-    coupons: overview.coupons,
-    journey: journeyFront,
-    bottomNav: journeyFront.nav
-  };
 }
 
 Page({
   behaviors: [phase1PageGuard, safeInteraction, pilotScene],
-  data: buildPageData(),
 
-  onLoad(options = {}) {
-    this.initPilotSceneFromOptions(options);
-    this.refresh();
-    if (merchantEventService.ensureReadyAsync) {
-      merchantEventService.ensureReadyAsync().then(() => this.refresh());
+  data: {
+    loading: true,
+    activeTab: 'map',
+    activity: null,
+    stats: { completedTaskCount: 0, ownedRelicCount: 0, claimedCouponCount: 0, completionRate: 0, taskCount: 0 },
+    points: [],
+    graphNodes: [],
+    recommendedPoint: null,
+    tasks: [],
+    relics: [],
+    coupons: [],
+    routes: [],
+    collectibles: [],
+    journey: null,
+    bottomNav: null
+  },
+
+  _initialized: false,
+  _refreshLock: false,
+  _isDestroyed: false,
+
+  onLoad(options) {
+    this._isDestroyed = false;
+    this.initPage();
+  },
+
+  onShow() {},
+
+  onUnload() { this._isDestroyed = true; },
+
+  initPage() {
+    if (this._initialized) return;
+    this._initialized = true;
+    this._refreshLock = true;
+
+    var data = buildPageData();
+    if (data === null) {
+      console.error('[explore-map] initPage: buildPageData returned null (seed missing)');
+    } else {
+      data.loading = false;
+      this.setData(data);
     }
-    if (userFrontend.ensureReadyAsync) {
-      userFrontend.ensureReadyAsync().then(() => this.refresh());
+
+    var self = this;
+    setTimeout(function () { self._refreshLock = false; }, 300);
+  },
+
+  refresh(source) {
+    if (this._isDestroyed || this._refreshLock) return;
+    try {
+      var data = buildPageData();
+      if (data !== null) this.setData(data);
+    } catch (error) {
+      console.error('[explore-map] refresh error:', error);
     }
   },
 
-  onShow() {
-    this.refresh();
-    if (this.data.pilotSceneActive && this.data.pilotSceneStage === pilotSceneFlow.STAGES.EXPLORE) {
-      if (!this._pilotTrailPlayed) {
-        this._pilotTrailPlayed = true;
-        this.runPilotStageEffect(pilotSceneFlow.STAGES.EXPLORE);
-      }
-    }
-    if (merchantEventService.ensureReadyAsync) {
-      merchantEventService.ensureReadyAsync().then(() => this.refresh());
-    }
-    if (userFrontend.ensureReadyAsync) {
-      userFrontend.ensureReadyAsync().then(() => this.refresh());
-    }
-  },
-
-  refresh() {
-    this.setData(buildPageData());
-  },
-
-  onBack() {
-    this.safeNavigate('/pages/index/index');
-  },
+  onBack() { this.safeNavigate('/pages/index/index'); },
 
   onOpenDetail(event) {
-    const { pointId } = event.currentTarget.dataset;
-    if (!pointId) {
-      this.showFallbackToast('功能开发中');
-      return;
-    }
-    let url = `/pages/merchant-event/detail/index?pointId=${pointId}`;
-    if (this.data.pilotSceneActive) {
-      url = this.appendPilotSceneUrl(url, pilotSceneFlow.STAGES.DISCOVER);
-    }
-    this.safeNavigate(url);
+    var pointId = event && event.currentTarget && event.currentTarget.dataset ? event.currentTarget.dataset.pointId : '';
+    if (!pointId) { this.showFallbackToast('功能开发中'); return; }
+    this.safeNavigate('/pages/merchant-event/detail/index?pointId=' + encodeURIComponent(pointId));
   },
 
   onOpenScanShell(event) {
-    const { pointId } = event.currentTarget.dataset;
-    var self = this;
-
-    // 探索反馈：glow + vibration + 300-800ms 延迟
-    rhythm.exploreFeedback({ pointId: pointId || '', source: 'onOpenScanShell' }, function () {
-      // 标准触发：emit XR_TRIGGER_EVENT
-      xrTrigger.emit({ pointId: pointId || '' });
-      var url = '/pages/ar-entry/index?pointId=' + encodeURIComponent(pointId || '');
-      if (self.data.pilotSceneActive) {
-        url = self.appendPilotSceneUrl(url, pilotSceneFlow.STAGES.DISCOVER);
-      }
-      self.safeNavigate(url);
-    });
+    var pointId = event && event.currentTarget && event.currentTarget.dataset ? event.currentTarget.dataset.pointId : '';
+    if (!pointId) { this.showFallbackToast('功能开发中'); return; }
+    this.safeNavigate('/pages/ar-entry/index?pointId=' + encodeURIComponent(pointId));
   },
 
-  onOpenProgressCenter() {
-    this.safeNavigate('/pages/progress-center/index');
-  },
-
+  onOpenProgressCenter() { this.safeNavigate('/pages/progress-center/index'); },
   onBottomNavChange() {}
 });

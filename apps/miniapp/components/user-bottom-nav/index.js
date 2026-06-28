@@ -8,17 +8,15 @@ Component({
     }
   },
 
-  data() {
-    return {
-      activeKey: '',
-      items: [
-        { key: 'home', label: '首页', glyph: '⌂', path: '/pages/index/index' },
-        { key: 'map', label: '探索', glyph: '◎', path: '/pages/explore-map/index' },
-        { key: 'relic', label: '信物', glyph: '◈', path: '/pages/relic-archive/index' },
-        { key: 'rights', label: '权益', glyph: '◌', path: '/pages/rights-center/index' },
-        { key: 'me', label: '我的', glyph: '◉', path: '/pages/profile/index' }
-      ]
-    };
+  data: {
+    activeKey: '',
+    items: [
+      { key: 'home', label: '首页', glyph: '⌂', path: '/pages/index/index' },
+      { key: 'map', label: '探索', glyph: '◎', path: '/pages/explore-map/index' },
+      { key: 'relic', label: '信物', glyph: '◈', path: '/pages/relic-archive/index' },
+      { key: 'rights', label: '权益', glyph: '◌', path: '/pages/rights-center/index' },
+      { key: 'me', label: '我的', glyph: '◉', path: '/pages/profile/index' }
+    ]
   },
 
   lifetimes: {

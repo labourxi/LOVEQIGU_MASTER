@@ -1,0 +1,113 @@
+{
+  "schema": "world_tree_v1",
+  "description": "Memory graph connecting all known relics into a World Tree. No isolated nodes.",
+  "generatedAt": "2026-06-27",
+
+  "nodes": [
+    {
+      "id": "memory_preview_1",
+      "name": "入口印记",
+      "personality": {
+        "tone": "warm",
+        "emotionalBias": "echo"
+      },
+      "location": "入口广场·地面",
+      "state": "recognizing"
+    },
+    {
+      "id": "memory_preview_2",
+      "name": "水岸回响",
+      "personality": {
+        "tone": "soft",
+        "emotionalBias": "longing"
+      },
+      "location": "水岸回廊·平台",
+      "state": "sensing"
+    },
+    {
+      "id": "memory_preview_3",
+      "name": "归途印记",
+      "personality": {
+        "tone": "heavy",
+        "emotionalBias": "protection"
+      },
+      "location": "归途通道·末端",
+      "state": "resonating"
+    }
+  ],
+
+  "edges": [
+    {
+      "from": "memory_preview_1",
+      "to": "memory_preview_2",
+      "type": "spatial",
+      "strength": 0.55,
+      "description": "入口广场 leads to 水岸回廊 — spatial adjacency"
+    },
+    {
+      "from": "memory_preview_2",
+      "to": "memory_preview_3",
+      "type": "spatial",
+      "strength": 0.60,
+      "description": "水岸回廊 connects to 归途通道 — pathway continuity"
+    },
+    {
+      "from": "memory_preview_1",
+      "to": "memory_preview_3",
+      "type": "emotion",
+      "strength": 0.40,
+      "description": "Both warm and protective — emotional resonance across distance"
+    },
+    {
+      "from": "memory_preview_2",
+      "to": "memory_preview_1",
+      "type": "emotion",
+      "strength": 0.35,
+      "description": "Longing echoes toward the entry — soft emotional pull"
+    },
+    {
+      "from": "memory_preview_1",
+      "to": "memory_preview_2",
+      "type": "encounter",
+      "strength": 0.30,
+      "description": "Same user interaction sequence — entry then water corridor"
+    },
+    {
+      "from": "memory_preview_3",
+      "to": "memory_preview_1",
+      "type": "temporal",
+      "strength": 0.25,
+      "description": "Return path echoes entry — time-shifted memory overlap"
+    },
+    {
+      "from": "memory_preview_3",
+      "to": "memory_preview_2",
+      "type": "encounter",
+      "strength": 0.45,
+      "description": "User passed through both in same session — encounter chain"
+    },
+    {
+      "from": "memory_preview_2",
+      "to": "memory_preview_3",
+      "type": "temporal",
+      "strength": 0.20,
+      "description": "Water sound fades into departure — temporal drift"
+    }
+  ],
+
+  "autoLinkRules": [
+    "SAME_LOCATION → spatial link",
+    "SAME_EMOTIONAL_TONE → emotion link",
+    "SAME_USER_INTERACTION_HISTORY → encounter link",
+    "DIFFERENT_TIME_EVENTS → temporal link"
+  ],
+
+  "worldTreeState": {
+    "activeNodes": 3,
+    "totalNodes": 3,
+    "totalEdges": 8,
+    "resonanceLevel": "medium",
+    "glowIntensity": "subtle",
+    "edgeTypes": ["spatial", "emotion", "encounter", "temporal"]
+  }
+}

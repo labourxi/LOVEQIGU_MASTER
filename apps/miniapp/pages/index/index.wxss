@@ -1,119 +1,1375 @@
-@import '../../styles/prototype-v1.wxss';
-@import '../../styles/user-phase1.wxss';
+/* ????????????????????????????????????   V5.4 Experience System ??Product UI
+   Deep green / ink mist / warm gold
+   ????????????????????????????????????*/
+
 @import '../../styles/experience-animations-v54.wxss';
 
-.user-home-page {
-  padding-top: 0;
+/* ??? ???? ??? */
+.v54-page {
+  min-height: 100vh;
+  padding-bottom: calc(140rpx + env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, #0F2A22 0%, #1a352e 30%, #F3F0E8 60%, #F3F0E8 100%);
+  position: relative;
+  overflow-x: hidden;
 }
 
-.login-panel,
-.summary-card {
-  padding: 28rpx;
-  border-radius: 16rpx;
-  background: #ffffff;
-  box-shadow: 0 8rpx 24rpx rgba(17, 24, 39, 0.05);
+/* ??? ????????? */
+.v54-atmosphere {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
 }
 
-.login-panel {
-  margin-top: 22rpx;
-  background: #faf8f4;
-  border: 1rpx solid rgba(15, 42, 34, 0.06);
+.v54-atmosphere__mist {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+    rgba(15, 42, 34, 0.92) 0%,
+    rgba(38, 58, 52, 0.82) 30%,
+    rgba(243, 240, 232, 0.4) 60%,
+    rgba(243, 240, 232, 0.15) 100%
+  );
 }
 
-.login-panel--logged {
-  border-color: rgba(182, 138, 61, 0.2);
+.v54-atmosphere__glow {
+  position: absolute;
+  top: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600rpx;
+  height: 400rpx;
+  background: radial-gradient(ellipse, rgba(200, 162, 74, 0.06) 0%, transparent 70%);
 }
 
-.panel-head {
+.v54-atmosphere__fog {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(255, 255, 255, 0.015) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(255, 255, 255, 0.01) 0%, transparent 40%);
+}
+
+/* ??? ???? ??? */
+.v54-skeleton {
+  position: relative;
+  z-index: 1;
+  padding: 80rpx 32rpx 0;
+}
+
+.v54-skeleton__hero {
+  height: 320rpx;
+  border-radius: 24rpx;
+  background: rgba(255, 255, 255, 0.04);
+  margin-bottom: 32rpx;
+  animation: v54-shimmer 2s ease-in-out infinite;
+}
+
+.v54-skeleton__card {
+  height: 120rpx;
+  border-radius: 20rpx;
+  background: rgba(255, 255, 255, 0.03);
+  margin-bottom: 20rpx;
+  animation: v54-shimmer 2s ease-in-out infinite 0.3s;
+}
+
+@keyframes v54-shimmer {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.55; }
+}
+
+/* ????????????????????????????????????
+   BLOCK 1: WORLD MANIFEST
+   The world declares itself
+   ???????????????????????????????????? */
+.v55-manifest {
+  position: relative;
+  z-index: 1;
   display: flex;
-  justify-content: space-between;
-  gap: 16rpx;
+  flex-direction: column;
   align-items: center;
+  padding: 80rpx 32rpx 36rpx;
 }
 
-.panel-title {
-  color: #0F2A22;
-  font-size: 30rpx;
-  font-weight: 700;
+.v55-manifest__seal {
+  width: 80rpx;
+  height: 80rpx;
+  border: 2rpx solid rgba(200, 162, 74, 0.35);
+  border-radius: 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16rpx;
+  box-shadow: 0 0 24rpx rgba(200, 162, 74, 0.05);
 }
 
-.panel-copy {
-  margin-top: 8rpx;
-  color: #6b7280;
-  font-size: 24rpx;
-  line-height: 1.5;
+.v55-manifest__seal-char {
+  font-size: 36rpx;
+  color: #C8A24A;
+  font-weight: 300;
+  opacity: 0.7;
 }
 
-.panel-badge {
-  padding: 8rpx 14rpx;
+.v55-manifest__realm {
+  font-size: 44rpx;
+  font-weight: 800;
+  color: #C8A24A;
+  letter-spacing: 10rpx;
+  margin-bottom: 12rpx;
+  text-shadow: 0 0 32rpx rgba(200, 162, 74, 0.08);
+}
+
+.v55-manifest__whisper {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 4rpx;
+  text-align: center;
+}
+
+.v55-manifest__atmosphere {
+  font-size: 16rpx;
+  color: rgba(255, 255, 255, 0.15);
+  letter-spacing: 6rpx;
+  margin-top: 24rpx;
+  text-transform: lowercase;
+}
+
+/* ??? ???? ?????? ??? */
+.v55-world-response {
+  margin-top: 20rpx;
+  padding: 10rpx 28rpx;
   border-radius: 999rpx;
-  background: #e8d8b4;
-  color: #6b4220;
+  background: rgba(200, 162, 74, 0.08);
+  border: 1rpx solid rgba(200, 162, 74, 0.12);
+  font-size: 22rpx;
+  color: #C8A24A;
+  letter-spacing: 3rpx;
+  animation: v55-response-fade 4s ease-in-out forwards;
+}
+
+@keyframes v55-response-fade {
+  0% { opacity: 0; transform: translateY(10rpx); }
+  15% { opacity: 1; transform: translateY(0); }
+  75% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ??? ???? ????????????? */
+.v55-memory-dialogue {
+  margin-top: 16rpx;
+  padding: 12rpx 28rpx;
+  border-radius: 999rpx;
+  background: rgba(200, 162, 74, 0.06);
+  border: 1rpx solid rgba(200, 162, 74, 0.10);
+  font-size: 20rpx;
+  color: rgba(200, 162, 74, 0.85);
+  letter-spacing: 3rpx;
+  font-style: italic;
+  animation: v55-dialogue-fade 5s ease-in-out forwards;
+}
+
+@keyframes v55-dialogue-fade {
+  0% { opacity: 0; transform: translateY(8rpx); }
+  10% { opacity: 1; transform: translateY(0); }
+  70% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ????????????????????????????????????
+   BLOCK 2: EXPLORE ENTRY
+   Single primary entry point to the world
+   ???????????????????????????????????? */
+
+.v55-explore-entry {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  margin: 0 32rpx 36rpx;
+  padding: 22rpx 20rpx;
+  background: rgba(255, 255, 255, 0.68);
+  backdrop-filter: blur(12rpx);
+  -webkit-backdrop-filter: blur(12rpx);
+  border-radius: 20rpx;
+  transition: all 0.2s ease;
+  border: 1rpx solid rgba(200, 162, 74, 0.06);
+}
+
+.v55-explore-entry:active {
+  transform: scale(0.98);
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.v55-explore-entry__icon {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: rgba(200, 162, 74, 0.08);
+}
+
+.v55-explore-entry__glyph {
+  font-size: 28rpx;
+  color: #0F2A22;
+  opacity: 0.7;
+}
+
+.v55-explore-entry__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.v55-explore-entry__name {
+  font-size: 26rpx;
+  font-weight: 700;
+  color: #0F2A22;
+  letter-spacing: 3rpx;
+}
+
+.v55-explore-entry__desc {
+  font-size: 18rpx;
+  color: #6b7280;
+  margin-top: 2rpx;
+  letter-spacing: 1rpx;
+}
+
+.v55-explore-entry__action {
+  flex-shrink: 0;
+  padding: 0 22rpx;
+  height: 48rpx;
+  line-height: 48rpx;
+  border-radius: 24rpx;
+  background: linear-gradient(180deg, #f0e2c4 0%, #e8d8b4 100%);
+  color: #0F2A22;
   font-size: 20rpx;
   font-weight: 700;
+  letter-spacing: 2rpx;
+  white-space: nowrap;
+  box-shadow: 0 2rpx 10rpx rgba(200, 162, 74, 0.12);
 }
 
-.primary-button {
-  margin-top: 16rpx;
-  height: 72rpx;
-  line-height: 72rpx;
-  border-radius: 36rpx;
-  background: #0F2A22;
-  color: #C8A24A;
-  font-size: 28rpx;
-  font-weight: 700;
+.v55-explore-entry__action:active {
+  transform: scale(0.95);
 }
 
-.primary-button::after {
-  border: 0;
-}
+/* ????????????????????????????????????
+   MEMORY LAYER ? Network murmur and tone shifts
+   Subtle UI effects only. No graph visualization.
+   ???????????????????????????????????? */
 
-.home-skeleton {
-  padding: 24rpx 0 40rpx;
-}
-
-.home-skeleton__block,
-.home-skeleton__pill {
-  background: linear-gradient(90deg, #ece8e0 25%, #f5f2ec 50%, #ece8e0 75%);
-  background-size: 200% 100%;
-  animation: home-skeleton-shimmer 1.2s ease-in-out infinite;
-  border-radius: 16rpx;
-}
-
-.home-skeleton__hero {
-  height: 280rpx;
-  margin-bottom: 24rpx;
-}
-
-.home-skeleton__row {
-  display: flex;
-  gap: 16rpx;
-  margin-bottom: 24rpx;
-}
-
-.home-skeleton__pill {
-  flex: 1;
-  height: 96rpx;
+/* ??? Network Murmur ? subtle world feedback ??? */
+.v55-network-murmur {
+  margin-top: 14rpx;
+  padding: 6rpx 20rpx;
   border-radius: 999rpx;
+  background: rgba(200, 162, 74, 0.03);
+  border: 1rpx solid rgba(200, 162, 74, 0.05);
+  font-size: 18rpx;
+  color: rgba(200, 162, 74, 0.50);
+  letter-spacing: 3rpx;
+  text-align: center;
+  transition: all 1.5s ease;
+  animation: v55-network-murmur-fade 6s ease-in-out infinite;
 }
 
-.home-skeleton__cta {
-  height: 88rpx;
-  margin-bottom: 16rpx;
+@keyframes v55-network-murmur-fade {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
 }
 
-.home-skeleton__panel {
-  height: 160rpx;
-  margin-bottom: 16rpx;
+/* ??? Resonance Field ??Journey Tone Shift ??? */
+.v55-journey--high {
+  /* Subtle gold tint across the journey */
+}
+.v55-journey--high .v55-journey__header::after {
+  content: '';
+  display: block;
+  width: 40rpx;
+  height: 2rpx;
+  background: rgba(200, 162, 74, 0.20);
+  margin: 12rpx auto 0;
+  border-radius: 1rpx;
 }
 
-@keyframes home-skeleton-shimmer {
-  0% {
-    background-position: 200% 0;
+.v55-journey--medium {
+}
+.v55-journey--medium .v55-journey__title {
+  opacity: 0.85;
+}
+.v55-journey--medium .v55-journey__guide {
+  opacity: 0.55;
+}
+
+.v55-journey--low .v55-journey__title {
+  opacity: 0.60;
+}
+
+/* ??? Network Tint on phenomenon items ??? */
+.v55-phenomenon-item__network-tint {
+  font-size: 13rpx;
+  color: rgba(200, 162, 74, 0.35);
+  letter-spacing: 2rpx;
+  margin-top: 4rpx;
+  font-style: italic;
+  opacity: 0.5;
+  animation: v55-network-tint-pulse 10s ease-in-out infinite;
+}
+
+@keyframes v55-network-tint-pulse {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.6; }
+}
+
+/* ??? Subtle atmospheric background pulse when network active ??? */
+.v55-journey--high ~ .v55-resonance-field {
+  animation-duration: 8s !important;
+}
+
+/* ????????????????????????????????????
+   V5.5 ??World Expression Layer
+   Phenomena journey + atmosphere
+   ???????????????????????????????????? */
+
+/* ??? ?????? ??? */
+.v55-atmosphere-particle {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 15% 40%, rgba(200, 162, 74, 0.015) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 60%, rgba(200, 162, 74, 0.01) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 90%, rgba(255, 255, 255, 0.008) 0%, transparent 30%);
+  animation: v55-ambient-drift 20s ease-in-out infinite;
+}
+
+@keyframes v55-ambient-drift {
+  0%, 100% { opacity: 0.3; }
+  25% { opacity: 0.5; }
+  50% { opacity: 0.2; }
+  75% { opacity: 0.4; }
+}
+
+/* ????????????????????????????????????
+   V5.5.1 ??Memory Resonance Field
+   Passive awareness layer
+   ???????????????????????????????????? */
+.v55-resonance-field {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      rgba(200, 162, 74, 0.003) 1px,
+      transparent 2px
+    ),
+    radial-gradient(ellipse at 50% 50%, rgba(200, 162, 74, 0.02) 0%, transparent 60%);
+  animation: v55-resonance-pulse 12s ease-in-out infinite;
+}
+
+@keyframes v55-resonance-pulse {
+  0%, 100% { opacity: 0.15; }
+  30% { opacity: 0.35; }
+  60% { opacity: 0.10; }
+  80% { opacity: 0.25; }
+}
+
+/* ????????????????????????????????????
+   V5.5.1 ??Apparition Flow
+   Emergence sequence: dim ??mist ??glow
+   ???????????????????????????????????? */
+.v55-apparition-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  animation: v55-apparition-idle 30s ease-in-out infinite;
+}
+
+@keyframes v55-apparition-idle {
+  0%, 94% { opacity: 0; }
+  95% { opacity: 0.02; }
+  96% { opacity: 0.06; }
+  97% { opacity: 0.12;
+    background: radial-gradient(ellipse at 50% 60%, rgba(200, 162, 74, 0.04) 0%, transparent 50%);
   }
-  100% {
-    background-position: -200% 0;
+  98% {
+    opacity: 0.08;
+    background: radial-gradient(ellipse at 50% 60%, rgba(200, 162, 74, 0.06) 0%, rgba(200, 162, 74, 0.02) 30%, transparent 60%);
   }
+  99% {
+    opacity: 0.03;
+  }
+  100% { opacity: 0; }
 }
 
-/* XR overlay 已迁出 — XR 仅在 explore-map / AR pages 中触发 */
+/* ????????????????????????????????????
+   V5.5 ??Hierarchical Journey
+   Hero ??Primary (3) ??Secondary (4) ??Deep Memory (2)
+   Vertical progression: TOP ??MID ??DEEP
+   ???????????????????????????????????? */
+
+/* ??? ???? ??? */
+.v55-journey {
+  position: relative;
+  z-index: 1;
+  padding: 0 28rpx 60rpx;
+}
+
+.v55-journey__header {
+  text-align: center;
+  padding: 28rpx 0 36rpx;
+}
+
+.v55-journey__title {
+  font-size: 28rpx;
+  font-weight: 800;
+  color: #0F2A22;
+  letter-spacing: 8rpx;
+}
+
+.v55-journey__guide {
+  font-size: 18rpx;
+  color: #6b7280;
+  letter-spacing: 3rpx;
+  margin-top: 6rpx;
+}
+
+/* ????????????????????????????????????
+   HERO NODE ??Dominant visual anchor
+   Centered, largest scale, gold glow emphasis
+   z-index: focus card ??1 active anchor
+   ???????????????????????????????????? */
+.v55-hero-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 44rpx 32rpx 32rpx;
+  background: linear-gradient(165deg, rgba(200, 162, 74, 0.10) 0%, rgba(255, 255, 255, 0.72) 60%);
+  backdrop-filter: blur(16rpx);
+  -webkit-backdrop-filter: blur(16rpx);
+  border-radius: 28rpx;
+  overflow: hidden;
+  border: 1rpx solid rgba(200, 162, 74, 0.20);
+  box-shadow:
+    0 8rpx 48rpx rgba(200, 162, 74, 0.12),
+    0 0 80rpx rgba(200, 162, 74, 0.04);
+  margin-bottom: 36rpx;
+  text-align: center;
+  transition: all 0.3s ease;
+  animation: v55-hero-fade-in 0.8s ease-out both;
+}
+
+@keyframes v55-hero-fade-in {
+  0% { opacity: 0; transform: translateY(30rpx) scale(0.96); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.v55-hero-card:active {
+  transform: scale(0.97);
+}
+
+/* ??? Hero card sub-elements ??? */
+.v55-hero-card__emotion {
+  letter-spacing: 1rpx;
+  margin-top: 2rpx;
+  font-style: italic;
+  opacity: 0.6;
+}
+
+/* ????????????????????????????????????
+   DEEP MEMORY ZONE ??2 cards, atmospheric
+   Minimal visibility, fade into depth, no interaction demand
+   ???????????????????????????????????? */
+.v55-journey__deep {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-top: 8rpx;
+}
+
+/* Depth fade overlay at the top of the deep zone ??creates atmospheric transition */
+.v55-journey__deep-fade {
+  position: absolute;
+  top: -40rpx;
+  left: -28rpx;
+  right: -28rpx;
+  height: 60rpx;
+  background: linear-gradient(180deg, transparent 0%, rgba(243, 240, 232, 0.08) 40%, rgba(15, 42, 34, 0.02) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.v55-deep-card {
+  margin-bottom: 8rpx;
+  animation: v55-deep-fade-in 1.2s ease-out both;
+}
+
+@keyframes v55-deep-fade-in {
+  0% { opacity: 0; transform: translateY(12rpx) scale(0.95); }
+  100% { opacity: 0.50; transform: translateY(0) scale(0.96); }
+}
+
+.v55-deep-card__body {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  padding: 14rpx 18rpx;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 14rpx;
+  opacity: 0.50;
+  transition: all 0.4s ease;
+}
+
+.v55-deep-card__body:active {
+  opacity: 0.8;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.v55-deep-card__symbol {
+  flex-shrink: 0;
+  font-size: 18rpx;
+  color: #8a9a9e;
+  opacity: 0.4;
+}
+
+.v55-deep-card__name {
+  font-size: 18rpx;
+  font-weight: 400;
+  color: #6b7280;
+  letter-spacing: 3rpx;
+  opacity: 0.7;
+}
+
+/* ????????????????????????????????????
+   ATMOSPHERIC DEPTH ??bottom fade
+   Gradual visual fade at bottom of journey
+   ???????????????????????????????????? */
+.v55-journey::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80rpx;
+  background: linear-gradient(180deg, transparent 0%, rgba(243, 240, 232, 0.10) 40%, rgba(15, 42, 34, 0.04) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ??? Deep zone extra mist overlay ??soft blur gradient ??? */
+.v55-journey__deep::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 42, 34, 0.01) 0%, rgba(15, 42, 34, 0.03) 60%, rgba(15, 42, 34, 0.06) 100%);
+  pointer-events: none;
+  z-index: 1;
+  border-radius: 14rpx;
+}
+
+/* ????????????????????????????????????
+   BLOCK 4: RELIC MANIFESTATION (V5.5.1)
+   Event-driven world occurrence.
+   No list. No cards. No inventory.
+   ???????????????????????????????????? */
+
+/* ??? Manifestation Sequence Overlay ??? */
+.v55-manifestation-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  transition: all 0.3s ease;
+}
+
+.v55-manifestation-dim {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 42, 34, 0.40);
+  transition: opacity 0.4s ease;
+}
+
+.v55-manifestation-mist {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(200, 162, 74, 0.04) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 60%, rgba(200, 162, 74, 0.03) 0%, transparent 50%);
+  transition: opacity 0.5s ease;
+}
+
+.v55-manifestation-pulse {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(200, 162, 74, 0.02) 0%, transparent 50%);
+  animation: v55-manifest-pulse 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes v55-manifest-pulse {
+  0% { opacity: 0.05; }
+  100% { opacity: 0.15; }
+}
+
+/* ??? Phenomenon Block (STEP 6) ??? */
+/* Not clickable. No buttons. Only presence. */
+.v55-phenomenon-block {
+  position: relative;
+  z-index: 1;
+  padding: 0 32rpx 32rpx;
+  animation: v55-phenomenon-fade-in 1.2s ease-out both;
+}
+
+@keyframes v55-phenomenon-fade-in {
+  0% { opacity: 0; transform: translateY(10rpx); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.v55-phenomenon-block__header {
+  display: flex;
+  align-items: baseline;
+  gap: 12rpx;
+  margin-bottom: 20rpx;
+  padding: 0 4rpx;
+}
+
+.v55-phenomenon-block__title {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #0F2A22;
+  letter-spacing: 4rpx;
+  opacity: 0.8;
+}
+
+.v55-phenomenon-block__count {
+  font-size: 18rpx;
+  color: #6b7280;
+  letter-spacing: 2rpx;
+  opacity: 0.6;
+}
+
+/* ??? Phenomenon Item ??? */
+.v55-phenomenon-item {
+  position: relative;
+  margin-bottom: 14rpx;
+  padding: 24rpx 22rpx;
+  background: rgba(255, 255, 255, 0.50);
+  backdrop-filter: blur(10rpx);
+  -webkit-backdrop-filter: blur(10rpx);
+  border-radius: 20rpx;
+  overflow: hidden;
+  transition: all 0.6s ease;
+}
+
+.v55-phenomenon-item:last-of-type {
+  margin-bottom: 0;
+}
+
+.v55-phenomenon-item__aura {
+  position: absolute;
+  top: -20rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300rpx;
+  height: 200rpx;
+  pointer-events: none;
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.v55-phenomenon-item__body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 16rpx;
+}
+
+.v55-phenomenon-item__symbol {
+  flex-shrink: 0;
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: #0F2A22;
+  opacity: 0.5;
+  border-radius: 50%;
+  background: rgba(200, 162, 74, 0.06);
+  border: 1rpx solid rgba(200, 162, 74, 0.08);
+}
+
+.v55-phenomenon-item__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.v55-phenomenon-item__name {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #0F2A22;
+  letter-spacing: 2rpx;
+}
+
+.v55-phenomenon-item__emotion {
+  font-size: 17rpx;
+  color: #7f4f24;
+  letter-spacing: 1rpx;
+  margin-top: 4rpx;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.v55-phenomenon-item__echo {
+  font-size: 15rpx;
+  color: #8a9a9e;
+  letter-spacing: 1rpx;
+  margin-top: 2rpx;
+  opacity: 0.6;
+}
+
+/* ??? Intensity modifiers ??? */
+.v55-phenomenon-item--high {
+  border-left: 4rpx solid rgba(200, 162, 74, 0.25);
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.v55-phenomenon-item--medium {
+  border-left: 3rpx solid rgba(200, 162, 74, 0.12);
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.v55-phenomenon-item--low {
+  border-left: 2rpx solid rgba(138, 154, 158, 0.10);
+  background: rgba(255, 255, 255, 0.35);
+  opacity: 0.80;
+}
+
+/* ????????????????????????????????????
+   V5.5.2 ??Temporal State Modifiers
+   Decay / Sediment / Resonance visual rules
+   ???????????????????????????????????? */
+
+/* ??? Decay effects (STEP 3) ??? */
+/* Reduce opacity + blur edges + simplify */
+.v55-temporal--faded {
+  opacity: 0.65 !important;
+  filter: blur(0.5rpx) !important;
+}
+.v55-temporal--faded .v55-phenomenon-item__emotion {
+  opacity: 0.4;
+}
+.v55-temporal--faded .v55-phenomenon-item__echo {
+  opacity: 0.3;
+}
+
+.v55-temporal--worn {
+  opacity: 0.50 !important;
+  filter: blur(1.5rpx) !important;
+}
+.v55-temporal--worn .v55-phenomenon-item__emotion {
+  opacity: 0.25;
+}
+.v55-temporal--worn .v55-phenomenon-item__echo {
+  opacity: 0.15;
+}
+.v55-temporal--worn .v55-phenomenon-item__symbol {
+  opacity: 0.3;
+}
+
+.v55-temporal--decayed {
+  opacity: 0.35 !important;
+  filter: blur(3rpx) !important;
+  background: rgba(200, 162, 74, 0.08) !important;
+}
+.v55-temporal--decayed .v55-phenomenon-item__emotion {
+  display: none;
+}
+.v55-temporal--decayed .v55-phenomenon-item__echo {
+  display: none;
+}
+.v55-temporal--decayed .v55-phenomenon-item__symbol {
+  opacity: 0.15;
+}
+.v55-temporal--decayed .v55-phenomenon-item__name {
+  font-weight: 400;
+  letter-spacing: 4rpx;
+  opacity: 0.5;
+}
+
+/* ??? Sediment effects (STEP 3) ??? */
+/* Increase glow depth + add texture complexity */
+.v55-temporal--light-sediment .v55-phenomenon-item__aura {
+  opacity: 0.5 !important;
+  width: 320rpx;
+  height: 220rpx;
+}
+
+.v55-temporal--sediment {
+  border-bottom: 1rpx solid rgba(200, 162, 74, 0.06);
+}
+.v55-temporal--sediment .v55-phenomenon-item__aura {
+  opacity: 0.7 !important;
+  width: 360rpx;
+  height: 260rpx;
+  background: radial-gradient(ellipse, rgba(200, 162, 74, 0.06) 0%, transparent 60%) !important;
+}
+
+.v55-temporal--deep-sediment {
+  box-shadow: inset 0 2rpx 12rpx rgba(200, 162, 74, 0.04);
+  border-bottom: 1rpx solid rgba(200, 162, 74, 0.10);
+}
+.v55-temporal--deep-sediment .v55-phenomenon-item__aura {
+  opacity: 0.9 !important;
+  width: 400rpx;
+  height: 300rpx;
+  background: radial-gradient(ellipse, rgba(200, 162, 74, 0.08) 0%, rgba(200, 162, 74, 0.02) 40%, transparent 65%) !important;
+}
+
+/* ??? Resonance effects (STEP 3) ??? */
+/* Subtle pulse animation + warm tone shift */
+.v55-temporal--stirring .v55-phenomenon-item__aura {
+  animation: v55-resonance-stir 8s ease-in-out infinite;
+}
+@keyframes v55-resonance-stir {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+.v55-temporal--aware {
+  border-color: rgba(200, 162, 74, 0.08);
+}
+.v55-temporal--aware .v55-phenomenon-item__aura {
+  animation: v55-resonance-aware 6s ease-in-out infinite;
+}
+@keyframes v55-resonance-aware {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.05); }
+}
+
+.v55-temporal--resonant {
+  border-color: rgba(200, 162, 74, 0.15);
+  box-shadow: 0 0 30rpx rgba(200, 162, 74, 0.04);
+}
+.v55-temporal--resonant .v55-phenomenon-item__aura {
+  animation: v55-resonance-pulse-glow 4s ease-in-out infinite;
+}
+.v55-temporal--resonant .v55-phenomenon-item__emotion {
+  color: #C8A24A;
+  opacity: 0.85;
+}
+
+@keyframes v55-resonance-pulse-glow {
+  0%, 100% { opacity: 0.5; transform: scale(1) translateX(-50%); }
+  50% { opacity: 1.0; transform: scale(1.1) translateX(-50%); }
+}
+
+/* ??? Dynamic CSS class modifiers (from inline ternary in WXML) ??? */
+.v55-phenomenon-item--pulse .v55-phenomenon-item__aura {
+  animation: v55-temporal-pulse-fast 3s ease-in-out infinite !important;
+}
+@keyframes v55-temporal-pulse-fast {
+  0%, 100% { opacity: 0.3; transform: scale(1) translateX(-50%); }
+  50% { opacity: 0.9; transform: scale(1.12) translateX(-50%); }
+}
+
+.v55-phenomenon-item--warm .v55-phenomenon-item__aura {
+  filter: hue-rotate(-10deg) saturate(1.3) !important;
+}
+
+/* ??? Time Memory Feedback (STEP 6) ??? */
+.v55-phenomenon-item__time-feedback {
+  font-size: 15rpx;
+  color: rgba(200, 162, 74, 0.60);
+  letter-spacing: 2rpx;
+  margin-top: 6rpx;
+  font-style: italic;
+  opacity: 0.75;
+  animation: v55-time-feedback-fade 4s ease-in-out forwards;
+}
+
+@keyframes v55-time-feedback-fade {
+  0% { opacity: 0; transform: translateY(4rpx); }
+  15% { opacity: 0.75; transform: translateY(0); }
+  70% { opacity: 0.75; }
+  100% { opacity: 0; }
+}
+
+/* ????????????????????????????????????
+   LEGACY ??Relic behavior states (retained for phenomenon animation)
+   ???????????????????????????????????? */
+.v55-phenomenon-item--high .v55-phenomenon-item__aura {
+  animation: v55-manifest-high 6s ease-in-out infinite;
+}
+@keyframes v55-manifest-high {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+/* ??? ??????fallback ??? */
+.v55-scenic-fallback {
+  padding: 60rpx 0;
+  text-align: center;
+  font-size: 26rpx;
+  color: #6b7280;
+  letter-spacing: 2rpx;
+}
+
+/* ??? ???? ??? */
+.v55-phenomenon-block:last-of-type {
+  margin-bottom: 32rpx;
+}
+
+/* ????????????????????????????????????
+   V5.5.5 ??World Awareness Layer
+   Controlled presentation adaptation based on user profile.
+   MINIMAL / BALANCED / DEEP expression modes.
+   NO layout changes. NO new pages. ONLY presentation shifts.
+   ???????????????????????????????????? */
+
+/* ??? Atmosphere intensity per mode ??? */
+
+/* MINIMAL: light background, fast pulse */
+.v55-atmosphere--minimal .v54-atmosphere__mist {
+  opacity: 0.85;
+  transition: opacity 2s ease;
+}
+.v55-atmosphere--minimal .v54-atmosphere__glow {
+  opacity: 0.4;
+  transition: opacity 2s ease;
+}
+.v55-particle--minimal {
+  animation: v55-ambient-drift-minimal 12s ease-in-out infinite;
+}
+@keyframes v55-ambient-drift-minimal {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.30; }
+}
+
+/* DEEP: stronger background, slow pulse */
+.v55-atmosphere--deep .v54-atmosphere__mist {
+  opacity: 0.98;
+  transition: opacity 3s ease;
+}
+.v55-atmosphere--deep .v54-atmosphere__glow {
+  opacity: 1.0;
+  transition: opacity 3s ease;
+}
+.v55-particle--deep {
+  animation: v55-ambient-drift-deep 30s ease-in-out infinite;
+}
+@keyframes v55-ambient-drift-deep {
+  0%, 100% { opacity: 0.25; }
+  25% { opacity: 0.55; }
+  50% { opacity: 0.15; }
+  75% { opacity: 0.40; }
+}
+
+/* ??? Resonance field intensity per mode ??? */
+.v55-field--minimal {
+  opacity: 0.15;
+  animation-duration: 20s !important;
+}
+.v55-field--deep {
+  opacity: 0.45;
+  animation-duration: 12s !important;
+}
+
+/* ??? Apparition overlay per mode ??? */
+.v55-apparition--minimal {
+  opacity: 0.3;
+}
+.v55-apparition--deep {
+  opacity: 0.7;
+}
+
+/* ??? Journey header per mode ??? */
+.v55-journey__header--minimal {
+  padding: 16rpx 0 20rpx;
+  transition: padding 0.8s ease;
+}
+.v55-journey__header--minimal .v55-journey__title {
+  font-size: 24rpx;
+  letter-spacing: 6rpx;
+  opacity: 0.7;
+  transition: all 1s ease;
+}
+.v55-journey__header--minimal .v55-journey__guide {
+  display: none;
+}
+
+.v55-journey__header--deep {
+  padding: 32rpx 0 44rpx;
+  transition: padding 0.8s ease;
+}
+.v55-journey__header--deep .v55-journey__title {
+  font-size: 30rpx;
+  letter-spacing: 10rpx;
+  color: #0a1f18;
+  transition: all 1s ease;
+}
+.v55-journey__header--deep .v55-journey__guide {
+  font-size: 20rpx;
+  color: #7f4f24;
+  letter-spacing: 4rpx;
+  opacity: 0.75;
+  transition: all 1s ease;
+}
+
+/* ??? Journey containers per mode ??? */
+.v55-journey--minimal {
+  padding-top: 10rpx;
+  transition: padding 1s ease;
+}
+.v55-journey--minimal .v55-journey__secondary {
+  gap: 14rpx;
+  transition: gap 0.8s ease;
+}
+
+.v55-journey--deep {
+  padding-top: 24rpx;
+  transition: padding 1s ease;
+}
+.v55-journey--deep .v55-journey__secondary {
+  gap: 20rpx;
+  transition: gap 0.8s ease;
+}
+
+/* ??? Hero card per mode ??? */
+.v55-hero-card--minimal {
+  padding: 32rpx 28rpx 24rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 24rpx rgba(200, 162, 74, 0.06);
+  transition: all 1s ease;
+}
+.v55-hero-card--minimal .v55-hero-card__glow {
+  animation: none;
+  opacity: 0.15;
+}
+.v55-hero-card--minimal .v55-hero-card__name {
+  font-size: 28rpx;
+  letter-spacing: 4rpx;
+  transition: all 0.8s ease;
+}
+.v55-hero-card--minimal .v55-hero-card__emotion {
+  font-size: 18rpx;
+  opacity: 0.5;
+  transition: all 0.8s ease;
+}
+.v55-hero-card--minimal .v55-hero-card__action {
+  opacity: 0.4;
+  transition: all 0.8s ease;
+}
+
+.v55-hero-card--deep {
+  padding: 52rpx 32rpx 40rpx;
+  margin-bottom: 48rpx;
+  background: linear-gradient(165deg, rgba(200, 162, 74, 0.15) 0%, rgba(255, 255, 255, 0.80) 60%);
+  box-shadow:
+    0 10rpx 64rpx rgba(200, 162, 74, 0.18),
+    0 0 120rpx rgba(200, 162, 74, 0.06);
+  transition: all 1s ease;
+}
+.v55-hero-card--deep .v55-hero-card__glow {
+  animation: v55-hero-glow-pulse-deep 5s ease-in-out infinite;
+}
+@keyframes v55-hero-glow-pulse-deep {
+  0%, 100% { opacity: 0.25; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1.0; transform: translateX(-50%) scale(1.12); }
+}
+.v55-hero-card--deep .v55-hero-card__name {
+  font-size: 34rpx;
+  letter-spacing: 10rpx;
+  color: #0a1f18;
+  transition: all 0.8s ease;
+}
+.v55-hero-card--deep .v55-hero-card__emotion {
+  font-size: 22rpx;
+  color: #7f4f24;
+  opacity: 0.9;
+  transition: all 0.8s ease;
+}
+.v55-hero-card--deep .v55-hero-card__action {
+  color: #C8A24A;
+  opacity: 0.85;
+  transition: all 0.8s ease;
+}
+
+.v55-secondary-card--minimal .v55-secondary-card__name {
+  font-size: 20rpx;
+  opacity: 0.65;
+  transition: all 0.8s ease;
+}
+.v55-secondary-card--minimal .v55-secondary-card__emotion {
+  display: none;
+}
+
+.v55-secondary-card--deep {
+  padding: 20rpx 20rpx;
+  transition: all 0.8s ease;
+}
+.v55-secondary-card--deep .v55-secondary-card__name {
+  font-size: 24rpx;
+  color: #0a1f18;
+  transition: all 0.8s ease;
+}
+.v55-secondary-card--deep .v55-secondary-card__emotion {
+  font-size: 16rpx;
+  font-style: italic;
+  color: #7f4f24;
+  opacity: 0.7;
+  transition: all 0.8s ease;
+}
+
+/* ??? Deep card per mode ??? */
+.v55-deep-card--minimal {
+  transition: all 0.8s ease;
+}
+.v55-phenomenon-item--minimal .v55-phenomenon-item__name {
+  font-size: 24rpx;
+  letter-spacing: 3rpx;
+  transition: all 0.8s ease;
+}
+.v55-phenomenon-item--minimal .v55-phenomenon-item__emotion {
+  font-size: 16rpx;
+  opacity: 0.4;
+  transition: all 0.8s ease;
+}
+.v55-phenomenon-item--minimal .v55-phenomenon-item__echo {
+  display: none;
+}
+
+.v55-phenomenon-item--deep {
+  padding: 28rpx 26rpx;
+  background: rgba(200, 162, 74, 0.02);
+  transition: all 0.8s ease;
+}
+.v55-phenomenon-item--deep .v55-phenomenon-item__name {
+  font-size: 30rpx;
+  letter-spacing: 6rpx;
+  color: #0a1f18;
+  transition: all 0.8s ease;
+}
+.v55-phenomenon-item--deep .v55-phenomenon-item__emotion {
+  font-size: 20rpx;
+  color: #7f4f24;
+  font-style: italic;
+  opacity: 0.9;
+  transition: all 0.8s ease;
+}
+.v55-phenomenon-item--deep .v55-phenomenon-item__echo {
+  letter-spacing: 3rpx;
+  color: #4a3728;
+  opacity: 0.7;
+  transition: all 0.8s ease;
+}
+.v55-phenomenon-item--deep .v55-phenomenon-item__time-feedback {
+  font-size: 15rpx;
+  color: rgba(200, 162, 74, 0.60);
+  font-style: italic;
+  transition: all 1s ease;
+}
+
+/* ??? Network tint per mode ??? */
+.v55-network-tint--deep {
+  font-size: 14rpx;
+  color: rgba(200, 162, 74, 0.55);
+  letter-spacing: 3rpx;
+  animation: v55-network-tint-pulse-deep 8s ease-in-out infinite;
+}
+@keyframes v55-network-tint-pulse-deep {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.70; }
+}
+
+/* ??? World response text per mode ??? */
+.v55-world-response {
+  transition: font-size 0.8s ease, color 0.8s ease, letter-spacing 0.8s ease;
+}
+
+/* ??? Journey overall container per mode spacing ??? */
+.v55-journey--minimal {
+  padding: 0 24rpx;
+}
+.v55-journey--deep {
+  padding: 0 28rpx;
+}
+
+/* ????????????????????????????????????
+   V5.6 ? Release Polish
+   Hero focus, unified spacing, reduced visual noise
+   ???????????????????????????????????? */
+
+/* ??? Hero card place label ??? */
+.v55-hero-card__place-label {
+  font-size: 18rpx;
+  color: rgba(200, 162, 74, 0.50);
+  letter-spacing: 4rpx;
+  margin-bottom: 10rpx;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+/* ??? Journey secondary ? now the 3 primary follow-up cards (indices 1-3) ??? */
+.v55-journey__secondary {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 0;
+}
+
+.v55-secondary-card {
+  margin-bottom: 12rpx;
+  animation: v55-card-fade 0.7s ease-out both;
+}
+
+@keyframes v55-card-fade {
+  0% { opacity: 0; transform: translateY(16rpx); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.v55-secondary-card__body {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+  padding: 24rpx 22rpx;
+  background: rgba(255, 255, 255, 0.58);
+  backdrop-filter: blur(10rpx);
+  -webkit-backdrop-filter: blur(10rpx);
+  border-radius: 18rpx;
+  border-left: 3rpx solid rgba(200, 162, 74, 0.18);
+  transition: all 0.3s ease;
+}
+
+.v55-secondary-card__body:active {
+  transform: scale(0.97);
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.v55-secondary-card__icon {
+  flex-shrink: 0;
+  width: 40rpx;
+  height: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22rpx;
+  color: rgba(200, 162, 74, 0.45);
+  opacity: 0.6;
+}
+
+.v55-secondary-card__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.v55-secondary-card__name {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #0F2A22;
+  letter-spacing: 2rpx;
+}
+
+.v55-secondary-card__emotion {
+  font-size: 16rpx;
+  color: #7f4f24;
+  letter-spacing: 1rpx;
+  margin-top: 3rpx;
+  font-style: italic;
+  opacity: 0.6;
+}
+
+.v55-secondary-card__action {
+  flex-shrink: 0;
+  padding: 0 18rpx;
+  height: 44rpx;
+  line-height: 44rpx;
+  border-radius: 22rpx;
+  background: rgba(200, 162, 74, 0.08);
+  color: #7f4f24;
+  font-size: 18rpx;
+  font-weight: 600;
+  letter-spacing: 2rpx;
+  white-space: nowrap;
+}
+
+.v55-secondary-card__action:active {
+  background: rgba(200, 162, 74, 0.18);
+}
+
+/* ??? Journey context ? background nodes (indices 4-9) ??? */
+.v55-journey__context {
+  position: relative;
+  margin-top: 4rpx;
+  padding-top: 6rpx;
+}
+
+.v55-journey__context-fade {
+  position: absolute;
+  top: -30rpx;
+  left: 0;
+  right: 0;
+  height: 40rpx;
+  background: linear-gradient(180deg, transparent 0%, rgba(243, 240, 232, 0.06) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.v55-context-card {
+  margin-bottom: 6rpx;
+  animation: v55-context-fade-in 1.2s ease-out both;
+}
+
+@keyframes v55-context-fade-in {
+  0% { opacity: 0; transform: translateY(8rpx); }
+  100% { opacity: 0.45; transform: translateY(0); }
+}
+
+.v55-context-card__body {
+  padding: 12rpx 18rpx;
+  border-radius: 12rpx;
+  transition: all 0.4s ease;
+}
+
+.v55-context-card__body:active {
+  opacity: 0.75;
+}
+
+.v55-context-card__name {
+  font-size: 18rpx;
+  font-weight: 400;
+  color: #6b7280;
+  letter-spacing: 3rpx;
+  opacity: 0.65;
+}
+
+/* ??? Bottom fade for journey container ??? */
+.v55-journey {
+  position: relative;
+  z-index: 1;
+  padding: 0 28rpx 40rpx;
+}
+
+/* ??? Journey bottom gradient fade ??? */
+.v55-journey::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60rpx;
+  background: linear-gradient(180deg, transparent 0%, rgba(243, 240, 232, 0.08) 40%, rgba(15, 42, 34, 0.03) 100%);
+  pointer-events: none;
+  z-index: 2;
+}

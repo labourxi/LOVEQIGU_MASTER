@@ -1,0 +1,167 @@
+{
+  "schema": "v5_8_critical_boot_fixes_report_v1",
+  "generatedAt": "2026-06-28T11:17:00+08:00",
+  "sessionTitle": "V5.8 关键启动修复 — 白屏修复与启动稳定性加固",
+  "summary": "完成 6 项关键启动修复，解决因 JSON require 不兼容、模块路径错误、WXSS 编译错误、WXML 运算符不支持、XR 环境不适配导致的白屏和运行时错误。",
+
+  "fixes": [
+    {
+      "id": "FIX-001",
+      "title": "World Seed 启动失败修复 — JSON require 不兼容",
+      "severity": "CRITICAL",
+      "error_message": "require('../../data/world_seed_v1.json') → cannot find module",
+      "root_cause": "微信小程序 require() 不支持加载项目包外的 .json 文件",
+      "changes": [
+        "创建 apps/miniapp/data/world_seed_v1.js 作为 JS 模块导出（不再用 .json）",
+        "修改 app.js loadWorldSeed(): require('../../data/world_seed_v1.json') → require('./data/world_seed_v1')",
+        "删除 /data/world_seed_v1.json 源文件",
+        "添加全局 safe fallback: __SAFE_MODE__ 标志 + 空数据默认值"
+      ],
+      "files_modified": [
+        "apps/miniapp/app.js",
+        "apps/miniapp/data/world_seed_v1.js (created)"
+      ],
+      "files_deleted": [
+        "data/world_seed_v1.json"
+      ]
+    },
+    {
+      "id": "FIX-002",
+      "title": "统一 Seed 模块系统 — 消除 JSON/JS 双格式冲突",
+      "severity": "HIGH",
+      "root_cause": "JSON 与 JS 双模块格式共存，require 路径不一致",
+      "changes": [
+        "将 world_seed_v1.js 声明为唯一 Single Source of Truth",
+        "替换所有文件中 /data/world_seed_v1.json 注释引用为 apps/miniapp/data/world_seed_v1.js",
+        "更新 4 个 legacy .seed.js 文件的注释引用"
+      ],
+      "files_modified": [
+        "apps/miniapp/data/world_seed_v1.js (header)",
+        "apps/miniapp/pages/index/index.js",
+        "apps/miniapp/pages/explore-map/index.js",
+        "apps/miniapp/pages/relic-archive/index.js",
+        "apps/miniapp/pages/reward-center/index.js",
+        "apps/miniapp/data/merchant_event/relics.seed.js",
+        "apps/miniapp/data/merchant_event/tasks.seed.js",
+        "apps/miniapp/data/merchant_event/exploration_points.seed.js",
+        "apps/miniapp/data/merchant_event/merchants.seed.js"
+      ],
+      "files_deleted": [
+        "data/world_seed_v1.json"
+      ]
+    },
+    {
+      "id": "FIX-003",
+      "title": "onLaunch 阻塞 UI 渲染修复",
+      "severity": "CRITICAL",
+      "root_cause": "app.js onLaunch 中含有同步 seed 加载、异步 platform-info init、setTimeout(5000) 启动链，阻塞 UI 首帧渲染",
+      "changes": [
+        "将 world seed 加载移至模块求值时（App() 构造函数之前）",
+        "将 platform-info 初始化移至 deferredInit()，由页面 onReady 生命周期触发",
+        "移除 onLaunch 中的 getDeviceInfoAsync、setTimeout 启动链、setStorageSync",
+        "onLaunch 仅保留 2 个标志位设置（__APP_LAUNCHED__、__BOOT_STATE__）",
+        "添加 __BOOT_STATE__ = { launched, uiRendered, asyncReady } 启动序列守卫",
+        "移除 shareGuard 引用和调用"
+      ],
+      "files_modified": [
+        "apps/miniapp/app.js (重写)",
+        "apps/miniapp/pages/index/index.js (添加 onReady 生命周期)"
+      ],
+      "boot_order": [
+        "模块求值 → seed 加载（同步 require）",
+        "App() 调用 → onLaunch 仅设标志",
+        "页面 onLoad → 读取 worldSeed，构建 UI 数据",
+        "UI 首帧渲染 → WeChat 触发 onReady",
+        "onReady → deferredInit() → platform-info 初始化"
+      ]
+    },
+    {
+      "id": "FIX-004",
+      "title": "WXSS 编译错误 — 孤立 CSS 声明导致白屏",
+      "severity": "CRITICAL",
+      "error_message": "WXSS 编译失败：orphaned CSS declarations outside selector block",
+      "root_cause": "index.wxss 第 480-484 行有 4 条 CSS 声明缺失选择器，处于 .v55-hero-card:active {} 的花括号之外",
+      "changes": [
+        "恢复缺失的 .v55-hero-card__emotion 选择器",
+        "修正 filter: blur({{item.temporalBlur}}rpx) 添加空安全",
+        "修正 components/star-activation-ritual canvasWidth/canvasHeight 绑定"
+      ],
+      "files_modified": [
+        "apps/miniapp/pages/index/index.wxss",
+        "apps/miniapp/pages/index/index.wxml (空安全绑定)",
+        "apps/miniapp/components/star-activation-ritual/index.wxml"
+      ]
+    },
+    {
+      "id": "FIX-005",
+      "title": "WXML 编译错误 — 不支持的 JS 运算符",
+      "severity": "HIGH",
+      "error_message": "Unexpected token '?' in WXML expression",
+      "root_cause": "微信小程序 WXML 不支持 ES2020 的 ??（空值合并）和 ?.（可选链）运算符",
+      "changes": [
+        "移除所有 WXML 文件中 ?? 运算符",
+        "修复 index.wxml: temporalBlur ?? 0 → temporalBlur（JS 层确保始终为 number）",
+        "修复 star-activation-ritual/index.wxml: canvasWidth ?? 640 → canvasWidth（data 中默认值保证）"
+      ],
+      "files_modified": [
+        "apps/miniapp/pages/index/index.wxml",
+        "apps/miniapp/components/star-activation-ritual/index.wxml"
+      ]
+    },
+    {
+      "id": "FIX-006",
+      "title": "XR 子系统稳定性加固 — 不适配设备降级",
+      "severity": "MEDIUM",
+      "root_cause": "runtime-builder.js 在不支持 WebAssembly 或 xr-frame 的设备上仍尝试初始化 XR 管线，产生运行时错误",
+      "changes": [
+        "添加 FEATURE_XR 能力标志（WebAssembly + wx.canIUse('xr-frame')）",
+        "在 startXRRenderPipeline() 和 startXRPipelineStable() 入口检测并返回安全降级",
+        "在 AR 入口页面 onEnterARScan() 添加 FEATURE_XR 门禁",
+        "FEATURE_XR = false 时静默跳过所有 3D 渲染，不产生报错日志"
+      ],
+      "files_modified": [
+        "apps/miniapp/core/runtime/runtime-builder.js",
+        "apps/miniapp/pages/ar-entry/index.js"
+      ]
+    }
+  ],
+
+  "files_summary": {
+    "created": [
+      "apps/miniapp/data/world_seed_v1.js (种子数据 JS 模块)"
+    ],
+    "deleted": [
+      "data/world_seed_v1.json (旧 JSON 种子)"
+    ],
+    "modified": [
+      "apps/miniapp/app.js (重写 onLaunch + seed 加载机制)",
+      "apps/miniapp/pages/index/index.js (添加 onReady 生命周期)",
+      "apps/miniapp/pages/index/index.wxss (修复孤立 CSS 声明)",
+      "apps/miniapp/pages/index/index.wxml (空安全绑定修复)",
+      "apps/miniapp/pages/explore-map/index.js (注释更新)",
+      "apps/miniapp/pages/relic-archive/index.js (注释更新)",
+      "apps/miniapp/pages/reward-center/index.js (注释更新)",
+      "apps/miniapp/pages/ar-entry/index.js (FEATURE_XR 门禁)",
+      "apps/miniapp/core/runtime/runtime-builder.js (FEATURE_XR 标志 + 管线守卫)",
+      "apps/miniapp/components/star-activation-ritual/index.wxml (空安全绑定修复)",
+      "apps/miniapp/data/merchant_event/relics.seed.js (注释更新)",
+      "apps/miniapp/data/merchant_event/tasks.seed.js (注释更新)",
+      "apps/miniapp/data/merchant_event/exploration_points.seed.js (注释更新)",
+      "apps/miniapp/data/merchant_event/merchants.seed.js (注释更新)",
+      "system/beta/v57_beta_report.json (注释引用更新)"
+    ]
+  },
+
+  "acceptance_criteria": {
+    "app_always_loads": true,
+    "no_white_screen_from_missing_seed": true,
+    "no_async_in_onLaunch": true,
+    "wxss_compiles_successfully": true,
+    "no_unsupported_js_operators_in_wxml": true,
+    "no_xr_errors_on_unsupported_devices": true,
+    "fallback_ui_always_shown": true,
+    "errors_become_warnings_only": true
+  },
+
+  "status": "✅ ALL FIXES COMPLETED — 6 critical/high issues resolved"
+}

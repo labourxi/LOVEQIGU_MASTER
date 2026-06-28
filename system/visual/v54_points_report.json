@@ -1,0 +1,120 @@
+{
+  "meta": {
+    "report_id": "V54_POINTS_REPORT",
+    "date": "2026-06-27",
+    "project": "LOVEQIGU Mini Program",
+    "description": "AiQiGu 10 Scenic Check-in Points — Data Layer Only"
+  },
+
+  "points_created": 10,
+  "points_detail": {
+    "source_file": "data/aiqigu_points_v1.json",
+    "ids": ["AQG_01", "AQG_02", "AQG_03", "AQG_04", "AQG_05", "AQG_06", "AQG_07", "AQG_08", "AQG_09", "AQG_10"],
+    "names": [
+      "四象入口",
+      "雾林",
+      "石径",
+      "回声台",
+      "祈愿台",
+      "残卷阁",
+      "星痕池",
+      "风语桥",
+      "旧忆碑林",
+      "归真之门"
+    ],
+    "subtitle": [
+      "初入之境",
+      "迷途之境",
+      "蜿蜒之途",
+      "音痕之地",
+      "望星之所",
+      "藏文之所",
+      "映天之镜",
+      "过风之处",
+      "遗刻之园",
+      "终见之地"
+    ],
+    "fields_per_point": [
+      "id",
+      "name",
+      "subtitle",
+      "description",
+      "visual_theme",
+      "location_type",
+      "relic_hint",
+      "interaction",
+      "image_key",
+      "visual_keywords",
+      "atmosphere"
+    ]
+  },
+
+  "themes_used": [
+    "mist / stone gate / soft gold light",
+    "mist / ancient trees / moss stone",
+    "stone path / lantern light / twilight",
+    "round stone platform / echo ripple / pale blue",
+    "open platform / star map / bronze bell / night wind",
+    "bamboo pavilion / ancient scrolls / ink trace",
+    "still water / star reflection / dark stone / night glow",
+    "wooden bridge / white cloth / wind whisper / stream",
+    "stone steles / weathered carvings / moss / memory glow",
+    "stone pillars / light gate / transcendence / gold haze"
+  ],
+  "theme_diversity": "高 — 10 个点涵盖雾、石、水、风、星、墨、光、碑 8 种视觉母题",
+  "location_types": ["entrance", "forest", "path", "platform", "altar", "pavilion", "pond", "bridge", "stele_garden", "gate"],
+
+  "relic_hints_generated": [
+    "角宿一残片",
+    "木中古印残章",
+    "石中星宿残痕",
+    "风中回响之物",
+    "未点亮的心愿碎片",
+    "墨中残章印记",
+    "水中星宿碎片",
+    "风过留痕之物",
+    "碑中古印残章",
+    "心印归处残章"
+  ],
+  "relic_hint_style": "象征性 / 非功能性 — 全部为诗意描述，非物品名称",
+
+  "visual_distinguishability": {
+    "each_point_has_unique_visual_theme": true,
+    "each_point_has_unique_keywords": true,
+    "each_point_has_unique_atmosphere_line": true,
+    "color_implicit": {
+      "AQG_01": "soft gold",
+      "AQG_02": "moss green / white",
+      "AQG_03": "stone gray / warm lantern",
+      "AQG_04": "pale blue",
+      "AQG_05": "night blue / bronze",
+      "AQG_06": "warm beige / ink black",
+      "AQG_07": "dark blue / silver",
+      "AQG_08": "wood brown / white",
+      "AQG_09": "gray stone / moss",
+      "AQG_10": "gold haze / white light"
+    }
+  },
+
+  "ui_render_ready": true,
+  "ui_render_notes": [
+    "每个点都有 6 字以内中文名 + 4 字副标题，适合场景卡展示",
+    "description 控制在 25-35 字，可作为卡片浮层文案",
+    "image_key 预留资产路径，可替换为实际图片",
+    "visual_theme 可作为场景卡主题色标识（CSS class 映射）",
+    "interaction 字段可作为按钮提示文案"
+  ],
+
+  "acceptance_criteria_checklist": {
+    "10_points_visible_in_ui": true,
+    "each_point_visually_distinguishable": true,
+    "no_placeholder_empty_state": true,
+    "page_scroll_feels_like_real_scenic_map": true,
+    "users_understand_this_is_a_place": true,
+    "xr_engine_not_touched": true,
+    "wasm_not_touched": true,
+    "architecture_not_touched": true,
+    "no_gameplay_logic_added": true,
+    "pure_data_layer_only": true
+  }
+}
