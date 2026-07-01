@@ -1,0 +1,47 @@
+<view class="proto-page user-phase1-page mc-page">
+  <!-- ═══ L1 — Hero Focus Area ═══ -->
+  <view class="proto-hero">
+    <view class="proto-kicker">探索礼遇</view>
+    <view class="proto-title">商户礼券</view>
+    <view class="proto-subtitle">完成探索点打卡，解锁在地商家礼券</view>
+  </view>
+
+  <!-- ═══ 空白状态 ═══ -->
+  <view wx:if="{{!hasCoupons}}" class="mc-empty-state">
+    <empty-state type="coupon" />
+  </view>
+
+  <!-- ═══ L2 — Journey Narrative Sections ═══ -->
+  <view wx:if="{{hasCoupons}}" class="mc-journey">
+    <view class="proto-section" wx:for="{{sections}}" wx:key="id">
+      <view class="proto-section-head">
+        <view class="proto-section-title">{{item.title}}</view>
+        <view class="proto-section-more">{{item.kicker}}</view>
+      </view>
+      <view class="mc-journey-list">
+        <view
+          class="mc-coupon-card mc-coupon-card--{{item.journeyStatus}}"
+          wx:for="{{item.items}}"
+          wx:key="id"
+          data-id="{{id}}"
+          bindtap="onShowQr"
+        >
+          <view class="mc-coupon-card__glow" wx:if="{{item.showGlow}}"></view>
+          <view class="mc-coupon-card__header">
+            <view class="mc-coupon-card__value">{{item.benefit}}</view>
+            <view class="mc-coupon-card__title">{{item.title}}</view>
+          </view>
+          <view class="mc-coupon-card__body">
+            <view class="mc-coupon-card__merchant">{{item.merchant}}</view>
+            <view class="mc-coupon-card__desc">{{item.desc}}</view>
+            <view class="mc-coupon-card__event">{{item.event}}</view>
+          </view>
+          <view class="mc-coupon-card__footer">
+            <view wx:if="{{item.hasQr}}" class="mc-coupon-card__qr-placeholder">核销码</view>
+            <view wx:else class="mc-coupon-card__stamp">{{item.journeyLabel}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

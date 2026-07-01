@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "observerVersion": "V5.9.11",
+    "systemVersion": "V5.9.11",
+    "generatedAt": "2026-06-28T05:19:25.892Z",
+    "uptimeMs": 4
+  },
+  "health": {
+    "renderStabilityIndex": 0,
+    "stateToUIConsistencyScore": 0,
+    "visualDriftRate": 0,
+    "renderTreeIntegrityScore": 100,
+    "overallHealthScore": 33
+  },
+  "drift": {
+    "currentLevel": "LOW",
+    "driftRate": "0%"
+  },
+  "anomalies": {
+    "active": 5,
+    "recent": [
+      {
+        "type": "RENDER_LOOP",
+        "severity": "WARNING",
+        "detail": "State rendered 11 times (threshold: 10)",
+        "timestamp": 1782623965890
+      },
+      {
+        "type": "RENDER_LOOP",
+        "severity": "WARNING",
+        "detail": "State rendered 12 times (threshold: 10)",
+        "timestamp": 1782623965891
+      },
+      {
+        "type": "RENDER_LOOP",
+        "severity": "WARNING",
+        "detail": "State rendered 13 times (threshold: 10)",
+        "timestamp": 1782623965891
+      },
+      {
+        "type": "RENDER_LOOP",
+        "severity": "WARNING",
+        "detail": "State rendered 14 times (threshold: 10)",
+        "timestamp": 1782623965891
+      },
+      {
+        "type": "RENDER_LOOP",
+        "severity": "WARNING",
+        "detail": "State rendered 15 times (threshold: 10)",
+        "timestamp": 1782623965891
+      }
+    ],
+    "thresholds": {
+      "maxRenderTimeMs": 500,
+      "maxRepeatedRenders": 10,
+      "maxStructuralChanges": 3,
+      "minConsistencyScore": 60,
+      "maxDriftRate": 20
+    }
+  },
+  "performance": {
+    "totalRenders": 2,
+    "totalStateTransitions": 2,
+    "totalVisualEngineCalls": 1,
+    "totalAnomalies": 8,
+    "totalSafeModeActivations": 1,
+    "averageRenderTimeMs": 0,
+    "maxRenderTimeMs": 0,
+    "minRenderTimeMs": 0
+  },
+  "events": {
+    "totalLogged": 18,
+    "recentEvents": [
+      {
+        "id": 14,
+        "timestamp": 1782623965891,
+        "msSinceBoot": 3,
+        "category": "anomaly",
+        "type": "RENDER_LOOP",
+        "data": {
+          "type": "RENDER_LOOP",
+          "severity": "WARNING",
+          "detail": "State rendered 15 times (threshold: 10)",
+          "timestamp": 1782623965891
+        }
+      },
+      {
+        "id": 15,
+        "timestamp": 1782623965891,
+        "msSinceBoot": 3,
+        "category": "safe_mode",
+        "type": "recommended",
+        "data": {
+          "reason": "Anomaly threshold exceeded",
+          "anomalyCount": 3,
+          "healthMetrics": {
+            "rsi": 100,
+            "scs": 100,
+            "vdr": 0,
+            "rti": 100
+          }
+        }
+      },
+      {
+        "id": 16,
+        "timestamp": 1782623965891,
+        "msSinceBoot": 3,
+        "category": "baseline",
+        "type": "loaded",
+        "data": {
+          "path": "D:\\LOVEQIGU_MASTER\\system\\release\\v59_production_lock.json"
+        }
+      },
+      {
+        "id": 17,
+        "timestamp": 1782623965891,
+        "msSinceBoot": 3,
+        "category": "baseline",
+        "type": "comparison",
+        "data": {
+          "nodeMismatch": false,
+          "hierarchyDrift": false,
+          "layoutInconsistency": false,
+          "totalMismatches": 0
+        }
+      },
+      {
+        "id": 18,
+        "timestamp": 1782623965891,
+        "msSinceBoot": 3,
+        "category": "baseline",
+        "type": "comparison",
+        "data": {
+          "nodeMismatch": true,
+          "hierarchyDrift": true,
+          "layoutInconsistency": false,
+          "totalMismatches": 3
+        }
+      }
+    ]
+  },
+  "status": {
+    "systemHealthy": false,
+    "safeModeRequired": true
+  }
+}

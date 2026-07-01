@@ -1,0 +1,370 @@
+{
+  "registry_version": "V7.0",
+  "system": "LOVEQIGU_CIVILIZATION_OS",
+  "freeze_timestamp": "2026-06-29T23:36:00.000Z",
+  "upgrade": {
+    "from": "V6.0",
+    "to": "V7.0",
+    "type": "AUTONOMOUS_CIVILIZATION_OS"
+  },
+  "purpose": "Ensure no contract drift. Detect unauthorized modifications.",
+  "contracts": {
+    "UI_CONTRACT_SYSTEM_V1": {
+      "type": "document",
+      "path": "docs/freeze/UI_CONTRACT_SYSTEM_V1.md",
+      "hash": "87e02300df3b993da528d285c6485bfa28a97263b587c3c4603dcebdcb455bb8",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED",
+      "locked_at": "2026-06-29T13:07:00.000Z"
+    },
+    "VISUAL_ASSET_CONTRACT_V1": {
+      "type": "document",
+      "path": "docs/freeze/VISUAL_ASSET_CONTRACT_V1.md",
+      "hash": "bfb403396a89e8658155de6856c735a0570d8a0fcc93bc8011949e5321a344eb",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED",
+      "locked_at": "2026-06-29T13:07:00.000Z"
+    },
+    "UI_SPEC_LAYER_V1": {
+      "type": "document",
+      "path": "docs/freeze/UI_SPEC_LAYER_V1.md",
+      "hash": "ab47f7665ba708819f822523c6268ec231bb6ecbb137734fe64575f304a3ee82",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED",
+      "locked_at": "2026-06-29T13:07:00.000Z"
+    },
+    "UI_SPEC_RUNTIME_GENERATOR_V1": {
+      "type": "module_directory",
+      "path": "core/ui-spec-runtime/",
+      "hash": "ce29bc9f9436800db2a4efd13e78458033a97746dd1f4fc546ea0d29298efdc8",
+      "hash_algorithm": "SHA256 (concatenated file hashes)",
+      "files": [
+        "asset-resolver.js",
+        "component-resolver.js",
+        "data-binding.js",
+        "index.js",
+        "page-builder.js",
+        "parser.js",
+        "renderer.js"
+      ],
+      "status": "LOCKED"
+    },
+    "VISUAL_DIFF_CHECKER_V1": {
+      "type": "module_directory",
+      "path": "core/visual-diff/",
+      "hash": "45bd258d09bb14e26f9652baffd0f1e8770386fca2b4308819c0d762eafcb757",
+      "hash_algorithm": "SHA256 (concatenated file hashes)",
+      "files": [
+        "asset-checker.js",
+        "data-binding-checker.js",
+        "diff-engine.js",
+        "index.js",
+        "layout-checker.js",
+        "report-generator.js",
+        "spec-validator.js"
+      ],
+      "status": "LOCKED"
+    },
+    "AUTO_FIX_LOOP_SYSTEM_V1": {
+      "type": "module_directory",
+      "path": "core/auto-fix-loop/",
+      "hash": "31e98ac00eb471e76dc07edcfeeab6cbb3c50e1ecaf79cb869bd9079701c2efe",
+      "hash_algorithm": "SHA256 (concatenated file hashes)",
+      "files": [
+        "error-analyzer.js",
+        "fix-engine.js",
+        "index.js",
+        "loop-controller.js",
+        "patch-generator.js",
+        "re-render-orchestrator.js"
+      ],
+      "status": "LOCKED"
+    },
+    "PRODUCTION_ORCHESTRATOR_V1": {
+      "type": "module_directory",
+      "path": "core/orchestrator/",
+      "hash": "e064ed0e9c382e5a2f9357b711c5fe6452c5872c26dcb532927439f38b465d98",
+      "hash_algorithm": "SHA256 (concatenated file hashes)",
+      "files": [
+        "deployment-manager.js",
+        "index.js",
+        "lifecycle-manager.js",
+        "page-pipeline.js",
+        "product-pipeline.js",
+        "production-controller.js",
+        "registry-index.js",
+        "spec-factory.js"
+      ],
+      "status": "LOCKED"
+    },
+    "DESIGN_CONSISTENCY_ENGINE_V1": {
+      "type": "module_directory",
+      "path": "core/consistency/",
+      "hash": "1e66a6c83929fa8cadc6f101285c6c338f79b2156b8cca9cc6f0831413fcb500",
+      "hash_algorithm": "SHA256 (concatenated file hashes)",
+      "files": [
+        "design-consistency-engine.js",
+        "index.js",
+        "visual-alignment-checker.js"
+      ],
+      "status": "LOCKED"
+    },
+    "VISUAL_SCORE_ENGINE_V1": {
+      "type": "module_directory",
+      "path": "core/quality/",
+      "hash": "c2ad06c3f4c22380be70669f434e6fe76104569dc60d8edf9461937d7ed96fa9",
+      "hash_algorithm": "SHA256 (concatenated file hashes)",
+      "files": [
+        "auto-ui-optimizer.js",
+        "index.js",
+        "visual-score-engine.js"
+      ],
+      "status": "LOCKED"
+    },
+    "GLOBAL_DESIGN_TOKENS_V1": {
+      "type": "document",
+      "path": "core/design-tokens/global_tokens.json",
+      "hash": "dc0a86ff3ae816f9ed9f42a6fbd83230e43616c4d3301f72db6a529f224dfc76",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED"
+    },
+    "AUTO_UI_OPTIMIZER_V1": {
+      "type": "module_embedded",
+      "path": "core/quality/auto-ui-optimizer.js",
+      "hash": "0214fa214e220817b0008700d119182d25afd32d75480f3217f042755003f160",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED",
+      "locked_at": "2026-06-29T13:40:00.000Z",
+      "note": "Part of core/quality/ directory"
+    },
+    "MULTI_UI_GENERATOR_V2": {
+      "type": "module_embedded",
+      "path": "core/evolution/multi-ui-generator.js",
+      "hash": "b0bac328a0bd32e01ffa3d14f66555b5645f7df9b6f3bd020678b37a20912144",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED",
+      "locked_at": "2026-06-29T13:40:00.000Z",
+      "note": "V2 — MULTI-VARIANT UI GENERATION"
+    },
+    "UI_EVOLUTION_ENGINE_V2": {
+      "type": "module_embedded",
+      "path": "core/evolution/ui-evolution-engine.js",
+      "hash": "af85b801ead931ced5aacd29332312b1524264592fb823df006a383556b12571",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED",
+      "locked_at": "2026-06-29T13:40:00.000Z",
+      "note": "V2 — UI EVOLUTION ENGINE + DESIGN MEMORY"
+    },
+    "DESIGN_LANGUAGE_MEMORY_V2": {
+      "type": "module_embedded",
+      "path": "core/evolution/design-memory.json",
+      "hash": "e5a01a98fa3336112b89ba28f6bda36c0032fab2a1c1db7702416ccf57a53ee7",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED",
+      "locked_at": "2026-06-29T13:40:00.000Z",
+      "note": "V2 — DESIGN LANGUAGE EVOLUTION TRACKING"
+    },
+    "PRODUCT_INTENT_ENGINE_V3": {
+      "type": "module_embedded",
+      "path": "core/product/product-intent-engine.js",
+      "hash": "43a73c9e9af451b60bedf20e170b6a4bd12e7e44eef3cd937ce5747d15837fa9",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED",
+      "locked_at": "2026-06-29T22:30:00.000Z",
+      "note": "V3 — PRODUCT INTENT ANALYSIS"
+    },
+    "UI_STRATEGY_GENERATOR_V3": {
+      "type": "module_embedded",
+      "path": "core/product/ui-strategy-generator.js",
+      "hash": "75a86bcf776fc98096a441b605a198a0d3818d8a1d0a6233a8aa563957624d76",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED",
+      "locked_at": "2026-06-29T22:30:00.000Z",
+      "note": "V3 — STRATEGY-AWARE UI GENERATION"
+    },
+    "BUSINESS_ALIGNMENT_CHECKER_V3": {
+      "type": "module_embedded",
+      "path": "core/product/business-alignment-checker.js",
+      "hash": "2c3aaa5d791355f577129e7468a4a2a8357dd011bac598b876c5bccf8d762050",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED",
+      "locked_at": "2026-06-29T22:30:00.000Z",
+      "note": "V3 — BUSINESS ALIGNMENT VALIDATION"
+    },
+    "PRODUCT_BRAIN_ENGINE_V4": {
+      "type": "module_embedded",
+      "path": "core/product-os/product-brain-engine.js",
+      "hash": "774d6030845ebea82e389c694573b48875cd4030936ff50c96dcd6364f9e2f35",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED",
+      "locked_at": "2026-06-29T22:45:00.000Z",
+      "note": "V4 — PRODUCT BRAIN INTELLIGENCE"
+    },
+    "PRODUCT_ARCHITECTURE_GENERATOR_V4": {
+      "type": "module_embedded",
+      "path": "core/product-os/product-architecture-generator.js",
+      "hash": "12826c9379e6a40d88f23377c77ed886078b23314ed1cf1265b9aa8589ae339c",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED",
+      "locked_at": "2026-06-29T22:45:00.000Z",
+      "note": "V4 — PRODUCT ARCHITECTURE"
+    },
+    "PRODUCT_STATE_MACHINE_V4": {
+      "type": "module_embedded",
+      "path": "core/product-os/product-state-machine.js",
+      "hash": "d53b7c715d056c99d0c29a41d31ef7134c319883018a5bfc67e86a2000fcbfe0",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED",
+      "locked_at": "2026-06-29T22:45:00.000Z",
+      "note": "V4 — PRODUCT STATE MACHINE"
+    },
+    "PRODUCT_PIPELINE_V4": {
+      "type": "module_embedded",
+      "path": "core/orchestrator/product-pipeline.js",
+      "hash": "49b8c039d36eeb0c8fedd7c673315512f04ce8927005b2324ab71fa546e9643a",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED",
+      "locked_at": "2026-06-29T22:45:00.000Z",
+      "note": "V4 — PRODUCT PIPELINE"
+    },
+    "WORLD_BRAIN_ENGINE_V5": {
+      "type": "module_embedded",
+      "path": "core/world-os/world-brain-engine.js",
+      "hash": "8fbd449f0d3b7b3282bdf48a53f58c09e7887901ebff91c4deaa780d354a1a39",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED",
+      "locked_at": "2026-06-29T23:00:00.000Z",
+      "note": "V5 — WORLD BRAIN INTELLIGENCE"
+    },
+    "WORLD_ARCHITECTURE_GENERATOR_V5": {
+      "type": "module_embedded",
+      "path": "core/world-os/world-architecture-generator.js",
+      "hash": "2418951737f0d2ad5312a1066e46c78db4f2562434ec4451749a5f0323cba20c",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED",
+      "locked_at": "2026-06-29T23:00:00.000Z",
+      "note": "V5 — WORLD ARCHITECTURE GENERATOR"
+    },
+    "WORLD_OS_INDEX_V5": {
+      "type": "module_embedded",
+      "path": "core/world-os/index.js",
+      "hash": "f2c3d6cae08b646730656d7550fc6c3fce6d6d2d17957ba25763ddd406f84741",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED",
+      "locked_at": "2026-06-29T23:00:00.000Z",
+      "note": "V5 — WORLD OS INTEGRATION LAYER"
+    },
+    "REALITY_MAPPING_ENGINE_V6": {
+      "type": "module_embedded",
+      "path": "core/reality/reality-mapping-engine.js",
+      "hash": "26ec51e3451c3a04e216de3532297b76473b4a15c6b1469d35d2580381880702",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED",
+      "locked_at": "2026-06-29T23:25:00.000Z",
+      "note": "V6 — REALITY MAPPING ENGINE"
+    },
+    "GEO_INTERACTION_LAYER_V6": {
+      "type": "module_embedded",
+      "path": "core/reality/geo-interaction-layer.js",
+      "hash": "d31f45f84d03903c489d7c4d242593aa912ccca90efab2eeb13672e26c1bd23c",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED",
+      "locked_at": "2026-06-29T23:25:00.000Z",
+      "note": "V6 — GEO INTERACTION LAYER"
+    },
+    "REALITY_OS_INDEX_V6": {
+      "type": "module_embedded",
+      "path": "core/reality/index.js",
+      "hash": "6c268954eeeab704b9f28782210abd40421c181f44b9175fa32feb2c673a9511",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED",
+      "locked_at": "2026-06-29T23:25:00.000Z",
+      "note": "V6 — REALITY OS INTEGRATION LAYER"
+    },
+    "MULTI_WORLD_ENGINE_V7": {
+      "type": "module_embedded",
+      "path": "core/civilization/multi-world-engine.js",
+      "hash": "ec32094f4f071155eae3afd86e0f7110d74c4ea26508507b46b9d4874dd1317f",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED",
+      "locked_at": "2026-06-29T23:36:00.000Z",
+      "note": "V7 — MULTI-WORLD ENGINE"
+    },
+    "CIVILIZATION_GRAPH_ENGINE_V7": {
+      "type": "module_embedded",
+      "path": "core/civilization/civilization-graph-engine.js",
+      "hash": "ba37d739e6ba39330764c1ade0f6bd8af8e7587134e588fc5af563025b5b0678",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED",
+      "locked_at": "2026-06-29T23:36:00.000Z",
+      "note": "V7 — CIVILIZATION GRAPH ENGINE"
+    },
+    "CIVILIZATION_OS_INDEX_V7": {
+      "type": "module_embedded",
+      "path": "core/civilization/index.js",
+      "hash": "9d9ef97c1e4b77c9e3dbcb3b1a9a5f8e9bd09f9c363f11cf2fdc89fde813eded",
+      "hash_algorithm": "SHA256",
+      "status": "LOCKED",
+      "locked_at": "2026-06-29T23:36:00.000Z",
+      "note": "V7 — CIVILIZATION OS INTEGRATION LAYER"
+    }
+  },
+  "v2_rules": {
+    "multi_variant_generation_required": true,
+    "evolution_cycle_required": true,
+    "best_variant_selection_required": true,
+    "design_memory_tracking_required": true,
+    "evolutionary_system": true,
+    "design_learning_system": true,
+    "self_improving_interface_engine": true
+  },
+  "verification_rule": "REGENERATE AND COMPARE HASH ON EVERY BOOT. IF MISMATCH: SYSTEM_DRIFT_DETECTED.",
+  "v3_rules": {
+    "product_intent_required": true,
+    "strategy_aware_rendering_required": true,
+    "business_alignment_check_required": true,
+    "P0_priority_enforced": true,
+    "product_intelligence_system": true,
+    "ui_must_serve_product_goals": true
+  },
+  "v4_rules": {
+    "product_brain_required": true,
+    "product_architecture_generation_required": true,
+    "auto_product_generation_required": true,
+    "product_state_machine_required": true,
+    "product_generation_os": true,
+    "ui_is_just_one_output_layer": true
+  },
+  "v5_rules": {
+    "world_brain_required": true,
+    "world_architecture_generation_required": true,
+    "world_layer_system_required": true,
+    "world_node_system_required": true,
+    "world_state_machine_required": true,
+    "world_product_integration_required": true,
+    "world_generation_engine": true,
+    "ui_is_lowest_expression_layer": true,
+    "world_is_top_level_authority": true
+  },
+  "v6_rules": {
+    "reality_mapping_required": true,
+    "geo_interaction_required": true,
+    "physical_node_network_required": true,
+    "ar_trigger_system_required": true,
+    "user_real_world_loop_required": true,
+    "world_reality_binding_required": true,
+    "reality_augmentation_system": true,
+    "physical_movement_is_primary": true,
+    "digital_world_is_secondary": true
+  },
+  "v7_rules": {
+    "multi_world_required": true,
+    "civilization_graph_required": true,
+    "collective_intelligence_required": true,
+    "cultural_memory_required": true,
+    "cross_world_protocol_required": true,
+    "civilization_evolution_loop_required": true,
+    "civilization_simulation_system": true,
+    "users_are_participants_not_consumers": true
+  }
+}

@@ -59,10 +59,23 @@
     </view>
 
     <!-- ════════════════════════════════════
-         BLOCK 3: FOCUS POINT — 爱企谷入口广场
-         Visually dominant hero card, primary CTA only
+         BLOCK 3: FOCUS POINT — Scenic Points
+         Visually dominant hero card + full point list
          ════════════════════════════════════ -->
+
+    <!-- V5.9.16: Always show scenic points when available -->
     <view wx:if="{{showJourney}}" class="v55-journey v55-journey--{{resonanceFieldClass}} v55-journey--{{awarenessMode}}">
+
+      <!-- Progress summary -->
+      <view class="v55-explore-summary">
+        <view class="v55-explore-summary__label">探索进度</view>
+        <view class="v55-explore-summary__bar">
+          <view class="v55-explore-summary__fill" style="width: {{_storeProgressPercent}}%;"></view>
+        </view>
+        <view class="v55-explore-summary__count">{{_storeVisitedCount}} / {{_storeTotalCount}}</view>
+      </view>
+
+      <!-- Hero Card (first point) -->
       <view
         class="v55-hero-card v55-hero-card--{{awarenessMode}}"
         data-point-id="{{scenicLayers.heroItem.point_id}}"
@@ -116,6 +129,32 @@
         </view>
       </view>
 
+      <!-- ═══ V5.9.16: Full scenic point list (always visible) ═══ -->
+      <view class="v55-scenic-full-list" wx:if="{{_storePoints && _storePoints.length > 0}}">
+        <view class="proto-section-head">
+          <view class="proto-section-title">全部打卡点</view>
+          <view class="proto-section-more">{{_storeTotalCount}} 处</view>
+        </view>
+        <view
+          class="v55-scenic-list-item v55-scenic-list-item--{{item.status}}"
+          wx:for="{{_storePoints}}"
+          wx:key="id"
+          data-point-id="{{item.id}}"
+          bindtap="onOpenPointDetail"
+        >
+          <view class="v55-scenic-list-item__dot" style="background: {{item.color}};"></view>
+          <view class="v55-scenic-list-item__body">
+            <view class="v55-scenic-list-item__header">
+              <view class="v55-scenic-list-item__kicker">{{item.kicker}}</view>
+              <view class="v55-scenic-list-item__status">{{item.statusLabel}}</view>
+            </view>
+            <view class="v55-scenic-list-item__name">{{item.label}}</view>
+            <view class="v55-scenic-list-item__desc">{{item.preview}}</view>
+            <view class="v57-scenic-list-item__nav">{{item.navHint}}</view>
+          </view>
+        </view>
+      </view>
+
     </view>
     <view wx:else class="v55-scenic-fallback">
       <text>世界正在加载...</text>
@@ -134,7 +173,7 @@
     </view>
 
     <!-- Manifested Relics -->
-    <view wx:if="{{manifestationActive && manifestedEvents.length > 0}}" class="v55-phenomenon-block">
+    <view wx:if="{{showManifestedRelics}}" class="v55-phenomenon-block">
       <view class="v55-phenomenon-block__header">
         <view class="v55-phenomenon-block__title">显现</view>
         <view class="v55-phenomenon-block__count">{{manifestedEvents.length}} 段记忆</view>

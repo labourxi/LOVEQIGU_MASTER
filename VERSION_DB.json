@@ -1,0 +1,108 @@
+{
+  "format_version": 1,
+  "description": "LOVEQIGU / AR游伴 版本数据库 — 所有冻结规范的版本追踪",
+  "system": {
+    "major": 5,
+    "minor": 10,
+    "patch": 0,
+    "stage": "stable",
+    "human": "V5.10.0 (stable)",
+    "updated": "2026-07-02",
+    "commit_prefix": "V5.10.0"
+  },
+  "frozen_specs": [
+    {
+      "file": "docs/freeze/AR_VISUAL_LAYER_SYSTEM_V4_FROZEN.md",
+      "version": "V4",
+      "status": "FROZEN",
+      "date": "2026-07-01"
+    },
+    {
+      "file": "docs/freeze/AR_PAGE_STATE_MACHINE_V1.md",
+      "version": "V1",
+      "status": "FROZEN",
+      "date": "2026-07-01"
+    },
+    {
+      "file": "docs/freeze/AR_VISUAL_RATIO_ENGINE_V1.md",
+      "version": "V1",
+      "status": "FROZEN",
+      "date": "2026-07-01"
+    },
+    {
+      "file": "docs/freeze/UI_CONTRACT_SYSTEM_V1.md",
+      "version": "V1",
+      "status": "FROZEN",
+      "date": "2026-06-29"
+    },
+    {
+      "file": "docs/freeze/UI_SPEC_LAYER_V1.md",
+      "version": "V1",
+      "status": "FROZEN",
+      "date": "2026-06-29"
+    },
+    {
+      "file": "docs/freeze/VISUAL_ASSET_CONTRACT_V1.md",
+      "version": "V1",
+      "status": "FROZEN",
+      "date": "2026-06-29"
+    }
+  ],
+  "production_scripts": [
+    "scripts/ar_visual_ratio_engine.py",
+    "scripts/audit_design_v2.py",
+    "scripts/qa_scoring_engine.py",
+    "scripts/generate_landing_portal_only.py",
+    "scripts/generate_landing_v3_batch.py",
+    "scripts/analyze_design.py",
+    "scripts/analyze_design_deep.py",
+    "scripts/deploy_user_portal.py"
+  ],
+  "governance_docs": [
+    "docs/governance/AR_VISUAL_PRODUCTION_GOVERNANCE_V1.md",
+    "docs/governance/VISUAL_GOVERNANCE_ENFORCEMENT_ENGINE_V1.md",
+    "docs/governance/GOVERNANCE_RUNTIME_HOOK_V2.js"
+  ],
+  "history": [
+    {
+      "version": "V5.10.0",
+      "date": "2026-07-02",
+      "description": "规范冻结 + 核心引擎 + 生成管线 + 运行时"
+    },
+    {
+      "version": "V5.9.18",
+      "date": "2026-07-01",
+      "description": "V2.1 微调 — 现实优先锁定器上线"
+    },
+    {
+      "version": "V5.9.17",
+      "date": "2026-07-01",
+      "description": "V2 升级 — 比例引擎 + JUDGE ENGINE + 强制拦截"
+    },
+    {
+      "version": "V5.9.16",
+      "date": "2026-07-01",
+      "description": "页面状态机 + 规范冲突消除"
+    },
+    {
+      "version": "V5.9.15",
+      "date": "2026-06-30",
+      "description": "AI视觉审计接入 doubao-seed-2-1-turbo"
+    },
+    {
+      "version": "V5.9.14",
+      "date": "2026-06-30",
+      "description": "L0-L3 视觉层系统冻结 V4"
+    },
+    {
+      "version": "V5.9.13",
+      "date": "2026-06-29",
+      "description": "UI_CONTRACT_SYSTEM_V1 冻结"
+    },
+    {
+      "version": "V5.9.12",
+      "date": "2026-06-29",
+      "description": "VISUAL_ASSET_CONTRACT_V1 冻结"
+    }
+  ]
+}

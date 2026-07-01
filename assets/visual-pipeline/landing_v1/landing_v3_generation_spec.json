@@ -1,0 +1,107 @@
+{
+  "pipeline_step": "STEP_2_FULL_PAGE_VISUAL_GENERATION",
+  "pipeline_name": "VISUAL_PRODUCTION_PIPELINE_V3",
+  "input_source": "STRUCTURE_SPEC_LANDING_V3.md",
+  "date": "2026-07-01 18:02",
+  "status": "EXECUTION_SPEC_READY",
+  "page_id": "landing_v3_release",
+  "aspect_ratio": "9:16",
+  "output_mode": "single_image",
+  "qa_threshold": 0.80,
+  "prompt_primary": {
+    "engine": "即梦 (Jimeng) via Seedream Ark",
+    "task": "full_page_render — production release build",
+    "width": 750,
+    "height": 1624,
+    "prompt_text": "AIGU VALLEY landing page V3 — PRODUCTION RELEASE BUILD. Final shipping version for mini program. Full mobile screen 9:16 portrait. This is a WORLD ENTRY page that is also a FULLY FUNCTIONAL PRODUCT ENTRY. Portal gate occupies 55-60% of canvas — moderate dominance that leaves substantial room for bottom UI navigation. Pure void background — deepest black (#050505) fading to indigo void (#0F0530). Zero background objects. Zero textures. Zero competing elements. Background is pure void canvas — serves atmosphere only. Center: WORLD ENTRY GATE — transdimensional portal, concentric rings of ethereal gold (#D4AF37) and deep violet (#5A1A7A), volumetric divine glow, dimension door style. Portal rim has minimal resonance particles — gold/violet dust near portal edge only. Atmosphere: sacred, awe, world-descending — NOT sci-fi combat. Top center: ritual light script 'AR游伴' — thin calligraphic divine glow, minimal signature. Bottom zone is CRITICAL for usability — it must contain ALL of the following elements clearly visible: [1] WECHAT LOGIN BUTTON: prominent green button with WeChat icon, text '微信一键登录'. This is the primary action. Button must look like a standard WeChat OAuth login button — green background, white WeChat icon, clear readable text. [2] BUSINESS ENTRY ROW: four icon+text entries in a horizontal row below the login button — '探索' with compass icon, '地图' with map icon, '权益' with reward icon, '我的' with profile icon. Each entry must be clearly readable as a navigation action. UI density is production balanced — 18-22% of canvas. Bottom 30% of canvas is dedicated to login button + 4 business entries. The user is entering a world through WeChat login and immediately seeing all available actions. VISUAL PRIORITY CONTROL RULES: [CENTER_ANCHOR] Portal 55-60% — leaves room for navigation. [LOGIN] WeChat login button is green with icon — non-negotiable visible. [BUSINESS] Four entries (探索·地图·权益·我的) visible as icon+text row. [BACKGROUND] Pure void. [Z_ORDER] Void → particles → Portal → Title → WeChat login → Business nav row.",
+    "negative_prompt": "phoenix, dragon, warrior, weapon, anime, cartoon, neon overglow, rainbow gradient, high-purity fluorescent colors, human face, text watermark, logo (except WeChat icon which IS required), realistic photo, cluttered, asymmetrical composition, dark forest colors (#0A1A14), ink-wash style, mountain valley, fog, waterfall, temple, architecture, city, stars, galaxy, nebula, starfield, busy background, decorative background, 3D model, rendering, photorealistic, pixel art, metaphorical text, abstract UI, non-functional UI, poetic replacement for login",
+    "style_profile": {
+      "theme": "production_world_entry_with_full_business_system",
+      "color_system": [
+        "#050505 (deepest_black)",
+        "#0F0530 (indigo_void)",
+        "#5A1A7A (deep_violet)",
+        "#D4AF37 (ethereal_gold)",
+        "#FFFFFF (soft_white)"
+      ],
+      "lighting": "volumetric_divine_glow",
+      "material": "dimensional_gate_energy_with_glass_ui",
+      "atmosphere": "sacred_yet_actionable_world_entry",
+      "motion_hint": "slow_portal_resonance"
+    }
+  },
+  "layout_spec": {
+    "z_order_bottom_to_top": [
+      "1. PURE VOID GRADIENT: #050505 (top) → #0F0530 (bottom). Zero objects. Zero textures.",
+      "2. MINIMAL RESONANCE PARTICLES: Only around portal rim edge. Gold/violet dust, radius <30px from portal edge.",
+      "3. WORLD ENTRY GATE: Center-dominant, 55-60% visual weight. Transdimensional portal. NOT a tech portal.",
+      "4. TITLE: 'AR游伴', top_center, ~60px from top. Divine glow, thin calligraphic, minimal.",
+      "5. WECHAT LOGIN BUTTON: bottom_center, prominent. Green button with white WeChat icon. Text '微信一键登录'. Must look like a standard WeChat OAuth entry button.",
+      "6. BUSINESS NAV ROW: Below login button. Four entries horizontal: '探索' (compass icon), '地图' (map icon), '权益' (reward icon), '我的' (profile icon). Glowing icon+text pills."
+    ],
+    "composition": "portal_dominant_65_with_business_nav_bottom",
+    "ui_density": "production_balanced",
+    "safe_zones": {
+      "top": "60px from top edge — title only",
+      "bottom": "canvas bottom 30% — WeChat login + 4 business entries",
+      "left_right": "15px from edges — entry pills partially in margin"
+    }
+  },
+  "api_calls": {
+    "provider_primary_seedream": {
+      "endpoint": "https://ark.cn-beijing.volces.com/api/v3/images/generations",
+      "required_api_key": "ARK_API_KEY",
+      "model": "doubao-seedream-5-0-260128",
+      "payload": {
+        "prompt": "<<prompt_primary.prompt_text>>",
+        "negative_prompt": "<<prompt_primary.negative_prompt>>",
+        "size": "2048x2048",
+        "response_format": "url",
+        "seed": 45
+      },
+      "notes": "Seedream 5.0. Output is square; post-crop to 9:16 required."
+    }
+  },
+  "output_target": {
+    "primary": "assets/visual-pipeline/landing_v3/landing_v3_release.jpg",
+    "runtime": "apps/miniapp/static/scene/landing_v3_release.jpg",
+    "format": "JPEG (quality 95)",
+    "expected_resolution": "750x1624px (9:16 portrait)"
+  },
+  "render_rules": {
+    "must_be_single_image": true,
+    "no_component_separation": true,
+    "no_ui_relayout_allowed": true,
+    "must_follow_layout_exactly": true,
+    "no_placeholder_assets": true,
+    "production_grade_only": true,
+    "portal_must_be_world_entry_not_tech_portal": true,
+    "wechat_login_must_be_visible": true,
+    "business_entries_must_be_visible": true,
+    "ui_must_be_immediately_usable": true,
+    "qa_minimum_score_0_80": true
+  },
+  "visual_priority": {
+    "center_anchor": "world_entry_portal_gate — MODERATE DOMINANCE. Portal occupies 55-60% of visual weight. Portal is primary visual but bottom business nav zone is equally important for usability.",
+    "ui_suppression": "UI elements occupy 18-22% of total canvas area — production density. WeChat login button must be prominent green with WeChat icon. Four business entries (探索/地图/权益/我的) must be visible as icon+text pills. Top 12%: title only. Bottom 30%: login + business nav.",
+    "background_non_competition": "Background is STRICTLY void canvas. Deepest black (#050505) fading to indigo void (#0F0530). Zero objects. Zero textures. Zero shapes.",
+    "z_order_enforcement": "Background (void) → Particles (portal rim only) → World entry gate (55-60%) → Title → WeChat login button → Business entry row (探索·地图·权益·我的)"
+  },
+  "post_processing": {
+    "if_chinese_text_is_garbled": "Generate textless version, add text overlay in post",
+    "if_aspect_ratio_is_off": "Crop to 9:16 center, do NOT stretch",
+    "if_colors_deviate": "Adjust toward #050505/#0F0530/#5A1A7A/#D4AF37 palette",
+    "if_portal_too_large": "Reduce portal weight — 55-60% only, leave space for bottom nav",
+    "if_login_button_missing_or_metaphorical": "REGENERATE — WeChat login button is non-negotiable",
+    "if_business_entries_missing": "REGENERATE — business nav row is non-negotiable",
+    "if_background_has_content": "Remove all background objects. Void must be empty."
+  },
+  "approval": {
+    "step": 4,
+    "status": "PENDING_AFTER_GENERATION",
+    "date": "2026-07-01 18:02",
+    "engine": "HUMAN",
+    "qa_threshold": 0.80,
+    "gate": "LOCKED — requires STEP 3 QA (>= 0.80) + STEP 4 HUMAN approval"
+  }
+}

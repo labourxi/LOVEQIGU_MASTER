@@ -1,0 +1,207 @@
+<view class="proto-page user-phase1-page rights-page">
+
+  <!-- ══════════════════════════════════════════════════
+       HEADER
+       ══════════════════════════════════════════════════ -->
+  <view class="proto-hero">
+    <view class="proto-kicker">{{narrativeKicker}}</view>
+    <view class="proto-title">{{narrativeTitle}}</view>
+    <view class="proto-subtitle">{{narrativeSubtitle}}</view>
+  </view>
+
+  <!-- ══════════════════════════════════════════════════
+       POINT SUMMARY CARD
+       ══════════════════════════════════════════════════ -->
+  <view class="rc-points-card">
+    <view class="rc-points-card__main">
+      <view class="rc-points-card__current">
+        <view class="rc-points-card__current-value">{{pointsCard.currentPoints}}</view>
+        <view class="rc-points-card__current-unit">{{pointsCard.narrativeTitle}}</view>
+      </view>
+      <view class="rc-points-card__stats">
+        <view class="rc-points-card__stat">
+          <view class="rc-points-card__stat-value">+{{pointsCard.todayEarned}}</view>
+          <view class="rc-points-card__stat-label">{{pointsCard.narrativeTodayLabel}}</view>
+        </view>
+        <view class="rc-points-card__divider"></view>
+        <view class="rc-points-card__stat">
+          <view class="rc-points-card__stat-value">{{pointsCard.totalEarned}}</view>
+          <view class="rc-points-card__stat-label">{{pointsCard.narrativeTotalLabel}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="rc-points-card__bar">
+      <view class="rc-points-card__fill" style="width: {{pointsCard.progressPercent}}%;"></view>
+    </view>
+    <view class="rc-points-card__sub">{{pointsCard.narrativeInterpretation}}</view>
+  </view>
+
+  <!-- ══════════════════════════════════════════════════
+       RIGHTS CATEGORIES
+       ══════════════════════════════════════════════════ -->
+
+  <!-- SECTION 1: 等待回响 -->
+  <view class="proto-section">
+    <view class="proto-section-head">
+      <view class="proto-section-title">等待回响</view>
+
+      <view class="proto-section-more">{{sections[0].count}} 项</view>
+    </view>
+    <view class="rc-category-list">
+      <view
+        class="rc-rights-card rc-rights-card--{{item.status}} rc-rights-card--action"
+        wx:for="{{sections[0].items}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        data-type="{{item.type}}"
+        data-status="{{item.status}}"
+        data-action="claim"
+        bindtap="onRewardAction"
+      >
+        <view class="rc-rights-card__glow" wx:if="{{item.showGlow}}"></view>
+        <view class="rc-rights-card__icon">{{item.icon}}</view>
+        <view class="rc-rights-card__body">
+          <view class="rc-rights-card__title">{{item.name}}</view>
+          <view class="rc-rights-card__desc">{{item.description}}</view>
+          <view class="rc-rights-card__meta" wx:if="{{item.meta}}">{{item.meta}}</view>
+        </view>
+        <view class="rc-rights-card__action">
+          <view class="rc-rights-card__btn rc-rights-card__btn--{{item.status}}">{{item.statusLabel}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- SECTION 2: 可兑换礼遇 -->
+  <view class="proto-section">
+    <view class="proto-section-head">
+      <view class="proto-section-title">可兑换礼遇</view>
+      <view class="proto-section-more">{{sections[1].count}} 项</view>
+    </view>
+    <view wx:if="{{sections[1].items.length > 0}}" class="rc-category-list">
+      <view
+        class="rc-rights-card rc-rights-card--{{item.status}} rc-rights-card--action"
+        wx:for="{{sections[1].items}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        data-cost="{{item.cost}}"
+        data-status="{{item.status}}"
+        data-action="redeem"
+        bindtap="onRewardAction"
+      >
+        <view class="rc-rights-card__glow" wx:if="{{item.showGlow}}"></view>
+        <view class="rc-rights-card__icon">{{item.icon}}</view>
+        <view class="rc-rights-card__body">
+          <view class="rc-rights-card__title">{{item.name}}</view>
+          <view class="rc-rights-card__desc">{{item.description}}</view>
+          <view class="rc-rights-card__meta">{{item.meta}}</view>
+        </view>
+        <view class="rc-rights-card__action">
+          <view class="rc-rights-card__btn rc-rights-card__btn--{{item.status}}">{{item.statusLabel}}</view>
+        </view>
+      </view>
+    </view>
+    <view wx:else class="v59-empty">
+      <text class="v59-empty__icon">◎</text>
+      <text class="v59-empty__text">{{emptyState.narrativeMessage}}</text>
+      <text class="v59-empty__hint">{{emptyState.narrativeSubmessage}}</text>
+    </view>
+  </view>
+
+  <!-- SECTION 3: 已兑现的印记 -->
+  <view class="proto-section">
+    <view class="proto-section-head">
+      <view class="proto-section-title">已兑现的印记</view>
+      <view class="proto-section-more">{{sections[2].count}} 项</view>
+    </view>
+    <view wx:if="{{sections[2].items.length > 0}}" class="rc-category-list rc-category-list--compact">
+      <view
+        class="rc-rights-card rc-rights-card--{{item.status}}"
+        wx:for="{{sections[2].items}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onViewHistory"
+      >
+        <view class="rc-rights-card__icon">{{item.icon}}</view>
+        <view class="rc-rights-card__body">
+          <view class="rc-rights-card__title">{{item.name}}</view>
+          <view class="rc-rights-card__desc rc-rights-card__desc--compact">{{item.source}} · {{item.benefitValue}}</view>
+          <view class="rc-rights-card__meta">{{item.meta}} · {{item.expire}}</view>
+        </view>
+        <view class="rc-rights-card__action">
+          <view class="rc-rights-card__btn rc-rights-card__btn--{{item.status}}">{{item.statusLabel}}</view>
+        </view>
+      </view>
+    </view>
+    <view wx:else class="v59-empty">
+      <text class="v59-empty__icon">◎</text>
+      <text class="v59-empty__text">尚未领取任何回响</text>
+      <text class="v59-empty__hint">完成探索即可收获印记</text>
+    </view>
+  </view>
+
+  <!-- ══════════════════════════════════════════════════
+       REWARD FEED
+       ══════════════════════════════════════════════════ -->
+  <view class="proto-section" wx:if="{{rewardFeed.length > 0}}">
+    <view class="proto-section-head">
+      <view class="proto-section-title">回响记录</view>
+    </view>
+    <view class="rc-reward-feed">
+      <view
+        class="rc-reward-feed__item"
+        wx:for="{{rewardFeed}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onViewHistory"
+      >
+        <view class="rc-reward-feed__dot"></view>
+        <view class="rc-reward-feed__body">
+          <view class="rc-reward-feed__header">
+            <view class="rc-reward-feed__source">{{item.source}}</view>
+            <view class="rc-reward-feed__value">{{item.value}}</view>
+          </view>
+          <view class="rc-reward-feed__meta">
+            <text class="rc-reward-feed__type">{{item.narrativeType}}</text>
+            <text class="rc-reward-feed__time">{{item.time}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ══════════════════════════════════════════════════
+       STATS SUMMARY
+       ══════════════════════════════════════════════════ -->
+  <view class="proto-section" wx:if="{{rewardHistory.length > 0}}">
+    <view class="proto-section-head">
+      <view class="proto-section-title">礼遇统计</view>
+    </view>
+    <view class="rc-reward-history">
+      <view class="rc-reward-row" wx:for="{{rewardHistory}}" wx:key="label">
+        <view class="rc-reward-row__label">{{item.narrativeLabel}}</view>
+        <view class="rc-reward-row__value">{{item.value}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ══════════════════════════════════════════════════
+       FOOTER ACTION BAR
+       ══════════════════════════════════════════════════ -->
+  <view class="rc-footer-bar">
+    <view class="rc-footer-btn" bindtap="onNavigateToRelic">
+      <view class="rc-footer-btn__icon">◇</view>
+      <view class="rc-footer-btn__label">信物档案</view>
+    </view>
+    <view class="rc-footer-btn rc-footer-btn--primary" bindtap="onNavigateToExplore">
+      <view class="rc-footer-btn__icon">◎</view>
+      <view class="rc-footer-btn__label">返回探索</view>
+    </view>
+    <view class="rc-footer-btn" bindtap="onNavigateToMy">
+      <view class="rc-footer-btn__icon">◈</view>
+      <view class="rc-footer-btn__label">我的礼遇</view>
+    </view>
+  </view>
+
+  <user-bottom-nav activeKey="{{activeTab}}" bind:change="onBottomNavChange" />
+</view>

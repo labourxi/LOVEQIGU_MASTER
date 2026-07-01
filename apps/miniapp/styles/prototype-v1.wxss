@@ -166,7 +166,6 @@
   box-shadow:
     0 4rpx 12rpx rgba(200, 162, 74, 0.35),
     0 2rpx 4rpx rgba(200, 162, 74, 0.2);
-  transition: all 0.3s ease;
 }
 
 /* 呼吸感动画 — 阴影脉动 */

@@ -1,0 +1,132 @@
+/* PAGE_07_COLLECTION — Collectible Gallery */
+
+.collectible-gallery-page {
+  min-height: 100vh;
+  background: #0A0A0F;
+  padding-bottom: 120rpx;
+}
+
+.collectible-header {
+  padding: 120rpx 40rpx 40rpx;
+  text-align: center;
+}
+
+.collectible-header__kicker {
+  font-size: 24rpx;
+  color: rgba(200, 162, 74, 0.4);
+  letter-spacing: 8rpx;
+  margin-bottom: 16rpx;
+}
+
+.collectible-header__title {
+  font-size: 36rpx;
+  color: #E8D5A3;
+  letter-spacing: 4rpx;
+  margin-bottom: 12rpx;
+}
+
+.collectible-header__subtitle {
+  font-size: 22rpx;
+  color: rgba(232, 213, 163, 0.35);
+}
+
+/* ═══ Loading ═══ */
+.collectible-loading {
+  padding: 40rpx;
+}
+
+.collectible-loading__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16rpx;
+}
+
+.collectible-loading__cell {
+  aspect-ratio: 1;
+  background: rgba(200, 162, 74, 0.05);
+  border: 1px solid rgba(200, 162, 74, 0.08);
+  border-radius: 8rpx;
+}
+
+/* ═══ Gallery Grid ═══ */
+.collectible-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12rpx;
+  padding: 0 20rpx;
+}
+
+.collectible-grid__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16rpx 8rpx;
+}
+
+.collectible-grid__frame {
+  width: 180rpx;
+  height: 180rpx;
+  border: 1px solid rgba(200, 162, 74, 0.15);
+  border-radius: 8rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8rpx;
+  background: rgba(200, 162, 74, 0.03);
+}
+
+.collectible-grid__symbol {
+  font-size: 48rpx;
+  color: rgba(200, 162, 74, 0.3);
+}
+
+.collectible-grid__name {
+  font-size: 22rpx;
+  color: rgba(232, 213, 163, 0.5);
+  text-align: center;
+  max-width: 180rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.collectible-grid__source {
+  font-size: 18rpx;
+  color: rgba(232, 213, 163, 0.2);
+}
+
+/* ═══ Empty State ═══ */
+.collectible-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 200rpx 40rpx;
+}
+
+.collectible-empty__frame {
+  width: 200rpx;
+  height: 200rpx;
+  border: 1px solid rgba(200, 162, 74, 0.1);
+  border-radius: 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32rpx;
+}
+
+.collectible-empty__icon {
+  font-size: 64rpx;
+  color: rgba(200, 162, 74, 0.15);
+}
+
+.collectible-empty__text {
+  font-size: 28rpx;
+  color: rgba(232, 213, 163, 0.3);
+  margin-bottom: 12rpx;
+}
+
+.collectible-empty__hint {
+  font-size: 24rpx;
+  color: rgba(232, 213, 163, 0.15);
+}

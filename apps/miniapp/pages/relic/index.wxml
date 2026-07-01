@@ -1,0 +1,63 @@
+<view class="canonical-collection-page">
+
+  <!-- ═══ Canonical Title ═══ -->
+  <view class="canonical-header">
+    <text class="canonical-header__kicker">记忆印记</text>
+    <text class="canonical-header__title">信物录</text>
+    <text class="canonical-header__subtitle">{{subtitle}}</text>
+    <text wx:if="{{progress && progress.total > 0}}" class="canonical-header__progress">
+      {{progress.collected}} / {{progress.total}}
+    </text>
+  </view>
+
+  <!-- Progress bar -->
+  <view class="canonical-progress" wx:if="{{progress && progress.total > 0}}">
+    <view class="canonical-progress__fill" style="width: {{progress.percent}}%;"></view>
+  </view>
+
+  <!-- ═══ Circular Orbit Layout (RELIC_VISUAL_CANON_V1) ═══ -->
+  <view wx:if="{{groups && groups.length > 0}}">
+    <view wx:for="{{groups}}" wx:key="name">
+      <view class="canonical-group-header">{{item.name}} · {{item.items.length}}</view>
+      <view class="canonical-reliquary">
+        <view
+          class="canonical-relic-node"
+          wx:for="{{item.items}}"
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="onRelicTap"
+        >
+          <view class="canonical-relic-node__orbit">
+            <view class="canonical-relic-node__ring"
+                  style="border-color: {{item.color}}; box-shadow: 0 0 12rpx {{item.color}}44">
+            </view>
+            <view class="canonical-relic-node__center"
+                  style="background: {{item.color}}22; border-color: {{item.color}}">
+              <text class="canonical-relic-node__symbol">{{item.symbol}}</text>
+            </view>
+          </view>
+          <view class="canonical-relic-node__info">
+            <text class="canonical-relic-node__name">{{item.name}}</text>
+            <text class="canonical-relic-node__description">{{item.phenomenon}}</text>
+            <text wx:if="{{item.echoText}}" class="canonical-relic-node__echo">{{item.echoText}}</text>
+            <text class="canonical-relic-node__meta">{{item.frameLabel}} · {{item.material}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ═══ Empty State ═══ -->
+  <view wx:if="{{!groups || groups.length === 0}}" class="rc-empty-container">
+    <view class="canonical-empty">
+      <view class="canonical-empty__orbit">
+        <view class="canonical-empty__ring"></view>
+        <view class="canonical-empty__center">○</view>
+      </view>
+      <text class="canonical-empty__text">信物仍在沉睡</text>
+      <text class="canonical-empty__hint">探索世界以唤醒记忆印记</text>
+    </view>
+  </view>
+
+  <user-bottom-nav activeKey="{{activeTab}}" bind:change="onBottomNavChange" />
+</view>

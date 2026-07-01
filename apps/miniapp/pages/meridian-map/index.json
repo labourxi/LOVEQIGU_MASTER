@@ -1,6 +1,6 @@
 {
   "navigationBarTitleText": "经络图",
   "usingComponents": {
-    "celebration-modal": "/components/celebration-modal/celebration-modal"
+    "celebration-modal": "/components/celebration-modal/index"
   }
 }

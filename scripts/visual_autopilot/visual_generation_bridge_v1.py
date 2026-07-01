@@ -344,6 +344,35 @@ def main() -> int:
     failed = [r for r in results if r.status == "failed"]
     blocked = [r for r in results if r.status == "missing_api_key"]
 
+    # ── QA GATE (Pipeline V3 STEP 3) ──
+    # NO IMAGE CAN ENTER ASSET SYSTEM WITHOUT QA SCORE PASS
+    if generated:
+        qa_script = ROOT / "scripts/pipeline_step3_qa.py"
+        qa_passed_all = True
+        for item in list(generated):
+            img_path = ROOT / item.path if not Path(item.path).is_absolute() else Path(item.path)
+            if img_path.exists():
+                sys.path.insert(0, str(ROOT / "scripts"))
+                try:
+                    from pipeline_step3_qa import qa_gate  # type: ignore
+                    qa_passed, qa_result = qa_gate(str(img_path))
+                    if qa_passed:
+                        score = qa_result.get("score", 0)
+                        print(f"  [QA] {item.provider} -> {item.path}: score {score:.2f} PASS")
+                    else:
+                        score = qa_result.get("score", 0)
+                        print(f"  [QA] {item.provider} -> {item.path}: score {score:.2f} FAIL — REMOVED")
+                        qa_passed_all = False
+                        generated.remove(item)
+                        failed.append(ProviderResult(item.provider, item.model, "failed", error=f"QA score {score:.2f} < 0.70"))
+                except Exception as exc:
+                    print(f"  [QA] {item.provider}: engine error {exc}")
+            else:
+                print(f"  [QA] {item.provider}: file not found at {img_path}")
+
+    if not qa_passed_all:
+        print("\n[QA_GATE] Some images failed QA. Review before manual approval.")
+
     report_lines = [
         "# VISUAL_AUTOPILOT_GENERATION_BRIDGE_V1_REPORT",
         "",

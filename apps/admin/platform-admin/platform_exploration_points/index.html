@@ -5,6 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>探索点管理 · AR游伴内容生产线</title>
   <link rel="stylesheet" href="../../shared/backoffice.css" />
+  <style>
+    .ep-toolbar { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; align-items: center; }
+    .ep-toolbar button { white-space: nowrap; }
+    .ep-toolbar .ep-spacer { flex: 1; }
+    .ep-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 999; display: flex; align-items: center; justify-content: center; }
+    .ep-modal { background: #fff; border-radius: 8px; padding: 24px; max-width: 640px; width: 90%; max-height: 80vh; overflow-y: auto; }
+    .ep-modal h3 { margin: 0 0 16px; }
+    .ep-modal label { display: block; margin: 8px 0 4px; font-size: 13px; color: #555; }
+    .ep-modal input, .ep-modal textarea, .ep-modal select { width: 100%; padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; box-sizing: border-box; }
+    .ep-modal textarea { min-height: 60px; resize: vertical; }
+    .ep-modal .ep-modal-actions { display: flex; gap: 8px; margin-top: 16px; justify-content: flex-end; }
+    .ep-modal label.ep-inline { display: inline-flex; align-items: center; gap: 6px; margin-right: 12px; }
+    .ep-modal label.ep-inline input { width: auto; }
+    .ep-preview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin: 12px 0; }
+    .ep-preview-card { border: 1px solid #e0e0e0; border-radius: 6px; padding: 12px; background: #fafafa; }
+    .ep-preview-card h4 { margin: 0 0 4px; font-size: 14px; }
+    .ep-preview-card p { margin: 2px 0; font-size: 12px; color: #666; }
+    .ep-preview-card .ep-preview-badge { display: inline-block; font-size: 11px; padding: 1px 6px; border-radius: 3px; background: #e8f5e9; color: #2e7d32; }
+    .ep-danger { background: #d32f2f; color: #fff; border-color: #b71c1c; }
+    .ep-danger:hover { background: #b71c1c; }
+    .table-actions .btn-sm { font-size: 12px; padding: 2px 8px; margin: 1px; }
+  </style>
 </head>
 <body>
   <div class="bo-app">
@@ -13,22 +35,84 @@
       <div id="bo-sidebar"></div>
       <main class="bo-content">
         <div id="bo-breadcrumb"></div>
-        <div class="bo-page-header"><h2>探索点管理</h2><p>景区 / 活动下探索点内容生产状态</p></div>
+        <div class="bo-page-header"><h2>探索点管理</h2><p>景区 / 活动下探索点内容生产状态 — 支持创建、编辑、删除、批量导入与导出生</p></div>
         <div class="bo-content-lineage"><strong>绑定关系</strong> 景区 → 活动 → 探索点 → 信物 / 祝福 / AR / 美术</div>
+
+        <div class="ep-toolbar">
+          <input type="text" id="ep-search-input" placeholder="搜索探索点名称或描述..." style="padding:6px 10px;border:1px solid #ccc;border-radius:4px;width:200px;" />
+          <button class="btn" id="ep-btn-search">搜索</button>
+          <select id="ep-filter-status" style="padding:6px 10px;border:1px solid #ccc;border-radius:4px;">
+            <option value="">全部状态</option>
+            <option value="DRAFT">草稿</option>
+            <option value="PUBLISHED">已发布</option>
+          </select>
+          <span class="ep-spacer"></span>
+          <button class="btn btn-primary" id="ep-btn-new">+ 新建探索点</button>
+          <button class="btn" id="ep-btn-ai-generate">AI 生成 10 个点</button>
+          <button class="btn" id="ep-btn-import-json">批量导入 JSON</button>
+          <button class="btn" id="ep-btn-export">导出当前数据</button>
+          <input type="file" id="ep-json-file-input" accept=".json" style="display:none;" />
+        </div>
+
         <section class="card bo-content-object-table">
           <div class="table-wrap">
             <table class="table">
               <thead>
                 <tr>
                   <th>探索点</th><th>景区</th><th>活动</th><th>场景类型</th>
+                  <th>故事</th><th>AR 触发</th>
                   <th>信物</th><th>祝福</th><th>AR</th><th>美术</th>
-                  <th>审查</th><th>发布</th><th>Runtime</th><th>操作</th>
+                  <th>审查</th><th>发布</th><th>状态</th><th>操作</th>
                 </tr>
               </thead>
               <tbody id="points-tbody"></tbody>
             </table>
           </div>
         </section>
+
+        <!-- Edit / Create Modal -->
+        <div id="ep-edit-modal" class="ep-modal-overlay" style="display:none;">
+          <div class="ep-modal">
+            <h3 id="ep-edit-title">编辑探索点</h3>
+            <label>探索点名称</label>
+            <input id="ep-form-name" placeholder="例如：四象入口" />
+            <label>场景类型</label>
+            <select id="ep-form-scene-type">
+              <option>入口签到</option><option>自然探索</option><option>互动体验</option><option>文化体验</option><option>终点仪式</option><option>商家点位</option>
+            </select>
+            <label>位置描述</label>
+            <input id="ep-form-location" placeholder="例如：入口广场" />
+            <label>描述（简短）</label>
+            <textarea id="ep-form-desc" placeholder="探索点简短描述"></textarea>
+            <label>故事片段</label>
+            <textarea id="ep-form-story" placeholder="探索点的故事内容"></textarea>
+            <label>象征意义</label>
+            <textarea id="ep-form-symbol" placeholder="探索点的象征意义"></textarea>
+            <label>AR 触发描述</label>
+            <textarea id="ep-form-ar-trigger" placeholder="扫描什么、触发什么"></textarea>
+            <label>情感叙事</label>
+            <textarea id="ep-form-emotion" placeholder="用户在此时此地的情感感受"></textarea>
+            <label>视觉提示</label>
+            <textarea id="ep-form-visual" placeholder="用户应该看到什么"></textarea>
+            <div class="ep-modal-actions">
+              <button class="btn" id="ep-edit-cancel">取消</button>
+              <button class="btn btn-primary" id="ep-edit-save">保存</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Batch Preview Modal -->
+        <div id="ep-ai-preview-modal" class="ep-modal-overlay" style="display:none;">
+          <div class="ep-modal" style="max-width: 800px;">
+            <h3>AI 生成预览</h3>
+            <p>以下探索点将批量导入。确认后将写入数据库。</p>
+            <div id="ep-ai-preview-list" class="ep-preview-grid"></div>
+            <div class="ep-modal-actions">
+              <button class="btn" id="ep-ai-cancel">取消</button>
+              <button class="btn btn-primary" id="ep-ai-confirm">确认导入</button>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   </div>
@@ -40,44 +124,242 @@
   <script src="../shared/platform-content-boot.js"></script>
   <script>
     PlatformContentBoot.boot("exploration_points", "探索点管理");
+
+    // ─── Global state ───
+    var editingId = null;
+
+    function openModal(title) {
+      document.getElementById("ep-edit-title").textContent = title;
+      document.getElementById("ep-edit-modal").style.display = "flex";
+    }
+    function closeModal() {
+      document.getElementById("ep-edit-modal").style.display = "none";
+      editingId = null;
+    }
+    function getFormData() {
+      return {
+        name: document.getElementById("ep-form-name").value.trim(),
+        sceneType: document.getElementById("ep-form-scene-type").value,
+        locationName: document.getElementById("ep-form-location").value.trim(),
+        description: document.getElementById("ep-form-desc").value.trim(),
+        story: document.getElementById("ep-form-story").value.trim(),
+        symbolicMeaning: document.getElementById("ep-form-symbol").value.trim(),
+        arTriggerDescription: document.getElementById("ep-form-ar-trigger").value.trim(),
+        emotionalNarrative: document.getElementById("ep-form-emotion").value.trim(),
+        visualHint: document.getElementById("ep-form-visual").value.trim()
+      };
+    }
+    function setFormData(p) {
+      p = p || {};
+      document.getElementById("ep-form-name").value = p.name || "";
+      document.getElementById("ep-form-scene-type").value = p.sceneType || "入口签到";
+      document.getElementById("ep-form-location").value = p.locationName || "";
+      document.getElementById("ep-form-desc").value = p.description || "";
+      document.getElementById("ep-form-story").value = p.story || "";
+      document.getElementById("ep-form-symbol").value = p.symbolicMeaning || "";
+      document.getElementById("ep-form-ar-trigger").value = p.arTriggerDescription || "";
+      document.getElementById("ep-form-emotion").value = p.emotionalNarrative || "";
+      document.getElementById("ep-form-visual").value = p.visualHint || "";
+    }
+    function clearForm() {
+      setFormData({});
+    }
+
+    // ─── Main render ───
     ContentProductionBoot.ensureAdapterScripts(function () {
       var adapter = ContentProductionBoot.getAdapter();
       var actor = ContentProductionBoot.getActor();
 
-      function render() {
-        var points = adapter.getExplorationPoints();
-        document.getElementById("points-tbody").innerHTML = points.map(function (p) {
-          return "<tr><td>" + p.name + "</td><td>" + p.parkName + "</td><td>" + p.activityName +
-            "</td><td>" + p.sceneType + "</td><td>" + ContentProductionBoot.bindingChip(p.relicBound) +
-            "</td><td>" + ContentProductionBoot.bindingChip(p.blessingBound, "待补") +
-            "</td><td>" + ContentProductionBoot.bindingChip(p.arBound, "待绑定") +
-            "</td><td>" + ContentProductionBoot.bindingChip(p.artBound, "待生成") +
-            "</td><td>" + ContentProductionBoot.statusBadge(p.reviewStatus, "review") +
-            "</td><td>" + ContentProductionBoot.statusBadge(p.publishStatus, "publish") +
-            "</td><td>" + ContentProductionBoot.statusBadge(p.runtimeStatus, "runtime") +
-            '</td><td class="table-actions">' +
-            '<button class="btn" data-action="relic" data-id="' + p.id + '">信物占位</button>' +
-            '<button class="btn" data-action="blessing" data-id="' + p.id + '">祝福文案</button>' +
-            '<button class="btn" data-action="ar" data-id="' + p.id + '">AR 占位</button>' +
-            '<button class="btn" data-action="art" data-id="' + p.id + '">美术需求</button>' +
-            '<button class="btn btn-primary" data-action="review" data-id="' + p.id + '">提交审查</button></td></tr>';
-        }).join("");
+      function getFilter() {
+        var f = {};
+        var q = document.getElementById("ep-search-input").value.trim();
+        if (q) f.query = q;
+        var s = document.getElementById("ep-filter-status").value;
+        if (s) f.status = s;
+        return f;
+      }
 
+      function render() {
+        var filter = getFilter();
+        var points = adapter.getExplorationPointList(filter);
+        document.getElementById("points-tbody").innerHTML = points.map(function (p) {
+          var storyPreview = (p.story || p.description || "").substring(0, 40);
+          if ((p.story || p.description || "").length > 40) storyPreview += "…";
+          var arPreview = (p.arTriggerDescription || "").substring(0, 30);
+          if ((p.arTriggerDescription || "").length > 30) arPreview += "…";
+          return "<tr>" +
+            "<td><strong>" + p.name + "</strong><br><span style='font-size:11px;color:#999;'>" + (p.locationName || "") + "</span></td>" +
+            "<td>" + (p.parkName || "") + "</td>" +
+            "<td>" + (p.activityName || "") + "</td>" +
+            "<td>" + p.sceneType + "</td>" +
+            "<td style='font-size:12px;color:#555;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;' title='" + (p.story || p.description || "") + "'>" + storyPreview + "</td>" +
+            "<td style='font-size:12px;color:#555;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;' title='" + (p.arTriggerDescription || "") + "'>" + arPreview + "</td>" +
+            "<td>" + ContentProductionBoot.bindingChip(p.relicBound) + "</td>" +
+            "<td>" + ContentProductionBoot.bindingChip(p.blessingBound, "待补") + "</td>" +
+            "<td>" + ContentProductionBoot.bindingChip(p.arBound, "待绑定") + "</td>" +
+            "<td>" + ContentProductionBoot.bindingChip(p.artBound, "待生成") + "</td>" +
+            "<td>" + ContentProductionBoot.statusBadge(p.reviewStatus, "review") + "</td>" +
+            "<td>" + ContentProductionBoot.statusBadge(p.publishStatus, "publish") + "</td>" +
+            "<td>" + ContentProductionBoot.statusBadge(p.status, "content") + "</td>" +
+            '<td class="table-actions">' +
+            '<button class="btn btn-sm" data-action="view" data-id="' + p.id + '">查看</button>' +
+            '<button class="btn btn-sm" data-action="edit" data-id="' + p.id + '">编辑</button>' +
+            '<button class="btn btn-sm btn-primary" data-action="relic" data-id="' + p.id + '">信物</button>' +
+            '<button class="btn btn-sm" data-action="blessing" data-id="' + p.id + '">祝福</button>' +
+            '<button class="btn btn-sm" data-action="ar" data-id="' + p.id + '">AR</button>' +
+            '<button class="btn btn-sm" data-action="art" data-id="' + p.id + '">美术</button>' +
+            '<button class="btn btn-sm" data-action="review" data-id="' + p.id + '">审查</button>' +
+            '<button class="btn btn-sm ep-danger" data-action="delete" data-id="' + p.id + '">删除</button>' +
+            "</td></tr>";
+        }).join("") || '<tr><td colspan="14" style="text-align:center;padding:24px;color:#999;">没有找到探索点。点击上方按钮新建或导入。</td></tr>';
+
+        // ─── Bind action buttons ───
         document.getElementById("points-tbody").querySelectorAll("[data-action]").forEach(function (btn) {
           btn.addEventListener("click", function () {
             var id = btn.getAttribute("data-id");
             var action = btn.getAttribute("data-action");
             var result;
+
+            if (action === "view") {
+              var p = adapter.getExplorationPointDetail(id);
+              if (p) {
+                var msg = "【" + p.name + "】\n地点: " + (p.locationName || "") + "\n类型: " + p.sceneType +
+                  "\n\n描述: " + (p.description || "") +
+                  "\n故事: " + (p.story || "") +
+                  "\n象征: " + (p.symbolicMeaning || "") +
+                  "\nAR触发: " + (p.arTriggerDescription || "") +
+                  "\n情感: " + (p.emotionalNarrative || "") +
+                  "\n视觉: " + (p.visualHint || "") +
+                  "\n\n状态: " + (p.status || "") + " / 审查: " + (p.reviewStatus || "") + " / 发布: " + (p.publishStatus || "");
+                alert(msg);
+              } else {
+                alert("探索点不存在");
+              }
+              return;
+            }
+
+            if (action === "edit") {
+              var point = adapter.getExplorationPointDetail(id);
+              if (point) {
+                editingId = id;
+                setFormData(point);
+                openModal("编辑探索点");
+              } else {
+                ContentProductionBoot.flash("探索点不存在", false);
+              }
+              return;
+            }
+
+            if (action === "delete") {
+              if (!confirm("确定要删除这个探索点吗？此操作不可撤销。")) return;
+              result = adapter.hardDeleteExplorationPoint(id, actor);
+              ContentProductionBoot.flash(result.message, result.ok);
+              render();
+              return;
+            }
+
             if (action === "relic") result = adapter.generateRelicPlaceholder(id, actor);
             else if (action === "blessing") result = adapter.generateBlessingContent(id, { contentType: "claim_hint" }, actor);
             else if (action === "ar") result = adapter.generateARPlaceholder(id, actor);
             else if (action === "art") result = adapter.generateArtRequest("exploration_point", id, {}, actor);
             else if (action === "review") result = adapter.submitContentReview("exploration_point", id, {}, actor);
-            ContentProductionBoot.flash(result.message, result.ok);
+            ContentProductionBoot.flash(result ? result.message : "操作完成", result ? result.ok : false);
             render();
           });
         });
       }
+
+      // ─── Toolbar actions ───
+      document.getElementById("ep-btn-search").addEventListener("click", render);
+      document.getElementById("ep-search-input").addEventListener("keyup", function(e) { if (e.key === "Enter") render(); });
+      document.getElementById("ep-filter-status").addEventListener("change", render);
+
+      // New point
+      document.getElementById("ep-btn-new").addEventListener("click", function() {
+        editingId = null;
+        clearForm();
+        openModal("新建探索点");
+      });
+
+      // Save (create or update)
+      document.getElementById("ep-edit-save").addEventListener("click", function() {
+        var data = getFormData();
+        if (!data.name) { ContentProductionBoot.flash("名称不能为空", false); return; }
+        var result;
+        if (editingId) {
+          result = adapter.updateExplorationPoint(editingId, data, actor);
+        } else {
+          result = adapter.createExplorationPoint(data, actor);
+        }
+        ContentProductionBoot.flash(result.message, result.ok);
+        closeModal();
+        render();
+      });
+
+      document.getElementById("ep-edit-cancel").addEventListener("click", closeModal);
+
+      // AI batch generate
+      document.getElementById("ep-btn-ai-generate").addEventListener("click", function() {
+        var theme = prompt("输入探索主题（可选，留空则使用默认主题）:", "");
+        if (theme === null) return;
+        var points = adapter.generateExplorationPointsBatch(theme || "", 10);
+        var container = document.getElementById("ep-ai-preview-list");
+        container.innerHTML = points.map(function(p) {
+          return '<div class="ep-preview-card"><h4>' + p.name + '</h4>' +
+            '<span class="ep-preview-badge">' + p.sceneType + '</span>' +
+            '<p>' + (p.description || "").substring(0, 60) + '</p>' +
+            '<p style="color:#999;">AR: ' + (p.arTriggerDescription || "").substring(0, 50) + '</p></div>';
+        }).join("");
+        document.getElementById("ep-ai-preview-modal").style.display = "flex";
+
+        document.getElementById("ep-ai-confirm").onclick = function() {
+          var result = adapter.batchImportExplorationPoints(points, actor);
+          ContentProductionBoot.flash(result.message, result.ok);
+          document.getElementById("ep-ai-preview-modal").style.display = "none";
+          render();
+        };
+        document.getElementById("ep-ai-cancel").onclick = function() {
+          document.getElementById("ep-ai-preview-modal").style.display = "none";
+        };
+      });
+
+      // JSON import
+      document.getElementById("ep-btn-import-json").addEventListener("click", function() {
+        document.getElementById("ep-json-file-input").click();
+      });
+      document.getElementById("ep-json-file-input").addEventListener("change", function(e) {
+        var file = e.target.files[0];
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function(ev) {
+          try {
+            var data = JSON.parse(ev.target.result);
+            var arr = data.explorationPoints || data.points || (Array.isArray(data) ? data : [data]);
+            var result = adapter.batchImportExplorationPoints(arr, actor);
+            ContentProductionBoot.flash(result.message, result.ok);
+            render();
+          } catch (err) {
+            ContentProductionBoot.flash("JSON 解析失败: " + err.message, false);
+          }
+        };
+        reader.readAsText(file);
+        this.value = "";
+      });
+
+      // Export
+      document.getElementById("ep-btn-export").addEventListener("click", function() {
+        var exportData = adapter.exportExplorationPoints();
+        var blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = "exploration_points_export_" + new Date().toISOString().slice(0, 10) + ".json";
+        a.click();
+        URL.revokeObjectURL(url);
+        ContentProductionBoot.flash("导出成功: " + exportData.count + " 个探索点", true);
+      });
+
+      // Initial render
       render();
     });
   </script>

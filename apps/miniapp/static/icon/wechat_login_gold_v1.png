@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" width="36" height="36">
+  <!-- WeChat chat bubble icon - gold line style -->
+  <path d="M18 4C10.27 4 4 9.3 4 15.88c0 3.54 1.83 6.7 4.7 8.82L7.5 30l6.35-3.47c1.33.36 2.73.55 4.15.55 7.73 0 14-5.3 14-11.88S25.73 4 18 4z" fill="none" stroke="rgba(200,162,74,0.6)" stroke-width="1.5" stroke-linejoin="round"/>
+  <circle cx="13" cy="16" r="1.5" fill="rgba(200,162,74,0.5)"/>
+  <circle cx="23" cy="16" r="1.5" fill="rgba(200,162,74,0.5)"/>
+</svg>

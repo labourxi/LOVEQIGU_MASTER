@@ -1,0 +1,215 @@
+/* PAGE_06_MY_RELICS — Relic Center
+   Circular orbit layout per RELIC_VISUAL_CANON_V1 */
+
+.canonical-collection-page {
+  min-height: 100vh;
+  background: #0A0A0F;
+  padding-bottom: 120rpx;
+}
+
+/* ═══ Header ═══ */
+.canonical-header {
+  padding: 120rpx 40rpx 24rpx;
+  text-align: center;
+}
+
+.canonical-header__kicker {
+  font-size: 24rpx;
+  color: rgba(200, 162, 74, 0.4);
+  letter-spacing: 8rpx;
+  margin-bottom: 16rpx;
+}
+
+.canonical-header__title {
+  font-size: 36rpx;
+  color: #E8D5A3;
+  letter-spacing: 4rpx;
+  margin-bottom: 12rpx;
+}
+
+.canonical-header__subtitle {
+  font-size: 22rpx;
+  color: rgba(232, 213, 163, 0.35);
+  margin-bottom: 16rpx;
+}
+
+.canonical-header__progress {
+  font-size: 28rpx;
+  color: #C8A24A;
+  letter-spacing: 2rpx;
+}
+
+/* ═══ Progress Bar ═══ */
+.canonical-progress {
+  height: 4rpx;
+  background: rgba(200, 162, 74, 0.06);
+  border-radius: 2rpx;
+  margin: 0 60rpx 40rpx;
+  overflow: hidden;
+}
+
+.canonical-progress__fill {
+  height: 100%;
+  background: linear-gradient(90deg, #C8A24A, #E8D8B4);
+  border-radius: 2rpx;
+  transition: width 0.8s ease;
+}
+
+/* ═══ Group Header ═══ */
+.canonical-group-header {
+  font-size: 22rpx;
+  color: rgba(232, 213, 163, 0.4);
+  padding: 20rpx 40rpx 12rpx;
+  letter-spacing: 4rpx;
+  border-bottom: 1rpx solid rgba(200, 162, 74, 0.06);
+  margin: 0 40rpx 20rpx;
+}
+
+/* ═══ Circular Reliquary (RELIC_VISUAL_CANON_V1) ═══ */
+.canonical-reliquary {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  padding: 0 40rpx;
+}
+
+.canonical-relic-node {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  padding: 20rpx;
+  border: 1rpx solid rgba(200, 162, 74, 0.06);
+  border-radius: 16rpx;
+  position: relative;
+}
+
+.canonical-relic-node:active {
+  background: rgba(200, 162, 74, 0.03);
+}
+
+/* ─── Circular Orbit ─── */
+.canonical-relic-node__orbit {
+  position: relative;
+  width: 80rpx;
+  height: 80rpx;
+  flex-shrink: 0;
+}
+
+.canonical-relic-node__ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 76rpx;
+  height: 76rpx;
+  border: 2rpx solid;
+  border-radius: 50%;
+}
+
+.canonical-relic-node__center {
+  position: absolute;
+  top: 10rpx;
+  left: 10rpx;
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  border: 1rpx solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.canonical-relic-node__symbol {
+  font-size: 24rpx;
+  color: #C8A24A;
+}
+
+/* ─── Info ─── */
+.canonical-relic-node__info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.canonical-relic-node__name {
+  font-size: 26rpx;
+  color: #E8D5A3;
+  font-weight: 500;
+}
+
+.canonical-relic-node__description {
+  font-size: 20rpx;
+  color: rgba(232, 213, 163, 0.4);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.canonical-relic-node__echo {
+  font-size: 18rpx;
+  color: rgba(200, 162, 74, 0.5);
+  font-style: italic;
+}
+
+.canonical-relic-node__meta {
+  font-size: 16rpx;
+  color: rgba(232, 213, 163, 0.25);
+}
+
+/* ═══ Empty State ═══ */
+.canonical-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 200rpx 40rpx;
+}
+
+.canonical-empty__orbit {
+  position: relative;
+  width: 140rpx;
+  height: 140rpx;
+  margin-bottom: 32rpx;
+}
+
+.canonical-empty__ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 136rpx;
+  height: 136rpx;
+  border: 2rpx solid rgba(200, 162, 74, 0.1);
+  border-radius: 50%;
+  animation: ring-pulse 3s ease-in-out infinite;
+}
+
+@keyframes ring-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.15; }
+  50% { transform: scale(1.05); opacity: 0.25; }
+}
+
+.canonical-empty__center {
+  position: absolute;
+  top: 34rpx;
+  left: 34rpx;
+  width: 68rpx;
+  height: 68rpx;
+  border: 1rpx solid rgba(200, 162, 74, 0.08);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  color: rgba(200, 162, 74, 0.15);
+}
+
+.canonical-empty__text {
+  font-size: 28rpx;
+  color: rgba(232, 213, 163, 0.3);
+  margin-bottom: 12rpx;
+}
+
+.canonical-empty__hint {
+  font-size: 24rpx;
+  color: rgba(232, 213, 163, 0.15);
+}

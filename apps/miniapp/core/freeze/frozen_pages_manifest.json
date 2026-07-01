@@ -1,0 +1,58 @@
+{
+  "manifest_version": "V1",
+  "system": "LOVEQIGU_AR_SYSTEM",
+  "freeze_timestamp": "2026-06-29T13:07:00.000Z",
+  "pages": {
+    "PAGE_01_LANDING": {
+      "status": "FROZEN",
+      "type": "landing",
+      "layout_structure": "layered",
+      "contract_reference": "UI_CONTRACT_SYSTEM_V1 §PAGE_01",
+      "orchestrator_required": true
+    },
+    "PAGE_02_EXPLORE": {
+      "status": "FROZEN",
+      "type": "explore",
+      "layout_structure": "layered",
+      "contract_reference": "UI_CONTRACT_SYSTEM_V1 §PAGE_02",
+      "orchestrator_required": true
+    },
+    "PAGE_03_RELIC": {
+      "status": "FROZEN",
+      "type": "relic",
+      "layout_structure": "orbit",
+      "contract_reference": "UI_CONTRACT_SYSTEM_V1 §PAGE_03",
+      "orchestrator_required": true
+    },
+    "PAGE_04_ECHO": {
+      "status": "FROZEN",
+      "type": "echo",
+      "layout_structure": "layered",
+      "contract_reference": "UI_CONTRACT_SYSTEM_V1 §PAGE_04",
+      "orchestrator_required": true
+    },
+    "PAGE_05_COLLECTION": {
+      "status": "FROZEN",
+      "type": "collection",
+      "layout_structure": "grid",
+      "contract_reference": "UI_CONTRACT_SYSTEM_V1 §PAGE_05",
+      "orchestrator_required": true
+    },
+    "PAGE_06_PROFILE": {
+      "status": "FROZEN",
+      "type": "profile",
+      "layout_structure": "vertical_stack",
+      "contract_reference": "UI_CONTRACT_SYSTEM_V1 §PAGE_06",
+      "orchestrator_required": true
+    }
+  },
+  "freeze_rules": {
+    "page_structure_modification": "FORBIDDEN",
+    "new_page_creation": "FORBIDDEN_WITHOUT_VERSION_BUMP",
+    "layout_alteration": "FORBIDDEN",
+    "orchestrator_bypass": "FORBIDDEN",
+    "content_update": "ALLOWED",
+    "asset_replacement": "ALLOWED_WITH_REGISTRY_UPDATE",
+    "bug_fix": "ALLOWED_INSIDE_FROZEN_STRUCTURE"
+  }
+}

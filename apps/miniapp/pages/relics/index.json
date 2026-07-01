@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "user-bottom-nav": "/components/user-bottom-nav/index"
+  },
+  "navigationStyle": "custom"
+}

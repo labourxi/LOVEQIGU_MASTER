@@ -1,0 +1,49 @@
+<view class="collectible-gallery-page">
+
+  <!-- ═══ Header ═══ -->
+  <view class="collectible-header">
+    <text class="collectible-header__kicker">藏品</text>
+    <text class="collectible-header__title">数字记忆容器</text>
+    <text class="collectible-header__subtitle">你的拍摄记录 · 纯粹影像存储</text>
+  </view>
+
+  <!-- ═══ Loading ═══ -->
+  <view wx:if="{{loading}}" class="collectible-loading">
+    <view class="collectible-loading__grid">
+      <view class="collectible-loading__cell"></view>
+      <view class="collectible-loading__cell"></view>
+      <view class="collectible-loading__cell"></view>
+    </view>
+  </view>
+
+  <block wx:else>
+    <!-- ═══ Gallery Grid (pure collectible, no relic) ═══ -->
+    <view wx:if="{{collectibles && collectibles.length > 0}}" class="collectible-grid">
+      <view
+        class="collectible-grid__item"
+        wx:for="{{collectibles}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onCollectibleTap"
+      >
+        <view class="collectible-grid__frame">
+          <!-- Image placeholder — actual media shown when available -->
+          <text class="collectible-grid__symbol">{{item.symbol || '◆'}}</text>
+        </view>
+        <text class="collectible-grid__name">{{item.name || '未命名影像'}}</text>
+        <text class="collectible-grid__source">{{item.source || ''}}</text>
+      </view>
+    </view>
+
+    <!-- ═══ Empty state ═══ -->
+    <view wx:else class="collectible-empty">
+      <view class="collectible-empty__frame">
+        <text class="collectible-empty__icon">◈</text>
+      </view>
+      <text class="collectible-empty__text">尚无影像记录</text>
+      <text class="collectible-empty__hint">AR探索中可拍摄并保存</text>
+    </view>
+  </block>
+
+  <user-bottom-nav activeKey="{{activeTab}}" bind:change="onBottomNavChange" />
+</view>

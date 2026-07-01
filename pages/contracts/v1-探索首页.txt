@@ -1,0 +1,255 @@
+# 📦 探索首页页面 v1（Page Contract）
+
+````text id="explore_home_v1_contract"
+PAGE: 探索首页（Explore Home v1）
+
+VERSION: v1-frozen-contract
+
+GOAL:
+Serve as the main entry point of AR游伴 world exploration system.
+Users discover locations, start AR journeys, and enter experiential narrative flow.
+
+This page is NOT a list page.
+This is a "World Entry Interface".
+
+---
+
+# 🧱 1. PAGE STRUCTURE
+
+LAYOUT:
+
+[WORLD HEADER]
+- 当前城市 / 区域（mock）
+- 今日推荐探索提示
+- “今天去哪里探索？”
+
+---
+
+[WORLD STATUS CARD]
+- 当前探索进度
+- 已解锁打卡点数量
+- 当前可探索区域状态（可探索 / 未解锁 / 已完成）
+
+---
+
+[FEATURED EXPLORE POINT (HERO NODE)]
+- 单一主推荐打卡点（必须存在）
+- 图片 + 名称 + 简述
+- 状态：推荐 / 热门 / 新发现
+- 主CTA：开始探索
+
+---
+
+[EXPLORE MAP LIST - CONTROLLED]
+- 10个打卡点（必须存在）
+- 每个点包含：
+  - 名称
+  - 简述
+  - 状态（未到达 / 可探索 / 已完成）
+  - 导航按钮
+
+---
+
+[WORLD ACTION PANEL]
+- 开始AR探索
+- 查看信物
+- 进入权益中心
+- 我的探索记录
+
+---
+
+[WORLD BACKGROUND LAYER]
+- 世界树视觉背景（非交互）
+- 状态变化轻微动画（可选）
+
+---
+
+# ⚙️ 2. FUNCTION SPEC
+
+## 2.1 HERO NODE ACTION
+
+BUTTON: “开始探索”
+ACTION FLOW:
+
+1. set state → NAVIGATING
+2. open navigation hint layer
+3. route to selected point detail page
+
+ROUTE:
+→ /explore/detail?id=point_id
+
+---
+
+## 2.2 打卡点点击
+
+BUTTON: explore point item
+ACTION:
+
+- open detail page
+- pass point_id
+- load point state
+
+ROUTE:
+→ /explore/detail
+
+---
+
+## 2.3 AR入口
+
+BUTTON: “开始AR探索”
+
+ACTION:
+
+1. initialize camera layer
+2. trigger AR scanning state
+3. transition to AR page
+
+ROUTE:
+→ /ar/scan
+
+---
+
+## 2.4 信物入口
+
+BUTTON: “查看信物”
+
+ROUTE:
+→ /relic/index
+
+---
+
+## 2.5 权益入口
+
+BUTTON: “权益中心”
+
+ROUTE:
+→ /rights/index
+
+---
+
+# 🧠 3. DATA MODEL (MOCK BUT COMPLETE)
+
+```ts id="explore_model"
+exploreState = {
+  city: "杭州·西湖",
+
+  progress: {
+    explored: 2,
+    total: 10
+  },
+
+  featuredPoint: {
+    id: "P001",
+    name: "雷峰塔遗迹",
+    desc: "白娘子传说核心节点",
+    status: "recommended",
+    image: "/mock/leifeng.jpg"
+  },
+
+  points: [
+    {
+      id: "P001",
+      name: "雷峰塔遗迹",
+      status: "available",
+      hint: "靠近塔基东侧"
+    },
+    {
+      id: "P002",
+      name: "断桥残雪",
+      status: "locked",
+      hint: "需完成前置探索"
+    }
+  ]
+}
+````
+
+---
+
+# 🗺️ 4. NAVIGATION MAP
+
+| Action | Route           |
+| ------ | --------------- |
+| 开始探索   | /explore/detail |
+| 打卡点    | /explore/detail |
+| AR探索   | /ar/scan        |
+| 信物     | /relic/index    |
+| 权益中心   | /rights/index   |
+| 我的     | /my/index       |
+
+---
+
+# 🎨 5. UI SPEC (VERY IMPORTANT)
+
+RULES:
+
+* 不能列表化
+* 必须有“主节点（hero）”
+* 10个点必须“收敛展示”，不能卡片墙
+* 页面必须有“世界感”
+* 信息层级必须清晰
+
+STYLE:
+
+* 世界入口感（非后台）
+* 单主视觉焦点
+* 次级信息轻量化
+* token system（V5.9）
+
+---
+
+# 🌌 6. STATE BEHAVIOR
+
+ON PAGE LOAD:
+
+1. load exploreState from world_runtime_store
+2. inject 10 points if missing
+3. set featuredPoint
+4. render renderTree
+
+ON CLICK:
+
+* point → detail
+* AR → scan state
+* featured → navigation start
+
+---
+
+# 🧩 7. EMPTY STATE RULE
+
+IF no points exist:
+
+SHOW:
+
+* “世界尚未被点亮”
+* “等待你的第一次探索”
+
+NO system / technical wording allowed
+
+---
+
+# 🔒 8. FREEZE DEFINITION
+
+This page is now:
+
+✔ fully structured
+✔ navigation complete
+✔ AR entry defined
+✔ data model complete
+✔ ready for Cursor implementation
+
+VERSION LOCK:
+EXPLORE_HOME_V1_FROZEN
+
+---
+
+# 🚀 9. ACCEPTANCE CRITERIA
+
+✔ must show 10 points
+✔ hero node must exist
+✔ AR entry functional
+✔ navigation fully wired
+✔ no empty UI state
+✔ feels like a world entry, not dashboard
+
+END CONTRACT
+

@@ -1,0 +1,244 @@
+# 📦 权益中心页面 v1（Page Contract）
+
+````text id="rights_center_v1_contract"
+PAGE: 权益中心（Exploration Rights Center v1）
+
+VERSION: v1-frozen-contract
+
+GOAL:
+Build a functional exploration-based rights system where users can view, earn, and redeem points, coupons, and exploration rewards derived from AR游伴 activity system.
+
+This is NOT an e-commerce page.
+This is a "Exploration Reward System Page".
+
+---
+
+# 🧱 1. PAGE STRUCTURE
+
+LAYOUT:
+
+[HEADER]
+- title: 探索礼遇中心
+- subtitle: “你的探索正在转化为真实回馈”
+
+---
+
+[POINT SUMMARY CARD]
+- 当前积分
+- 今日获得积分
+- 累计探索收益
+
+---
+
+[RIGHTS CATEGORIES]
+
+SECTION 1: 可领取奖励
+- 探索积分奖励
+- 打卡奖励
+- 活动奖励
+
+SECTION 2: 可兑换权益
+- 景区优惠券
+- 商家卡券
+- AR限定权益
+
+SECTION 3: 已领取记录
+- 历史兑换记录
+- 已使用权益
+
+---
+
+[COUPON SYSTEM PANEL]
+- coupon list (mock data)
+- status: 可用 / 已使用 / 已过期
+- expiry date
+- redemption button
+
+---
+
+[REWARD FEED]
+- 最近奖励记录
+- 来源（打卡点 / 信物 / 活动）
+- 获得时间
+
+---
+
+[FOOTER ACTION BAR]
+- 查看信物
+- 返回探索
+- 我的权益
+
+---
+
+# ⚙️ 2. FUNCTION SPEC
+
+## 2.1 积分系统
+
+STATE:
+userRights.points
+
+RULE:
+- 每次 AR 打卡成功 → +1
+- 每次获得信物 → +1 bonus
+- 页面自动刷新显示
+
+---
+
+## 2.2 领取奖励
+
+BUTTON: “领取”
+ACTION:
+- validate if available
+- change status: available → claimed
+- push to reward history
+
+---
+
+## 2.3 兑换权益
+
+BUTTON: “兑换”
+ACTION:
+- check points balance
+- deduct points
+- generate coupon instance
+
+STATE UPDATE:
+userRights.points -= cost
+userRights.coupons.push(newCoupon)
+
+---
+
+## 2.4 查看历史记录
+
+BUTTON:
+- reward feed item click
+
+ACTION:
+→ open detail modal
+
+---
+
+## 2.5 导航行为
+
+- 查看信物 → /relic/index
+- 返回探索 → /explore/index
+- 我的 → /my/index
+
+---
+
+# 🧠 3. DATA MODEL (MOCK BUT COMPLETE)
+
+```ts id="rights_model"
+userRights = {
+  points: 1,
+  todayEarned: 0,
+  totalEarned: 1,
+
+  coupons: [
+    {
+      id: "C001",
+      name: "景区折扣券",
+      status: "available",
+      expire: "2026-12-31",
+      source: "雷峰塔打卡"
+    }
+  ],
+
+  history: [
+    {
+      type: "探索奖励",
+      value: "+1",
+      source: "打卡点-雷峰塔",
+      time: "2026-06-28"
+    }
+  ]
+}
+````
+
+---
+
+# 🗺️ 4. NAVIGATION MAP
+
+| Action | Route          |
+| ------ | -------------- |
+| 查看信物   | /relic/index   |
+| 返回探索   | /explore/index |
+| 我的页面   | /my/index      |
+
+---
+
+# 🎨 5. UI SPEC (MINIMAL PRODUCT STYLE)
+
+RULES:
+
+* 单列信息结构
+* 卡片分区清晰
+* 不使用电商风格
+* 不使用密集表格
+* 强调“探索奖励系统感”
+
+STYLE:
+
+* clean + light
+* soft borders
+* subtle highlight for rewards
+* neutral palette (V5.9 token system)
+
+---
+
+# 🔁 6. STATE BEHAVIOR
+
+ON PAGE LOAD:
+
+1. load userRights from world_runtime_store
+2. if null → inject default mock
+3. render sections
+
+ON ACTION:
+
+* points update → reactive UI refresh
+* coupon update → instant insert
+* history append → feed update
+
+---
+
+# 🧩 7. EMPTY STATE RULE
+
+IF no data exists:
+
+SHOW:
+
+* “你的探索尚未转化为礼遇”
+* “继续探索将解锁更多权益”
+
+NO system messages allowed
+
+---
+
+# 🔒 8. FREEZE DEFINITION
+
+This page is now:
+
+✔ functionally complete
+✔ reward system defined
+✔ coupon system defined
+✔ navigation complete
+✔ ready for Cursor implementation
+
+VERSION LOCK:
+RIGHTS_CENTER_V1_FROZEN
+
+---
+
+# 🚀 9. ACCEPTANCE CRITERIA
+
+✔ points update works
+✔ coupon can be generated
+✔ reward history updates
+✔ navigation works
+✔ no empty UI
+✔ feels like real exploration reward system
+
+END CONTRACT
+
+```

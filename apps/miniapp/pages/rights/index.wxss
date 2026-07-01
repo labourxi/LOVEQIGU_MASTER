@@ -1,0 +1,381 @@
+@import '../../styles/prototype-v1.wxss';
+@import '../../styles/user-phase1.wxss';
+@import '../../styles/v59-system.wxss';
+
+/* ════════════════════════════════════════════════════════════════════
+   RIGHTS CENTER — V5.9.16 v1-frozen-contract
+   Exploration Reward System. NOT e-commerce.
+   Uses v59-system.wxss token system for shared styles.
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ─── Point Summary Card ─── */
+.rc-points-card {
+  background: #FAF8F4;
+  border: 1rpx solid rgba(200, 162, 74, 0.10);
+  border-radius: 24rpx;
+  padding: 28rpx 24rpx 24rpx;
+  margin: 0 28rpx 16rpx;
+}
+
+.rc-points-card__main {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  margin-bottom: 20rpx;
+}
+
+.rc-points-card__current {
+  display: flex;
+  align-items: baseline;
+  gap: 8rpx;
+  flex-shrink: 0;
+}
+
+.rc-points-card__current-value {
+  font-size: 52rpx;
+  font-weight: 700;
+  color: #C8A24A;
+  letter-spacing: 2rpx;
+  line-height: 1;
+}
+
+.rc-points-card__current-unit {
+  font-size: 22rpx;
+  color: rgba(200, 162, 74, 0.60);
+}
+
+.rc-points-card__stats {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.rc-points-card__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+}
+
+.rc-points-card__stat-value {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: rgba(232, 216, 180, 0.80);
+}
+
+.rc-points-card__stat-label {
+  font-size: 18rpx;
+  color: rgba(232, 216, 180, 0.35);
+}
+
+.rc-points-card__divider {
+  width: 2rpx;
+  height: 40rpx;
+  background: rgba(200, 162, 74, 0.10);
+}
+
+.rc-points-card__bar {
+  height: 6rpx;
+  background: rgba(200, 162, 74, 0.06);
+  border-radius: 3rpx;
+  overflow: hidden;
+  margin-bottom: 8rpx;
+}
+
+.rc-points-card__fill {
+  height: 100%;
+  background: linear-gradient(90deg, #C8A24A, #E8D8B4);
+  border-radius: 3rpx;
+}
+
+.rc-points-card__sub {
+  font-size: 18rpx;
+  color: rgba(232, 216, 180, 0.25);
+  text-align: center;
+}
+
+/* ─── Rights Category List ─── */
+.rc-category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.rc-category-list--compact {
+  gap: 8rpx;
+}
+
+/* ─── Rights Card — uses v59 unified card system ─── */
+.rc-rights-card {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  background: #FAF8F4;
+  border-radius: 20rpx;
+  padding: 28rpx 24rpx;
+  border: 1rpx solid rgba(200, 162, 74, 0.10);
+  box-shadow: 0 2rpx 12rpx rgba(38, 58, 52, 0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+.rc-rights-card--locked {
+  opacity: 0.55;
+}
+
+.rc-rights-card--claimed,
+.rc-rights-card--used,
+.rc-rights-card--expired {
+  opacity: 0.60;
+}
+
+.rc-rights-card--action:active {
+  background: rgba(200, 162, 74, 0.06);
+}
+
+.rc-rights-card__glow {
+  position: absolute;
+  top: -40rpx;
+  right: -40rpx;
+  width: 160rpx;
+  height: 160rpx;
+  background: radial-gradient(circle, rgba(200, 162, 74, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.rc-rights-card__icon {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 16rpx;
+  background: rgba(200, 162, 74, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  flex-shrink: 0;
+  color: #C8A24A;
+}
+
+.rc-rights-card--locked .rc-rights-card__icon {
+  background: rgba(200, 162, 74, 0.04);
+  color: rgba(200, 162, 74, 0.35);
+}
+
+.rc-rights-card__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.rc-rights-card__title {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #263A34;
+  margin-bottom: 4rpx;
+}
+
+.rc-rights-card--locked .rc-rights-card__title {
+  color: rgba(38, 58, 52, 0.50);
+}
+
+.rc-rights-card__desc {
+  font-size: 22rpx;
+  color: rgba(38, 58, 52, 0.50);
+  margin-bottom: 4rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rc-rights-card__desc--compact {
+  font-size: 20rpx;
+  margin-bottom: 0;
+}
+
+.rc-rights-card__meta {
+  font-size: 18rpx;
+  color: rgba(38, 58, 52, 0.35);
+}
+
+.rc-rights-card__action {
+  flex-shrink: 0;
+}
+
+.rc-rights-card__btn {
+  font-size: 20rpx;
+  font-weight: 500;
+  padding: 10rpx 24rpx;
+  border-radius: 999rpx;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.rc-rights-card__btn--available {
+  background: #C8A24A;
+  color: #FAF8F4;
+}
+
+.rc-rights-card__btn--locked {
+  background: rgba(200, 162, 74, 0.06);
+  color: rgba(38, 58, 52, 0.40);
+  border: 1rpx solid rgba(200, 162, 74, 0.12);
+}
+
+.rc-rights-card__btn--claimed {
+  background: rgba(200, 162, 74, 0.08);
+  color: #C8A24A;
+}
+
+.rc-rights-card__btn--used,
+.rc-rights-card__btn--expired {
+  background: rgba(200, 162, 74, 0.04);
+  color: rgba(38, 58, 52, 0.30);
+  border: 1rpx solid rgba(200, 162, 74, 0.08);
+}
+
+/* ─── Reward Feed ─── */
+.rc-reward-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.rc-reward-feed__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16rpx;
+  padding: 20rpx 0 20rpx 20rpx;
+  position: relative;
+  border-left: 2rpx solid rgba(200, 162, 74, 0.06);
+}
+
+.rc-reward-feed__item:first-child {
+  padding-top: 0;
+}
+
+.rc-reward-feed__item:last-child {
+  border-left-color: transparent;
+}
+
+.rc-reward-feed__dot {
+  position: absolute;
+  left: -6rpx;
+  top: 26rpx;
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background: rgba(200, 162, 74, 0.25);
+}
+
+.rc-reward-feed__item:first-child .rc-reward-feed__dot {
+  background: #C8A24A;
+  box-shadow: 0 0 8rpx rgba(200, 162, 74, 0.30);
+}
+
+.rc-reward-feed__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.rc-reward-feed__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4rpx;
+}
+
+.rc-reward-feed__source {
+  font-size: 24rpx;
+  color: #263A34;
+  font-weight: 500;
+}
+
+.rc-reward-feed__value {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: #C8A24A;
+}
+
+.rc-reward-feed__meta {
+  display: flex;
+  gap: 16rpx;
+  font-size: 18rpx;
+}
+
+.rc-reward-feed__type {
+  color: rgba(38, 58, 52, 0.40);
+}
+
+.rc-reward-feed__time {
+  color: rgba(38, 58, 52, 0.30);
+}
+
+/* ─── Reward History ─── */
+.rc-reward-history {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.rc-reward-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18rpx 20rpx;
+  background: #FAF8F4;
+  border-radius: 16rpx;
+  border: 1rpx solid rgba(200, 162, 74, 0.04);
+}
+
+.rc-reward-row__label {
+  font-size: 22rpx;
+  color: rgba(38, 58, 52, 0.60);
+}
+
+.rc-reward-row__value {
+  font-size: 22rpx;
+  font-weight: 500;
+  color: rgba(38, 58, 52, 0.85);
+}
+
+/* ─── Footer Action Bar ─── */
+.rc-footer-bar {
+  display: flex;
+  gap: 12rpx;
+  margin: 40rpx 28rpx 0;
+  padding-bottom: 20rpx;
+}
+
+.rc-footer-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+  padding: 20rpx 12rpx;
+  background: #FAF8F4;
+  border: 1rpx solid rgba(200, 162, 74, 0.08);
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 12rpx rgba(38, 58, 52, 0.04);
+}
+
+.rc-footer-btn:active {
+  background: rgba(200, 162, 74, 0.06);
+}
+
+.rc-footer-btn--primary {
+  background: rgba(200, 162, 74, 0.10);
+  border-color: rgba(200, 162, 74, 0.15);
+}
+
+.rc-footer-btn__icon {
+  font-size: 28rpx;
+  color: #C8A24A;
+}
+
+.rc-footer-btn__label {
+  font-size: 20rpx;
+  color: rgba(38, 58, 52, 0.70);
+}

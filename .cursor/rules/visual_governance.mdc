@@ -1,0 +1,80 @@
+---
+description: >-
+  VISUAL GOVERNANCE — When task involves UI/UX/visual design/landing
+  page/scene design/image generation/style judgment/design review,
+  MUST load layer system, state machine, and ratio engine. Enforce
+  L0/L1/L2 constraints and visual ratio boundaries. Report compliance
+  status without auto-blocking.
+alwaysApply: true
+globs: 
+---
+
+# AR游伴视觉治理执行引擎 — Cursor 自动审查规则
+
+当任务涉及以下任一关键词时，本规则自动激活：
+
+```
+UI / UX / visual design / landing page / scene design /
+image generation / prompt / style judgment / design review /
+生图 / 设计审核 / 视觉 / 界面 / 风格 / 布局 / 色彩 / 按钮 / 导航
+```
+
+## 执行流程
+
+### STEP 1：加载规范
+
+立即加载以下文件作为审查依据：
+
+- **执行引擎**: `docs/governance/VISUAL_GOVERNANCE_ENFORCEMENT_ENGINE_V1.md`
+- **根视觉规范**: `docs/freeze/AR_VISUAL_LAYER_SYSTEM_V4_FROZEN.md`
+- **调度规则**: `docs/governance/AR_VISUAL_PRODUCTION_GOVERNANCE_V1.md`
+- **页面状态机**: `docs/freeze/AR_PAGE_STATE_MACHINE_V1.md`
+- **比例控制引擎**: `docs/freeze/AR_VISUAL_RATIO_ENGINE_V1.md`
+
+### STEP 2：识别层级 + 页面状态
+
+先判断层级，再判断页面状态（状态机）：
+
+```
+IF 有微信登录按钮 + 无底部导航   → S00 LANDING_GUEST (L0)
+IF 无登录按钮 + 无底部导航       → S01 LANDING_LOGGED_IN (L0→L2)
+IF 有底部导航                    → S02–S06 (L2)
+IF 全屏沉浸                      → S07 AR_SCAN (L3)
+```
+
+### STEP 3：强制执行约束（含比例引擎）
+
+| 层级 | 方向 | 禁止 | 比例要求 |
+|------|------|------|---------|
+| **L0 (S00/S01)** | 文旅现实风 + 微金色光效 | 强幻想/星空化/游戏化 | REALITY 45-65%, WORLD 10-20%, UI 15-25% |
+| **L1 (S02)** | 70%现实 / 30%微增强 | 过度幻想/UI不可读/现实感丢失 | REALITY 30-50%, WORLD 10-20%, UI 30-40% |
+| **L2 (S03-S06)** | 星图/结界/时空门 | UI产品化过重/导航残留 | REALITY 20-40%, WORLD 10-20%, UI 40-50% |
+| **L3 (S07)** | AR沉浸体验 | UI过重 | REALITY 20-40%, WORLD 35-55%, UI 0-10% |
+
+**CRITICAL 否决条件**：
+- WORLD > 30%（L0/L1/L2 下）→ 世界增强喧宾夺主
+- REALITY < 30%（L0/L1 下）→ 无现实场景基底
+
+### STEP 4：输出声明（非拦截）
+
+在任务输出中显式声明以下内容（不阻止执行，仅报告）：
+
+```
+## 视觉治理审查
+
+层级: L0/L1/L2
+页面状态: S00/S01/S02/...
+合规状态: COMPLIANT / PARTIALLY COMPLIANT / NON-COMPLIANT
+比例状态: PASS / FAIL (REALITY=X%, WORLD=Y%, UI=Z%)
+违规点:
+  - [违反条款] 描述 (严重程度: CRITICAL/MAJOR/MINOR)
+评分: [如需评分时]
+状态: PASS（仅供审查参考，不自动阻止）
+```
+
+## 补充说明
+
+- 本规则是**审查报告机制，不是自动拒绝机制**。最终决策权在用户。
+- 当检测到明显违规时，应在报告中指出，并建议修正方向。
+- 如果用户明确要求忽略某项约束，以用户指令为准。
+- **比例引擎是生成前约束**，在涉及生图任务时，prompt 中应注入比例约束段落。

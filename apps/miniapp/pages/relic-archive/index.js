@@ -19,7 +19,7 @@ function buildPageData() {
     return {
       title: '印记册',
       activeTab: 'relic',
-      progress: { collected: 0, total: 0 },
+      progress: { collected: 0, total: 0, remaining: 0 },
       groups: [],
       boundary: '信物是故事进度资产，数字藏品是传播资产，二者不可混用。',
       focusedRelic: null,
@@ -28,7 +28,8 @@ function buildPageData() {
   }
 
   var relics = seed.relics;
-  var collected = relics.length;
+  var relicTotal = relics.length;
+  var progressRemaining = relicTotal - collected;
 
   var groupMap = {};
   for (var i = 0; i < relics.length; i++) {
@@ -55,21 +56,47 @@ function buildPageData() {
   for (var key in groupMap) {
     if (groupMap.hasOwnProperty(key)) {
       var g = groupMap[key];
+      var total = g.total || 1;
+      var progressPercent = Math.round(g.collected / total * 100);
+      var visibleSlots = g.relics.map(function(r) {
+        var highlighted = false;
+        return {
+          kind: 'owned',
+          key: r.id,
+          id: r.id,
+          name: r.name,
+          chapter: r.chapter,
+          collected: true,
+          highlighted: highlighted,
+          slotHighlightedClass: highlighted ? 'relic-album-slot--focus' : '',
+          slotSealClass: '',
+          slotKindOwned: true,
+          label: '',
+          related_ids: r.related_ids
+        };
+      });
+      var showTeaser = false;
+      var showFoldClosed = false;
+      var showFoldOpen = false;
+      var showExpanded = false;
       g.album = {
+        progressPercent: progressPercent,
         colCount: 3,
         ownedCount: g.collected,
         pendingTotal: 0,
         totalRelics: g.total,
         isEmptyOwned: false,
         emptyState: null,
-        visibleSlots: g.relics.map(function(r) {
-          return { kind: 'owned', key: r.id, id: r.id, name: r.name, chapter: r.chapter, collected: true, highlighted: false, related_ids: r.related_ids };
-        }),
+        visibleSlots: visibleSlots,
         teaserSlots: [],
         foldedPendingCount: 0,
         remainingPendingCount: 0,
         showFold: false,
         showExpandAll: false,
+        showFoldClosed: showFoldClosed,
+        showFoldOpen: showFoldOpen,
+        showExpanded: showExpanded,
+        showTeaser: showTeaser,
         expandedPendingSlots: []
       };
       groups.push(g);
@@ -79,7 +106,7 @@ function buildPageData() {
   return {
     title: '印记册',
     activeTab: 'relic',
-    progress: { collected: collected, total: relics.length },
+    progress: { collected: collected, total: relicTotal, remaining: progressRemaining },
     groups: groups,
     boundary: '信物是故事进度资产，数字藏品是传播资产，二者不可混用。',
     focusedRelic: null,

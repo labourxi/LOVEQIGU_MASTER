@@ -1,0 +1,100 @@
+{
+  "pipeline_step": "STEP_2_FULL_PAGE_VISUAL_GENERATION",
+  "pipeline_name": "VISUAL_PRODUCTION_PIPELINE_V3",
+  "input_source": "STRUCTURE_SPEC_LANDING_V2.md",
+  "date": "2026-07-01 17:01",
+  "status": "EXECUTION_SPEC_READY",
+  "page_id": "landing_v2_world_entry",
+  "aspect_ratio": "9:16",
+  "output_mode": "single_image",
+  "prompt_primary": {
+    "engine": "即梦 (Jimeng) via Seedream Ark",
+    "task": "full_page_render — world entry version",
+    "width": 750,
+    "height": 1624,
+    "prompt_text": "AIGU VALLEY landing page V2 — WORLD ENTRY INVOCATION. Full mobile screen 9:16. NOT a product page. NOT a UI page. This is a WORLD DESCENDING RITUAL visual. Portal gate occupies 75-85% of canvas — ABSOLUTE DOMINANCE. Pure void background — deepest black (#050505) fading to indigo void (#0F0530). Zero background objects. Zero textures. Zero competing elements. Background is NOT a scene — it is VOID. Center: WORLD ENTRY GATE — a massive transdimensional portal, larger than V1, 240px equivalent visual weight. Concentric rings of ethereal gold (#D4AF37) and deep violet (#5A1A7A), volumetric divine glow, gate feels like a DIMENSION DOOR not a technology portal. Portal rim has minimal resonance particles — gold/violet dust, only near portal edge, NOT scattered across screen. Atmosphere: sacred, world-descending, awe — NOT sci-fi, NOT game UI, NOT combat. Top center: ritual light script 'AR游伴' — 24px, divine glow, thin calligraphic style, visual weight is MINIMAL SIGNATURE only, like a seal. Bottom center: invocation glyph '谒见世界' — 14px, gate ring style, symbolic presence NOT functional button. Bottom left: ancient fragment '往世书'. Bottom right: light inscription '启明录'. All UI text reads as RITUAL FRAGMENTS not product UI. UI density is SYMBOLIC ONLY — under 10% of canvas. The ONLY visual subject is the world entry gate. The user is not using an app — they are WITNESSING A WORLD ENTERING. VISUAL PRIORITY CONTROL RULES: [CENTER_ANCHOR] Portal 75-85% absolute dominance. Only subject. [UI_SUPPRESSION] UI < 10%. Top 15% of canvas: title seal only. Bottom 20%: ritual CTAs only. No decorative elements anywhere. [BACKGROUND] Pure void. Zero competition. Only gradient + minimal portal-rim particles. [Z_ORDER] Void background → minimal portal particles → World Entry Gate (center, 75-85%) → Ritual glyph UI layer (symbolic fragments only).",
+    "negative_prompt": "phoenix, dragon, warrior, weapon, anime, cartoon, neon overglow, game UI elements, rainbow gradient, high-purity fluorescent colors, human face, text watermark, logo, realistic photo, cluttered, high UI density, asymmetrical composition, dark forest colors (#0A1A14), gold accent (#C8A24A), ink-wash style, mountain valley, fog, waterfall, temple, architecture, city, stars, galaxy, nebula, starfield, busy background, decorative background, competing focal points, product UI, button, functional UI, app store style, flat design, material design, glassmorphism, 3D model, rendering, photorealistic, pixel art",
+    "style_profile": {
+      "theme": "world_entry_invocation",
+      "color_system": [
+        "#050505 (deepest_black)",
+        "#0F0530 (indigo_void)",
+        "#5A1A7A (deep_violet)",
+        "#D4AF37 (ethereal_gold)"
+      ],
+      "lighting": "volumetric_divine_glow",
+      "material": "dimensional_gate_energy",
+      "atmosphere": "world_descending_sacred",
+      "motion_hint": "slow_portal_resonance"
+    }
+  },
+  "layout_spec": {
+    "z_order_bottom_to_top": [
+      "1. PURE VOID GRADIENT: #050505 (top 60%) → #0F0530 (bottom 40%). Zero objects. Zero textures. Pure gradient canvas.",
+      "2. MINIMAL RESONANCE PARTICLES: Only around portal rim edge. Gold/violet dust. Scattered radius <30px from portal edge. NOT floating across screen.",
+      "3. WORLD ENTRY GATE: Center-dominant, 240px equivalent visual weight. Transdimensional portal feel — concentric rings, inner glow, violet-to-gold. NOT a technology portal. FEELS like a dimension door. 75-85% of canvas visual weight.",
+      "4. TITLE GLYPH: 'AR游伴', top_center, ~60px from top safe zone. Ritual light script, 24px, divine glow, thin calligraphic. Visual weight: minimal signature only.",
+      "5. RITUAL FRAGMENT LEFT: '往世书', bottom_left, ~40px from bottom. Ancient script style, small, symbolic.",
+      "6. RITUAL FRAGMENT RIGHT: '启明录', bottom_right, ~40px from bottom. Light inscription style, small, symbolic.",
+      "7. INVOCATION GLYPH: '谒见世界', bottom_center, centered above fragments. Gate ring style, 14px, symbolic presence. NOT a button — a ritual seal."
+    ],
+    "composition": "portal_dominant_95_percent",
+    "ui_density": "symbolic_only",
+    "safe_zones": {
+      "top": "60px from top edge — title seal only, zero decoration",
+      "bottom": "80px from bottom edge — ritual fragments only, zero decoration",
+      "left_right": "20px from edges — no content outside margin"
+    }
+  },
+  "api_calls": {
+    "provider_primary_seedream": {
+      "endpoint": "https://ark.cn-beijing.volces.com/api/v3/images/generations",
+      "required_api_key": "ARK_API_KEY",
+      "model": "doubao-seedream-5-0-260128",
+      "payload": {
+        "prompt": "<<prompt_primary.prompt_text>>",
+        "negative_prompt": "<<prompt_primary.negative_prompt>>",
+        "size": "2048x2048",
+        "response_format": "url",
+        "seed": 43
+      },
+      "notes": "Seedream 5.0 — best for ethereal/mystical style. Output is square; post-crop to 9:16 required."
+    }
+  },
+  "output_target": {
+    "primary": "assets/visual-pipeline/landing_v2/landing_v2_world_entry.jpg",
+    "runtime": "apps/miniapp/static/scene/landing_v2_world_entry.jpg",
+    "format": "JPEG (quality 95)",
+    "expected_resolution": "750x1624px (9:16 portrait)"
+  },
+  "render_rules": {
+    "must_be_single_image": true,
+    "no_component_separation": true,
+    "no_ui_relayout_allowed": true,
+    "must_follow_layout_exactly": true,
+    "no_placeholder_assets": true,
+    "production_grade_only": true,
+    "portal_must_be_world_entry_not_tech_portal": true,
+    "ui_is_symbolic_not_functional": true
+  },
+  "visual_priority": {
+    "center_anchor": "world_entry_portal_gate — ABSOLUTE DOMINANCE. Portal occupies 75-85% of visual weight. Portal is the ONLY visual subject. Background is void — no competition whatsoever.",
+    "ui_suppression": "UI elements occupy <10% of total canvas area — symbolic layer only, not functional. Title and CTAs are fragments of invocation script, NOT product UI. Top 15% of canvas: ONLY title glyph. Bottom 20% of canvas: ONLY ritual CTAs. No decorative elements anywhere.",
+    "background_non_competition": "Background is STRICTLY void canvas. The deepest black (#050505) fading to indigo void (#0F0530). Zero foreground objects. Zero textures. Zero competing shapes.",
+    "z_order_enforcement": "Background (pure void) → Resonance particles (minimal, only near portal rim) → World entry gate (center, absolute dominance) → Ritual glyph UI layer (symbolic fragments only). Gate must NEVER overlap ritual text zones."
+  },
+  "post_processing": {
+    "if_chinese_text_is_garbled": "Generate textless version, add text overlay in post",
+    "if_aspect_ratio_is_off": "Crop to 9:16 center, do NOT stretch",
+    "if_colors_deviate": "Adjust toward #050505/#0F0530/#5A1A7A/#D4AF37 palette — reject bright neon",
+    "if_portal_not_dominant": "INCREASE portal visual weight to 75-85% — reduce everything else",
+    "if_background_has_content": "Remove all background objects. Void must be empty."
+  },
+  "approval": {
+    "step": 4,
+    "status": "PENDING_AFTER_GENERATION",
+    "date": "2026-07-01 17:01",
+    "engine": "HUMAN",
+    "gate": "LOCKED — requires STEP 3 QA + STEP 4 HUMAN approval after generation"
+  }
+}

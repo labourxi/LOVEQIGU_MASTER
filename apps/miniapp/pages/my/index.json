@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "我的",
+  "usingComponents": {
+    "empty-state": "../../components/EmptyState/index",
+    "user-bottom-nav": "../../components/user-bottom-nav/index"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "task": "个人中心（My Page v1）",
+    "version": "v1-frozen-contract",
+    "freeze": "MY_PAGE_V1_FROZEN",
+    "date": "2026-06-28",
+    "status": "ACCEPTED"
+  },
+  "contract_checklist": {
+    "page_structure": {
+      "top_user_card": ["avatar", "username (editable)", "bio (editable)"],
+      "stats_dashboard": ["已探索打卡点数", "已获得信物数", "积分数量", "数字藏品数"],
+      "quick_actions": ["编辑资料", "查看信物档案", "查看权益中心", "数字藏品"],
+      "function_modules": ["我的探索记录", "我的信物", "我的权益", "我的收藏"],
+      "settings": ["账户设置", "帮助中心", "关于系统"]
+    },
+    "functional_spec": {
+      "2.1_edit_username": "wx.showModal editable → updateUserProfile → UI refresh",
+      "2.2_edit_bio": "wx.showModal editable → updateUserProfile → UI refresh",
+      "2.3_view_relic": "/relic/index",
+      "2.4_view_rights": "/rights/index",
+      "2.5_view_collection": "/collection/index",
+      "2.6_edit_profile_modal": "modal with username+bio fields → save to store"
+    },
+    "data_model": {
+      "userProfile": ["userId: U10001", "username", "bio", "avatar", "lastVisit"],
+      "stats": ["exploredPoints", "relicCount", "points", "collectibles"]
+    },
+    "navigation": {
+      "查看信物": "/relic/index",
+      "权益中心": "/rights/index",
+      "数字藏品": "/collection/index",
+      "探索记录": "/explore/index",
+      "设置": "/settings/index"
+    },
+    "empty_state": {
+      "message": "探索者尚未留下足迹",
+      "submessage": "信物仍在等待显现 · 你的旅程刚刚开始"
+    }
+  },
+  "files_modified": [
+    "apps/miniapp/core/runtime/world_runtime_store.js",
+    "apps/miniapp/pages/my/index.js",
+    "apps/miniapp/pages/my/index.wxml",
+    "apps/miniapp/pages/my/index.wxss"
+  ],
+  "acceptance_results": {
+    "total": 33,
+    "passed": 33,
+    "failed": 0,
+    "ac_details": {
+      "AC1_username_editable": "passed",
+      "AC2_bio_editable": "passed",
+      "AC3_stats_visible": "passed",
+      "AC4_navigation": "passed",
+      "AC5_no_empty_ui": "passed",
+      "AC6_real_product_feel": "passed"
+    }
+  },
+  "freeze_declaration": "MY_PAGE_V1_FROZEN — structurally complete, functionally complete (mock-level), navigation complete, data model complete, ready for Cursor implementation."
+}

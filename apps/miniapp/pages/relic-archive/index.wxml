@@ -9,7 +9,7 @@
         <view class="user-stat-label">已收录</view>
       </view>
       <view class="user-stat-pill">
-        <view class="user-stat-value">{{progress.total - progress.collected}}</view>
+        <view class="user-stat-value">{{progress.remaining}}</view>
         <view class="user-stat-label">待显现</view>
       </view>
     </view>
@@ -48,7 +48,7 @@
       <view class="relic-chapter-meta">册页 · 已收录 {{item.collected}} / {{item.total}}</view>
     </view>
     <view class="group-progress-bar">
-      <view class="group-progress-fill" style="width: {{item.total ? item.collected / item.total * 100 : 0}}%;"></view>
+      <view class="group-progress-fill" style="width: {{item.progressPercent}}%;"></view>
     </view>
 
     <view class="relic-album-wrap">
@@ -65,7 +65,7 @@
 
         <view class="relic-album-grid" wx:if="{{item.album.visibleSlots.length}}">
           <view
-            class="relic-album-slot relic-album-slot--{{slot.kind}} {{slot.highlighted ? 'relic-album-slot--focus' : ''}}"
+            class="relic-album-slot relic-album-slot--{{slot.kind}} {{slot.slotHighlightedClass}}"
             wx:for="{{item.album.visibleSlots}}"
             wx:for-item="slot"
             wx:key="key"
@@ -73,14 +73,14 @@
             data-kind="{{slot.kind}}"
             bindtap="onSlotTap"
           >
-            <view class="relic-seal {{slot.kind !== 'owned' ? 'relic-seal--pending' : ''}}"></view>
-            <view class="relic-album-slot__name" wx:if="{{slot.kind === 'owned'}}">{{slot.name}}</view>
-            <view class="relic-album-slot__meta" wx:if="{{slot.kind === 'owned'}}">{{slot.chapter}}</view>
+            <view class="relic-seal {{slot.slotSealClass}}"></view>
+            <view class="relic-album-slot__name" wx:if="{{slot.slotKindOwned}}">{{slot.name}}</view>
+            <view class="relic-album-slot__meta" wx:if="{{slot.slotKindOwned}}">{{slot.chapter}}</view>
             <view class="relic-album-slot__label" wx:else>{{slot.label}}</view>
           </view>
         </view>
 
-        <view class="relic-album-grid relic-album-grid--teaser" wx:if="{{item.album.isEmptyOwned && item.album.teaserSlots.length}}">
+        <view class="relic-album-grid relic-album-grid--teaser" wx:if="{{item.album.showTeaser}}">
           <view
             class="relic-album-slot relic-album-slot--pending-teaser"
             wx:for="{{item.album.teaserSlots}}"
@@ -94,7 +94,7 @@
 
         <view
           class="relic-pending-fold"
-          wx:if="{{item.album.showFold && !item.album.pendingExpanded}}"
+          wx:if="{{item.album.showFoldClosed}}"
           data-id="{{item.scenicId}}"
           bindtap="onTogglePending"
         >
@@ -105,14 +105,14 @@
 
         <view
           class="relic-pending-fold relic-pending-fold--open"
-          wx:if="{{item.album.showFold && item.album.pendingExpanded}}"
+          wx:if="{{item.album.showFoldOpen}}"
           data-id="{{item.scenicId}}"
           bindtap="onTogglePending"
         >
           <view class="relic-pending-fold__text">收起未显现印记</view>
         </view>
 
-        <view class="relic-album-grid" wx:if="{{item.album.pendingExpanded && item.album.expandedPendingSlots.length}}">
+        <view class="relic-album-grid" wx:if="{{item.album.showExpanded}}">
           <view
             class="relic-album-slot relic-album-slot--pending-full"
             wx:for="{{item.album.expandedPendingSlots}}"

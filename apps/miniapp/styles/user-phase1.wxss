@@ -3,7 +3,7 @@
 
 
 .user-phase1-page {
-  padding-bottom: calc(120rpx + env(safe-area-inset-bottom));
+  padding-bottom: 120rpx;
   background: #F3F0E8;
   box-sizing: border-box;
 }

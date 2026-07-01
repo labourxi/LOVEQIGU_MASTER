@@ -1,0 +1,28 @@
+{
+  "task_id": "visual_task",
+  "prompt": "AIGU VALLEY landing page full mobile screen. Sacred futuristic space entry scene. Deep black (#050510) to indigo (#1A0A3E) gradient background. Center: a luminous rotating energy portal gate with concentric rings of violet (#7B2D8E) and gold light (#E8C86A), volumetric soft glow emanating outward, misty energy tendrils. Floating star dust particles scattered throughout, slow drift. Atmosphere: solemn, ethereal, sacred space. Top center: thin white glow text AR游伴. Bottom center: glowing energy button 进入世界 with subtle gold pulse. Bottom left: story text. Bottom right: info text. Minimal UI density generous negative space. Oriental mystic sci-fi aesthetic. Composition center-dominant symmetrical portal as visual anchor. Material energy mist glass-like refraction subtle neon edge glow.",
+  "stamp": "20260701_150844",
+  "related_canon": [
+    "ART_BIBLE_V1",
+    "ART_INDEX_V1",
+    "FOUR_SYMBOL_VISUAL_SYSTEM_V1.1",
+    "ART_03_VISUAL_PHILOSOPHY_V1",
+    "ART_04_VISUAL_PROTOTYPE_V1"
+  ],
+  "results": [
+    {
+      "provider": "openai",
+      "model": "gpt-image-1",
+      "status": "failed",
+      "path": null,
+      "error": "HTTP 400 Bad Request: {\n  \"error\": {\n    \"message\": \"Billing hard limit has been reached.\",\n    \"type\": \"billing_limit_user_error\",\n    \"param\": null,\n    \"code\": \"billing_hard_limit_reached\"\n  }\n}"
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-image",
+      "status": "failed",
+      "path": null,
+      "error": "HTTP 400 Bad Request: {\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Invalid JSON payload received. Unknown name \\\"responseModalities\\\" at 'generation_config': Cannot find field.\",\n    \"status\": \"INVALID_ARGUMENT\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.BadRequest\",\n        \"fieldViolations\": [\n          {\n            \"field\": \"generation_config\",\n            \"description\": \"Invalid JSON payload received. Unknown name \\\"responseModalities\\\" at 'generation_config': Cannot find field.\"\n          }\n        ]\n      }\n    ]\n  }\n}"
+    }
+  ]
+}

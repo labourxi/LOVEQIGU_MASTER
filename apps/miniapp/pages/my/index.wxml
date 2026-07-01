@@ -1,0 +1,124 @@
+<view class="proto-page user-phase1-page my-page">
+  <!-- ══════════════════════════════════════════════
+       TOP USER CARD (contract §1)
+       ══════════════════════════════════════════════ -->
+  <view class="proto-hero my-hero">
+    <view class="my-hero__body">
+      <view class="my-hero__avatar">{{userProfile.avatar}}</view>
+      <view class="my-hero__info">
+        <view class="my-hero__name" bindtap="onEditUsername">{{userProfile.name}}</view>
+        <view class="my-hero__level">{{userProfile.level}}</view>
+        <view class="my-hero__bio" bindtap="onEditBio">{{userProfile.bio}}</view>
+      </view>
+    </view>
+  </view>
+
+    <!-- ════════════════════════════════════════════════
+       STATS DASHBOARD (contract §1)
+       ════════════════════════════════════════════════ -->
+  <!-- UI Contract V0.5: ≤ 3 stats items -->
+  <view class="my-stats-dashboard">
+    <view class="my-stat-item">
+      <view class="my-stat-value">{{stats.exploredPoints}} / {{stats.totalPoints}}</view>
+      <view class="my-stat-label">探索进度</view>
+    </view>
+    <view class="my-stat-divider"></view>
+    <view class="my-stat-item">
+      <view class="my-stat-value">{{stats.relicCount}}</view>
+      <view class="my-stat-label">信物印记</view>
+    </view>
+    <view class="my-stat-divider"></view>
+    <view class="my-stat-item">
+      <view class="my-stat-value">{{stats.points}}</view>
+      <view class="my-stat-label">心愿值</view>
+    </view>
+  </view>
+
+  <!-- ══════════════════════════════════════════════
+       QUICK ACTIONS (contract §1)
+       ══════════════════════════════════════════════ -->
+  <view class="my-quick-actions">
+    <view class="my-quick-action" bindtap="onEditProfile" wx:for="{{quickActions}}" wx:key="id" data-action="{{item.target}}">
+      <view class="my-quick-action__icon">{{item.icon}}</view>
+      <view class="my-quick-action__label">{{item._narrativeLabel}}</view>
+    </view>
+  </view>
+
+  <!-- ══════════════════════════════════════════════
+       FUNCTION MODULES (contract §1)
+       ══════════════════════════════════════════════ -->
+  <view class="proto-section">
+    <view class="proto-section-head">
+      <view class="proto-section-title">世界入口</view>
+    </view>
+    <view class="my-module-list">
+      <view class="my-module-row" wx:for="{{functionModules}}" wx:key="id" data-route="{{item.route}}" bindtap="onOpenModule">
+        <view class="my-module-row__icon">{{item.icon}}</view>
+        <view class="my-module-row__label">{{item._narrativeLabel}}</view>
+        <view class="my-module-row__arrow">›</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ══════════════════════════════════════════════
+       SETTINGS (contract §1)
+       ══════════════════════════════════════════════ -->
+  <view class="proto-section">
+    <view class="proto-section-head">
+      <view class="proto-section-title">设置</view>
+    </view>
+    <view class="my-settings-list">
+      <view class="my-settings-row" wx:for="{{settings}}" wx:key="id" data-route="{{item.route}}" bindtap="onOpenSettings">
+        <view class="my-settings-row__icon">{{item.icon}}</view>
+        <view class="my-settings-row__label">{{item.label}}</view>
+        <view class="my-settings-row__arrow">›</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ══════════════════════════════════════════════
+       JOURNEY PROGRESS (legacy)
+       ══════════════════════════════════════════════ -->
+  <view class="my-points-card">
+    <view class="my-points-card__header">
+      <view class="my-points-card__title">探索足迹</view>
+      <view class="my-points-card__value">{{stats.exploredPoints}} / {{stats.totalPoints}}</view>
+    </view>
+    <view class="my-points-card__bar">
+      <view class="my-points-card__fill" style="width: {{stats.journeyProgress}}%;"></view>
+    </view>
+    <view class="my-points-card__sub" wx:if="{{stats._narrativeProgress}}">{{stats._narrativeProgress}}</view>
+  </view>
+
+  <!-- ══════════════════════════════════════════════
+       EMPTY STATE (contract §7)
+       ══════════════════════════════════════════════ -->
+  <view wx:if="{{emptyState}}" class="v59-empty">
+    <text class="v59-empty__icon">◉</text>
+    <text class="v59-empty__text">{{emptyState.message}}</text>
+    <text class="v59-empty__hint">{{emptyState.submessage}}</text>
+  </view>
+
+  <!-- ══════════════════════════════════════════════
+       EDIT PROFILE MODAL (contract §2.6)
+       ══════════════════════════════════════════════ -->
+  <view wx:if="{{showEditModal}}" class="my-modal-overlay" bindtap="onEditModalClose">
+    <view class="my-modal" catchtap="noop">
+      <view class="my-modal__title">留下印记</view>
+      <view class="my-modal__field">
+        <view class="my-modal__label">昵称</view>
+        <input class="my-modal__input" value="{{editModalData.username}}" placeholder="输入昵称" data-field="username" bindinput="onEditModalInput" />
+      </view>
+      <view class="my-modal__field">
+        <view class="my-modal__label">简介</view>
+        <input class="my-modal__input" value="{{editModalData.bio}}" placeholder="一句话简介" data-field="bio" bindinput="onEditModalInput" />
+      </view>
+      <view class="my-modal__actions">
+        <view class="my-modal__btn my-modal__btn--cancel" bindtap="onEditModalClose">取消</view>
+        <view class="my-modal__btn my-modal__btn--save" bindtap="onEditModalSave">保存</view>
+      </view>
+    </view>
+  </view>
+
+  <user-bottom-nav activeKey="{{activeTab}}" bind:change="onBottomNavChange" />
+</view>

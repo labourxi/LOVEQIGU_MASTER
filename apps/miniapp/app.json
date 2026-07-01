@@ -2,13 +2,20 @@
   "pages": [
     "pages/landing/index",
     "pages/index/index",
-    "pages/explore-map/index",
     "pages/ar-entry/index",
+    "pages/my/index",
+    "pages/rights/index",
+    "pages/relics/index",
+    "pages/relic/index",
+    "pages/collection/index",
+    "pages/ar/scan/index",
+    "pages/merchant/coupons/index",
+    "pages/digital-collectible/index",
+    "pages/explore-map/index",
     "pages/xr-primitive-sample/index",
     "pages/atom/index",
     "pages/lottie/index",
     "pages/echo/index",
-    "pages/digital-collectible/index",
     "pages/campaign-closure/index",
     "pages/next-activity/index",
     "pages/story-flow/index",
@@ -41,7 +48,6 @@
   "lazyCodeLoading": "requiredComponents",
   "sitemapLocation": "sitemap.json",
 
-  "requiredBackgroundModes": ["ar"],
   "permission": {
     "scope.userLocation": {
       "desc": "AR 体验需要获取您的位置信息"

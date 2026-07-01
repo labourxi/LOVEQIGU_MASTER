@@ -1,6 +1,5 @@
 {
   "navigationBarTitleText": "AR 显现",
-  "renderer": "xr-frame",
   "backgroundColor": "#f4f1eb",
   "usingComponents": {
     "user-bottom-nav": "/components/user-bottom-nav/index",

@@ -1,0 +1,134 @@
+{
+  "pipeline_step": "STEP_2_FULL_PAGE_VISUAL_GENERATION",
+  "pipeline_name": "VISUAL_PRODUCTION_PIPELINE_V3",
+  "input_source": "STRUCTURE_SPEC_LANDING_V1.md",
+  "date": "2026-07-01 14:32",
+  "status": "EXECUTION_SPEC_READY",
+  "page_id": "landing_v1",
+  "aspect_ratio": "9:16",
+  "output_mode": "single_image",
+  "prompt_primary": {
+    "engine": "gemini / 即梦 / seedream",
+    "task": "full_page_render",
+    "width": 750,
+    "height": 1624,
+    "prompt_text": "AIGU VALLEY landing page — full mobile screen. Sacred futuristic space entry scene. Deep black (#050510) to indigo (#1A0A3E) gradient background. Center: a luminous rotating energy portal gate — concentric rings of violet (#7B2D8E) and gold light (#E8C86A), volumetric soft glow emanating outward, misty energy tendrils. Floating star dust particles scattered throughout, slow drift. Atmosphere: solemn, ethereal, sacred space — NOT sci-fi combat. Top center: thin white glow text 'AR游伴' (27px, delicate, glowing). Bottom center: glowing energy button '进入世界' with subtle gold pulse. Bottom left: '故事' text. Bottom right: '说明' text. Minimal UI density — generous negative space. Oriental mystic sci-fi aesthetic — Eastern philosophical imagery fused with futuristic visual language. Composition: center-dominant symmetrical, portal as visual anchor. Material: energy mist, glass-like refraction, subtle neon edge glow. Motion hint: slow particle flow. VISUAL PRIORITY CONTROL RULES: [CENTER_ANCHOR] Portal gate is STRICT DOMINANT element — 60-70% of visual weight. Background must NOT compete with portal. [UI_SUPPRESSION] UI elements occupy under 15% of canvas. Top 20% of canvas: ONLY title text. Bottom 25% of canvas: ONLY bottom CTAs. No decorative elements in UI zones. [BACKGROUND_NON_COMPETITION] Background is strictly a canvas — gradient + particles only. No foreground objects. No complex textures. No competing focal points. [Z_ORDER] Strict layer separation: Background bottom → Particles → Portal → UI text/buttons on top. Portal must NOT overlap text or CTA zones.",
+    "negative_prompt": "phoenix, dragon, warrior, weapon, anime, cartoon, neon overglow, game UI elements, rainbow gradient, high-purity fluorescent colors, human face, text watermark, logo, realistic photo, cluttered, high UI density, asymmetrical composition, dark forest colors (#0A1A14), gold accent (#C8A24A), ink-wash style, mountain valley, fog",
+    "style_profile": {
+      "theme": "oriental_mystic_sci_fi",
+      "color_system": [
+        "#050510 (deep_black)",
+        "#1A0A3E (indigo)",
+        "#7B2D8E (violet)",
+        "#E8C86A (gold_light)"
+      ],
+      "lighting": "volumetric_soft_glow",
+      "material": "energy_mist_glass_neon",
+      "atmosphere": "sacred_futuristic_space",
+      "motion_hint": "slow_particle_flow"
+    }
+  },
+  "layout_spec": {
+    "z_order_bottom_to_top": [
+      "1. deep_space_gradient_background: #050510 (top) → #1A0A3E (bottom), radial_ellipse at 50% center",
+      "2. floating_star_dust: tiny light particles, scattered, slow drift, gold/violet tint, varying opacity 0.1-0.4",
+      "3. energy_portal_gate: centered, 180x180px equivalent visual weight. Concentric rings, inner glow, violet-to-gold gradient, soft volumetric rays extending outward",
+      "4. title_text: 'AR游伴', top_center, ~60px from top safe zone. Thin white glow text, font-size proportional to 750w canvas (~27px), letter-spacing slightly wider, opacity 0.92",
+      "5. secondary_cta_left: '故事', bottom_left, ~40px from bottom, bottom_left aligned, small text, opacity 0.7",
+      "6. secondary_cta_right: '说明', bottom_right, ~40px from bottom, bottom_right aligned, small text, opacity 0.7",
+      "7. primary_cta: '进入世界', bottom_center, centered above secondary CTAs, glowing energy button style, subtle gold pulse ring, medium weight text"
+    ],
+    "composition": "center_dominant_symmetry",
+    "ui_density": "very_low",
+    "safe_zones": {
+      "top": "60px from top edge — keep clear for text",
+      "bottom": "80px from bottom edge — keep clear for CTAs",
+      "left_right": "20px from edges — no critical content outside this margin"
+    }
+  },
+  "api_calls": {
+    "provider_a_gemini": {
+      "endpoint": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent",
+      "required_api_key": "GEMINI_API_KEY",
+      "payload": {
+        "contents": [
+          {
+            "parts": [
+              {
+                "text": "<<prompt_primary.prompt_text>>"
+              }
+            ]
+          }
+        ],
+        "generationConfig": {
+          "temperature": 0.85,
+          "topP": 0.95,
+          "topK": 40,
+          "candidateCount": 1
+        }
+      },
+      "notes": "Gemini Flash 2.0 supports image generation. Output may need post-processing to meet exact 9:16 ratio."
+    },
+    "provider_b_seedream": {
+      "endpoint": "internal://seedream",
+      "required_api_key": "SEEDREAM_API_KEY",
+      "payload": {
+        "prompt": "<<prompt_primary.prompt_text>>",
+        "negative_prompt": "<<prompt_primary.negative_prompt>>",
+        "width": 750,
+        "height": 1624,
+        "style": "oriental_mystic_sci_fi",
+        "cfg_scale": 7.5,
+        "steps": 30
+      },
+      "notes": "Seedream supports custom 9:16 aspect ratio. Best for painterly mystic style."
+    },
+    "provider_c_doubao_jimeng": {
+      "endpoint": "internal://doubao",
+      "required_api_key": "DOUBAO_API_KEY",
+      "payload": {
+        "prompt": "<<prompt_primary.prompt_text>>",
+        "negative_prompt": "<<prompt_primary.negative_prompt>>",
+        "width": 750,
+        "height": 1624,
+        "style": "写实厚涂 东方神秘",
+        "cfg_scale": 7,
+        "steps": 25
+      },
+      "notes": "豆包/即梦 supports Chinese prompt input natively. May produce better Chinese text rendering."
+    }
+  },
+  "output_target": {
+    "primary": "assets/visual-pipeline/landing_v1/landing_full_page_v1.png",
+    "format": "PNG (with transparent-capable layers, though single image)",
+    "fallback_format": "JPEG (if transparency not needed)",
+    "expected_resolution": "750x1624px (standard mobile portrait)"
+  },
+  "render_rules": {
+    "must_be_single_image": true,
+    "no_component_separation": true,
+    "no_ui_relayout_allowed": true,
+    "must_follow_layout_exactly": true,
+    "no_placeholder_assets": true,
+    "production_grade_only": true
+  },
+  "visual_priority": {
+    "center_anchor": "energy_portal_gate — STRICT DOMINANCE. Portal occupies 60-70% of visual weight. Background must not compete.",
+    "ui_suppression": "UI elements (title, CTAs) occupy <15% of total canvas area. Background must NOT add decorative elements in top 20% or bottom 25% of canvas.",
+    "background_non_competition": "Background is strictly a canvas. No foreground objects. No complex textures. No competing focal points. Gradient + particles only.",
+    "z_order_enforcement": "Background → Particles → Portal → [All UI elements] must be strictly separated layers. Portal must NOT overlap UI zones."
+  },
+  "post_processing": {
+    "if_chinese_text_is_garbled": "Generate textless version, add text overlay in post",
+    "if_aspect_ratio_is_off": "Crop to 9:16 center, do NOT stretch",
+    "if_colors_deviate": "Adjust toward #050510/#1A0A3E/#7B2D8E/#E8C86A palette — reject neon oversaturation",
+    "if_portal_not_dominant": "Increase portal visual weight, reduce background complexity"
+  },
+  "approval": {
+    "step": 4,
+    "status": "APPROVED",
+    "date": "2026-07-01 14:32",
+    "engine": "HUMAN",
+    "gate": "UNLOCKED — proceed to STEP 5 after generation"
+  }
+}

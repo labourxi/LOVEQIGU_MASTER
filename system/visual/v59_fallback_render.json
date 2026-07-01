@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "template_version": "V5.9.12",
+    "purpose": "Ultimate safe fallback render template — used when auto-fix is exhausted or renderTree is completely unrecoverable"
+  },
+
+  "structure": {
+    "hero": {
+      "kicker": "印记",
+      "title": "探索世界",
+      "subtitle": "系统正在恢复",
+      "type": "proto-hero",
+      "required": true,
+      "description": "Always present. Provides minimal world context even in degraded state."
+    },
+    "primaryAction": {
+      "type": "refresh",
+      "label": "重新探索",
+      "enabled": true,
+      "required": true,
+      "description": "Always available. Allows user to trigger a system refresh."
+    },
+    "content": {
+      "type": "condensed",
+      "sections": [],
+      "required": true,
+      "maxItems": 0,
+      "description": "Empty in fallback state. Prevents content rendering errors."
+    },
+    "background": {
+      "resonanceState": "neutral",
+      "atmosphereResonance": "low",
+      "backgroundPulse": false,
+      "required": false,
+      "description": "Neutral background. No animations, no glow effects."
+    }
+  },
+
+  "visual_tokens": {
+    "color_palette": "NEUTRAL",
+    "animations": "DISABLED",
+    "spacing": "MINIMAL",
+    "glow": "NONE",
+    "card_radius": "0",
+    "typography": {
+      "hero_size": "36rpx",
+      "subtitle_size": "22rpx"
+    }
+  },
+
+  "guarantees": {
+    "no_blank_screen": true,
+    "no_broken_ui": true,
+    "graceful_degradation": true,
+    "always_renderable": true
+  }
+}

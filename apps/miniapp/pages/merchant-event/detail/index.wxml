@@ -17,7 +17,7 @@
     <view class="ad-action-card ad-action-card--primary">
       <view class="ad-action-card__label">探索进度</view>
       <view class="ad-action-card__value">{{detail.display.exploreProgress}}</view>
-      <view wx:if="{{!detail.display.isJourneyComplete}}" class="ad-action-card__hint">
+      <view wx:if="{{detail.isJourneyNotComplete}}" class="ad-action-card__hint">
         抵达此处，完成打卡以显现印记
       </view>
       <view wx:else class="ad-action-card__hint ad-action-card__hint--done">
@@ -35,7 +35,7 @@
       <view class="ad-relic-card__kicker">信物 · 故事进度资产</view>
       <view class="ad-relic-card__row">
         <view class="ad-relic-card__icon">
-          <text wx:if="{{detail.display.relicStatus === '已收集' || detail.display.relicStatus === 'COLLECTED'}}">✦</text>
+          <text wx:if="{{detail.relicCollected}}">✦</text>
           <text wx:else>◇</text>
         </view>
         <view class="ad-relic-card__info">
@@ -72,7 +72,7 @@
       <view class="ad-nav-card__hint">{{nextStepLabel}}</view>
       <view class="ad-nav-card__actions">
         <button class="proto-btn proto-btn--ghost" bindtap="onOpenExploration">探索图谱</button>
-        <button wx:if="{{explorationState === 'REVEALABLE'}}"
+        <button wx:if="{{detail.isRevealable}}"
                 class="proto-btn proto-btn--primary"
                 bindtap="onEnterARScan">
           进入 AR 显现

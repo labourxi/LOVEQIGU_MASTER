@@ -1,62 +1,153 @@
-<view class="landing-page">
-  <!-- ─── 骨架加载 ─── -->
-  <view wx:if="{{loading}}" class="landing-skeleton">
-    <view class="landing-skeleton__seal"></view>
-    <view class="landing-skeleton__title"></view>
-    <view class="landing-skeleton__verse"></view>
-    <view class="landing-skeleton__btn"></view>
+<!--
+  PAGE_01_LANDING — 爱企谷首页 (Aigugu World Entry Page)
+
+  V7 CIVILIZATION OS — AIGU VALLEY WORLD ENTRY PAGE
+
+  CRITICAL DESIGN RULES:
+    1. ready gates ALL UI — skeleton shows until store data is bound
+    2. IMAGES ARE NON-BLOCKING — safe <image> wrapper with binderror
+    3. UI renders ONLY when ready=true (store populated)
+    4. No image dependency on entry system or render completion
+
+  ASSET RULES:
+    - /images/ path prefix (canonical)
+    - Safe <image> component for error handling
+    - CSS background-image ALSO set for depth, but non-blocking
+    - onImgError handler sets fallback image
+
+  LOGIN BUTTON:
+    - Single fixed-bottom overlay
+    - Gated by loginVisible (from store.userState.isGuest)
+    - Independent of image load state
+-->
+
+<view class="lp-page" data-world-mode="{{worldMode}}">
+
+  <!-- ─── 骨架加载 (until ready) ─── -->
+  <view wx:if="{{!ready}}" class="lp-skeleton">
+    <view class="lp-skeleton__bg"></view>
+    <view class="lp-skeleton__title"></view>
+    <view class="lp-skeleton__stats"></view>
+    <view class="lp-skeleton__cta"></view>
   </view>
 
   <block wx:else>
-    <!-- ─── 背景：水墨雾山光流 ─── -->
-    <view class="landing-atmosphere">
-      <view class="landing-atmosphere__mist"></view>
-      <view class="landing-atmosphere__mountain"></view>
-      <view class="landing-atmosphere__lightflow"></view>
-      <view class="landing-atmosphere__fog"></view>
+
+    <!-- ════════════════════════════════════════════════════════════
+         LAYER 1: BACKGROUND SCENE
+         NON-BLOCKING: safe <image> wrapper + CSS background fallback
+         ════════════════════════════════════════════════════════════ -->
+    <view class="lp-bg">
+      <!-- Safe image wrapper — fires onImgError on failure -->
+      <!-- Hidden when bgImage empty (gradient fallback active) -->
+      <image wx:if="{{bgImage}}"
+        class="lp-bg__image"
+        src="{{bgImage}}"
+        binderror="onImgError"
+        mode="scaleToFill"
+      ></image>
+      <!-- CSS background-image scene layer (gradient fallback) -->
+      <view wx:if="{{!bgImage}}"
+        class="lp-bg__scene lp-bg__scene--gradient">
+      </view>
+      <!-- CSS background-image scene layer (image) -->
+      <view wx:if="{{bgImage}}"
+        class="lp-bg__scene"
+        style="background-image: url({{bgImage}});">
+      </view>
+      <view class="lp-bg__depth"></view>
+      <view class="lp-bg__fog" style="--fog-delay: 0s"></view>
+      <view class="lp-bg__fog" style="--fog-delay: 10s"></view>
+      <view class="lp-bg__fog" style="--fog-delay: 20s"></view>
+      <view class="lp-bg__warm-light"></view>
+      <view class="lp-bg__light-rays"></view>
+      <view class="lp-bg__particles"></view>
     </view>
 
-    <!-- ─── 世界标题 + 光晕 ─── -->
-    <view class="landing-content">
-      <view class="landing-world-title">
-        <view class="landing-world-title__halo"></view>
-        <view class="landing-world-title__seal">
-          <text class="landing-world-title__seal-char">爱</text>
+    <!-- ════════════════════════════════════════════════════════════
+         LAYER 2: WORLD INTRO SECTION
+         ════════════════════════════════════════════════════════════ -->
+    <view class="lp-intro">
+      <view class="lp-intro__portal">
+        <view class="lp-intro__ring"></view>
+        <view class="lp-intro__core"></view>
+        <view class="lp-intro__particles"></view>
+      </view>
+      <view class="lp-intro__title">爱企谷</view>
+      <view class="lp-intro__roman">AIGU VALLEY</view>
+      <view class="lp-intro__verse">游离之域 · 世界正在显现</view>
+    </view>
+
+    <!-- ════════════════════════════════════════════════════════════
+         LAYER 3: STATS DASHBOARD
+         ════════════════════════════════════════════════════════════ -->
+    <view class="lp-stats">
+      <view class="lp-stats__grid">
+        <view class="lp-stat-card">
+          <view class="lp-stat-card__value">{{stats.explorationCount}}</view>
+          <view class="lp-stat-card__label">探索点已启</view>
         </view>
-        <view class="landing-world-title__name">AR游伴</view>
-        <view class="landing-world-title__sub">企谷 · 探索之旅</view>
-      </view>
-
-      <!-- ─── 东方引导语 ─── -->
-      <view class="landing-guide">
-        <view class="landing-guide__line"></view>
-        <view class="landing-guide__text">每一处探索，都是与这片土地的一次重逢</view>
-        <view class="landing-guide__line"></view>
-      </view>
-
-      <!-- ─── 扫码结果 ─── -->
-      <view wx:if="{{scanResult}}" class="landing-scan-badge">
-        已识别景区二维码
-      </view>
-
-      <!-- ─── 印章化登录按钮 ─── -->
-      <view class="landing-actions">
-        <button class="landing-seal-btn" bindtap="onLogin">
-          <view class="landing-seal-btn__inner">
-            <text class="landing-seal-btn__char">登</text>
-            <text class="landing-seal-btn__label">{{loginBanner.actionLabel}}</text>
-          </view>
-          <view class="landing-seal-btn__glow"></view>
-        </button>
-        <button class="landing-ghost-btn" bindtap="onScanCode">扫码进入园区</button>
-      </view>
-
-      <!-- ─── 底部 ─── -->
-      <view class="landing-footer">
-        <text class="landing-footer__text">登录即表示同意服务协议</text>
-        <text class="landing-footer__dot">·</text>
-        <text class="landing-footer__text">首次使用需获取设备信息</text>
+        <view class="lp-stat-card">
+          <view class="lp-stat-card__value">{{stats.relicCount}}</view>
+          <view class="lp-stat-card__label">信物已得</view>
+        </view>
+        <view class="lp-stat-card">
+          <view class="lp-stat-card__value">{{stats.couponCount}}</view>
+          <view class="lp-stat-card__label">权益已领</view>
+        </view>
+        <view class="lp-stat-card">
+          <view class="lp-stat-card__value">{{stats.progress}}%</view>
+          <view class="lp-stat-card__label">探索进度</view>
+        </view>
       </view>
     </view>
+
+    <!-- ════════════════════════════════════════════════════════════
+         LAYER 4: EXPLORATION CAROUSEL
+         ════════════════════════════════════════════════════════════ -->
+    <view class="lp-carousel-wrap">
+      <view class="lp-carousel-label">十个世界节点</view>
+      <scroll-view class="lp-carousel" scroll-x="true" enhanced-show-scrollbar="{{false}}">
+        <view
+          class="lp-carousel__item lp-carousel__item--{{item.status}}"
+          wx:for="{{carouselItems}}"
+          wx:key="id"
+          data-index="{{index}}"
+          data-id="{{item.id}}"
+          bindtap="onCarouselTap"
+        >
+          <view class="lp-carousel__dot" style="background: {{item.themeColor}};"></view>
+          <view class="lp-carousel__name">{{item.name}}</view>
+          <view class="lp-carousel__subtitle" wx:if="{{item.subtitle}}">{{item.subtitle}}</view>
+          <view class="lp-carousel__region" wx:if="{{item.region}}">{{item.region}}</view>
+          <view class="lp-carousel__status">{{item.statusLabel}}</view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- ════════════════════════════════════════════════════════════
+         LAYER 5: SECONDARY CTA (logged-in users)
+         ════════════════════════════════════════════════════════════ -->
+    <block wx:if="{{userType !== 'guest'}}">
+      <view class="lp-actions">
+        <button class="lp-cta lp-cta--primary" bindtap="onEnterExplore">
+          <text class="lp-cta__label">进入探索</text>
+        </button>
+        <view class="lp-cta__hint">{{userType === 'active_explorer' ? '新信物正在等待显现' : '进入AR游伴探索世界'}}</view>
+      </view>
+    </block>
+
   </block>
 </view>
+
+<!-- ─── P0: 微信一键登录 — 固定底部覆盖层 ───
+     Gated by ready. NEVER blocked by assets. -->
+<block wx:if="{{ready && loginVisible !== false}}">
+  <view class="lp-login-fixed">
+    <button class="lp-login-fixed__btn" bindtap="onWechatLogin">
+      <text class="lp-login-fixed__icon"></text>
+      <text class="lp-login-fixed__label">微信一键登录</text>
+    </button>
+    <view class="lp-login-fixed__hint">登录后进入爱企谷探索世界</view>
+  </view>
+</block>

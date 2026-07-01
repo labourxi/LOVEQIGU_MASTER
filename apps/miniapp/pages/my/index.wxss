@@ -1,0 +1,388 @@
+@import '../../styles/prototype-v1.wxss';
+@import '../../styles/user-phase1.wxss';
+@import '../../styles/v59-system.wxss';
+
+/* ═══════════════════════════════════
+   MY_PAGE_V1_FROZEN — User Center
+   Uses v59-system.wxss token system for ALL shared styles.
+   Page-specific layout only — no token overrides.
+   ═══════════════════════════════════ */
+
+/* ─── Hero Area ─── */
+.my-hero__body {
+  display: flex;
+  align-items: center;
+  gap: 28rpx;
+  margin-bottom: 12rpx;
+}
+
+.my-hero__avatar {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  background: rgba(200, 162, 74, 0.12);
+  border: 2rpx solid rgba(200, 162, 74, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  flex-shrink: 0;
+  color: #E8D8B4;
+}
+
+.my-hero__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.my-hero__name {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #E8D8B4;
+  margin-bottom: 4rpx;
+  padding: 4rpx 8rpx;
+  margin-left: -8rpx;
+  border-radius: 8rpx;
+}
+
+.my-hero__level {
+  font-size: 20rpx;
+  color: rgba(232, 216, 180, 0.70);
+  letter-spacing: 3rpx;
+  margin-bottom: 4rpx;
+}
+
+.my-hero__bio {
+  font-size: 20rpx;
+  color: rgba(232, 216, 180, 0.55);
+  padding: 4rpx 8rpx;
+  margin-left: -8rpx;
+  border-radius: 8rpx;
+}
+
+/* ─── Stats Dashboard — unified card bg + contract radius ─── */
+.my-stats-dashboard {
+  display: flex;
+  align-items: center;
+  background: #FAF8F4;
+  border: 1rpx solid rgba(200, 162, 74, 0.10);
+  border-radius: 20rpx;
+  padding: 24rpx 16rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(38, 58, 52, 0.04);
+}
+
+.my-stat-item {
+  flex: 1;
+  text-align: center;
+  min-width: 0;
+}
+
+.my-stat-value {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #C8A24A;
+  margin-bottom: 4rpx;
+}
+
+.my-stat-label {
+  font-size: 18rpx;
+  color: rgba(38, 58, 52, 0.55);
+  line-height: 1.3;
+}
+
+.my-stat-divider {
+  width: 1rpx;
+  height: 48rpx;
+  background: rgba(200, 162, 74, 0.10);
+  flex-shrink: 0;
+}
+
+/* ─── Quick Actions — unified card radius ─── */
+.my-quick-actions {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 24rpx;
+}
+
+.my-quick-action {
+  flex: 1;
+  background: #FAF8F4;
+  border: 1rpx solid rgba(200, 162, 74, 0.10);
+  border-radius: 16rpx;
+  padding: 20rpx 8rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+  text-align: center;
+  box-shadow: 0 2rpx 12rpx rgba(38, 58, 52, 0.04);
+}
+
+.my-quick-action__icon {
+  font-size: 28rpx;
+  color: #C8A24A;
+}
+
+.my-quick-action__label {
+  font-size: 18rpx;
+  color: rgba(38, 58, 52, 0.75);
+  line-height: 1.2;
+}
+
+/* ─── Function Modules — unified card radius ─── */
+.my-module-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.my-module-row {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 24rpx;
+  background: #FAF8F4;
+  border-radius: 16rpx;
+  margin-bottom: 6rpx;
+  border: 1rpx solid rgba(200, 162, 74, 0.06);
+  box-shadow: 0 2rpx 12rpx rgba(38, 58, 52, 0.04);
+}
+
+.my-module-row__icon {
+  width: 40rpx;
+  font-size: 24rpx;
+  color: #C8A24A;
+  flex-shrink: 0;
+}
+
+.my-module-row__label {
+  flex: 1;
+  font-size: 26rpx;
+  color: #263A34;
+  margin-left: 16rpx;
+}
+
+.my-module-row__arrow {
+  font-size: 32rpx;
+  color: rgba(38, 58, 52, 0.35);
+  flex-shrink: 0;
+}
+
+/* ─── Settings — unified card radius ─── */
+.my-settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.my-settings-row {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 24rpx;
+  background: #FAF8F4;
+  border-radius: 16rpx;
+  margin-bottom: 6rpx;
+  border: 1rpx solid rgba(200, 162, 74, 0.04);
+  box-shadow: 0 2rpx 12rpx rgba(38, 58, 52, 0.04);
+}
+
+.my-settings-row__icon {
+  width: 40rpx;
+  font-size: 22rpx;
+  color: rgba(38, 58, 52, 0.50);
+  flex-shrink: 0;
+}
+
+.my-settings-row__label {
+  flex: 1;
+  font-size: 24rpx;
+  color: rgba(38, 58, 52, 0.65);
+  margin-left: 16rpx;
+}
+
+.my-settings-row__arrow {
+  font-size: 32rpx;
+  color: rgba(38, 58, 52, 0.30);
+  flex-shrink: 0;
+}
+
+/* ─── Points Card — unified card bg ─── */
+.my-points-card {
+  background: #FAF8F4;
+  border: 1rpx solid rgba(200, 162, 74, 0.10);
+  border-radius: 20rpx;
+  padding: 24rpx 28rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(38, 58, 52, 0.04);
+}
+
+.my-points-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.my-points-card__title {
+  font-size: 22rpx;
+  color: rgba(38, 58, 52, 0.60);
+}
+
+.my-points-card__value {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #C8A24A;
+}
+
+.my-points-card__bar {
+  height: 6rpx;
+  background: rgba(200, 162, 74, 0.10);
+  border-radius: 3rpx;
+  overflow: hidden;
+}
+
+.my-points-card__fill {
+  height: 100%;
+  background: linear-gradient(90deg, #C8A24A, #E8D8B4);
+  border-radius: 3rpx;
+}
+
+/* ─── Edit Profile Modal ─── */
+.my-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.60);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.my-modal {
+  width: 600rpx;
+  background: #FAF8F4;
+  border: 1rpx solid rgba(200, 162, 74, 0.15);
+  border-radius: 24rpx;
+  padding: 36rpx 32rpx;
+  box-shadow: 0 8rpx 32rpx rgba(10, 26, 20, 0.15);
+}
+
+.my-modal__title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #263A34;
+  margin-bottom: 32rpx;
+  text-align: center;
+}
+
+.my-modal__field {
+  margin-bottom: 24rpx;
+}
+
+.my-modal__label {
+  font-size: 22rpx;
+  color: rgba(38, 58, 52, 0.60);
+  margin-bottom: 8rpx;
+}
+
+.my-modal__input {
+  width: 100%;
+  height: 72rpx;
+  background: rgba(200, 162, 74, 0.06);
+  border: 1rpx solid rgba(200, 162, 74, 0.15);
+  border-radius: 12rpx;
+  padding: 0 20rpx;
+  font-size: 26rpx;
+  color: #263A34;
+  box-sizing: border-box;
+}
+
+.my-modal__actions {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 32rpx;
+}
+
+.my-modal__btn {
+  flex: 1;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16rpx;
+  font-size: 26rpx;
+  font-weight: 500;
+}
+
+.my-modal__btn--cancel {
+  background: rgba(200, 162, 74, 0.06);
+  color: rgba(38, 58, 52, 0.60);
+  border: 1rpx solid rgba(200, 162, 74, 0.10);
+}
+
+.my-modal__btn--save {
+  background: #C8A24A;
+  color: #FAF8F4;
+  border: none;
+}
+
+/* ─── Focal Card — unified card bg ─── */
+.my-focal-card {
+  background: #FAF8F4;
+  border-radius: 24rpx;
+  padding: 28rpx 24rpx;
+  position: relative;
+  overflow: hidden;
+  border: 1rpx solid rgba(200, 162, 74, 0.10);
+  box-shadow: 0 2rpx 12rpx rgba(38, 58, 52, 0.04);
+}
+
+.my-focal-card__body {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.my-focal-card__symbol {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 16rpx;
+  background: rgba(200, 162, 74, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  flex-shrink: 0;
+}
+
+.my-focal-card__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.my-focal-card__name {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #263A34;
+  margin-bottom: 2rpx;
+}
+
+.my-focal-card__origin {
+  font-size: 20rpx;
+  color: rgba(38, 58, 52, 0.55);
+  margin-bottom: 2rpx;
+}
+
+.my-focal-card__time {
+  font-size: 18rpx;
+  color: rgba(38, 58, 52, 0.40);
+}
+
+.my-focal-empty {
+  padding: 40rpx 0;
+}

@@ -1,0 +1,207 @@
+{
+  "baseline_id": "V5.9.3-VISUAL-BASELINE-001",
+  "created_at": "2026-06-28T04:08:00.000Z",
+  "system": "LOVEQIGU Visual Consistency Verification Layer",
+  "version": "5.9.3",
+
+  "approved_layout_structure": {
+    "landing": {
+      "type": "full-screen-atmospheric",
+      "components": [
+        "landing-skeleton (loading state)",
+        "landing-atmosphere (mist + mountain + lightflow + fog)",
+        "landing-content (world title + guide + scan badge + actions + footer)",
+        "landing-world-title (halo + seal + seal-char + name + sub)",
+        "landing-guide (line + text)",
+        "landing-actions (seal-btn + ghost-btn)",
+        "landing-footer (text + dot)"
+      ],
+      "layout_rules": [
+        "centered content block with atmospheric background layer",
+        "seal button centered below title and guide",
+        "scan badge positioned above action buttons when active",
+        "footer always at bottom of viewport",
+        "no card grid, no list, no timeline"
+      ]
+    },
+    "explore": {
+      "type": "map-node-list",
+      "components": [
+        "exp-header (kicker + title + guide + stats)",
+        "exp-map (trail + nodes)",
+        "exp-section (relics section)",
+        "exp-relic card per relic"
+      ],
+      "layout_rules": [
+        "header with atmospheric mist/glow background",
+        "map trail with nodes in linear progression",
+        "relic section below map trail",
+        "no card grid, no complex conditional branching",
+        "single recommended point shown conditionally"
+      ]
+    },
+    "detail": {
+      "type": "card-stack",
+      "components": [
+        "pilot-scene-banner (conditional pilot scene hint)",
+        "proto-hero (kicker + title + subtitle)",
+        "ad-card-stack (action card + relic card + coupon card + nav card)"
+      ],
+      "layout_rules": [
+        "hero header at top",
+        "cards stack vertically in ad-card-stack container",
+        "action card always visible",
+        "relic card always visible",
+        "coupon card conditionally visible (wx:if single boolean)",
+        "nav card always visible at bottom of stack",
+        "no grid, no list rendering"
+      ]
+    },
+    "relic": {
+      "type": "album-grid",
+      "components": [
+        "proto-hero (kicker + title + subtitle + stats)",
+        "boundary-panel (canon rule reminder)",
+        "relic-focus-ritual (conditional focused relic panel)",
+        "scenic-group (chapter head + progress bar + relic album)"
+      ],
+      "layout_rules": [
+        "scenic groups iterate vertically (wx:for groups)",
+        "each group has a chapter head with progress indicator",
+        "relic album grid within each group",
+        "visible slots grid (3-column layout)",
+        "teaser slots grid (3-column, bottom)",
+        "pending fold section (expandable)",
+        "expanded pending slots grid (3-column, bottom)"
+      ]
+    }
+  },
+
+  "approved_spacing_scale": [
+    "80rpx 32rpx 36rpx (manifest padding)",
+    "44rpx 32rpx 32rpx (hero card padding)",
+    "0 (secondary/context gap)",
+    "140rpx (bottom nav offset)",
+    "0 32rpx (page padding)",
+    "36rpx 28rpx (rhythm item padding)",
+    "32rpx (standard gap)",
+    "24rpx (card internal gap)",
+    "20rpx (section gap)",
+    "16rpx (element gap)",
+    "12rpx (tight gap)",
+    "8rpx (compact gap)",
+    "4rpx (micro gap)",
+    "0rpx (no gap)"
+  ],
+
+  "approved_color_palette": {
+    "primary_gold": "rgba(200, 162, 74, <opacity>)",
+    "primary_white": "rgba(255, 255, 255, <opacity>)",
+    "dark_background": "rgba(0, 0, 0, <opacity>)",
+    "amber_warmth": "rgba(255, 193, 7, <opacity>)",
+    "brand_purple": "rgba(120, 80, 200, <opacity>)",
+    "warm_pink": "rgba(255, 100, 130, <opacity>)",
+    "transition_gold": "rgba(200, 162, 74, <opacity>)",
+    "edge_gold": "rgba(200, 162, 74, 0.1-0.2)",
+    "glass_bg": "rgba(255, 255, 255, 0.04-0.06)",
+    "muted_gold": "rgba(200, 162, 74, 0.6)"
+  },
+
+  "approved_typography_scale": {
+    "hero_title": "44rpx",
+    "primary_text": "36rpx",
+    "section_title": "28rpx",
+    "secondary_text": "22rpx",
+    "caption_text": "20rpx",
+    "label_text": "18rpx",
+    "footnote_text": "16rpx",
+    "micro_text": "14rpx",
+    "tiny_text": "12rpx",
+    "min_text": "10rpx"
+  },
+
+  "approved_card_hierarchy": {
+    "hero_card": {
+      "border_radius": "28rpx",
+      "border": "1rpx solid rgba(200, 162, 74, 0.20)",
+      "shadow": "0 8rpx 48rpx rgba(200, 162, 74, 0.12), 0 0 80rpx rgba(200, 162, 74, 0.04)",
+      "components": ["glow", "halo", "body", "place-label", "name", "emotion", "action"]
+    },
+    "secondary_card": {
+      "border_radius": "24rpx",
+      "shadow": "0 4rpx 16rpx rgba(200, 162, 74, 0.06)",
+      "components": ["body", "icon", "text", "name", "emotion", "action"]
+    },
+    "context_card": {
+      "border_radius": "20rpx",
+      "shadow": "none",
+      "components": ["body", "name"]
+    },
+    "cta_button": {
+      "border_radius": "999rpx",
+      "border": "1rpx solid rgba(200, 162, 74, 0.12)",
+      "font_size": "20rpx"
+    }
+  },
+
+  "component_hierarchy": {
+    "atmosphere_layer": {
+      "z_index": 0,
+      "components": ["mist", "glow", "fog", "mountain", "lightflow", "particles"]
+    },
+    "background_layer": {
+      "z_index": 1,
+      "color": "rgba(0, 0, 0, 1)"
+    },
+    "content_layer": {
+      "z_index": 2,
+      "components": ["hero", "sections", "cards", "grids", "buttons"]
+    },
+    "manifestation_overlay": {
+      "z_index": 3,
+      "components": ["dim", "mist", "pulse", "phenomenon-block", "phenomenon-items"]
+    },
+    "navigation_layer": {
+      "z_index": 4,
+      "components": ["user-bottom-nav"]
+    }
+  },
+
+  "approved_awareness_modes": {
+    "minimal": {
+      "text_tone": "minimal",
+      "spacing_density": "tight",
+      "card_emphasis": "hero_only",
+      "background_intensity": "0.4"
+    },
+    "balanced": {
+      "text_tone": "neutral",
+      "spacing_density": "normal",
+      "card_emphasis": "hierarchical",
+      "background_intensity": "0.6"
+    },
+    "deep": {
+      "text_tone": "poetic",
+      "spacing_density": "generous",
+      "card_emphasis": "all_visible",
+      "background_intensity": "0.8"
+    }
+  },
+
+  "acceptance_criteria": {
+    "no_page_divergence": true,
+    "all_pages_visually_consistent": true,
+    "no_layout_drift_across_refresh": true,
+    "no_color_drift": true,
+    "no_spacing_drift": true,
+    "system_behaves_deterministic": true
+  },
+
+  "verification_status": {
+    "landing": "passed",
+    "explore": "passed",
+    "detail": "passed",
+    "relic": "passed",
+    "last_full_scan": "2026-06-28T04:10:00.000Z"
+  }
+}

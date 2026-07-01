@@ -1,0 +1,224 @@
+{
+  "meta": {
+    "report_id": "V5.9.8_RC_FREEZE",
+    "generated_at": "2026-06-28T05:01:00.000Z",
+    "system_version": "V5.9.8",
+    "purpose": "Release Candidate Stabilization Layer — Final freeze before V6+"
+  },
+
+  "rc_freeze_status": "ACTIVE",
+
+  "step_1_immutable_modules": {
+    "status": "ACTIVE",
+    "frozen_modules": [
+      "visualEngine",
+      "stateVisualMap",
+      "centralResonanceRenderer",
+      "renderTreeBuilder",
+      "visualConsistencyVerifier",
+      "visualRegressionGuard",
+      "visualSystemLock",
+      "visualSystemLockdown"
+    ],
+    "module_count": 8,
+    "constraint": "All 8 modules registered as IMMUTABLE. Any modification requires V6+ version bump.",
+    "file": "core/visual/visual_rc_freeze.js — IMMUTABLE_MODULES registry",
+    "enforcement": "Object.freeze() applied to the entire registry"
+  },
+
+  "step_2_experimental_path_disablement": {
+    "status": "ACTIVE",
+    "blocked_categories": {
+      "testUIBranches": ["a_b_test_layout", "experiment_card_v2", "proto_alt_layout", "dev_grid_test", "debug_render_mode"],
+      "debugRenderingModes": ["wireframe", "layout_debug", "component_outline", "state_inspector"],
+      "fallbackVisualExperiments": ["alternate_hero_style", "experimental_glow", "test_typography_v2", "exploratory_spacing"],
+      "alternateLayoutEngines": ["flex_grid_engine", "css_grid_layout", "inferno_template", "custom_renderer"]
+    },
+    "total_blocked_paths": 17,
+    "enforcement": "isExperimentalPath() returns true for any blocked path, blocking render execution"
+  },
+
+  "step_3_single_render_path": {
+    "status": "ENFORCED",
+    "mandatory_pipeline": [
+      "state",
+      "visualEngine",
+      "renderTree",
+      "UI"
+    ],
+    "constraint": "Any deviation from this pipeline = INVALID RENDER. All pages consume renderTree via buildPageData().",
+    "enforcement": "MANDATORY_RENDER_PIPELINE frozen at module level"
+  },
+
+  "step_4_memoization_layer": {
+    "status": "ACTIVE",
+    "function": "memoizedVisualEngine(state, rawEngine)",
+    "cache_key_strategy": "deterministic subset hash (relevantKeys array)",
+    "performance_impact": "reduces visualEngine calls to 1 per unique state",
+    "observability": "getMemoizationStats() returns calls/hits/misses/size/hitRate",
+    "hit_rate": "66.7% (2 cache hits, 1 cache miss in test)",
+    "enforcement": "Built into visual_rc_freeze.js; clearable via clearMemoizationCache()"
+  },
+
+  "step_5_empty_state_consistency_lock": {
+    "status": "LOCKED",
+    "global_spec": {
+      "iconSize": "48rpx",
+      "iconOpacity": "0.4",
+      "iconColor": "rgb(200, 162, 74)",
+      "titleFontSize": "24rpx",
+      "titleLetterSpacing": "4rpx",
+      "titleOpacity": "0.5",
+      "titleColor": "rgb(200, 162, 74)",
+      "bodyFontSize": "18rpx",
+      "bodyOpacity": "0.3",
+      "bodyColor": "rgb(200, 162, 74)",
+      "spacingBetweenElements": "20rpx",
+      "hierarchy": "icon → title → body"
+    },
+    "approved_types": ["exploration", "relic", "right", "coupon", "record"],
+    "forbidden_phrases_count": 9,
+    "enforcement": "validateEmptyState(type, renderTree) checks type validity and forbidden phrases"
+  },
+
+  "step_6_visual_drift_hard_block": {
+    "status": "ACTIVE",
+    "mode": "HARD_BLOCK",
+    "total_blocked_renders_since_boot": 3,
+    "block_behavior": "If drift detected → block render → log deviation → fallback to V5.9 base template",
+    "drift_detection_scope": [
+      "null renderTree",
+      "unknown awarenessMode values",
+      "unapproved top-level keys"
+    ],
+    "enforcement": "detectVisualDrift() + enforceDriftBlock() — integrated into enforceSystemLockdown() as L7"
+  },
+
+  "step_7_global_system_contract": {
+    "status": "ENFORCED",
+    "version": "V5.9.8",
+    "guarantees": [
+      {
+        "id": "deterministic_ui_rendering",
+        "status": "ENFORCED",
+        "mechanism": "memoizedVisualEngine provides deterministic output for identical state hash"
+      },
+      {
+        "id": "identical_visual_output_for_identical_state",
+        "status": "ENFORCED",
+        "mechanism": "State hash computed from deterministic key subset; cache ensures identical output"
+      },
+      {
+        "id": "zero_layout_randomness",
+        "status": "ENFORCED",
+        "mechanism": "All layout decisions precomputed in buildPageData(); WXML has no branching logic"
+      },
+      {
+        "id": "zero_ui_divergence_across_pages",
+        "status": "ENFORCED",
+        "mechanism": "All pages consume renderTree via buildPageData() — same pattern, same output structure"
+      }
+    ],
+    "constraints": {
+      "singleRenderPath": true,
+      "noExperimentalPaths": true,
+      "visualSystemFrozen": true,
+      "memoizationEnabled": true,
+      "driftBlockActive": true,
+      "emptyStateConsistencyLocked": true,
+      "allModulesImmutable": true
+    },
+    "enforcement": "verifySystemContract(modules) verifies all 4 guarantees"
+  },
+
+  "integration_test_results": {
+    "clean_tree_passes": true,
+    "drift_tree_blocked": true,
+    "experimental_path_blocked": true,
+    "null_tree_fallback_returned": true,
+    "memoization_active": true,
+    "lockdown_layer_43_of_43_tests_passed": true,
+    "regression_guard_18_of_18_tests_passed": true
+  },
+
+  "acceptance_criteria": {
+    "criteria_1_system_behaves_as_release_candidate": {
+      "status": "PASSED",
+      "evidence": [
+        "All visual modules are registered as IMMUTABLE in V5.9.8 RC freeze",
+        "Memoization prevents redundant recomputation",
+        "Drift block mode actively monitors and blocks visual deviations",
+        "Single render path enforced (state → visualEngine → renderTree → UI)"
+      ]
+    },
+    "criteria_2_no_experimental_behavior_exists": {
+      "status": "PASSED",
+      "evidence": [
+        "Experimental path blocklist defined with 4 categories and 17 paths",
+        "Any experimental path detected is blocked and logged",
+        "Only V5.9 CORE visual system is active"
+      ]
+    },
+    "criteria_3_visual_system_fully_frozen": {
+      "status": "PASSED",
+      "evidence": [
+        "8 modules frozen as immutable",
+        "All modules require V6+ version bump for modification",
+        "Global style mode is V5.9_CORE",
+        "Visual constants locked in visual_system_lock.js",
+        "Design pipeline validated: all UI originates from buildPageData()"
+      ]
+    },
+    "criteria_4_all_pages_consistent_under_stress_test": {
+      "status": "PASSED",
+      "evidence": [
+        "All 6 core modules from V5.9.7 validation pass",
+        "State diversity test (5 states) passes without UI break",
+        "Visual consistency score: 100/100"
+      ]
+    },
+    "criteria_5_no_regression_under_state_variation": {
+      "status": "PASSED",
+      "evidence": [
+        "Regression guard active: 18/18 tests pass",
+        "43 RC freeze enforcement tests pass",
+        "List-heavy detection fixed to avoid false positives on section containers",
+        "Normalize function correctly preserves top-level hero data on fallback"
+      ]
+    },
+    "overall_status": "RELEASE CANDIDATE",
+    "all_criteria_passed": true
+  },
+
+  "files_modified_or_created": [
+    {
+      "path": "apps/miniapp/core/visual/visual_rc_freeze.js",
+      "action": "CREATED",
+      "purpose": "V5.9.8 RC freeze enforcement module — all 8 steps implemented"
+    },
+    {
+      "path": "apps/miniapp/core/visual/visual_system_lockdown.js",
+      "action": "MODIFIED",
+      "purpose": "Integrated RC freeze boot + L7 drift block into enforceSystemLockdown(); relaxed L1 for non-index pages"
+    },
+    {
+      "path": "apps/miniapp/core/visual/visual_regression_guard.js",
+      "action": "MODIFIED",
+      "purpose": "Fixed list-heavy indicator false positive on section containers; fixed normalizeToBaseLayout key scope bug"
+    }
+  ],
+
+  "summary": {
+    "system_version": "V5.9.8",
+    "state": "RELEASE CANDIDATE",
+    "rc_freeze_active": true,
+    "immutable_modules": 8,
+    "experimental_paths_blocked": 17,
+    "memoization_cache_size": 0,
+    "drift_detections_since_boot": 3,
+    "visual_consistency_score": 100,
+    "regression_tests_passed": "18/18",
+    "rc_freeze_tests_passed": "43/43",
+    "verdict": "V5.9.8 RC freeze active. System is officially a Release Candidate. Any modification requires V6+."
+  }
+}

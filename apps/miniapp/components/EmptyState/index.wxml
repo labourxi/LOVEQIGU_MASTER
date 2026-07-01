@@ -1,0 +1,5 @@
+<view class="empty-state-root">
+  <view class="empty-state__icon">{{icon}}</view>
+  <view class="empty-state__title">{{title}}</view>
+  <view class="empty-state__body">{{body}}</view>
+</view>

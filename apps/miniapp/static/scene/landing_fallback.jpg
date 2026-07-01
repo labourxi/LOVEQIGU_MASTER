@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 1624" width="750" height="1624">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0A1A14"/>
+      <stop offset="50%" stop-color="#0B1C16"/>
+      <stop offset="100%" stop-color="#0A1A14"/>
+    </linearGradient>
+    <radialGradient id="goldEdge" cx="50%" cy="92%" r="55%">
+      <stop offset="0%" stop-color="rgba(200,162,74,0.05)"/>
+      <stop offset="40%" stop-color="rgba(200,162,74,0.012)"/>
+      <stop offset="100%" stop-color="rgba(200,162,74,0)"/>
+    </radialGradient>
+    <filter id="fog"><feGaussianBlur stdDeviation="6"/></filter>
+  </defs>
+  <rect width="750" height="1624" fill="url(#bgGrad)"/>
+  <g opacity="0.03" filter="url(#fog)">
+    <path d="M0 950 Q100 870 200 900 Q300 840 400 880 Q500 830 600 870 Q700 850 750 890 L750 1200 L0 1200Z" fill="#1A2E22"/>
+  </g>
+  <g opacity="0.025" filter="url(#fog)">
+    <path d="M0 1000 Q80 930 160 960 Q240 890 350 930 Q420 880 500 920 Q600 890 700 940 L750 950 L750 1200 L0 1200Z" fill="#183026"/>
+  </g>
+  <g opacity="0.02">
+    <path d="M0 1060 Q60 1000 130 1030 Q200 980 300 1020 Q400 970 500 1010 Q600 990 700 1030 L750 1040 L750 1200 L0 1200Z" fill="#142E24"/>
+  </g>
+  <rect x="0" y="1060" width="750" height="564" fill="#0B1C16"/>
+  <path d="M0 950 Q100 870 200 900 Q300 840 400 880 Q500 830 600 870 Q700 850 750 890" fill="none" stroke="rgba(200,162,74,0.03)" stroke-width="0.5" filter="url(#fog)"/>
+  <rect x="0" y="900" width="750" height="400" fill="url(#goldEdge)"/>
+  <rect x="0" y="1400" width="750" height="224" fill="#0A1A14" opacity="0.7"/>
+</svg>

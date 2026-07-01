@@ -40,10 +40,12 @@ function mapStatusLabels(detail) {
   return {
     exploreProgress: detail.display?.exploreProgress || (taskDone ? '已完成' : '待前往'),
     relicStatus: detail.display?.relicStatus || (relicOwned ? '已显现' : '待显现'),
+    relicCollected: detail.display?.relicStatus === '已收集' || detail.display?.relicStatus === 'COLLECTED' || relicOwned,
     couponStatus: detail.display?.couponStatus || couponLabel,
     couponDisplay: formatCouponDisplay(detail.coupon),
     rewardCopy: detail.task && detail.task.task_reward ? detail.task.task_reward : '',
-    isJourneyComplete: taskDone
+    isJourneyComplete: taskDone,
+    isJourneyNotComplete: !taskDone
   };
 }
 
@@ -86,6 +88,7 @@ function buildPageData(pointId) {
   if (runtimeDetail) {
     const journey = userFrontend.buildJourneySummary();
     const taskDone = runtimeDetail.task && runtimeDetail.task.status === 'COMPLETED';
+    var expState = explorationState.resolveState(taskDone, null);
     return {
       detail: runtimeDetail,
       activityId: userRuntime.getActivityId(),
@@ -93,8 +96,8 @@ function buildPageData(pointId) {
       bottomNav: journey.nav,
       nextStepLabel: resolveNextStepLabel(runtimeDetail),
       runtimeMock: true,
-      nextStepLabel: resolveNextStepLabel(runtimeDetail),
-      explorationState: explorationState.resolveState(taskDone, null)
+      explorationState: expState,
+      isRevealable: expState === 'REVEALABLE'
     };
   }
   const raw =
@@ -106,15 +109,36 @@ function buildPageData(pointId) {
         display: mapStatusLabels(raw)
       }
     : null;
+
+  // ─── NULL POINT SAFETY FIX ───
+  // If point is not found, do NOT show "not found".
+  // Set a flag that triggers redirect to explore page.
+  if (!detail) {
+    console.warn('[DETAIL] point not found for:', pointId, '— will redirect to explore');
+    // Return minimal data; onLoad will detect isPointMissing and redirect
+    const journey = userFrontend.buildJourneySummary();
+    return {
+      detail: null,
+      activityId: '',
+      activeTab: 'map',
+      bottomNav: journey.nav,
+      nextStepLabel: '探索点未找到',
+      isPointMissing: true,
+      explorationState: 'NOT_FOUND'
+    };
+  }
+
   const journey = userFrontend.buildJourneySummary();
   const taskDone = detail && detail.task && detail.task.status === 'COMPLETED';
+  var expState = explorationState.resolveState(taskDone, null);
   return {
     detail,
     activityId: merchantEventService.ACTIVITY_ID,
     activeTab: 'map',
     bottomNav: journey.nav,
     nextStepLabel: taskDone ? '可前往显现仪式' : '完成探索纪要后，可触发显现',
-    explorationState: explorationState.resolveState(taskDone, null)
+    explorationState: expState,
+    isRevealable: expState === 'REVEALABLE'
   };
 }
 
@@ -172,6 +196,16 @@ Page({
     this.runtimePoc = options.runtimePoc || '';
     this.initPilotSceneFromOptions(options);
     this.refresh();
+
+    // ─── NULL POINT SAFETY: redirect to explore if point not found ───
+    if (this.data.isPointMissing) {
+      console.warn('[DETAIL] point not found, redirecting to explore');
+      if (typeof wx !== 'undefined' && wx.reLaunch) {
+        wx.reLaunch({ url: '/pages/index/index' });
+      }
+      return;
+    }
+
     if (merchantEventService.ensureReadyAsync) {
       merchantEventService.ensureReadyAsync().then(() => this.refresh());
     }

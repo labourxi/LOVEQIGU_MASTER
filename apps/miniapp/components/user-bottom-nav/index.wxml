@@ -1,12 +1,24 @@
 <view class="user-bottom-nav">
   <view
-    class="user-bottom-nav__item {{item.key === activeKey ? 'is-active' : ''}}"
+    class="user-bottom-nav__item {{item.key === activeKey ? 'is-active' : ''}} {{item.isAr ? 'is-ar' : ''}}"
     wx:for="{{items}}"
     wx:key="key"
-    data-path="{{item.path}}"
     data-key="{{item.key}}"
+    data-path="{{item.path}}"
     bindtap="onTap"
   >
-    <view class="user-bottom-nav__label">{{item.label}}</view>
+    <!-- AR 中心按钮 — 浮动的主导视觉元素 -->
+    <view wx:if="{{item.isAr}}" class="user-bottom-nav__ar-btn">
+      <view class="user-bottom-nav__ar-glow"></view>
+      <view class="user-bottom-nav__ar-inner">
+        <text class="user-bottom-nav__ar-icon">◇</text>
+      </view>
+    </view>
+
+    <!-- 普通标签 -->
+    <block wx:else>
+      <view class="user-bottom-nav__glyph">{{item.glyph}}</view>
+      <view class="user-bottom-nav__label">{{item.label}}</view>
+    </block>
   </view>
 </view>

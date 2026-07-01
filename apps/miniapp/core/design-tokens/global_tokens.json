@@ -1,0 +1,77 @@
+{
+  "token_version": "V1.0",
+  "system": "LOVEQIGU_UI_OS",
+  "description": "Global design tokens for the LOVEQIGU visual system. ALL pages MUST use these tokens. No page-specific color systems allowed.",
+  "color": {
+    "primary": "deep_forest_green",
+    "primary_hex": "#0A1A14",
+    "accent": "gold_light",
+    "accent_hex": "#C9A84C",
+    "background": "mist_black",
+    "background_hex": "#0D0D0D",
+    "secondary": "fog_white",
+    "secondary_hex": "#E8E0D0",
+    "surface": "deep_teal",
+    "surface_hex": "#0F2824",
+    "text_primary": "fog_white",
+    "text_primary_hex": "#E8E0D0",
+    "text_accent": "gold_light",
+    "text_accent_hex": "#C9A84C",
+    "border": "fog_white_20",
+    "border_hex": "rgba(232, 224, 208, 0.2)"
+  },
+  "spacing": {
+    "xs": 4,
+    "sm": 8,
+    "md": 16,
+    "lg": 24,
+    "xl": 40
+  },
+  "radius": {
+    "soft": 12,
+    "medium": 20,
+    "portal": 999
+  },
+  "shadow": {
+    "glow_gold": true,
+    "fog_depth": true,
+    "glow_gold_css": "0 0 20px rgba(201, 168, 76, 0.3)",
+    "fog_depth_css": "0 4px 20px rgba(0, 0, 0, 0.6)"
+  },
+  "typography": {
+    "font_family": "system-ui, -apple-system, sans-serif",
+    "heading": {
+      "size": 28,
+      "weight": "bold",
+      "color_token": "text_accent"
+    },
+    "body": {
+      "size": 14,
+      "weight": "normal",
+      "color_token": "text_primary"
+    },
+    "caption": {
+      "size": 12,
+      "weight": "normal",
+      "color_token": "text_primary"
+    },
+    "stat_value": {
+      "size": 24,
+      "weight": "bold",
+      "color_token": "text_accent"
+    }
+  },
+  "opacity": {
+    "fog_overlay": 0.6,
+    "disabled": 0.35,
+    "hover_accent": 0.85
+  },
+  "z_index": {
+    "background": 0,
+    "fog_layer": 1,
+    "content": 10,
+    "hero": 20,
+    "overlay": 50,
+    "modal": 100
+  }
+}

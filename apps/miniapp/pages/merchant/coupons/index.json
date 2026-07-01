@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "探索礼遇—商户礼券",
+  "usingComponents": {
+    "empty-state": "../../../components/EmptyState/index"
+  }
+}

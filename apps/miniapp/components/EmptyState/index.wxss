@@ -1,0 +1,39 @@
+/* ═══════════════════════════════════
+   GLOBAL EMPTY STATE — V5.9.4
+   Literary empty state — NEVER "no data"
+   ═══════════════════════════════════ */
+
+.empty-state-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32rpx 0;
+  text-align: center;
+}
+
+.empty-state__icon {
+  font-size: 48rpx;
+  color: rgba(200, 162, 74, 0.3);
+  margin-bottom: 20rpx;
+  width: 80rpx;
+  height: 80rpx;
+  border: 2rpx solid rgba(200, 162, 74, 0.12);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-state__title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #4b635c;
+  margin-bottom: 8rpx;
+  letter-spacing: 2rpx;
+}
+
+.empty-state__body {
+  font-size: 24rpx;
+  color: #6B5E4A;
+  line-height: 1.6;
+}

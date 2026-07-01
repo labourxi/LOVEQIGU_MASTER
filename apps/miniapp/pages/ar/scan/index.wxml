@@ -1,0 +1,40 @@
+<view class="ar-scan-page">
+  <view class="ar-scan-viewport">
+    <!-- 扫描中状态 -->
+    <block wx:if="{{scanning}}">
+      <text class="ar-scan-viewport__label">正在感知世界</text>
+      <view class="ar-scan-viewport__frame ar-scan-viewport__frame--scanning">
+        <view class="ar-scan-viewport__scanner"></view>
+      </view>
+      <text class="ar-scan-viewport__hint" wx:if="{{pointName}}">{{pointName}} · 遗迹正在显现</text>
+    </block>
+
+    <!-- 成功状态 -->
+    <block wx:elif="{{result === 'success'}}">
+      <text class="ar-scan-viewport__label">感知完成</text>
+      <view class="ar-scan-viewport__frame ar-scan-viewport__frame--success">
+        <text class="ar-scan-viewport__check">◇</text>
+      </view>
+      <text class="ar-scan-viewport__hint">印记已生成</text>
+    </block>
+
+    <!-- 失败状态 -->
+    <block wx:elif="{{error}}">
+      <text class="ar-scan-viewport__label">感知中断</text>
+      <view class="ar-scan-viewport__frame ar-scan-viewport__frame--error">
+        <text class="ar-scan-viewport__error-icon">○</text>
+      </view>
+      <text class="ar-scan-viewport__hint ar-scan-viewport__hint--error">{{error}}</text>
+    </block>
+
+    <!-- 初始状态 -->
+    <block wx:else>
+      <text class="ar-scan-viewport__label">AR 扫描</text>
+      <view class="ar-scan-viewport__frame"></view>
+    </block>
+  </view>
+
+  <view class="ar-scan-close" bindtap="onClose">
+    <text class="ar-scan-close__text">关闭</text>
+  </view>
+</view>

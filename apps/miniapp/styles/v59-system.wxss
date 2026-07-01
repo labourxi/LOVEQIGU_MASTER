@@ -1,0 +1,310 @@
+/* ════════════════════════════════════════════════════════════════
+   V5.9 UI SYSTEM — UNIFIED TOKENS (WXSS IMPLEMENTATION)
+
+   BIBLE COMPLIANCE: docs/art/ART_03_VISUAL_PHILOSOPHY_V1.md (LEVEL 1)
+   BIBLE COMPLIANCE: docs/art/FOUR_SYMBOL_VISUAL_SYSTEM_V1.md (LEVEL 1)
+   CONTRACT REFERENCE: /design/system/visual_tokens.js (LEVEL 2)
+
+   THIS IS THE ONLY WXSS TOKEN FILE. All pages import this.
+   No page-specific custom values outside this system.
+
+   RULES:
+   - ALL pages import this file via @import
+   - NO page-specific color/radius/spacing overrides
+   - ALL values match visual_tokens.js exactly
+   - ALL values conform to Visual Bible palette
+   - FORBIDDEN in WXSS: *, calc(), transition, empty content ''
+
+   BIBLE PALETTE (only these colors allowed):
+   - pageBg: #F4F1EB (宣纸白)
+   - cardBg: #FAF8F4 (古纸色)
+   - gold:   #C8A24A (淡金)
+   - goldLight: #E8D8B4 (鎏金)
+   - goldDark:  #A08030 (古铜)
+   - textPrimary: #263A34 (墨灰)
+   - textDark:    #0F2A22 (深墨)
+   - heroBg:      #0F2A22 (玄色)
+   - borderGold:  rgba(200, 162, 74, 0.10) (金痕)
+
+   FORBIDDEN (per Bible §五 / §七 / §十一):
+   - high-purity fluorescent colors
+   - rainbow gradient backgrounds
+   - arbitrary green/blue UI tones
+   - neon / cyber / 赛博 / 霓虹
+
+   ════════════════════════════════════════════════════════════════ */
+
+/* ─── Page layout ─── */
+.v59-page {
+  min-height: 100vh;
+  background: #F4F1EB;
+  padding: 0 28rpx 120rpx;
+  box-sizing: border-box;
+}
+
+.v59-page--dark {
+  background: linear-gradient(180deg, #0F2A22 0%, #1a352e 30%, #F4F1EB 60%, #F4F1EB 100%);
+}
+
+/* ─── Hero area ─── */
+.v59-hero {
+  margin: 0 -28rpx 32rpx;
+  padding: 48rpx 40rpx 40rpx;
+  background: linear-gradient(145deg, #0F2A22, #0F2A22);
+  border-radius: 0 0 32rpx 32rpx;
+  color: #fff;
+}
+
+.v59-hero__title {
+  font-size: 44rpx;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 12rpx;
+}
+
+.v59-hero__subtitle {
+  font-size: 26rpx;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* ─── Section title ─── */
+.v59-section-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #0F2A22;
+  margin-bottom: 20rpx;
+}
+
+.v59-section-subtitle {
+  font-size: 24rpx;
+  color: rgba(38, 58, 52, 0.35);
+  letter-spacing: 2rpx;
+  font-weight: 300;
+  margin-bottom: 20rpx;
+}
+
+/* ─── Card system (UNIFIED — see visual_tokens.js) ───
+   ALL cards MUST use these classes.
+   NO custom radius / padding / shadow per page.
+   NO card-specific page-level overrides allowed. */
+.v59-card {
+  background: #FAF8F4;
+  border-radius: 20rpx;
+  border: 1rpx solid rgba(200, 162, 74, 0.10);
+  padding: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(38, 58, 52, 0.04);
+}
+
+.v59-card--lg {
+  padding: 28rpx 24rpx;
+  border-radius: 24rpx;
+}
+
+.v59-card--elevated {
+  box-shadow: 0 4rpx 16rpx rgba(38, 58, 52, 0.06);
+}
+
+.v59-card--hero {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1rpx solid rgba(255, 255, 255, 0.12);
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx;
+}
+
+/* ─── Typography hierarchy ─── */
+.v59-title {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #263A34;
+  letter-spacing: 4rpx;
+}
+
+.v59-title--gold {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #C8A24A;
+}
+
+.v59-subtitle {
+  font-size: 24rpx;
+  font-weight: 300;
+  color: rgba(38, 58, 52, 0.35);
+  letter-spacing: 2rpx;
+}
+
+.v59-body {
+  font-size: 26rpx;
+  color: #263A34;
+  line-height: 1.5;
+}
+
+.v59-caption {
+  font-size: 22rpx;
+  color: rgba(38, 58, 52, 0.35);
+}
+
+.v59-small {
+  font-size: 20rpx;
+  color: rgba(38, 58, 52, 0.20);
+}
+
+/* ─── Stat display ─── */
+.v59-stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.v59-stat-box {
+  flex: 1;
+  min-width: 180rpx;
+  padding: 20rpx 24rpx;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16rpx;
+  border: 1rpx solid rgba(255, 255, 255, 0.12);
+}
+
+.v59-stat-value {
+  font-size: 36rpx;
+  font-weight: 800;
+  color: #C8A24A;
+}
+
+.v59-stat-label {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 4rpx;
+}
+
+/* ─── Empty state (UNIFIED — see visual_tokens.js) ───
+   ALL empty states MUST use these classes.
+   NO custom empty state styles per page. */
+.v59-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 40rpx;
+  text-align: center;
+}
+
+.v59-empty__icon {
+  font-size: 64rpx;
+  color: rgba(200, 162, 74, 0.12);
+  margin-bottom: 24rpx;
+}
+
+.v59-empty__text {
+  font-size: 26rpx;
+  color: rgba(38, 58, 52, 0.35);
+  line-height: 1.6;
+  letter-spacing: 2rpx;
+}
+
+.v59-empty__hint {
+  font-size: 24rpx;
+  color: rgba(38, 58, 52, 0.20);
+  margin-top: 12rpx;
+  letter-spacing: 1rpx;
+}
+
+/* ─── Grid ─── */
+.v59-grid-2 {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20rpx;
+}
+
+/* ─── Tab bar ─── */
+.v59-tabbar {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1rpx solid rgba(38, 58, 52, 0.06);
+  margin-bottom: 32rpx;
+}
+
+.v59-tabbar__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16rpx 8rpx;
+  position: relative;
+}
+
+.v59-tabbar__item.is-active::after {
+  content: ' ';
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  right: 20%;
+  height: 3rpx;
+  background: #b68a3d;
+  border-radius: 2rpx;
+}
+
+.v59-tabbar__label {
+  font-size: 26rpx;
+  color: rgba(38, 58, 52, 0.4);
+  letter-spacing: 2rpx;
+  margin-bottom: 4rpx;
+}
+
+.v59-tabbar__item.is-active .v59-tabbar__label {
+  color: #263A34;
+  font-weight: 600;
+}
+
+.v59-tabbar__count {
+  font-size: 20rpx;
+  color: rgba(38, 58, 52, 0.2);
+  letter-spacing: 1rpx;
+}
+
+.v59-tabbar__item.is-active .v59-tabbar__count {
+  color: #b68a3d;
+}
+
+/* ─── Badge ─── */
+.v59-badge {
+  display: inline-block;
+  padding: 6rpx 16rpx;
+  border-radius: 999rpx;
+  font-size: 20rpx;
+  font-weight: 600;
+  background: #e8efe9;
+  color: #4b635c;
+}
+
+.v59-badge--gold {
+  background: #C8A24A;
+  color: #6b4220;
+}
+
+/* ─── Button ─── */
+.v59-btn {
+  margin: 0;
+  padding: 0 40rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 999rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  background: #C8A24A;
+  color: #0F2A22;
+  box-shadow: 0 4rpx 12rpx rgba(200, 162, 74, 0.35);
+}
+
+/* ─── List item ─── */
+.v59-list-item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20rpx;
+  padding: 24rpx;
+  background: #FAF8F4;
+  border-radius: 20rpx;
+  border: 1rpx solid rgba(200, 162, 74, 0.06);
+}

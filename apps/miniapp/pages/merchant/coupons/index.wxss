@@ -1,0 +1,113 @@
+@import '../../../styles/prototype-v1.wxss';
+@import '../../../styles/user-phase1.wxss';
+
+/* ═══════════════════════════════════
+   MERCHANT COUPONS — V5.9.5
+   Journey narrative flow.
+   ═══════════════════════════════════ */
+
+.mc-empty-state {
+  padding: 80rpx 0;
+}
+
+.mc-journey-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.mc-coupon-card {
+  background: #fff;
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: relative;
+}
+
+.mc-coupon-card--issued {
+  border: 1rpx solid rgba(200, 162, 74, 0.18);
+}
+
+.mc-coupon-card--redeemed {
+  border: 1rpx solid rgba(200, 162, 74, 0.08);
+  opacity: 0.85;
+}
+
+.mc-coupon-card--expired {
+  border: 1rpx solid rgba(200, 162, 74, 0.04);
+  opacity: 0.6;
+}
+
+.mc-coupon-card__glow {
+  position: absolute;
+  top: -30rpx;
+  right: -30rpx;
+  width: 140rpx;
+  height: 140rpx;
+  background: radial-gradient(circle, rgba(200, 162, 74, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.mc-coupon-card__header {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 28rpx 24rpx 16rpx;
+  border-bottom: 1rpx dashed rgba(200, 162, 74, 0.12);
+}
+
+.mc-coupon-card__value {
+  font-size: 36rpx;
+  font-weight: 800;
+  color: #C8A24A;
+  flex-shrink: 0;
+}
+
+.mc-coupon-card__title {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #0F2A22;
+}
+
+.mc-coupon-card__body {
+  padding: 16rpx 24rpx;
+}
+
+.mc-coupon-card__merchant {
+  font-size: 22rpx;
+  color: #4b635c;
+  margin-bottom: 4rpx;
+}
+
+.mc-coupon-card__desc {
+  font-size: 20rpx;
+  color: #6B5E4A;
+  margin-bottom: 4rpx;
+}
+
+.mc-coupon-card__event {
+  font-size: 18rpx;
+  color: rgba(200, 162, 74, 0.7);
+}
+
+.mc-coupon-card__footer {
+  padding: 12rpx 24rpx 20rpx;
+}
+
+.mc-coupon-card__qr-placeholder {
+  display: inline-block;
+  font-size: 20rpx;
+  color: #6B5E4A;
+  padding: 8rpx 24rpx;
+  border: 1rpx dashed rgba(200, 162, 74, 0.20);
+  border-radius: 999rpx;
+  letter-spacing: 2rpx;
+}
+
+.mc-coupon-card__stamp {
+  display: inline-block;
+  font-size: 20rpx;
+  color: #C8A24A;
+  padding: 6rpx 20rpx;
+  background: rgba(200, 162, 74, 0.06);
+  border-radius: 999rpx;
+}

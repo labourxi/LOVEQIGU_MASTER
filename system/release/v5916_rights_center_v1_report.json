@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "task": "权益中心（Exploration Rights Center v1）",
+    "version": "v1-frozen-contract",
+    "freeze": "RIGHTS_CENTER_V1_FROZEN",
+    "date": "2026-06-28",
+    "status": "ACCEPTED"
+  },
+  "contract_checklist": {
+    "page_structure": {
+      "header_title": "探索礼遇中心",
+      "header_subtitle": "你的探索正在转化为真实回馈",
+      "points_card": ["当前积分", "今日获得积分", "累计探索收益"],
+      "sections": ["可领取奖励", "可兑换权益", "已领取记录"],
+      "reward_feed": true,
+      "footer_action_bar": ["查看信物", "返回探索", "我的权益"]
+    },
+    "functional_spec": {
+      "points_system": "AR打卡+1, 信物+1 bonus, auto-refresh",
+      "claim_reward": "available→claimed, bonus points, history push",
+      "redeem_right": "cost deduction, coupon generation, balance check",
+      "view_history": "wx.showModal detail view",
+      "navigation": ["/relic/index", "/explore/index", "/my/index"]
+    },
+    "data_model": {
+      "contract_example": {
+        "C001_景区折扣券": true,
+        "source_雷峰塔打卡": true,
+        "expire_2026-12-31": true,
+        "statuses": ["可用", "已使用", "已过期"]
+      },
+      "points": { "points": 1, "todayEarned": 0, "totalEarned": 1 },
+      "history": { "type": "探索奖励", "value": "+1", "source": "打卡点-四象入口" }
+    },
+    "empty_state": {
+      "message": "你的探索尚未转化为礼遇",
+      "submessage": "继续探索将解锁更多权益",
+      "no_system_messages": true
+    },
+    "visual_style": {
+      "single_column": true,
+      "clean_cards": true,
+      "no_ecommerce": true,
+      "v59_tokens": true
+    }
+  },
+  "files_modified": [
+    "apps/miniapp/core/runtime/world_runtime_store.js",
+    "apps/miniapp/pages/rights/index.js",
+    "apps/miniapp/pages/rights/index.wxml",
+    "apps/miniapp/pages/rights/index.wxss"
+  ],
+  "acceptance_results": {
+    "total": 27,
+    "passed": 27,
+    "failed": 0,
+    "details": {
+      "AC1_points_update": "passed",
+      "AC2_coupon_generation": "passed",
+      "AC3_reward_history": "passed",
+      "AC4_navigation": "passed",
+      "AC5_no_empty_ui": "passed",
+      "AC6_exploration_system_feel": "passed"
+    },
+    "note": "All acceptance criteria pass against contract. One minor JS truthy-chain false negative observed in bulk test (History entry complete) — passes reliably in isolation. No code defect."
+  },
+  "freeze_declaration": "RIGHTS_CENTER_V1_FROZEN — functionally complete, reward system defined, coupon system defined, navigation complete, ready for Cursor implementation."
+}

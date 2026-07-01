@@ -1,0 +1,32 @@
+{
+  "memory_version": "V2.0",
+  "system": "LOVEQIGU_UI_OS",
+  "description": "Design Language Memory — tracks UI evolution preferences across generations",
+  "current_preferences": {
+    "preferred_spacing": "medium_loose",
+    "preferred_style": "fog_gold_minimal",
+    "preferred_layout": "layered_center_focus"
+  },
+  "spacing_preference_trends": {
+    "tight": 0,
+    "medium_tight": 0,
+    "medium_loose": 1,
+    "loose": 0
+  },
+  "color_usage_patterns": {
+    "deep_forest_green": 1,
+    "gold_light": 1,
+    "mist_black": 1,
+    "fog_white": 1
+  },
+  "layout_success_patterns": {
+    "layered": { "success_count": 1, "avg_score": 85 },
+    "orbit": { "success_count": 0, "avg_score": 0 },
+    "grid": { "success_count": 0, "avg_score": 0 },
+    "vertical_stack": { "success_count": 0, "avg_score": 0 }
+  },
+  "evolution_history": [],
+  "evolution_count": 0,
+  "best_score_achieved": 0,
+  "best_score_grade": ""
+}

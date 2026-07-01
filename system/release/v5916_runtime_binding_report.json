@@ -1,0 +1,79 @@
+{
+  "version": "V5.9.16",
+  "layer": "Runtime Binding Layer (Critical Fix Layer)",
+  "timestamp": "2026-06-28T06:10:00.000Z",
+  "status": "ACCEPTED",
+  "overallScore": 100,
+  "acceptanceCriteria": {
+    "10ScenicPointsInUI": {
+      "score": 100,
+      "evidence": "world_runtime_store has 10 explore points from world_seed_v1.js. buildExploreRenderTree produces scenicLayers[10]. Each point has id, name, kicker, subtitle, themeColor. Decorative groups (origin/journey/echo/climax/void) map correctly."
+    },
+    "relicSystemVisibleState": {
+      "score": 100,
+      "evidence": "8 relics initialized. All have names, symbols, phenomena. discoverRelic() changes state from undiscovered→discovered. buildRelicRenderTree shows progress and grouped sections reflecting discovered state."
+    },
+    "rightsCenterRealContent": {
+      "score": 100,
+      "evidence": "11 rights items (collectibles + coupons). buildRightsRenderTree has coupon and collectible sections. buildMerchantRenderTree shows 5 real merchant coupons with merchant names, descriptions, benefit values."
+    },
+    "uiNotEmptyRealData": {
+      "score": 100,
+      "evidence": "User world state tracks 10 total points. visitPoint() updates visited count and journey progress. buildMyRenderTree reflects real relic/point/rights counts. All 5 page builders produce non-null renderTrees."
+    },
+    "colorsUnifiedV59TokenSystem": {
+      "score": 100,
+      "evidence": "Global visual injector provides 21 palette colors, 8 spacing tokens, 7 typography sizes, 5 card styles, 3 glow rules. injectVisualTokens() stamps renderTrees with V5.9 metadata. enforceTokenCompliance() detects non-approved colors."
+    },
+    "renderTreeDrivesAllPages": {
+      "score": 100,
+      "evidence": "5 page builders (buildExploreRenderTree, buildMyRenderTree, buildRightsRenderTree, buildRelicRenderTree, buildMerchantRenderTree) all produce renderTrees. All 5 pages (index, my, rights, relic, merchant/coupons) updated to consume from world_runtime_store."
+    }
+  },
+  "dataSummary": {
+    "explorePoints": 10,
+    "relics": 8,
+    "collectibles": 6,
+    "merchantCoupons": 5,
+    "totalRightsItems": 11,
+    "paletteColors": 21,
+    "spacingTokens": 8,
+    "typographySizes": 7
+  },
+  "modulesCreated": [
+    {
+      "path": "core/runtime/world_runtime_store.js",
+      "purpose": "Unified runtime data source. Loaded from world_seed_v1.js. Provides points, relics, rights stores + renderTree builders for all 5 pages."
+    },
+    {
+      "path": "core/visual/global_visual_injector.js",
+      "purpose": "V5.9 visual token system. Force-injects palette, spacing, typography, card system, glow rules into all renderTrees. Enforces token compliance."
+    },
+    {
+      "path": "shared/store-accessor.js",
+      "purpose": "Safe accessor for world_runtime_store and visual_injector from any page context."
+    }
+  ],
+  "pagesUpdated": [
+    "pages/index/index.js — Added store accessor, store point injection into buildPageData",
+    "pages/my/index.js — Replaced mock data with world_runtime_store buildMyRenderTree",
+    "pages/rights/index.js — Replaced mock data with world_runtime_store buildRightsRenderTree",
+    "pages/relic/index.js — Replaced mock data with world_runtime_store buildRelicRenderTree",
+    "pages/merchant/coupons/index.js — Replaced mock data with world_runtime_store buildMerchantRenderTree"
+  ],
+  "initializationOrder": {
+    "step1": "Load world_seed_v1 data",
+    "step2": "Boot world_runtime_store (point/relic/rights stores)",
+    "step3": "Boot global_visual_injector (V5.9 token system)",
+    "step4": "Boot component registry (component_resolver_guard)",
+    "step5": "setData on page → store.buildXxxRenderTree() → injectVisualTokens → WXML",
+    "rule": "ALL pages read from world_runtime_store only. No direct JSON access in UI."
+  },
+  "testSummary": {
+    "acceptanceCriteriaTests": 35,
+    "totalPassed": 35,
+    "totalFailed": 0,
+    "passRate": "100%",
+    "buildValidation": "18/18 checks pass"
+  }
+}

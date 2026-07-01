@@ -1,3 +1,9 @@
+/* ════════════════════════════════════════════════════════════════
+   V5.9.18 — AR-Centric Behavioral TabBar
+   AR = center floating button (visual dominant, NOT passive nav)
+   Normal tabs = equal visual weight
+   ════════════════════════════════════════════════════════════════ */
+
 .user-bottom-nav {
   position: fixed;
   left: 0;
@@ -9,12 +15,13 @@
   align-items: stretch;
   width: 100%;
   box-sizing: border-box;
-  padding: 8rpx 0 calc(8rpx + env(safe-area-inset-bottom));
-  border-top: 1rpx solid rgba(38, 58, 52, 0.12);
+  padding: 6rpx 0 calc(6rpx + env(safe-area-inset-bottom));
+  border-top: 1rpx solid rgba(38, 58, 52, 0.08);
   background: #faf8f4;
-  box-shadow: 0 -6rpx 20rpx rgba(38, 58, 52, 0.08);
+  box-shadow: 0 -4rpx 16rpx rgba(38, 58, 52, 0.06);
 }
 
+/* ─── 普通标签基础样式 ─── */
 .user-bottom-nav__item {
   flex: 1 1 0;
   min-width: 0;
@@ -23,9 +30,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 6rpx 4rpx;
-  color: #6b7280;
+  padding: 4rpx 4rpx;
+  color: #8a9490;
   box-sizing: border-box;
+  position: relative;
 }
 
 .user-bottom-nav__item.is-active {
@@ -34,28 +42,110 @@
 
 .user-bottom-nav__item.is-active .user-bottom-nav__label {
   color: #263a34;
-  font-weight: 700;
-}
-
-.user-bottom-nav__glyph {
-  display: none;
-}
-
-.user-bottom-nav__label {
-  font-size: 22rpx;
-  font-weight: 500;
-  line-height: 1.2;
-  white-space: nowrap;
-  text-align: center;
-  letter-spacing: 0;
+  font-weight: 600;
 }
 
 .user-bottom-nav__item.is-active::before {
   content: '';
   display: block;
-  width: 28rpx;
-  height: 4rpx;
-  margin-bottom: 6rpx;
+  width: 24rpx;
+  height: 3rpx;
+  margin-bottom: 4rpx;
   border-radius: 2rpx;
   background: #b68a3d;
+}
+
+/* ─── 普通标签字形 ─── */
+.user-bottom-nav__glyph {
+  font-size: 36rpx;
+  line-height: 1;
+  margin-bottom: 2rpx;
+  opacity: 0.5;
+}
+
+.user-bottom-nav__item.is-active .user-bottom-nav__glyph {
+  opacity: 0.8;
+}
+
+.user-bottom-nav__label {
+  font-size: 20rpx;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-align: center;
+  letter-spacing: 2rpx;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   AR 中心按钮 — 浮动 + 发光 + 动画脉冲
+   最高视觉优先级
+   ════════════════════════════════════════════════════════════════ */
+
+/* AR 按钮容器 — 向上浮起，覆盖常规标签条 */
+.user-bottom-nav__item.is-ar {
+  position: relative;
+  z-index: 10;
+  /* AR 按钮向上浮动，高出 tab bar */
+  transform: translateY(-20rpx);
+}
+
+/* AR 按钮本体 */
+.user-bottom-nav__ar-btn {
+  position: relative;
+  width: 96rpx;
+  height: 96rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 发光层 — 呼吸脉冲 */
+.user-bottom-nav__ar-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(200, 162, 74, 0.12) 0%, transparent 70%);
+  animation: ar-glow-pulse 3s ease-in-out infinite;
+}
+
+@keyframes ar-glow-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.25); opacity: 0.9; }
+}
+
+/* AR 内圈 */
+.user-bottom-nav__ar-inner {
+  position: relative;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #263a34, #1d2f2a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 4rpx 16rpx rgba(38, 58, 52, 0.25),
+    0 0 20rpx rgba(200, 162, 74, 0.08);
+  border: 2rpx solid rgba(200, 162, 74, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user-bottom-nav__item.is-ar:active .user-bottom-nav__ar-inner {
+  transform: scale(0.92);
+  box-shadow:
+    0 2rpx 8rpx rgba(38, 58, 52, 0.15),
+    0 0 12rpx rgba(200, 162, 74, 0.05);
+}
+
+/* AR 图标 — 棱形符号 */
+.user-bottom-nav__ar-icon {
+  font-size: 36rpx;
+  color: #C8A24A;
+  text-shadow: 0 0 12rpx rgba(200, 162, 74, 0.15);
+  animation: ar-icon-shimmer 4s ease-in-out infinite;
+}
+
+@keyframes ar-icon-shimmer {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
 }

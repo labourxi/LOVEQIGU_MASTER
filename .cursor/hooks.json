@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "hooks": {
+    "subagentStop": [
+      {
+        "command": ".cursor/hooks/auto-commit.sh",
+        "matcher": "generalPurpose|shell",
+        "timeout": 30
+      }
+    ]
+  }
+}

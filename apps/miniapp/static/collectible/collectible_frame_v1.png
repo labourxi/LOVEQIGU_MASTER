@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="320" height="320">
+  <defs>
+    <filter id="glow"><feGaussianBlur stdDeviation="1"/></filter>
+  </defs>
+  <!-- Square frame with gold corner accents -->
+  <g opacity="0.45">
+    <!-- Top-left -->
+    <path d="M15 55 L15 15 L55 15" fill="none" stroke="rgba(200,162,74,0.35)" stroke-width="1.2"/>
+    <path d="M15 55 L15 15 L55 15" fill="none" stroke="rgba(200,162,74,0.1)" stroke-width="2.5" filter="url(#glow)"/>
+    <circle cx="15" cy="15" r="2" fill="rgba(200,162,74,0.3)"/>
+    <!-- Top-right -->
+    <path d="M305 55 L305 15 L265 15" fill="none" stroke="rgba(200,162,74,0.35)" stroke-width="1.2"/>
+    <circle cx="305" cy="15" r="2" fill="rgba(200,162,74,0.3)"/>
+    <!-- Bottom-left -->
+    <path d="M15 265 L15 305 L55 305" fill="none" stroke="rgba(200,162,74,0.35)" stroke-width="1.2"/>
+    <circle cx="15" cy="305" r="2" fill="rgba(200,162,74,0.3)"/>
+    <!-- Bottom-right -->
+    <path d="M305 265 L305 305 L265 305" fill="none" stroke="rgba(200,162,74,0.35)" stroke-width="1.2"/>
+    <circle cx="305" cy="305" r="2" fill="rgba(200,162,74,0.3)"/>
+  </g>
+  <!-- Mid-point decorative marks -->
+  <g opacity="0.2">
+    <rect x="155" y="8" width="10" height="2" rx="1" fill="#C8A24A"/>
+    <rect x="155" y="310" width="10" height="2" rx="1" fill="#C8A24A"/>
+    <rect x="8" y="155" width="2" height="10" rx="1" fill="#C8A24A"/>
+    <rect x="310" y="155" width="2" height="10" rx="1" fill="#C8A24A"/>
+  </g>
+</svg>

@@ -11,6 +11,10 @@
       {
         "type": "folder",
         "value": "shared"
+      },
+      {
+        "type": "folder",
+        "value": "static"
       }
     ]
   },

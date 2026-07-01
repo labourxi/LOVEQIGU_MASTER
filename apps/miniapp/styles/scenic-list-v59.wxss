@@ -1,0 +1,131 @@
+/* ═════════════════════════════════════════════════════════════════════
+   V5.9.16 — SCENIC POINT FULL LIST STYLES
+   
+   Renders all 10 scenic points as a scrollable list.
+   Each point has: title, short description, navigation hint, status.
+   ═════════════════════════════════════════════════════════════════════ */
+
+/* ─── Explore Progress Summary ─── */
+.v55-explore-summary {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 20rpx 28rpx 12rpx;
+}
+
+.v55-explore-summary__label {
+  font-size: 20rpx;
+  color: rgba(232, 216, 180, 0.50);
+  flex-shrink: 0;
+}
+
+.v55-explore-summary__bar {
+  flex: 1;
+  height: 6rpx;
+  background: rgba(200, 162, 74, 0.08);
+  border-radius: 3rpx;
+  overflow: hidden;
+}
+
+.v55-explore-summary__fill {
+  height: 100%;
+  background: linear-gradient(90deg, #C8A24A, #E8D8B4);
+  border-radius: 3rpx;
+  transition: width 0.8s ease;
+}
+
+.v55-explore-summary__count {
+  font-size: 20rpx;
+  color: rgba(232, 216, 180, 0.60);
+  flex-shrink: 0;
+}
+
+/* ─── Full Scenic Point List ─── */
+.v55-scenic-full-list {
+  padding: 16rpx 28rpx 32rpx;
+}
+
+.v55-scenic-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16rpx;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid rgba(200, 162, 74, 0.06);
+}
+
+.v55-scenic-list-item:last-child {
+  border-bottom: none;
+}
+
+.v55-scenic-list-item__dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 8rpx;
+  opacity: 0.60;
+}
+
+.v55-scenic-list-item--completed .v55-scenic-list-item__dot {
+  opacity: 1;
+  box-shadow: 0 0 8rpx currentColor;
+}
+
+.v55-scenic-list-item__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.v55-scenic-list-item__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4rpx;
+}
+
+.v55-scenic-list-item__kicker {
+  font-size: 18rpx;
+  color: rgba(232, 216, 180, 0.35);
+  letter-spacing: 2rpx;
+}
+
+.v55-scenic-list-item__status {
+  font-size: 16rpx;
+  padding: 2rpx 14rpx;
+  border-radius: 999rpx;
+}
+
+.v55-scenic-list-item--completed .v55-scenic-list-item__status {
+  color: rgba(200, 162, 74, 0.50);
+  background: rgba(200, 162, 74, 0.06);
+}
+
+.v55-scenic-list-item--available .v55-scenic-list-item__status {
+  color: rgba(232, 216, 180, 0.35);
+  background: rgba(200, 162, 74, 0.03);
+}
+
+.v55-scenic-list-item__name {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #E8D8B4;
+  margin-bottom: 4rpx;
+}
+
+.v55-scenic-list-item--completed .v55-scenic-list-item__name {
+  color: rgba(232, 216, 180, 0.60);
+}
+
+.v55-scenic-list-item__desc {
+  font-size: 20rpx;
+  color: rgba(232, 216, 180, 0.40);
+  margin-bottom: 4rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.v57-scenic-list-item__nav {
+  font-size: 18rpx;
+  color: rgba(200, 162, 74, 0.30);
+}

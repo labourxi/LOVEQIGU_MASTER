@@ -1,0 +1,153 @@
+/* ════════════════════════════════════════════════════════════════
+   MINIMAL SAFE FALLBACK — V5.9 WXSS SAFETY NET
+
+   Used when v59-system.wxss fails to load.
+   Contains ONLY safe WXSS — no calc(), no * selector,
+   no transition, no @keyframes, no ::after with empty content.
+
+   This is the BAREST possible style set to prevent white screen.
+   ════════════════════════════════════════════════════════════════ */
+
+/* ─── Page ─── */
+.v59-page {
+  min-height: 100vh;
+  background: #F4F1EB;
+  padding: 0 28rpx 120rpx;
+  box-sizing: border-box;
+}
+
+.v59-page--dark {
+  background: #0F2A22;
+}
+
+/* ─── Hero ─── */
+.v59-hero {
+  padding: 48rpx 40rpx 40rpx;
+  background: #0F2A22;
+  border-radius: 0 0 32rpx 32rpx;
+  color: #fff;
+}
+
+.v59-hero__title {
+  font-size: 44rpx;
+  font-weight: 800;
+  color: #fff;
+}
+
+.v59-hero__subtitle {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* ─── Card ─── */
+.v59-card {
+  background: #FAF8F4;
+  border-radius: 20rpx;
+  border: 1rpx solid rgba(200, 162, 74, 0.10);
+  padding: 24rpx;
+}
+
+/* ─── Typography ─── */
+.v59-title {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #263A34;
+  letter-spacing: 4rpx;
+}
+
+.v59-title--gold {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #C8A24A;
+}
+
+.v59-subtitle {
+  font-size: 24rpx;
+  color: rgba(38, 58, 52, 0.35);
+  letter-spacing: 2rpx;
+}
+
+.v59-body {
+  font-size: 26rpx;
+  color: #263A34;
+}
+
+.v59-caption {
+  font-size: 22rpx;
+  color: rgba(38, 58, 52, 0.35);
+}
+
+/* ─── Empty state ─── */
+.v59-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 40rpx;
+  text-align: center;
+}
+
+.v59-empty__text {
+  font-size: 26rpx;
+  color: rgba(38, 58, 52, 0.35);
+  letter-spacing: 2rpx;
+}
+
+.v59-empty__hint {
+  font-size: 24rpx;
+  color: rgba(38, 58, 52, 0.20);
+  margin-top: 12rpx;
+}
+
+/* ─── Tab bar ─── */
+.v59-tabbar {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1rpx solid rgba(38, 58, 52, 0.06);
+  margin-bottom: 32rpx;
+}
+
+.v59-tabbar__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16rpx 8rpx;
+}
+
+.v59-tabbar__item.is-active .v59-tabbar__label {
+  color: #263A34;
+  font-weight: 600;
+}
+
+.v59-tabbar__label {
+  font-size: 26rpx;
+  color: rgba(38, 58, 52, 0.4);
+  letter-spacing: 2rpx;
+  margin-bottom: 4rpx;
+}
+
+/* ─── Stat ─── */
+.v59-stat-value {
+  font-size: 36rpx;
+  font-weight: 800;
+  color: #C8A24A;
+}
+
+.v59-stat-label {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 4rpx;
+}
+
+/* ─── Button ─── */
+.v59-btn {
+  padding: 0 40rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 999rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  background: #C8A24A;
+  color: #0F2A22;
+}

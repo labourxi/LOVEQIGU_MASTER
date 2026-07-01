@@ -1,0 +1,218 @@
+# 📦 个人中心页面 v1（Page Contract）
+
+````text id="my_page_v1_contract"
+PAGE: 个人中心（My Page v1）
+
+VERSION: v1-frozen-contract
+
+GOAL:
+Provide a fully functional user center page with editable profile, exploration stats, relic system entry, rights center entry, and complete navigation + mock data support.
+
+---
+
+# 🧱 1. PAGE STRUCTURE
+
+LAYOUT:
+
+[TOP USER CARD]
+- avatar
+- username (editable)
+- one-line bio (editable)
+
+[STATS DASHBOARD]
+- 已探索打卡点数量
+- 已获得信物数量
+- 积分数量
+- 数字藏品数量
+
+[QUICK ACTIONS]
+- 编辑资料
+- 查看信物档案
+- 查看权益中心
+- 查看数字藏品
+
+[FUNCTION MODULES]
+- 我的探索记录
+- 我的信物
+- 我的权益
+- 我的收藏
+
+[SETTINGS]
+- 账户设置
+- 帮助中心
+- 关于系统
+
+---
+
+# ⚙️ 2. FUNCTION SPEC (ALL INTERACTIVE BEHAVIORS)
+
+## 2.1 编辑用户名
+
+BUTTON: username
+ACTION:
+- click → open inline edit input
+- save → update local state (mock)
+
+TARGET STATE:
+userProfile.username
+
+---
+
+## 2.2 编辑一句话简介
+
+BUTTON: bio
+ACTION:
+- click → input field replace text
+- save → persist to userProfile.bio
+
+---
+
+## 2.3 查看信物档案
+
+BUTTON: “查看信物档案”
+ROUTE:
+→ /relic/index
+
+---
+
+## 2.4 查看权益中心
+
+BUTTON: “查看权益中心”
+ROUTE:
+→ /rights/index
+
+---
+
+## 2.5 查看数字藏品
+
+BUTTON: “数字藏品”
+ROUTE:
+→ /collection/index
+
+---
+
+## 2.6 编辑资料入口
+
+BUTTON: “编辑资料”
+ACTION:
+- open modal:
+  - avatar change (mock)
+  - username edit
+  - bio edit
+
+SAVE:
+→ update world_runtime_store.userProfile
+
+---
+
+# 🧠 3. DATA MODEL (MOCK BUT COMPLETE)
+
+```ts id="user_profile_model"
+userProfile = {
+  userId: "U10001",
+  username: "探索者·未命名",
+  bio: "尚未留下描述",
+  avatar: "/assets/avatar/default.png",
+
+  stats: {
+    exploredPoints: 0,
+    relicCount: 0,
+    points: 1,
+    collectibles: 0
+  },
+
+  lastVisit: "未记录"
+}
+````
+
+---
+
+# 🗺️ 4. NAVIGATION MAP
+
+| Action | Route             |
+| ------ | ----------------- |
+| 查看信物   | /relic/index      |
+| 权益中心   | /rights/index     |
+| 数字藏品   | /collection/index |
+| 探索记录   | /explore/index    |
+| 设置     | /settings/index   |
+
+---
+
+# 🎨 5. UI SPEC (MINIMAL CLEAN VERSION)
+
+RULES:
+
+* 单列结构
+* 卡片分区清晰
+* 不使用复杂表格
+* 不使用密集 grid
+* 信息优先，不做装饰设计
+
+STYLE:
+
+* light clean UI
+* subtle borders
+* soft shadows
+* neutral palette (V5.9 token system)
+
+---
+
+# 🔁 6. STATE BEHAVIOR
+
+ON PAGE LOAD:
+
+1. load userProfile from world_runtime_store
+2. if null → inject default mock user
+3. render all sections
+
+ON UPDATE:
+
+* username → immediate UI update
+* bio → immediate UI update
+* stats → reactive
+
+---
+
+# 🧩 7. EMPTY STATE RULE
+
+IF user has no data:
+
+SHOW:
+
+* “探索者尚未留下足迹”
+* “信物仍在等待显现”
+* “你的旅程刚刚开始”
+
+NO technical wording allowed
+
+---
+
+# 🔒 8. FREEZE DEFINITION
+
+This page is now:
+
+✔ structurally complete
+✔ functionally complete (mock-level)
+✔ navigation complete
+✔ data model complete
+✔ ready for Cursor implementation
+
+VERSION LOCK:
+MY_PAGE_V1_FROZEN
+
+---
+
+# 🚀 9. ACCEPTANCE CRITERIA
+
+✔ username editable works
+✔ bio editable works
+✔ stats visible and consistent
+✔ all buttons navigate correctly
+✔ no empty UI blocks
+✔ page feels like real product (not skeleton)
+
+END CONTRACT
+
+```
+

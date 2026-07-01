@@ -1,0 +1,256 @@
+<!--
+  CANONICAL PAGE_06 — 我的信物 (My Relics)
+
+  Canonical sources:
+    RELIC_CANON_V2          — relic = growth node, circular composition
+    RELIC_VISUAL_CANON_V1   — single node focus, no card grid, no gamification
+    RELIC_CONTENT_DENSITY_RULE_V1 — relic: 1-line description, echo: 1 sentence
+    RELIC_SYSTEM_REGISTRY_V1 — PAGE_06 / PAGE_07A / PAGE_07B
+
+  IMPORTANT:
+    - relic/echo/collectible are NEVER mixed in one view
+    - circular composition replaces card grid
+    - no game-like UI patterns
+    - single node focus per view
+-->
+
+<view class="canonical-collection-page">
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION: CANONICAL TITLE
+       PAGE_06 — 我的信物
+       ═══════════════════════════════════════════════════ -->
+  <view class="canonical-header">
+    <text class="canonical-header__title">{{renderTree.narrativeTitle}}</text>
+    <text class="canonical-header__subtitle">{{renderTree.narrativeSubtitle}}</text>
+    <text wx:if="{{renderTree.progress}}" class="canonical-header__progress">
+      {{renderTree.progress.discovered}} / {{renderTree.progress.total}}
+    </text>
+  </view>
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION: CANONICAL SUB-VIEW SWITCHER
+       PAGE_06 ↔ PAGE_07A ↔ PAGE_07B
+       ═══════════════════════════════════════════════════ -->
+  <view class="canonical-subnav">
+    <view
+      class="canonical-subnav__item {{pageType === 'PAGE_06' ? 'is-active' : ''}}"
+      data-page-type="PAGE_06"
+      bindtap="onSubViewSwitch"
+    >
+      <text class="canonical-subnav__label">信物</text>
+    </view>
+    <view
+      class="canonical-subnav__item {{pageType === 'PAGE_07A' ? 'is-active' : ''}}"
+      data-page-type="PAGE_07A"
+      bindtap="onSubViewSwitch"
+    >
+      <text class="canonical-subnav__label">天之图鉴</text>
+    </view>
+    <view
+      class="canonical-subnav__item {{pageType === 'PAGE_07B' ? 'is-active' : ''}}"
+      data-page-type="PAGE_07B"
+      bindtap="onSubViewSwitch"
+    >
+      <text class="canonical-subnav__label">人之图鉴</text>
+    </view>
+  </view>
+
+  <!-- ═══════════════════════════════════════════════════
+       PAGE_06 — 我的信物 (My Relics)
+       Circular composition, single node focus
+       ═══════════════════════════════════════════════════ -->
+  <block wx:if="{{pageType === 'PAGE_06'}}">
+    <!-- Circular relic nodes -->
+    <block wx:if="{{renderTree.relicNodes && renderTree.relicNodes.length > 0}}">
+      <view class="canonical-reliquary">
+        <view
+          class="canonical-relic-node"
+          wx:for="{{renderTree.relicNodes}}"
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="onRelicNodeTap"
+        >
+          <!-- Circular composition: outer ring + center symbol -->
+          <view class="canonical-relic-node__orbit">
+            <view class="canonical-relic-node__ring"
+                  style="border-color: {{item.color}}; box-shadow: 0 0 12rpx {{item.color}}44">
+            </view>
+            <view class="canonical-relic-node__center"
+                  style="background: {{item.color}}22; border-color: {{item.color}}">
+              <text class="canonical-relic-node__symbol">{{item.symbol}}</text>
+            </view>
+          </view>
+          <!-- 1-line description (RELIC_CONTENT_DENSITY_RULE_V1) -->
+          <view class="canonical-relic-node__info">
+            <text class="canonical-relic-node__name">{{item.name}}</text>
+            <text class="canonical-relic-node__description">{{item.description}}</text>
+            <!-- Echo = 1 sentence philosophical response -->
+            <text wx:if="{{item.echoText}}" class="canonical-relic-node__echo">
+              {{item.echoText}}
+            </text>
+            <text wx:if="{{item.echoBlessing}}" class="canonical-relic-node__blessing">
+              祝福 · {{item.echoBlessing}}
+            </text>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!-- Empty state — canonical no-system-language -->
+    <block wx:else>
+      <view class="canonical-empty">
+        <view class="canonical-empty__orbit">
+          <view class="canonical-empty__ring"></view>
+          <view class="canonical-empty__center">○</view>
+        </view>
+        <text class="canonical-empty__text">{{renderTree.emptyRelic}}</text>
+        <text class="canonical-empty__hint">{{renderTree.emptyRelicHint}}</text>
+      </view>
+    </block>
+  </block>
+
+  <!-- ═══════════════════════════════════════════════════
+       PAGE_07A — 天之图鉴 (Heaven Atlas)
+       星官 → 宿 → 四象 → 天
+       ═══════════════════════════════════════════════════ -->
+  <block wx:elif="{{pageType === 'PAGE_07A'}}">
+    <view class="canonical-atlas">
+      <text class="canonical-atlas__summary">
+        已见星官 {{renderTree.discoveredStars || 0}} / {{renderTree.totalStars || 0}}
+      </text>
+
+      <!-- Lodge groups (星宿) -->
+      <block wx:if="{{renderTree.lodgeGroups && renderTree.lodgeGroups.length > 0}}">
+        <view
+          class="canonical-lodge-group"
+          wx:for="{{renderTree.lodgeGroups}}"
+          wx:key="name"
+        >
+          <view class="canonical-lodge-group__header">
+            <text class="canonical-lodge-group__name">{{item.name}}</text>
+            <text class="canonical-lodge-group__progress">{{item.progress}}</text>
+          </view>
+          <view class="canonical-lodge-group__stars">
+            <view
+              class="canonical-star-node"
+              wx:for="{{item.stars}}"
+              wx:key="id"
+              style="opacity: {{item.discovered ? 1 : 0.15}}"
+            >
+              <view class="canonical-star-node__orb"
+                    style="border-color: {{item.color}}">
+                <text class="canonical-star-node__symbol">{{item.symbol}}</text>
+              </view>
+              <text class="canonical-star-node__name">{{item.name}}</text>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <!-- Four symbols (四象) summary -->
+      <block wx:if="{{renderTree.fourSymbols && renderTree.fourSymbols.length > 0}}">
+        <view class="canonical-foursymbols">
+          <text class="canonical-foursymbols__title">四象</text>
+          <view class="canonical-foursymbols__grid">
+            <view
+              class="canonical-foursymbol"
+              wx:for="{{renderTree.fourSymbols}}"
+              wx:key="id"
+            >
+              <view class="canonical-foursymbol__orb"
+                    style="border-color: {{item.color}}">
+                <text class="canonical-foursymbol__name">{{item.name}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </block>
+
+  <!-- ═══════════════════════════════════════════════════
+       PAGE_07B — 人之图鉴 (Human Atlas)
+       穴位 → 经络 → 人
+       ═══════════════════════════════════════════════════ -->
+  <block wx:elif="{{pageType === 'PAGE_07B'}}">
+    <view class="canonical-atlas">
+      <text class="canonical-atlas__summary">
+        已见穴位 {{renderTree.discoveredPoints || 0}} / {{renderTree.totalPoints || 0}}
+      </text>
+
+      <!-- Meridian groups (经络) -->
+      <block wx:if="{{renderTree.meridianGroups && renderTree.meridianGroups.length > 0}}">
+        <view
+          class="canonical-meridian-group"
+          wx:for="{{renderTree.meridianGroups}}"
+          wx:key="name"
+        >
+          <view class="canonical-meridian-group__header">
+            <text class="canonical-meridian-group__name">{{item.name}}</text>
+            <text class="canonical-meridian-group__progress">{{item.progress}}</text>
+          </view>
+          <view class="canonical-meridian-group__points">
+            <view
+              class="canonical-acupoint"
+              wx:for="{{item.points}}"
+              wx:key="id"
+              style="opacity: {{item.discovered ? 1 : 0.15}}"
+            >
+              <view class="canonical-acupoint__node"
+                    style="border-color: {{item.color}}">
+                <text class="canonical-acupoint__symbol">{{item.symbol}}</text>
+              </view>
+              <text class="canonical-acupoint__name">{{item.name}}</text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </block>
+
+  <!-- ═══════════════════════════════════════════════════
+       PAGE_07C — 信物详情 Modal (Relic Detail)
+       Circular focus + Echo (1-sentence philosophical response)
+       ═══════════════════════════════════════════════════ -->
+  <view wx:if="{{detailVisible && detailAsset}}" class="canonical-modal" bindtap="onDetailClose">
+    <view class="canonical-modal__content" catchtap="noop">
+      <view class="canonical-modal__close" bindtap="onDetailClose">
+        <text class="canonical-modal__close-icon">×</text>
+      </view>
+
+      <!-- Circular focus detail -->
+      <view class="canonical-detail">
+        <view class="canonical-detail__orbit">
+          <view class="canonical-detail__ring"
+                style="border-color: {{detailAsset.color}}; box-shadow: 0 0 20rpx {{detailAsset.color}}66">
+          </view>
+          <view class="canonical-detail__center"
+                style="background: {{detailAsset.color}}22; border-color: {{detailAsset.color}}">
+            <text class="canonical-detail__symbol">{{detailAsset.symbol}}</text>
+          </view>
+        </view>
+        <text class="canonical-detail__name">{{detailAsset.name}}</text>
+        <!-- 1-line description (RELIC_CONTENT_DENSITY_RULE_V1) -->
+        <text class="canonical-detail__description">{{detailAsset.description}}</text>
+        <!-- Echo = 1 sentence philosophical response -->
+        <text wx:if="{{detailAsset.echoText}}" class="canonical-detail__echo">
+          {{detailAsset.echoText}}
+        </text>
+        <text wx:if="{{detailAsset.echoBlessing}}" class="canonical-detail__blessing">
+          祝福 · {{detailAsset.echoBlessing}}
+        </text>
+        <view wx:if="{{detailAsset.originPoint}}" class="canonical-detail__origin">
+          <text class="canonical-detail__origin-label">显现于</text>
+          <text class="canonical-detail__origin-value">{{detailAsset.originPoint}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ═══════════════════════════════════════════════════
+       BOTTOM NAV
+       ═══════════════════════════════════════════════════ -->
+  <user-bottom-nav activeKey="{{activeTab}}" bind:change="onBottomNavChange" />
+
+</view>

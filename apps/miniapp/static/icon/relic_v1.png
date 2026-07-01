@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Relic/badge/medal icon - gold line style -->
+  <path d="M16 2L20 10L29 11L22 17.5L24 27L16 22.5L8 27L10 17.5L3 11L12 10Z" fill="none" stroke="rgba(200,162,74,0.6)" stroke-width="1.5" stroke-linejoin="round"/>
+  <circle cx="16" cy="14" r="3" fill="none" stroke="rgba(200,162,74,0.4)" stroke-width="1"/>
+</svg>
