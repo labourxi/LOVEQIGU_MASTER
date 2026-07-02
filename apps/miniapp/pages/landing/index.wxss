@@ -150,7 +150,7 @@
   overflow: hidden;
 }
 
-/* Safe image wrapper — non-blocking, fires onImgError on failure */
+/* V3 设计图背景 — 必须 100% 宽度，避免光环变形 */
 .lp-bg__image {
   position: absolute;
   inset: 0;

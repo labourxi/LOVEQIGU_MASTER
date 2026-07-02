@@ -114,7 +114,9 @@
 
     <!-- ════════════════════════════════════════════════════════════
          LAYER 5: SECONDARY CTA (logged-in users)
+         V3 设计图模式：也透明化，入口仅通过登录按钮
          ════════════════════════════════════════════════════════════ -->
+    <view class="v3-design-cover">
     <block wx:if="{{userType !== 'guest'}}">
       <view class="lp-actions">
         <button class="lp-cta lp-cta--primary" bindtap="onEnterExplore">
@@ -123,6 +125,7 @@
         <view class="lp-cta__hint">{{userType === 'active_explorer' ? '新信物正在等待显现' : '进入AR游伴探索世界'}}</view>
       </view>
     </block>
+    </view>
 
   </block>
 </view>
