@@ -1,6 +1,8 @@
 /**
  * SCENIC_LANDING — 景区扫码入口 Landing Page
  *
+ * V5.11.0: Git pre-commit hook 已安装 — 版本号将在此 commit 中自动生成
+ *
  * 用户在线下扫描景区海报二维码后进入此页面。
  * site_id 从扫码参数中获取，用于加载景区配置。
  *
@@ -38,7 +40,6 @@ Page({
     }
 
     // TODO: 根据 site_id 加载景区配置（名称、景点数、卡券数等）
-    // V5.11.0: scenic-landing QR entry established
   },
 
   onImgError: function (e) {
