@@ -25,6 +25,7 @@
     "pages/profile/index",
     "pages/scenic-list/index",
     "pages/scenic-detail/index",
+    "pages/scenic-landing/index",
     "pages/progress-center/index",
     "pages/event-complete/index",
     "pages/merchant-event/index/index",

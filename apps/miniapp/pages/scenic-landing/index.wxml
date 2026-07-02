@@ -1,0 +1,52 @@
+<!--
+  SCENIC_LANDING — 景区扫码入口 Landing Page
+
+  当用户扫描景区海报二维码时进入此页面。
+  site_id 从页面参数中获取，用于加载景区配置数据。
+
+  设计模式：
+    - 纯景区风景图作为全幅背景
+    - WXML 渲染所有文字和数字（动态数据可后台更新）
+    - 登录按钮透明热区
+    - 勾选协议后才能登录
+-->
+
+<view class="sl-page">
+
+  <!-- ═══ BACKGROUND: 景区纯风景背景图 ═══ -->
+  <view class="sl-bg">
+    <image
+      class="sl-bg__image"
+      src="{{bgImage}}"
+      binderror="onImgError"
+      mode="aspectFill"
+    ></image>
+  </view>
+
+  <!-- ═══ LOGIN + AGREEMENT ═══ -->
+  <block wx:if="{{ready && loginVisible !== false}}">
+    <view class="sl-login-fixed">
+      <!-- 透明点击热区：覆盖设计图登录按钮位置 -->
+      <button
+        class="sl-login-fixed__btn {{!agreeProtocol ? 'sl-login-fixed__btn--disabled' : ''}}"
+        bindtap="onWechatLogin"
+        disabled="{{!agreeProtocol}}"
+      ></button>
+      <!-- checkbox + 协议链接 -->
+      <view class="sl-login-fixed__agreement">
+        <view class="sl-agreement-row">
+          <view class="sl-agreement-checkbox" bindtap="onToggleAgreement">
+            <view wx:if="{{agreeProtocol}}" class="sl-agreement-checkbox__checked"></view>
+          </view>
+          <text class="sl-agreement-text">我已阅读并同意</text>
+        </view>
+        <view class="sl-agreement-links">
+          <text class="sl-agreement-link" bindtap="onTapUserAgreement">《用户协议》</text>
+          <text class="sl-agreement-link sl-agreement-link--sep"> </text>
+          <text class="sl-agreement-link" bindtap="onTapPrivacyPolicy">《隐私政策》</text>
+        </view>
+      </view>
+    </view>
+  </block>
+
+</view>
