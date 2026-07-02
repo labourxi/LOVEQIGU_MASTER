@@ -3,12 +3,12 @@
   "description": "LOVEQIGU / AR游伴 版本数据库 — 所有冻结规范的版本追踪",
   "system": {
     "major": 5,
-    "minor": 10,
-    "patch": 3,
+    "minor": 11,
+    "patch": 0,
     "stage": "stable",
-    "human": "V5.10.3 (stable)",
+    "human": "V5.11.0 (stable)",
     "updated": "2026-07-02",
-    "commit_prefix": "V5.10.3"
+    "commit_prefix": "V5.11.0"
   },
   "frozen_specs": [
     {
@@ -64,6 +64,11 @@
     "docs/governance/GOVERNANCE_RUNTIME_HOOK_V2.js"
   ],
   "history": [
+    {
+      "version": "V5.11.0",
+      "date": "2026-07-02",
+      "description": "WORLD LANDING V3 冻结 + 景区 landing 扫码入口"
+    },
     {
       "version": "V5.10.3",
       "date": "2026-07-02",
