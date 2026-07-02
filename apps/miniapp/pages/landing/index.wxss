@@ -1,657 +1,37 @@
 /* ═══════════════════════════════════════════════════════════════════
-   PAGE_01_LANDING — 爱企谷首页 (Aigugu World Entry Page)
+   PAGE_01_LANDING — V3 DESIGN MODE
 
-   V7 CIVILIZATION OS — AIGU VALLEY WORLD ENTRY PAGE
-
-   VISUAL STYLE RULES:
-     - fog depth layering
-     - gold accent light (#C8A24A)
-     - vertical hierarchy
-     - no game-like UI
-     - no flat cards
-     - warm golden light rays
-     - glass morphism depth
-
-   FORBIDDEN:
-     - flat backgrounds
-     - game UI (neon, cartoon, pixel, arcade)
-     - flat card style
-     - hardcoded asset paths
-
-   DESIGN TOKENS:
-     Primary:   #0A1A14 (deep forest black)
-     Accent:    #C8A24A (gold light)
-     Secondary: rgba(200, 162, 74, 0.X)
-     Text:      rgba(232, 224, 208, 0.X) (fog white)
+   V3 设计图包含全部视觉。CSS 仅控制：
+     - 背景图铺满（aspectFill）
+     - 登录按钮透明热区
+     - checkbox + 协议链接样式
    ═══════════════════════════════════════════════════════════════════ */
 
 /* ─── PAGE CONTAINER ─── */
 .lp-page {
   position: relative;
-  min-height: 100vh;
-  min-height: 100dvh;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
   background: #0A1A14;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-x: hidden;
-  overflow-y: auto;
-  padding-bottom: 240rpx;
-  box-sizing: border-box;
+  overflow: hidden;
 }
 
-/* ─── GOVERNANCE BLOCKED SCREEN — safe fallback, zero file dependency ─── */
-.lp-page--governance-blocked {
-  background: radial-gradient(ellipse at 50% 120%, rgba(200, 162, 74, 0.04) 0%, transparent 50%),
-              radial-gradient(ellipse at 50% 100%, rgba(10,26,20,0.95) 0%, rgba(10,26,20,1) 100%);
-  justify-content: center;
-  padding-bottom: 0;
-}
-
-.lp-governance-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24rpx;
-  padding: 80rpx 60rpx;
-  text-align: center;
-}
-
-.lp-governance-block__icon {
-  font-size: 64rpx;
-  color: rgba(200, 162, 74, 0.3);
-  margin-bottom: 8rpx;
-}
-
-.lp-governance-block__title {
-  font-size: 36rpx;
-  color: rgba(232, 224, 208, 0.25);
-  letter-spacing: 8rpx;
-  font-weight: 300;
-}
-
-.lp-governance-block__code {
-  font-size: 20rpx;
-  color: rgba(200, 162, 74, 0.15);
-  letter-spacing: 4rpx;
-  font-family: monospace;
-  margin-top: 8rpx;
-}
-
-.lp-governance-block__msg {
-  font-size: 22rpx;
-  color: rgba(232, 224, 208, 0.1);
-  letter-spacing: 4rpx;
-  font-weight: 300;
-  font-style: italic;
-  max-width: 500rpx;
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   SKELETON LOADING
-   ═══════════════════════════════════════════════════════════════════ */
-.lp-skeleton {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 40rpx;
-  padding: 80rpx 40rpx;
-  box-sizing: border-box;
-}
-.lp-skeleton__bg {
-  width: 80%;
-  height: 300rpx;
-  border-radius: 24rpx;
-  background: rgba(200, 162, 74, 0.03);
-  animation: lp-shimmer 2.5s ease-in-out infinite;
-}
-.lp-skeleton__title {
-  width: 280rpx;
-  height: 48rpx;
-  border-radius: 8rpx;
-  background: rgba(255, 255, 255, 0.03);
-  animation: lp-shimmer 2.5s ease-in-out infinite 0.3s;
-}
-.lp-skeleton__stats {
-  width: 520rpx;
-  height: 160rpx;
-  border-radius: 16rpx;
-  background: rgba(255, 255, 255, 0.02);
-  animation: lp-shimmer 2.5s ease-in-out infinite 0.6s;
-}
-.lp-skeleton__cta {
-  width: 300rpx;
-  height: 88rpx;
-  border-radius: 44rpx;
-  background: rgba(200, 162, 74, 0.03);
-  animation: lp-shimmer 2.5s ease-in-out infinite 0.9s;
-}
-@keyframes lp-shimmer {
-  0%, 100% { opacity: 0.2; }
-  50% { opacity: 0.5; }
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   LAYER 1: BACKGROUND SCENE — 爱企谷门户世界背景
-   Scene image + fog drift + depth layer + warm light + light rays
-   
-   V4 LAYERED RENDERING:
-     Layer A: Portal background image (full brightness for portail-only)
-     Layer B: CSS UI overlay (login button + navigation)
-   ═══════════════════════════════════════════════════════════════════ */
+/* ═══ BACKGROUND: 设计图全幅 ═══ */
 .lp-bg {
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  overflow: hidden;
 }
 
-/* V3 设计图背景 — 必须 100% 宽度，避免光环变形 */
 .lp-bg__image {
-  position: absolute;
-  inset: 0;
   width: 100%;
   height: 100%;
-  opacity: 1;
-  filter: none;
-  pointer-events: none;
+  display: block;
 }
 
-/* CSS background-image depth layer — non-blocking fallback */
-.lp-bg__scene {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center center;
-  opacity: 1;
-  filter: none;
-}
-
-/* Gradient fallback — zero file dependency, always renders */
-.lp-bg__scene--gradient {
-  background:
-    radial-gradient(ellipse at 50% 120%, rgba(200, 162, 74, 0.04) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 100%, rgba(10,26,20,0.95) 0%, rgba(10,26,20,1) 100%);
-  opacity: 1;
-  filter: none;
-}
-
-/* 深景层 — 从 portal 底向上渐变，让 UI 区域更清晰 */
-.lp-bg__depth {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 0.15) 50%,
-      rgba(0, 0, 0, 0.5) 85%,
-      rgba(0, 0, 0, 0.75) 100%);
-}
-
-/* 雾层容器 — 包裹三组雾层，可按 renderLayer.fog 条件渲染 */
-.lp-bg__fog__layer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-/* 粒子层 — 微光浮动粒子 */
-.lp-bg__particles {
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(2rpx 2rpx at 20% 30%, rgba(200, 162, 74, 0.15) 0%, transparent 100%),
-    radial-gradient(2rpx 2rpx at 50% 20%, rgba(200, 162, 74, 0.1) 0%, transparent 100%),
-    radial-gradient(2rpx 2rpx at 75% 40%, rgba(200, 162, 74, 0.12) 0%, transparent 100%),
-    radial-gradient(3rpx 3rpx at 30% 60%, rgba(200, 162, 74, 0.08) 0%, transparent 100%),
-    radial-gradient(2rpx 2rpx at 65% 70%, rgba(200, 162, 74, 0.1) 0%, transparent 100%),
-    radial-gradient(2rpx 2rpx at 85% 25%, rgba(200, 162, 74, 0.06) 0%, transparent 100%);
-  animation: lp-particles-float 20s ease-in-out infinite;
-  opacity: 0.4;
-}
-
-@keyframes lp-particles-float {
-  0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
-  33%  { transform: translateY(-3%) scale(1.02); opacity: 0.5; }
-  66%  { transform: translateY(2%) scale(0.98); opacity: 0.35; }
-}
-
-/* 雾层 — 三组叠加，不同延迟产生飘动感 */
-.lp-bg__fog {
-  position: absolute;
-  inset: -30%;
-  background:
-    radial-gradient(ellipse 70% 35% at 25% 50%, rgba(255, 255, 255, 0.015) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 25% at 75% 40%, rgba(255, 255, 255, 0.01) 0%, transparent 50%);
-  animation: lp-fog-drift 30s ease-in-out infinite;
-  animation-delay: var(--fog-delay, 0s);
-  opacity: 0.5;
-}
-
-@keyframes lp-fog-drift {
-  0%   { transform: translate(0, 0) scale(1);    opacity: 0.3; }
-  25%  { transform: translate(6%, -4%) scale(1.06); opacity: 0.55; }
-  50%  { transform: translate(-4%, 3%) scale(0.94); opacity: 0.35; }
-  75%  { transform: translate(5%, -2%) scale(1.03); opacity: 0.5; }
-  100% { transform: translate(0, 0) scale(1);    opacity: 0.3; }
-}
-
-/* 暖金色光源 — 与 portal 光晕协调 */
-.lp-bg__warm-light {
-  position: absolute;
-  bottom: 35%;
-  left: 50%;
-  width: 600rpx;
-  height: 400rpx;
-  transform: translate(-50%, 0);
-  background: radial-gradient(ellipse 50% 40% at 50% 50%, rgba(200, 162, 74, 0.04) 0%, transparent 60%);
-  animation: lp-warm-pulse 8s ease-in-out infinite;
-}
-
-@keyframes lp-warm-pulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.8; }
-}
-
-/* 光线 — 穿透雾层的金色光柱 */
-.lp-bg__light-rays {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(165deg, transparent 30%, rgba(200, 162, 74, 0.02) 35%, transparent 40%),
-    linear-gradient(190deg, transparent 50%, rgba(200, 162, 74, 0.015) 55%, transparent 60%),
-    linear-gradient(150deg, transparent 65%, rgba(200, 162, 74, 0.01) 70%, transparent 75%);
-  animation: lp-rays-shift 12s ease-in-out infinite;
-}
-
-@keyframes lp-rays-shift {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.7; }
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   LAYER 2: WORLD INTRO SECTION — 世界入口介绍
-   爱企谷山谷世界 + 入口 portal 动画
-   ═══════════════════════════════════════════════════════════════════ */
-.lp-intro {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 140rpx;
-  padding-bottom: 48rpx;
-  width: 100%;
-}
-
-/* Portal 光环 */
-.lp-intro__portal {
-  position: relative;
-  width: 200rpx;
-  height: 200rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 48rpx;
-}
-
-/* 外环 */
-.lp-intro__ring {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  border: 2rpx solid rgba(200, 162, 74, 0.1);
-  animation: lp-ring-spin 24s linear infinite;
-}
-.lp-intro__ring::before {
-  content: '';
-  position: absolute;
-  top: 16%;
-  left: 16%;
-  width: 68%;
-  height: 68%;
-  border-radius: 50%;
-  border: 1.5rpx solid rgba(200, 162, 74, 0.06);
-  animation: lp-ring-spin 18s linear infinite reverse;
-}
-.lp-intro__ring::after {
-  content: '';
-  position: absolute;
-  top: 30%;
-  left: 30%;
-  width: 40%;
-  height: 40%;
-  border-radius: 50%;
-  border: 1rpx solid rgba(200, 162, 74, 0.05);
-  animation: lp-ring-spin 12s linear infinite;
-}
-
-@keyframes lp-ring-spin {
-  0%   { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* 核心光点 */
-.lp-intro__core {
-  width: 20rpx;
-  height: 20rpx;
-  border-radius: 50%;
-  background: #C8A24A;
-  box-shadow:
-    0 0 40rpx 12rpx rgba(200, 162, 74, 0.12),
-    0 0 80rpx 32rpx rgba(200, 162, 74, 0.05);
-  animation: lp-core-breathe 4s ease-in-out infinite;
-  position: relative;
-  z-index: 1;
-}
-
-@keyframes lp-core-breathe {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.4); }
-}
-
-/* 浮游粒子 */
-.lp-intro__particles {
-  position: absolute;
-  width: 6rpx;
-  height: 6rpx;
-  border-radius: 50%;
-  background: rgba(200, 162, 74, 0.25);
-  top: 8%;
-  left: 15%;
-  animation: lp-particle-drift 8s ease-in-out infinite;
-  box-shadow:
-    30rpx 40rpx 0 0 rgba(200, 162, 74, 0.12),
-    -20rpx 35rpx 0 0 rgba(200, 162, 74, 0.08),
-    15rpx -30rpx 0 0 rgba(200, 162, 74, 0.1),
-    -35rpx -20rpx 0 0 rgba(200, 162, 74, 0.06),
-    45rpx -10rpx 0 0 rgba(200, 162, 74, 0.07);
-}
-
-@keyframes lp-particle-drift {
-  0%, 100% { transform: translate(0, 0); opacity: 0.3; }
-  25% { transform: translate(10rpx, -16rpx); opacity: 0.6; }
-  50% { transform: translate(-8rpx, 14rpx); opacity: 0.4; }
-  75% { transform: translate(14rpx, 8rpx); opacity: 0.5; }
-}
-
-/* 标题文字 */
-.lp-intro__title {
-  font-size: 52rpx;
-  font-weight: 300;
-  color: rgba(200, 162, 74, 0.7);
-  letter-spacing: 16rpx;
-  text-shadow: 0 0 40rpx rgba(200, 162, 74, 0.05);
-  margin-bottom: 8rpx;
-  text-align: center;
-}
-
-.lp-intro__roman {
-  font-size: 24rpx;
-  color: rgba(200, 162, 74, 0.3);
-  letter-spacing: 10rpx;
-  font-weight: 300;
-  margin-bottom: 16rpx;
-  text-transform: uppercase;
-}
-
-.lp-intro__verse {
-  font-size: 22rpx;
-  color: rgba(232, 224, 208, 0.15);
-  letter-spacing: 6rpx;
-  font-weight: 300;
-  font-style: italic;
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   LAYER 3: STATS DASHBOARD — 数据面板 (4 cards)
-   exploration_count / relic_count / coupon_count / progress
-   Glass morphism, no flat cards
-   ═══════════════════════════════════════════════════════════════════ */
-.lp-stats {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  max-width: 600rpx;
-  padding: 0 36rpx;
-  margin-bottom: 48rpx;
-  box-sizing: border-box;
-}
-
-.lp-stats__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18rpx;
-}
-
-.lp-stat-card {
-  background: rgba(200, 162, 74, 0.035);
-  border: 1rpx solid rgba(200, 162, 74, 0.06);
-  border-radius: 20rpx;
-  padding: 28rpx 16rpx;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6rpx;
-  backdrop-filter: blur(6rpx);
-  -webkit-backdrop-filter: blur(6rpx);
-  transition: all 0.3s ease;
-  /* Glass morphism depth — not flat */
-  box-shadow:
-    0 2rpx 20rpx rgba(200, 162, 74, 0.02),
-    inset 0 0 30rpx rgba(200, 162, 74, 0.01);
-}
-
-.lp-stat-card:active {
-  transform: scale(0.97);
-  background: rgba(200, 162, 74, 0.06);
-}
-
-.lp-stat-card__value {
-  font-size: 40rpx;
-  color: rgba(232, 224, 208, 0.65);
-  font-weight: 300;
-  letter-spacing: 4rpx;
-  line-height: 1.2;
-}
-
-.lp-stat-card__label {
-  font-size: 20rpx;
-  color: rgba(232, 224, 208, 0.2);
-  letter-spacing: 4rpx;
-  font-weight: 300;
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   LAYER 4: EXPLORATION CAROUSEL — 探索轮播 (10 nodes)
-   Horizontal scroll, glass style, depth layered
-   ═══════════════════════════════════════════════════════════════════ */
-.lp-carousel-wrap {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  margin-bottom: 48rpx;
-}
-
-.lp-carousel-label {
-  font-size: 22rpx;
-  color: rgba(232, 224, 208, 0.15);
-  letter-spacing: 6rpx;
-  padding: 0 36rpx;
-  margin-bottom: 20rpx;
-  font-weight: 300;
-}
-
-.lp-carousel {
-  display: flex;
-  flex-direction: row;
-  white-space: nowrap;
-  overflow-x: auto;
-  padding: 0 28rpx;
-  -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x proximity;
-  padding-bottom: 12rpx;
-}
-
-.lp-carousel__item {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10rpx;
-  width: 180rpx;
-  flex-shrink: 0;
-  padding: 28rpx 16rpx;
-  margin-right: 16rpx;
-  background: rgba(200, 162, 74, 0.02);
-  border: 1rpx solid rgba(200, 162, 74, 0.05);
-  border-radius: 20rpx;
-  scroll-snap-align: center;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(4rpx);
-  -webkit-backdrop-filter: blur(4rpx);
-}
-
-.lp-carousel__item:active {
-  transform: scale(0.95);
-  background: rgba(200, 162, 74, 0.05);
-}
-
-/* Status variants */
-.lp-carousel__item--unlocked {
-  border-color: rgba(200, 162, 74, 0.12);
-  background: rgba(200, 162, 74, 0.04);
-}
-.lp-carousel__item--active {
-  border-color: rgba(200, 162, 74, 0.12);
-  background: rgba(200, 162, 74, 0.04);
-}
-.lp-carousel__item--discovered {
-  opacity: 0.55;
-}
-.lp-carousel__item--locked {
-  opacity: 0.3;
-}
-
-.lp-carousel__dot {
-  width: 14rpx;
-  height: 14rpx;
-  border-radius: 50%;
-  flex-shrink: 0;
-  box-shadow: 0 0 8rpx 2rpx currentColor;
-}
-
-.lp-carousel__name {
-  font-size: 24rpx;
-  color: rgba(232, 224, 208, 0.5);
-  letter-spacing: 4rpx;
-  font-weight: 400;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 148rpx;
-  white-space: normal;
-  text-align: center;
-  line-height: 1.3;
-}
-
-.lp-carousel__subtitle {
-  font-size: 18rpx;
-  color: rgba(232, 224, 208, 0.2);
-  letter-spacing: 2rpx;
-  font-weight: 300;
-  white-space: normal;
-  text-align: center;
-}
-
-.lp-carousel__status {
-  font-size: 18rpx;
-  color: rgba(232, 224, 208, 0.15);
-  letter-spacing: 2rpx;
-}
-
-.lp-carousel__region {
-  font-size: 16rpx;
-  color: rgba(200, 162, 74, 0.2);
-  letter-spacing: 2rpx;
-  font-weight: 300;
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   LAYER 5: ACTION LAYER — 行为层
-   CTAs 在内容流中（scroll 上下文）
-   ═══════════════════════════════════════════════════════════════════ */
-.lp-actions {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20rpx;
-  width: 100%;
-  max-width: 500rpx;
-  padding: 0 36rpx;
-  margin-bottom: 32rpx;
-  box-sizing: border-box;
-}
-
-/* ─── Primary CTA ─── */
-.lp-cta {
-  width: 100%;
-  height: 96rpx;
-  line-height: 96rpx;
-  border-radius: 48rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12rpx;
-  font-size: 30rpx;
-  letter-spacing: 8rpx;
-  font-weight: 400;
-  padding: 0;
-  border: none;
-  transition: all 0.3s ease;
-}
-
-.lp-cta--primary {
-  background: rgba(200, 162, 74, 0.07);
-  border: 1rpx solid rgba(200, 162, 74, 0.15);
-  color: #C8A24A;
-  box-shadow:
-    0 0 40rpx rgba(200, 162, 74, 0.03),
-    inset 0 0 40rpx rgba(200, 162, 74, 0.02);
-}
-
-.lp-cta--primary:active {
-  transform: scale(0.97);
-  opacity: 0.8;
-  background: rgba(200, 162, 74, 0.11);
-}
-
-.lp-cta__icon {
-  font-size: 34rpx;
-  color: rgba(200, 162, 74, 0.4);
-}
-
-.lp-cta__label {
-  letter-spacing: 8rpx;
-}
-
-.lp-cta__hint {
-  font-size: 20rpx;
-  color: rgba(232, 224, 208, 0.1);
-  letter-spacing: 4rpx;
-  font-weight: 300;
-  text-align: center;
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   P0: LOGIN CTA — 固定底部覆盖层
-   "微信一键登录"，固定底部，always visible，最高 z-index
-   ═══════════════════════════════════════════════════════════════════ */
+/* ═══ LOGIN FIXED: 透明点击热区 + 协议 ═══ */
 .lp-login-fixed {
   position: fixed;
   bottom: 0;
@@ -661,113 +41,44 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 32rpx 48rpx;
-  padding-bottom: calc(32rpx + env(safe-area-inset-bottom));
-  /* V3 设计图模式：不设背景，设计图底部完整透出 */
-  background: none;
+  padding-bottom: calc(40rpx + env(safe-area-inset-bottom));
   pointer-events: none;
 }
 
+/* 透明按钮热区 — 覆盖设计图的登录按钮位置 */
 .lp-login-fixed__btn {
-  width: 100%;
+  width: 480rpx;
   height: 100rpx;
-  line-height: 100rpx;
-  border-radius: 50rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14rpx;
-  font-size: 32rpx;
-  letter-spacing: 8rpx;
-  font-weight: 400;
+  margin-bottom: 10rpx;
   padding: 0;
+  background: transparent;
   border: none;
-  background: rgba(200, 162, 74, 0.09);
-  border: 1rpx solid rgba(200, 162, 74, 0.18);
-  color: #C8A24A;
-  box-shadow:
-    0 0 60rpx rgba(200, 162, 74, 0.04),
-    inset 0 0 40rpx rgba(200, 162, 74, 0.02);
+  border-radius: 0;
   pointer-events: auto;
-  transition: all 0.3s ease;
+  position: relative;
 }
 
-.lp-login-fixed__btn:active {
-  transform: scale(0.97);
-  opacity: 0.8;
-  background: rgba(200, 162, 74, 0.13);
+/* 按钮热区可点击区域扩大 */
+.lp-login-fixed__btn::after {
+  content: '';
+  position: absolute;
+  inset: -20rpx;
 }
 
-.lp-login-fixed__icon {
-  font-size: 36rpx;
-  color: rgba(200, 162, 74, 0.35);
-}
-
-.lp-login-fixed__label {
-  letter-spacing: 8rpx;
-}
-
-.lp-login-fixed__hint {
-  margin-top: 16rpx;
-  font-size: 20rpx;
-  color: rgba(232, 224, 208, 0.1);
-  letter-spacing: 4rpx;
-  font-weight: 300;
-  pointer-events: auto;
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   WORLD LANDING PAGE V3 — 设计图覆盖交互层
-   v3-design-cover: 设计图已包含这些视觉元素，WXML 层完全透明
-   登录区覆盖在设计图上，提供设计图没有的 checkbox + 协议交互
-   轮播保持可见（设计图上无此元素）
-   ═══════════════════════════════════════════════════════════════════ */
-
-/* 设计图已有 UI — WXML 完全透明化，仅保留页面占位空间 */
-.v3-design-cover {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* 登录按钮覆盖 — 设计图已有视觉，WXML 按钮完全透明仅提供点击交互 */
-.lp-login-fixed {
-  pointer-events: none;
-}
-.lp-login-fixed__btn {
+/* 禁用态 */
+.lp-login-fixed__btn--disabled {
   opacity: 0 !important;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  color: transparent !important;
-  pointer-events: auto;
-}
-.lp-login-fixed__label,
-.lp-login-fixed__icon {
-  display: none;
-}
-.lp-login-fixed__hint {
-  display: none;
-}
-/* checkbox + 协议链接 — 设计图上没有，保留可见 */
-.lp-login-fixed__agreement {
-  pointer-events: auto;
-}
-.lp-agreement-text,
-.lp-agreement-link {
-  color: rgba(232, 224, 208, 0.6) !important;
+  pointer-events: none;
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   WORLD LANDING PAGE V3: 协议勾选组件
-   ═══════════════════════════════════════════════════════════════════ */
+/* ═══ AGREEMENT ═══ */
 .lp-login-fixed__agreement {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6rpx;
-  margin-top: 16rpx;
   pointer-events: auto;
-  width: 100%;
+  padding: 10rpx 48rpx;
 }
 
 .lp-agreement-row {
@@ -776,7 +87,6 @@
   gap: 10rpx;
 }
 
-/* 自定义 checkbox — 无原生组件 */
 .lp-agreement-checkbox {
   width: 28rpx;
   height: 28rpx;
@@ -800,6 +110,7 @@
   background: #C8A24A;
   position: relative;
 }
+
 .lp-agreement-checkbox__checked::after {
   content: '';
   position: absolute;
@@ -839,7 +150,11 @@
   color: rgba(200, 162, 74, 0.6);
 }
 
-/* 禁用态登录按钮 */
-.lp-login-fixed__btn--disabled {
-  opacity: 0.5;
+.lp-login-fixed__hint {
+  margin-top: 12rpx;
+  font-size: 18rpx;
+  color: rgba(232, 224, 208, 0.2);
+  letter-spacing: 4rpx;
+  font-weight: 300;
+  pointer-events: auto;
 }

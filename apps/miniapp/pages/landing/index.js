@@ -198,7 +198,7 @@ Page({
     pageId: PAGE_ID,
     loading: true,
     uiReady: false,
-    ready: false,
+    ready: true,  // V3 MODE: immediately ready, no skeleton delay
     entryReady: false,
     userType: 'guest',
     loginVisible: true,
@@ -462,13 +462,13 @@ Page({
     }, 600);
   },
 
-  onEnterExplore: function () { this._enterExplore(); },
+  // V3 DESIGN MODE: 入口仅通过登录按钮，禁用其他跳转
+  onEnterExplore: function () {
+    console.warn('[V3 MODE] onEnterExplore blocked — login-only entry');
+  },
 
   onCarouselTap: function (e) {
-    safeNavigate('/pages/index/index', {
-      _userTap: true,
-      fail: function () { try { wx.navigateTo({ url: '/pages/index/index' }); } catch (e) {} }
-    });
+    console.warn('[V3 MODE] carousel tap blocked — login-only entry');
   },
 
   noop: function () {},
