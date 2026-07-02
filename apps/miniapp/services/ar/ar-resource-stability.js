@@ -217,13 +217,9 @@ function safeDownloadFile(url, options) {
               url: url
             });
             resolve({ ok: true, result: res, error: null });
-          } else {
-              resource: resourceName,
-              action: 'download_success',
-              url: url
-            });
-            resolve({ ok: true, result: res, error: null });
-          } else {
+          }
+
+          if (res.statusCode !== 200) {
             var err = new Error('download_failed_status:' + res.statusCode);
             appendResourceLog({
               resource: resourceName,
