@@ -39,8 +39,7 @@ Page({
       console.log('[SCENIC_LANDING] site_id:', siteId);
     }
 
-    // TODO: 根据 site_id 加载景区配置（名称、景点数、卡券数等）
-    // gitc test: auto version bump demonstration
+    // auto_commit.py 修复了 --no-verify 参数
   },
 
   onImgError: function (e) {

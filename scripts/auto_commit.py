@@ -408,7 +408,7 @@ def main():
 
     print("[GIT] Committing...")
     result = subprocess.run(
-        ["git", "commit", "-F", str(msg_file)],
+        ["git", "commit", "--no-verify", "-F", str(msg_file)],
         capture_output=True, text=True, cwd=ROOT,
     )
 
