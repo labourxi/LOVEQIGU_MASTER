@@ -39,21 +39,15 @@
          ════════════════════════════════════════════════════════════ -->
     <view class="lp-bg">
       <!-- Safe image wrapper — fires onImgError on failure -->
-      <!-- Hidden when bgImage empty (gradient fallback active) -->
       <image wx:if="{{bgImage}}"
         class="lp-bg__image"
         src="{{bgImage}}"
         binderror="onImgError"
         mode="scaleToFill"
       ></image>
-      <!-- CSS background-image scene layer (gradient fallback) -->
+      <!-- CSS gradient fallback — zero file dependency, always renders -->
       <view wx:if="{{!bgImage}}"
         class="lp-bg__scene lp-bg__scene--gradient">
-      </view>
-      <!-- CSS background-image scene layer (image) -->
-      <view wx:if="{{bgImage}}"
-        class="lp-bg__scene"
-        style="background-image: url({{bgImage}});">
       </view>
       <view class="lp-bg__depth"></view>
       <view class="lp-bg__fog" style="--fog-delay: 0s"></view>
