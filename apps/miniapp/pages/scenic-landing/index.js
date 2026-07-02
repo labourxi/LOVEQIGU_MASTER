@@ -38,6 +38,7 @@ Page({
     }
 
     // TODO: 根据 site_id 加载景区配置（名称、景点数、卡券数等）
+    // V5.11.0: scenic-landing QR entry established
   },
 
   onImgError: function (e) {

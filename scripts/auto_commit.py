@@ -274,7 +274,69 @@ def update_version_db(new_version, categories_found, changed_files):
     return True
 
 
+def hook_mode():
+    """
+    --hook 模式：在 pre-commit 阶段运行。
+    检测 staged 文件，自动 bump 版本号，更新 VERSION_DB.json。
+    """
+    staged = run_git("diff", "--cached", "--name-only").splitlines()
+    staged = [s.strip() for s in staged if s.strip()]
+    if not staged:
+        return 0
+
+    # 检测是否已经包含了 VERSION_DB 更新
+    if any("VERSION_DB.json" in s for s in staged):
+        return 0  # 本次 commit 已经包含版本更新
+
+    cats = [classify_file(f) for f in staged]
+    unique = sorted(set(cats), key=lambda c: CATEGORIES.get(c, {}).get("priority", 99))
+
+    current = "V0.0.1"
+    if VERSION_DB.exists():
+        try:
+            db = json.loads(VERSION_DB.read_text(encoding="utf-8"))
+            current = db["system"]["human"].split(" ")[0]
+        except Exception:
+            pass
+
+    has_spec = any(c in ("spec_frozen", "spec_governance") for c in cats)
+    bump = "minor" if has_spec else "patch"
+    new_ver = bump_version(current, bump)
+
+    if new_ver == current:
+        return 0
+
+    desc_parts = {"spec_frozen": "规范冻结", "script_core": "核心引擎",
+                  "script_gen": "生成管线", "runtime_miniapp": "运行时"}
+    desc = " + ".join(desc_parts.get(c, "") for c in unique if c in desc_parts) or "更新"
+
+    try:
+        db = json.loads(VERSION_DB.read_text(encoding="utf-8"))
+        db["system"]["major"] = int(new_ver.split(".")[0].replace("V", ""))
+        db["system"]["minor"] = int(new_ver.split(".")[1])
+        db["system"]["patch"] = int(new_ver.split(".")[2])
+        db["system"]["human"] = f"{new_ver} (stable)"
+        db["system"]["updated"] = datetime.date.today().strftime("%Y-%m-%d")
+        db["system"]["commit_prefix"] = new_ver
+        db["history"].insert(0, {
+            "version": new_ver,
+            "date": datetime.date.today().strftime("%Y-%m-%d"),
+            "description": desc,
+        })
+        VERSION_DB.write_text(json.dumps(db, indent=2, ensure_ascii=False), encoding="utf-8")
+        run_git("add", "VERSION_DB.json")
+        print(f"[AUTO VERSION] {current} -> {new_ver} ({bump})")
+    except Exception as e:
+        print(f"[AUTO VERSION] WARN: failed to update version: {e}")
+
+    return 0
+
+
 def main():
+    # ── Hook mode ──
+    if "--hook" in sys.argv:
+        sys.exit(hook_mode())
+
     dry_run = "--dry-run" in sys.argv
     user_message = None
     for arg in sys.argv[1:]:
