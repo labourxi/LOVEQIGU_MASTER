@@ -40,6 +40,7 @@ Page({
     }
 
     // TODO: 根据 site_id 加载景区配置（名称、景点数、卡券数等）
+    // gitc test: auto version bump demonstration
   },
 
   onImgError: function (e) {
