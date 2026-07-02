@@ -5,6 +5,18 @@
       {
         "type": "regexp",
         "value": ".*/effect_preview/preview_sheet\\.(png|webp)$"
+      },
+      {
+        "type": "folder",
+        "value": "services"
+      },
+      {
+        "type": "folder",
+        "value": "content"
+      },
+      {
+        "type": "folder",
+        "value": "behaviors"
       }
     ],
     "include": [
@@ -25,8 +37,8 @@
     "postcss": true,
     "minified": true,
     "compileWorklet": false,
-    "uglifyFileName": false,
-    "uploadWithSourceMap": true,
+    "uglifyFileName": true,
+    "uploadWithSourceMap": false,
     "packNpmManually": false,
     "packNpmRelationList": [],
     "minifyWXSS": true,
