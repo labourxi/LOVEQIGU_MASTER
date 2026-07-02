@@ -729,26 +729,32 @@
   pointer-events: none;
 }
 
-/* 登录按钮覆盖 — 设计图已有视觉，但需要 checkbox/协议交互和点击逻辑 */
+/* 登录按钮覆盖 — 设计图已有视觉，WXML 按钮完全透明仅提供点击交互 */
 .lp-login-fixed {
   pointer-events: none;
 }
 .lp-login-fixed__btn {
-  opacity: 0.01;  /* 几乎透明，保留点击 */
+  opacity: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: transparent !important;
   pointer-events: auto;
 }
 .lp-login-fixed__label,
 .lp-login-fixed__icon {
-  opacity: 0;
+  display: none;
 }
+.lp-login-fixed__hint {
+  display: none;
+}
+/* checkbox + 协议链接 — 设计图上没有，保留可见 */
 .lp-login-fixed__agreement {
   pointer-events: auto;
 }
-.lp-login-fixed__hint {
-  pointer-events: auto;
-}
-.lp-login-fixed__btn--disabled {
-  opacity: 0.01;
+.lp-agreement-text,
+.lp-agreement-link {
+  color: rgba(232, 224, 208, 0.6) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
