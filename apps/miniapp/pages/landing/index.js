@@ -207,8 +207,8 @@ Page({
 
     // Image — safe wrapper, fire-and-forget
     // Now points to real asset in /static/ directory
-    // WORLD LANDING PAGE V3 — 定稿背景
-    bgImage: '/static/scene/landing_world_v3_final.png',
+    // WORLD LANDING PAGE V3 — 定稿背景 (CDN 加载，不增加主包体积)
+    bgImage: '/static/scene/landing_world_v3_final.jpg',
     _bgGradient: '',
 
     assetMap: getAssetMap(),
