@@ -35,7 +35,9 @@
     "pages/heaven-human-unity/index",
     "pages/synthesis/index",
     "pages/seals/index",
-    "pages/reward-center/index"
+    "pages/reward-center/index",
+    "pages/legal/user_agreement/index",
+    "pages/legal/privacy_policy/index"
   ],
   "window": {
     "navigationBarTitleText": "AR游伴",

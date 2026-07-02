@@ -144,10 +144,24 @@
      Gated by ready. NEVER blocked by assets. -->
 <block wx:if="{{ready && loginVisible !== false}}">
   <view class="lp-login-fixed">
-    <button class="lp-login-fixed__btn" bindtap="onWechatLogin">
+    <button class="lp-login-fixed__btn {{!agreeProtocol ? 'lp-login-fixed__btn--disabled' : ''}}" bindtap="onWechatLogin" disabled="{{!agreeProtocol}}">
       <text class="lp-login-fixed__icon"></text>
       <text class="lp-login-fixed__label">微信一键登录</text>
     </button>
-    <view class="lp-login-fixed__hint">登录后进入爱企谷探索世界</view>
+    <!-- WORLD LANDING PAGE V3: 协议勾选区 -->
+    <view class="lp-login-fixed__agreement">
+      <view class="lp-agreement-row">
+        <view class="lp-agreement-checkbox" bindtap="onToggleAgreement">
+          <view wx:if="{{agreeProtocol}}" class="lp-agreement-checkbox__checked"></view>
+        </view>
+        <text class="lp-agreement-text">我已阅读并同意</text>
+      </view>
+      <view class="lp-agreement-links">
+        <text class="lp-agreement-link" bindtap="onTapUserAgreement">《用户协议》</text>
+        <text class="lp-agreement-link lp-agreement-link--sep"> </text>
+        <text class="lp-agreement-link" bindtap="onTapPrivacyPolicy">《隐私政策》</text>
+      </view>
+    </view>
+    <view wx:if="{{!agreeProtocol}}" class="lp-login-fixed__hint">请先阅读并同意协议</view>
   </view>
 </block>

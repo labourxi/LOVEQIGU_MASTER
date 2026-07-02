@@ -207,7 +207,8 @@ Page({
 
     // Image — safe wrapper, fire-and-forget
     // Now points to real asset in /static/ directory
-    bgImage: '/static/scene/landing_portal.jpg',
+    // WORLD LANDING PAGE V3 — 定稿背景
+    bgImage: '/static/scene/landing_world_v3_final.png',
     _bgGradient: '',
 
     assetMap: getAssetMap(),
@@ -216,7 +217,10 @@ Page({
 
     points: 10,
     relics: 10,
-    rights: 10
+    rights: 10,
+
+    // WORLD LANDING PAGE V3 — 协议 checkbox
+    agreeProtocol: false
   },
 
   /**
@@ -443,6 +447,10 @@ Page({
   },
 
   onWechatLogin: function () {
+    if (!this.data.agreeProtocol) {
+      wx.showToast({ title: '请先阅读并同意协议', icon: 'none', duration: 2000 });
+      return;
+    }
     console.log('[PAGE_01_LANDING] onWechatLogin');
     var self = this;
     wx.showLoading({ title: '正在进入...', mask: true });
@@ -464,6 +472,31 @@ Page({
   },
 
   noop: function () {},
+
+  // ─── WORLD LANDING PAGE V3: 协议勾选 ───
+  onToggleAgreement: function () {
+    this.setData({ agreeProtocol: !this.data.agreeProtocol });
+  },
+
+  onTapUserAgreement: function () {
+    safeNavigate('/pages/legal/user_agreement/index', {
+      fail: function () {
+        try { wx.navigateTo({ url: '/pages/legal/user_agreement/index' }); } catch (e) {
+          console.warn('[LEGAL] user_agreement page not found');
+        }
+      }
+    });
+  },
+
+  onTapPrivacyPolicy: function () {
+    safeNavigate('/pages/legal/privacy_policy/index', {
+      fail: function () {
+        try { wx.navigateTo({ url: '/pages/legal/privacy_policy/index' }); } catch (e) {
+          console.warn('[LEGAL] privacy_policy page not found');
+        }
+      }
+    });
+  },
 
   _enterExplore: function () {
     if (_navigatingAway) return;

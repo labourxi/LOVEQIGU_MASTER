@@ -718,3 +718,91 @@
   font-weight: 300;
   pointer-events: auto;
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   WORLD LANDING PAGE V3: 协议勾选组件
+   无破坏性 — 不改变页面布局 / 视觉背景
+   ═══════════════════════════════════════════════════════════════════ */
+.lp-login-fixed__agreement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6rpx;
+  margin-top: 16rpx;
+  pointer-events: auto;
+  width: 100%;
+}
+
+.lp-agreement-row {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+
+/* 自定义 checkbox — 无原生组件 */
+.lp-agreement-checkbox {
+  width: 28rpx;
+  height: 28rpx;
+  border-radius: 4rpx;
+  border: 1.5rpx solid rgba(200, 162, 74, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.lp-agreement-checkbox:active {
+  border-color: rgba(200, 162, 74, 0.5);
+}
+
+.lp-agreement-checkbox__checked {
+  width: 18rpx;
+  height: 18rpx;
+  border-radius: 2rpx;
+  background: #C8A24A;
+  position: relative;
+}
+.lp-agreement-checkbox__checked::after {
+  content: '';
+  position: absolute;
+  left: 5rpx;
+  top: 2rpx;
+  width: 8rpx;
+  height: 12rpx;
+  border: solid #0A1A14;
+  border-width: 0 2rpx 2rpx 0;
+  transform: rotate(45deg);
+}
+
+.lp-agreement-text {
+  font-size: 20rpx;
+  color: rgba(232, 224, 208, 0.25);
+  letter-spacing: 2rpx;
+  font-weight: 300;
+}
+
+.lp-agreement-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rpx;
+}
+
+.lp-agreement-link {
+  font-size: 20rpx;
+  color: rgba(200, 162, 74, 0.35);
+  letter-spacing: 2rpx;
+  font-weight: 300;
+  text-decoration: underline;
+  text-decoration-color: rgba(200, 162, 74, 0.15);
+}
+
+.lp-agreement-link:active {
+  color: rgba(200, 162, 74, 0.6);
+}
+
+/* 禁用态登录按钮 */
+.lp-login-fixed__btn--disabled {
+  opacity: 0.5;
+}

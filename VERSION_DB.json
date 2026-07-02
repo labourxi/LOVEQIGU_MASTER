@@ -4,11 +4,11 @@
   "system": {
     "major": 5,
     "minor": 10,
-    "patch": 0,
+    "patch": 1,
     "stage": "stable",
-    "human": "V5.10.0 (stable)",
+    "human": "V5.10.1 (stable)",
     "updated": "2026-07-02",
-    "commit_prefix": "V5.10.0"
+    "commit_prefix": "V5.10.1"
   },
   "frozen_specs": [
     {
@@ -64,6 +64,11 @@
     "docs/governance/GOVERNANCE_RUNTIME_HOOK_V2.js"
   ],
   "history": [
+    {
+      "version": "V5.10.1",
+      "date": "2026-07-02",
+      "description": "运行时"
+    },
     {
       "version": "V5.10.0",
       "date": "2026-07-02",
