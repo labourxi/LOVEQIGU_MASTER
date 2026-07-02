@@ -150,12 +150,3 @@
 .lp-agreement-link:active {
   color: #D4B86A;
 }
-
-.lp-login-fixed__hint {
-  margin-top: 14rpx;
-  font-size: 22rpx;
-  color: rgba(200, 162, 74, 0.5);
-  letter-spacing: 4rpx;
-  font-weight: 300;
-  pointer-events: auto;
-}
