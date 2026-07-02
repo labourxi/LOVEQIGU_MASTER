@@ -355,7 +355,8 @@ def main():
 
     if result.returncode == 0:
         print(f"\n[OK] Commit successful: {new_version}")
-        print(result.stdout.strip())
+        if result.stdout:
+            print(result.stdout.strip())
     else:
         print(f"\n[FAIL] Commit failed:")
         print(result.stderr.strip())

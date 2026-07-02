@@ -180,9 +180,7 @@
       </view>
 
       <view
-        class="v55-phenomenon-item v55-phenomenon-item--{{item.intensity}} v55-phenomenon-item--{{awarenessMode}} {{item.temporalClass}}
-          {{item.temporalPulseClass}}
-          {{item.temporalWarmShiftClass}}"
+        class="v55-phenomenon-item v55-phenomenon-item--{{item.intensity}} v55-phenomenon-item--{{awarenessMode}} {{item.temporalClass}} {{item.temporalPulseClass}} {{item.temporalWarmShiftClass}}"
         wx:for="{{manifestedEvents}}"
         wx:key="id"
         style="opacity: {{item.temporalOpacity}}; transition: opacity 0.8s ease; filter: blur({{item.temporalBlur}}rpx);"
