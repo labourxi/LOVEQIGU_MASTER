@@ -180,9 +180,16 @@
   filter: none;
 }
 
-/* 深景层 — 使用新背景图，WXML 不叠加额外深度遮罩 */
+/* 深景层 — 从 portal 底向上渐变，让 UI 区域更清晰 */
 .lp-bg__depth {
-  display: none;
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.15) 50%,
+      rgba(0, 0, 0, 0.5) 85%,
+      rgba(0, 0, 0, 0.75) 100%);
 }
 
 /* 雾层容器 — 包裹三组雾层，可按 renderLayer.fog 条件渲染 */
@@ -709,59 +716,6 @@
   color: rgba(232, 224, 208, 0.1);
   letter-spacing: 4rpx;
   font-weight: 300;
-  pointer-events: auto;
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   WORLD LANDING PAGE V3 — 设计图覆盖模式
-   设计图已包含完整视觉层，WXML 仅提供设计图上没有的新增交互：
-   - 探索轮播（动态数据，设计图上无）
-   - 登录侧 checkbox + 协议链接
-   其余 UI 层完全透明
-   ═══════════════════════════════════════════════════════════════════ */
-.lp-bg__fog,
-.lp-bg__warm-light,
-.lp-bg__light-rays,
-.lp-bg__particles,
-.lp-intro,
-.lp-stats {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* 轮播 — 设计图上无，保留 */
-.lp-carousel-wrap {
-  z-index: 10;
-}
-.lp-carousel-label,
-.lp-carousel__item,
-.lp-carousel__name,
-.lp-carousel__subtitle,
-.lp-carousel__status {
-  color: rgba(232, 224, 208, 0.7) !important;
-}
-
-/* 登录覆盖层 — 仅保留新增的 checkbox + 协议链接 */
-.lp-login-fixed {
-  pointer-events: none;
-  background: linear-gradient(180deg,
-    rgba(10, 26, 20, 0) 0%,
-    rgba(10, 26, 20, 0.2) 40%,
-    rgba(10, 26, 20, 0.5) 100%) !important;
-}
-.lp-login-fixed__btn {
-  opacity: 0.5;
-  pointer-events: auto;
-  background: rgba(10, 26, 20, 0.3);
-}
-.lp-login-fixed__label,
-.lp-login-fixed__icon {
-  opacity: 0.3;
-}
-.lp-login-fixed__agreement {
-  pointer-events: auto;
-}
-.lp-login-fixed__hint {
   pointer-events: auto;
 }
 
