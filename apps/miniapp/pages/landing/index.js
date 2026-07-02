@@ -135,29 +135,6 @@ function getAssetMap() {
   };
 }
 
-function buildCarouselItems() {
-  try {
-    var points = worldRuntimeStore.getAllPoints() || [];
-    var visitedIds = (worldRuntimeStore.getUserWorldState() || {}).visitedPoints || [];
-    if (points.length < 10) console.warn('[PAGE_01_LANDING] INVALID: only ' + points.length + ' nodes');
-    var items = [];
-    for (var i = 0; i < points.length && i < 10; i++) {
-      var p = points[i]; if (!p) continue;
-      var isVisited = visitedIds.indexOf(p.id) !== -1;
-      var st = isVisited ? 'discovered' : (p.status === 'unlocked' || p.status === 'active' ? 'unlocked' : 'locked');
-      items.push({
-        id: p.id, name: p.name || p.label || '探索点',
-        subtitle: p.subtitle || '', region: p.region || '',
-        type: p.type || '', themeColor: p.themeColor || '#C8A24A',
-        status: st,
-        statusLabel: isVisited ? '已探索' : (p.status === 'unlocked' || p.status === 'active' ? '可探索' : '未解锁'),
-        decorativeGroup: p.decorativeGroup || '', story: p.story || ''
-      });
-    }
-    return items;
-  } catch (e) { return []; }
-}
-
 function buildStats(storeData) {
   try {
     if (storeData) {
@@ -213,7 +190,6 @@ Page({
 
     assetMap: getAssetMap(),
     stats: buildStats(),
-    carouselItems: buildCarouselItems(),
 
     points: 10,
     relics: 10,
@@ -338,7 +314,6 @@ Page({
 
       this.setData({
         stats: buildStats(store),
-        carouselItems: buildCarouselItems(),
         points: pointsCount,
         relics: relicsCount,
         rights: rightsCount,
@@ -431,14 +406,9 @@ Page({
     console.log('[TIMEOUT TRACE] _initPage entered — ' + Date.now());
     var userType = getUserType();
     var stats = this._store ? buildStats(this._store) : buildStats();
-    var carouselItems = buildCarouselItems();
-
-    if (carouselItems.length < 10) {
-      console.error('[PAGE_01_LANDING] INVALID: only ' + carouselItems.length + ' nodes');
-    }
 
     this.setData({
-      userType: userType, stats: stats, carouselItems: carouselItems,
+      userType: userType, stats: stats,
       worldMode: 'ACTIVE',
       renderLayer: { fog: true, particles: true, goldGlow: true }
     });
@@ -465,10 +435,6 @@ Page({
   // V3 DESIGN MODE: 入口仅通过登录按钮，禁用其他跳转
   onEnterExplore: function () {
     console.warn('[V3 MODE] onEnterExplore blocked — login-only entry');
-  },
-
-  onCarouselTap: function (e) {
-    console.warn('[V3 MODE] carousel tap blocked — login-only entry');
   },
 
   noop: function () {},
