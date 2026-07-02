@@ -5,6 +5,42 @@
       {
         "type": "regexp",
         "value": ".*/effect_preview/preview_sheet\\.(png|webp)$"
+      },
+      {
+        "type": "file",
+        "value": "static/scene/aiqigu_landing_v1.jpg"
+      },
+      {
+        "type": "file",
+        "value": "static/scene/aiqigu_street_v1.jpg"
+      },
+      {
+        "type": "file",
+        "value": "static/scene/landing_portal.jpg"
+      },
+      {
+        "type": "file",
+        "value": "static/scene/landing_portal_raw.jpg"
+      },
+      {
+        "type": "file",
+        "value": "static/scene/landing_v1_final.jpg"
+      },
+      {
+        "type": "file",
+        "value": "static/scene/landing_v2_1.jpg"
+      },
+      {
+        "type": "file",
+        "value": "static/scene/landing_v2_world_entry.jpg"
+      },
+      {
+        "type": "file",
+        "value": "static/scene/landing_v3_release.jpg"
+      },
+      {
+        "type": "file",
+        "value": "static/scene/winner.jpg"
       }
     ],
     "include": [
