@@ -207,8 +207,8 @@ Page({
 
     // Image — safe wrapper, fire-and-forget
     // Now points to real asset in /static/ directory
-    // Landing 纯背景 — WXML 渲染完整 UI 层
-    bgImage: '/static/scene/landing_portal.jpg',
+    // WORLD LANDING V3 设计图全幅背景 — WXML 仅提供缺失的新增交互
+    bgImage: '/static/scene/landing_world_v3_bg.jpg',
     _bgGradient: '',
 
     assetMap: getAssetMap(),

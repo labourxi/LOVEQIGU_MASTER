@@ -180,16 +180,9 @@
   filter: none;
 }
 
-/* 深景层 — 从 portal 底向上渐变，让 UI 区域更清晰 */
+/* 深景层 — 使用新背景图，WXML 不叠加额外深度遮罩 */
 .lp-bg__depth {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 0.15) 50%,
-      rgba(0, 0, 0, 0.5) 85%,
-      rgba(0, 0, 0, 0.75) 100%);
+  display: none;
 }
 
 /* 雾层容器 — 包裹三组雾层，可按 renderLayer.fog 条件渲染 */
@@ -720,8 +713,58 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════
+   WORLD LANDING PAGE V3 — 设计图全幅背景覆盖模式
+   背景氛围层透明化，设计图完整透出
+   UI 层保留功能但轻微透明避免双层叠加感
+   ═══════════════════════════════════════════════════════════════════ */
+.lp-bg__fog,
+.lp-bg__warm-light,
+.lp-bg__light-rays,
+.lp-bg__particles {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* UI 保留层 — 轻微透明适应设计图 */
+.lp-intro,
+.lp-stats,
+.lp-carousel-wrap {
+  opacity: 0.7;
+}
+.lp-intro__title,
+.lp-intro__roman,
+.lp-intro__verse,
+.lp-stat-card__value,
+.lp-stat-card__label,
+.lp-carousel__name {
+  color: rgba(232, 224, 208, 0.85) !important;
+}
+
+/* 登录覆盖层 — 半透明，不遮挡设计图 */
+.lp-login-fixed {
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    rgba(10, 26, 20, 0) 0%,
+    rgba(10, 26, 20, 0.3) 40%,
+    rgba(10, 26, 20, 0.6) 100%) !important;
+}
+.lp-login-fixed__btn {
+  opacity: 0.9;
+  pointer-events: auto;
+  background: rgba(10, 26, 20, 0.5);
+  backdrop-filter: blur(6rpx);
+  -webkit-backdrop-filter: blur(6rpx);
+  border: 1rpx solid rgba(200, 162, 74, 0.25);
+}
+.lp-login-fixed__agreement {
+  pointer-events: auto;
+}
+.lp-login-fixed__hint {
+  pointer-events: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
    WORLD LANDING PAGE V3: 协议勾选组件
-   无破坏性 — 不改变页面布局 / 视觉背景
    ═══════════════════════════════════════════════════════════════════ */
 .lp-login-fixed__agreement {
   display: flex;
