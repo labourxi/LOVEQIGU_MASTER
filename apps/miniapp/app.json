@@ -1,6 +1,43 @@
 {
   "pages": [
-    "pages/landing/index"
+    "pages/landing/index",
+    "pages/index/index",
+    "pages/ar-entry/index",
+    "pages/my/index",
+    "pages/rights/index",
+    "pages/relics/index",
+    "pages/relic/index",
+    "pages/collection/index",
+    "pages/ar/scan/index",
+    "pages/merchant/coupons/index",
+    "pages/digital-collectible/index",
+    "pages/explore-map/index",
+    "pages/xr-primitive-sample/index",
+    "pages/atom/index",
+    "pages/lottie/index",
+    "pages/echo/index",
+    "pages/campaign-closure/index",
+    "pages/next-activity/index",
+    "pages/story-flow/index",
+    "pages/relic-archive/index",
+    "pages/story-archive/index",
+    "pages/rights-center/index",
+    "pages/profile/index",
+    "pages/scenic-list/index",
+    "pages/scenic-detail/index",
+    "pages/progress-center/index",
+    "pages/event-complete/index",
+    "pages/merchant-event/index/index",
+    "pages/merchant-event/exploration/index",
+    "pages/merchant-event/detail/index",
+    "pages/star-map/index",
+    "pages/meridian-map/index",
+    "pages/heaven-human-unity/index",
+    "pages/synthesis/index",
+    "pages/seals/index",
+    "pages/reward-center/index",
+    "pages/legal/user_agreement/index",
+    "pages/legal/privacy_policy/index"
   ],
   "window": {
     "navigationBarTitleText": "AR游伴",
@@ -12,145 +49,6 @@
   "style": "v2",
   "lazyCodeLoading": "requiredComponents",
   "sitemapLocation": "sitemap.json",
-
-  "subPackages": [
-    {
-      "root": "pages/index/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/ar-entry/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/my/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/rights/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/relics/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/relic/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/collection/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/ar/",
-      "pages": ["scan/index"]
-    },
-    {
-      "root": "pages/merchant/",
-      "pages": ["coupons/index"]
-    },
-    {
-      "root": "pages/digital-collectible/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/explore-map/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/xr-primitive-sample/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/atom/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/lottie/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/echo/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/campaign-closure/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/next-activity/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/story-flow/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/relic-archive/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/story-archive/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/rights-center/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/profile/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/scenic-list/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/scenic-detail/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/progress-center/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/event-complete/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/merchant-event/",
-      "pages": ["index/index", "exploration/index", "detail/index"]
-    },
-    {
-      "root": "pages/star-map/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/meridian-map/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/heaven-human-unity/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/synthesis/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/seals/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/reward-center/",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/legal/",
-      "pages": ["user_agreement/index", "privacy_policy/index"]
-    }
-  ],
 
   "permission": {
     "scope.userLocation": {
