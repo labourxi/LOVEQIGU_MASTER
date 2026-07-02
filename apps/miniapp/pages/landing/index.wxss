@@ -663,11 +663,8 @@
   align-items: center;
   padding: 32rpx 48rpx;
   padding-bottom: calc(32rpx + env(safe-area-inset-bottom));
-  /* 渐变背景，与页面边缘融合，不是纯色块 */
-  background: linear-gradient(180deg,
-    rgba(10, 26, 20, 0) 0%,
-    rgba(10, 26, 20, 0.85) 25%,
-    rgba(10, 26, 20, 0.96) 100%);
+  /* V3 设计图模式：不设背景，设计图底部完整透出 */
+  background: none;
   pointer-events: none;
 }
 
@@ -717,6 +714,41 @@
   letter-spacing: 4rpx;
   font-weight: 300;
   pointer-events: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   WORLD LANDING PAGE V3 — 设计图覆盖交互层
+   v3-design-cover: 设计图已包含这些视觉元素，WXML 层完全透明
+   登录区覆盖在设计图上，提供设计图没有的 checkbox + 协议交互
+   轮播保持可见（设计图上无此元素）
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* 设计图已有 UI — WXML 完全透明化，仅保留页面占位空间 */
+.v3-design-cover {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 登录按钮覆盖 — 设计图已有视觉，但需要 checkbox/协议交互和点击逻辑 */
+.lp-login-fixed {
+  pointer-events: none;
+}
+.lp-login-fixed__btn {
+  opacity: 0.01;  /* 几乎透明，保留点击 */
+  pointer-events: auto;
+}
+.lp-login-fixed__label,
+.lp-login-fixed__icon {
+  opacity: 0;
+}
+.lp-login-fixed__agreement {
+  pointer-events: auto;
+}
+.lp-login-fixed__hint {
+  pointer-events: auto;
+}
+.lp-login-fixed__btn--disabled {
+  opacity: 0.01;
 }
 
 /* ═══════════════════════════════════════════════════════════════════

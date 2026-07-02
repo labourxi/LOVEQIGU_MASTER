@@ -38,66 +38,59 @@
          NON-BLOCKING: safe <image> wrapper + CSS background fallback
          ════════════════════════════════════════════════════════════ -->
     <view class="lp-bg">
-      <!-- Safe image wrapper — fires onImgError on failure -->
+      <!-- V3 定稿设计图作为全幅背景 -->
       <image wx:if="{{bgImage}}"
         class="lp-bg__image"
         src="{{bgImage}}"
         binderror="onImgError"
         mode="scaleToFill"
       ></image>
-      <!-- CSS gradient fallback — zero file dependency, always renders -->
+      <!-- CSS gradient fallback -->
       <view wx:if="{{!bgImage}}"
         class="lp-bg__scene lp-bg__scene--gradient">
       </view>
-      <view class="lp-bg__depth"></view>
-      <view class="lp-bg__fog" style="--fog-delay: 0s"></view>
-      <view class="lp-bg__fog" style="--fog-delay: 10s"></view>
-      <view class="lp-bg__fog" style="--fog-delay: 20s"></view>
-      <view class="lp-bg__warm-light"></view>
-      <view class="lp-bg__light-rays"></view>
-      <view class="lp-bg__particles"></view>
     </view>
 
     <!-- ════════════════════════════════════════════════════════════
-         LAYER 2: WORLD INTRO SECTION
+         LAYER 2-5: V3 DESIGN COVER — 设计图已包含这些 UI，
+         将 WXML 视觉层透明化，仅保留不可见的交互点击区域
          ════════════════════════════════════════════════════════════ -->
-    <view class="lp-intro">
-      <view class="lp-intro__portal">
-        <view class="lp-intro__ring"></view>
-        <view class="lp-intro__core"></view>
-        <view class="lp-intro__particles"></view>
+    <view class="v3-design-cover">
+      <view class="lp-intro">
+        <view class="lp-intro__portal">
+          <view class="lp-intro__ring"></view>
+          <view class="lp-intro__core"></view>
+          <view class="lp-intro__particles"></view>
+        </view>
+        <view class="lp-intro__title">爱企谷</view>
+        <view class="lp-intro__roman">AIGU VALLEY</view>
+        <view class="lp-intro__verse">游离之域 · 世界正在显现</view>
       </view>
-      <view class="lp-intro__title">爱企谷</view>
-      <view class="lp-intro__roman">AIGU VALLEY</view>
-      <view class="lp-intro__verse">游离之域 · 世界正在显现</view>
-    </view>
 
-    <!-- ════════════════════════════════════════════════════════════
-         LAYER 3: STATS DASHBOARD
-         ════════════════════════════════════════════════════════════ -->
-    <view class="lp-stats">
-      <view class="lp-stats__grid">
-        <view class="lp-stat-card">
-          <view class="lp-stat-card__value">{{stats.explorationCount}}</view>
-          <view class="lp-stat-card__label">探索点已启</view>
-        </view>
-        <view class="lp-stat-card">
-          <view class="lp-stat-card__value">{{stats.relicCount}}</view>
-          <view class="lp-stat-card__label">信物已得</view>
-        </view>
-        <view class="lp-stat-card">
-          <view class="lp-stat-card__value">{{stats.couponCount}}</view>
-          <view class="lp-stat-card__label">权益已领</view>
-        </view>
-        <view class="lp-stat-card">
-          <view class="lp-stat-card__value">{{stats.progress}}%</view>
-          <view class="lp-stat-card__label">探索进度</view>
+      <view class="lp-stats">
+        <view class="lp-stats__grid">
+          <view class="lp-stat-card">
+            <view class="lp-stat-card__value">{{stats.explorationCount}}</view>
+            <view class="lp-stat-card__label">探索点已启</view>
+          </view>
+          <view class="lp-stat-card">
+            <view class="lp-stat-card__value">{{stats.relicCount}}</view>
+            <view class="lp-stat-card__label">信物已得</view>
+          </view>
+          <view class="lp-stat-card">
+            <view class="lp-stat-card__value">{{stats.couponCount}}</view>
+            <view class="lp-stat-card__label">权益已领</view>
+          </view>
+          <view class="lp-stat-card">
+            <view class="lp-stat-card__value">{{stats.progress}}%</view>
+            <view class="lp-stat-card__label">探索进度</view>
+          </view>
         </view>
       </view>
     </view>
 
     <!-- ════════════════════════════════════════════════════════════
-         LAYER 4: EXPLORATION CAROUSEL
+         LAYER 4: EXPLORATION CAROUSEL — 设计图上无，保留可见
          ════════════════════════════════════════════════════════════ -->
     <view class="lp-carousel-wrap">
       <view class="lp-carousel-label">十个世界节点</view>
